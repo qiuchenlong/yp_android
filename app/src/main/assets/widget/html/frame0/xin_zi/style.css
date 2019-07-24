@@ -1,0 +1,77 @@
+body ,html {
+    background:#eee;		
+}
+
+.xin_xi_lie_biao {
+	margin-top:10px;
+}
+
+.xin_xi_lie_biao li {
+	padding:10px;
+	background:#fff;
+	border-bottom:1px solid #eee;
+}
+
+.xin_xi_lie_biao .ni_rong_tuo,
+.xin_xi_lie_biao .tou_xiang {
+    width: 80px;
+    height:80px;
+
+}
+.xin_xi_lie_biao .ni_rong_tuo img,
+.xin_xi_lie_biao .tou_xiang img {
+    width: 100%;
+    height: 100%;
+}
+.xin_xi_lie_biao .text{
+	padding:0 10px;
+}
+.xin_xi_lie_biao .text h3{
+	font-size: 12px;
+	color:rgb(255,121,0);
+	font-weight: 100;
+	line-height: 16px;
+	margin:4px 0;
+}
+
+.xin_xi_lie_biao .text h3 span {
+	float: right;
+	color:rgb(77,77,77);
+	font-size: 10px;
+}
+
+.xin_xi_lie_biao .text .ni_rong {
+	line-height: 16px;
+	max-height:30px;
+	font-size: 11px;
+	padding:2px 0;
+	margin:2px 0 5px 0 ;
+	color:rgb(77,77,77);
+}
+
+.xin_xi_lie_biao .text .shi_jian {
+	font-size: 10px;
+	line-height: 16px;
+	margin:3px 0;
+	line-height: 
+}
+.tou_xiang{
+	position:relative;
+}
+
+.flex-con{
+	overflow: hidden
+}
+.count{
+	display:inline-block;
+	width:8px;
+	height:8px;
+    font-size: 8px;
+    right:-3px;
+    top:-3px;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    background: red;
+    color:#fff;
+}

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="quanzi/quan_zi.css"/>
+		<style>
+			.lun_bo_tu img {
+				width: 100%;
+				vertical-align: middle;
+			}
+			.nav {
+				padding: 10px 20px;
+				font-size: 0px;
+				background: #fff;
+				margin-bottom: 10px;
+			}
+			.tab span, .nav span {
+				width: 33.33%;
+				font-size: 14px;
+				color: #666;
+				line-height: 36px;
+				text-align: center;
+				display: inline-block;
+			}
+			.nav span .iconfont {
+				display: block;
+				height: 65px;
+				width: 65px;
+				margin: 0 auto;
+				font-size: 30px;
+				color: #333;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 65px;
+			}
+			.tab {
+				border-bottom: 1px solid #eee;
+				font-size: 0px;
+				background: #fff;
+			}
+			.tab .active {
+				position: relative;
+			}
+			.tab .active i {
+				width: 60px;
+				height: 2px;
+				bottom: 0;
+				left: 50%;
+				margin-left: -31px;
+				position: absolute;
+			}
+			.tab_div > div {
+				display: none;
+			}
+			.tab_div > .active {
+				display: block;
+			}
+			.hua_ti_lie_biao {
+				background: #fff;
+				font-size: 0px;
+			}
+			.hua_ti_lie_biao li {
+				padding: 10px 5px;
+				font-size: 0px;
+				width: 50%;
+				vertical-align: top;
+				box-sizing: border-box;
+				display: inline-block;
+				border-bottom: 1px solid #eee;
+			}
+			.hua_ti_lie_biao li div {
+				display: inline-block;
+				width: 100%;
+				font-size: 12px;
+				box-sizing: border-box;
+			}
+			.hua_ti_lie_biao .hua_ti_img {
+				width: 100%;
+				border-radius: 2px;
+				height: 120px;
+			}
+			.hua_ti_lie_biao .hua_ti_ming_zi {
+				line-height: 16px;
+				padding: 6px 0;
+				height: 26px;
+				color: #333;
+			}
+			.hua_ti_lie_biao .zan .iconfont, .hua_ti_lie_biao .xin_xi .iconfont {
+				font-size: 12px;
+				color: #666;
+				margin-right: 3px;
+				vertical-align: middle;
+			}
+			.hua_ti_lie_biao .zan, .hua_ti_lie_biao .xin_xi {
+				color: #666;
+				font-size: 10px;
+				margin-right: 10px;
+			}
+			.huo_dong_lie_biao {
+				background: #fff;
+			}
+			.huo_dong_lie_biao li {
+				padding: 10px;
+				height: 70px;
+				border-bottom: 1px solid #eee;
+			}
+			.huo_dong_lie_biao .huo_dong_img {
+				width: 70px;
+				height: 70px;
+				margin-right: 10px;
+			}
+			.huo_dong_lie_biao .huo_dong_ming_zi {
+				font-size: 12px;
+				line-height: 16px;
+				height: 32px;
+				margin: 2px 0 5px 0;
+			}
+			.huo_dong_lie_biao .shi_jian, .huo_dong_lie_biao .di_zhi {
+				font-size: 10px;
+				line-height: 16px;
+				color: #666;
+				width:100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.huo_dong_lie_biao .shi_jian span {
+				float: right;
+			}
+			.huo_dong_lie_biao .shi_jian .iconfont {
+				font-size: 14px;
+				margin-right: 6px;
+				position: relative;
+				top: 1px;
+			}
+			.can_yu_hua_ti {
+				position: fixed;
+				bottom: 15px;
+				border:1px #cccccc solid;
+				background:url(../image/bg.png);
+				right: 15px;
+				width: 65px;
+				height: 65px;
+				font-size: 14px;
+				line-height: 65px;
+				text-align: center;
+				border-radius: 50%;
+				color: #333;
+			}
+			.can_yu_hua_ti .icon-bianji {
+				display: block;
+				font-size: 30px;
+				color: #333;
+				text-align: center;
+				line-height: 40px;
+				margin-top: 2px;
+			}
+			/*部落的css*/
+			/*.quan_zi {
+				border-bottom: 10px solid #eee;
+				background: #fff;
+			}
+			.quan_zi > li {
+				padding: 6px;
+				padding-bottom: 6px;
+				border-bottom: 8px solid #eee;
+			}
+			.quan_zi .tou_xiang {
+				padding: 4px 2px 2px 52px;
+				position: relative;
+				height: 46px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.quan_zi .tou_xiang .flex-con {
+				overflow: hidden;
+				padding-right: 10px;
+			}
+			.quan_zi .tou_xiang_img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				position: absolute;
+				left: 2px;
+				top: 0;
+			}
+			.quan_zi .ming_zi {
+				color: rgb(0,0,0);
+				font-size: 12px;
+				font-weight: 300;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.quan_zi .ni_rong {
+				font-size: 10px;
+				color: rgb(98,98,98);
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.quan_zi .ming_zi, .quan_zi .ni_rong {
+				line-height: 18px;
+			}
+			.quan_zi .guan_zhu {
+				text-align: center;
+				padding: 0px 10px;
+				line-height: 24px;
+				height: 24px;
+				font-size: 10px;
+				margin-top: 3px;
+				border: 1px solid #eee;
+				border-radius: 3px;
+			}
+			.quan_zi .tu_pin {
+				font-size: 0px;
+			}
+			.quan_zi .tu_pin > div {
+				width: 33.33%;
+				overflow: hidden;
+				box-sizing: border-box;
+				display: inline-block;
+				border-right: 2px solid #fff;
+				border-left: 2px solid #fff;
+				border-bottom: 4px solid #fff;
+			}
+			.quan_zi  .wei_bu {
+				padding-top: 4px;
+				line-height: 20px;
+				font-size: 10px;
+				color: rgb(96,96,96);
+				margin: 0 2px;
+			}
+			.quan_zi  .wei_bu .xin_xi, .quan_zi  .wei_bu .zan {
+				float: right;
+				margin: 0 8px;
+				color: rgb(96,96,96);
+			}
+			.quan_zi  .wei_bu .xin_xi > .iconfont, .quan_zi  .wei_bu .zan > .iconfont {
+				font-size: 14px;
+				margin-right: 3px;
+				vertical-align: middle;
+			}
+			.img-h-c, .img-w-c {
+				overflow: hidden;
+				position: relative;
+			}
+			.img-h-c img {
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				transform: translate(0%, -50%);
+				-webkit-transform: translate(0%, -50%);
+			}
+			.img-w-c img {
+				height: 100%;
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%, 0);
+				-webkit-transform: translate(-50%, 0);
+			}*/
+			.img-h-c, .img-w-c {
+				overflow: hidden;
+				position: relative;
+			}
+			.img-h-c img {
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				transform: translate(0%, -50%);
+				-webkit-transform: translate(0%, -50%);
+			}
+			.img-w-c img {
+				height: 100%;
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%, 0);
+				-webkit-transform: translate(-50%, 0);
+			}
+			
+			.ping_lun {
+				margin-top: 5px;
+				position: relative;
+				padding: 10px 0px 30px 0px;
+				border-top: 1px solid #eee;
+			}
+			.ping_lun > .cha_kan_ping_lun {
+				line-height: 30px;
+				position: absolute;
+				bottom: 0px;
+				left: 0;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 15px;
+				text-align: left;
+				font-size: 10px;
+				color: #999;
+			}
+			.ping_lun > .cha_kan_ping_lun span {
+				margin: 0 5px;
+			}
+			.ping_lun li {
+				line-height: 16px;
+				font-size: 11px;
+				padding: 2px 0;
+				color: #666;
+			}
+			.ping_lun.yin_cang {
+				height: 40px;
+				overflow: hidden;
+			}
+			.quan_zi_di_zhi {
+				padding: 0 15px;
+				line-height: 16px;
+				font-size: 10px;
+			}
+			.quan_zi_di_zhi .icon-dingwei {
+				font-size: 12px;
+				margin-right: 2px;
+			}
+		</style>
+	</head>
+	<body ng-controller="recommendedActivities">
+		<!--<div class="swiper-container lun_bo_tu" id="swiper1">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" ng-repeat="img in lunBo" ng-if="img.mtype==0" ng-click="goGoodDetal(img.good_id)"><img src="{{ imgurl + img.image }}" alt=""/>
+				</div>
+				<div class="swiper-slide" ng-repeat="img in lunBo" ng-if="img.mtype==1" ng-click="openAdContent(img.content)"><img src="{{ imgurl + img.image }}" alt=""/>
+				</div>
+				<div class="swiper-slide" ng-repeat="img in lunBo" ng-if="img.mtype==2"><img src="{{ imgurl + img.image }}" alt=""/>
+				</div>
+						    <div class="swiper-slide"><img src="../image/frame0/goods_4.png" alt="" /></div>
+				<div class="swiper-slide"><img src="../image/frame0/goods_4.png" alt="" /></div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="nav">
+			<span onclick="openWs(0)" tapmode><i class="iconfont icon-sangeren appbackground titlecolor"></i>部&nbsp;&nbsp;落</span>
+			<span onclick="openWs(1)" tapmode><i class="iconfont icon-dingwei1 appbackground titlecolor"></i>活&nbsp;&nbsp;动</span>
+			<span onclick="openWs(2)" tapmode><i class="iconfont icon-box appbackground titlecolor"></i>鸟&nbsp;&nbsp;窝</span>
+		</div>-->
+		<!--<div class="tab">
+			<span class="active" tapmode>精选动态<i class="appbackground"></i></span>
+			<span tapmode>热门话题<i class="appbackground"></i></span>
+			<span tapmode>活动推荐<i class="appbackground"></i></span>
+		</div>-->
+		<div class="tab_div">
+			<div class="active">
+				<ul class="quan_zi">
+					
+					<li  tapmode onclick="dongtaixiangqing('quanzi/dong_tai_xiang_qing','动态详情')">
+						<div class="tou_xiang flex-wrap">
+							<div class="flex-con">
+								<span class="img-w-c tou_xiang_img"> <img  src="../image/girl@2x.png"   alt=""> </span>
+								<h3 class="ming_zi text-ov">1312</h3>
+							<!--	<p class="ni_rong text-ov">
+									<span style="color:#F26C0A;" ng-show="dynamin.topicname">#{{ dynamin.topicname }}#</span>{{ dynamin.content }}
+								</p>-->
+							</div>
+						
+						
+						</div>
+						<p class="ni_rong" style="font-size: 14px;">
+							<span class="len_jie"  ng-show="dynamin.topicname"  >#345#</span>
+							23425 <span class="len_jie" style="margin:0px 2px"   ></span>
+						</p>
+						
+						
+						<div class="tu_pin">
+						
+							<div class="img-w-c">
+							<img src="../image/kind-book@2x.png" alt="">
+							</div>
+							<div class="img-w-c">
+							<img src="../image/kind-book@2x.png" alt="">
+							</div>
+						</div>
+						<p class="quan_zi_di_zhi"    ng-show="dynamin.location" >
+							<i class="iconfont icon-dingwei"></i>234
+						</p>
+						<div class="wei_bu">
+							234<span class="xin_xi "><i class="iconfont icon-xinxi"></i>234</span>
+							<span class="zan" ><i class="iconfont icon-zan"></i>234</span>
+							<span class="zan apptxtcolor" ><i class="iconfont icon-zan apptxtcolor"></i>234</span>
+						</div>
+						<ul class="ping_lun hide" ng-if="dynamin.reply.length">
+							<li  class="flex-wrap">
+								<span>234</span>：
+								<p class="flex-con text-ov">
+									23424
+								</p>
+							</li>
+							<!--<li>
+							君君：好看好看好看
+							</li>-->
+							<button class="cha_kan_ping_lun">
+								查看全部<span>0</span>条评论
+							</button>
+						</ul>
+					</li>
+				</ul>
+				<span class="can_yu_hua_ti" onclick="opends('quanzi/xin_zeng_dong_tao','发表帖子')">发表</span>
+			</div>
+			<div >
+				<ul class="hua_ti_lie_biao">
+				
+					           
+					<li onclick="openWs(5)">
+					<div>
+					<img src="../image/01_03.png" alt="" class="hua_ti_img">
+					<p class="hua_ti_ming_zi text-ov-2">手机你买对了吗手机你买对了吗手机你买对了吗</p>
+					<p><span class="zan"><i class="iconfont icon-zan"></i>454</span><span class="xin_xi"><i class="iconfont icon-xinxi"></i>454</span></p>
+					</div>
+					</li>
+					<li onclick="openWs(5)">
+					<div>
+					<img src="../image/01_03.png" alt="" class="hua_ti_img">
+					<p class="hua_ti_ming_zi text-ov-2">手机你买对了吗手机你买对了吗手机你买对了吗</p>
+					<p><span class="zan"><i class="iconfont icon-zan"></i>454</span><span class="xin_xi"><i class="iconfont icon-xinxi"></i>454</span></p>
+					</div>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<ul class="huo_dong_lie_biao">
+					<li class="flex-wrap" ng-repeat="i in recommendedList" ng-click="goDetail(i.activity_id)" tapmode>
+						<img class="huo_dong_img" src="{{ imgurl+i.sumbimage }}" alt="">
+						<div class="text flex-con">
+							<p class="huo_dong_ming_zi">
+								{{ i.title }}
+							</p>
+							<p class="di_zhi">
+								地点：{{ i.location }}
+							</p>
+							<p class="shi_jian">
+								<span style="display:inline-block;width:80%;float:left;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;margin-top:3px;">时间：{{ i.activitytime }}</span> <span style="display: inline-block;width:20%;float:right;text-align:right;"> <i class="iconfont icon-user7"></i>{{ i.sum }} </span>
+							</p>
+						</div>
+					</li>
+					<!--<li class="flex-wrap" onclick="openWs(3)">
+					<img src="../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+					<div class="text flex-con">
+					<p class="huo_dong_ming_zi">
+					手机你买对了吗手机你买对了吗手机你买对了吗
+					</p>
+					<p class="di_zhi">
+					地点：广州塔</p>
+					<p class="shi_jian">
+					时间：02/21 12:00
+					<span>
+					<i class="iconfont icon-user7"></i>54564
+					</span>
+					</p>
+					</div>
+					</li>
+					<li class="flex-wrap" onclick="openWs(3)">
+					<img src="../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+					<div class="text flex-con">
+					<p class="huo_dong_ming_zi">
+					手机你买对了吗手机你买对了吗手机你买对了吗
+					</p>
+					<p class="di_zhi">
+					地点：广州塔</p>
+					<p class="shi_jian">
+					时间：02/21 12:00
+					<span>
+					<i class="iconfont icon-user7"></i>54564
+					</span>
+					</p>
+					</div>
+					</li>
+					<li class="flex-wrap" onclick="openWs(3)">
+					<img src="../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+					<div class="text flex-con">
+					<p class="huo_dong_ming_zi">
+					手机你买对了吗手机你买对了吗手机你买对了吗
+					</p>
+					<p class="di_zhi">
+					地点：广州塔</p>
+					<p class="shi_jian">
+					时间：02/21 12:00
+					<span>
+					<i class="iconfont icon-user7"></i>54564
+					</span>
+					</p>
+					</div>
+					</li>-->
+				</ul>
+				<span class="can_yu_hua_ti appbackground" onclick="postActive()" tapmode> <i class="iconfont icon-bianji "></i> 发布活动 </span>
+			</div>
+		</div>
+		<div class="bottom_loadmore"></div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+	<script type="text/javascript" src="../script/jquery.lazyload.js"></script>
+	<script type="text/javascript" src="../script/swiper.min.js"></script>
+	<script type="text/javascript" src="../script/jqthumb.js"></script>
+	<script type="text/javascript" src="../script/commons.js"></script>
+	<script type="text/javascript" src="../script/angular.min.js"></script>
+	<script type="text/javascript" src="../script/ev.js"></script>
+	<!--<script type="text/javascript" src="../script/active.js"></script>-->
+	<script type="text/javascript">
+	
+	
+		function opends(url,title){
+		api.openWin({
+	       name: 'win_headers',
+	       url: 'Win.html',
+	       pageParam:{
+               frm_name:url,
+               frm_url: url+'.html',
+               title:title,
+               r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>',
+	       },
+        });
+	}
+	
+	
+		function dongtaixiangqing(url,title){
+		api.openWin({
+	       name: 'win_headers',
+	       url: 'Win.html',
+	       pageParam:{
+               frm_name:url,
+               frm_url: url+'.html',
+               title:title
+	       },
+        });
+	}	
+	</script>
+</html>

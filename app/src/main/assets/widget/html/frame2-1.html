@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	.banner img{
+    		width:100%;
+    		height:120px;
+    	}
+    	.bookList{
+    		background:white;
+    	}
+    	.bookList ul li{
+    		float:left;
+    		width:32.5%;
+    		text-align: center;
+    		font-size:14px;
+    	}
+    	.bookList ul li img{
+    		width:80%;
+    		height:115px;
+    		border-radius:5px;
+    	}
+    	.bookList ul li .bookName{
+    		width:80%;
+    		margin:10px auto;
+    		font-size:12px;
+    		color:#676767;
+    		text-align:left;
+    		text-overflow:ellipsis;
+    		overflow:hidden;
+    		white-space:nowrap;
+    	}
+    	.title{
+    		font-size:16px;
+    		padding:12px 0;
+    		padding-left:10px;
+    		color:#484848;
+    		font-weight:600
+    	}
+
+    	.booksList2{
+    		background:white;
+    		margin-top:5px;
+    		padding:0 10px 5px 10px;
+    	}
+    	.booksList2 ul li{
+    		border-bottom:0px solid #f3f3f3;
+    		margin-bottom:10px;
+    	}
+    	.booksList2 ul li:last-child{
+    		border-bottom:0;
+    	}
+    	.booksList2 ul li .bookCover{
+    		float:left;
+    		width:20%;
+    		margin-bottom:10px;
+    		margin-top: 19px;
+				  height: 106px;
+    	}
+    	.booksList2 ul li .bookCover img{
+    		width:100%;
+    		/*height: 85px; */
+    		  height: 100%;
+    	}
+    	.booksList2 ul li .bookInfo{
+    		float:left;
+    		width:76%;
+    		margin-left:3%;
+    		font-size:12px;
+    		color:#787878;
+    		line-height:15px;
+    	}
+				.booksList2 ul li .bookInfo .txt+p{
+					margin-top: 11px;
+				}
+    	.booksList2 ul li .bookInfo .booksName{
+    		font-size:15px;
+    		color:#484848;
+    		margin-top:19px;
+    		line-height:25px;
+    	}
+
+    	.booksList2_title{
+    		padding:0;
+    	}
+
+    	#swiper2{
+    		height:35px;
+    		line-height:35px;
+    		font-size:14px;
+    		border-bottom:1px solid #dedede;
+    		color:#484848;
+    		background:white;
+    		padding:0 10px;
+    	}
+    	.icon-laba{
+    		font-size:20px;
+    		float:left;
+    		margin-right:5px;
+    		color:#494DF1;
+    	}
+
+    	.button{
+    		padding:10px;
+    		text-align:center;
+    	}
+    	.button span{
+    		display:inline-block;
+    		width:90%;
+    		text-align:center;
+    		line-height:30px;
+    		border-radius:3px;
+    		color:white;
+    	}
+
+    	.txt{
+    		overflow: hidden;
+		 	text-overflow: ellipsis;
+		 	display: -webkit-box;
+		 	-webkit-line-clamp: 3;
+		 	-webkit-box-orient: vertical;
+			font-size:13px;
+			line-height: 18px;
+    	}
+
+    	.author{
+    		margin-top:11px;
+    		color:#484848;
+    	}
+			.author span:nth-child(1){
+				color: #ababab;
+			}
+    	.author img{
+width: 10px; height: 11px;
+    margin-right: 2px;
+vertical-align: middle;
+    	}
+    	.label{
+    		padding:1px;
+    		line-height:15px;
+    		float:right;
+    		border:1px solid #bbdba8;
+    		border-radius:3px;
+    		color:#bbdba8;
+    		margin-right: 5px;
+    	}
+    	.labels{
+    		padding:1px;
+    		line-height:15px;
+    		margin-right: 5px;
+    		float:right;
+    		border:1px solid #99bbda;
+    		border-radius:3px;
+    		color:#99bbda;
+    	}
+    	.smallSingle{
+    		vertical-align: text-bottom;
+    		margin-bottom:-1px;
+    	}
+
+
+    	@media screen and (max-width: 320px) {
+		    .booksList2 ul li .bookCover{
+		    	width:25%;
+		    }
+		}
+		@media screen and (min-width:321px) and (max-width: 375px){
+		    .booksList2 ul li .bookCover{
+		    	width:22%;
+		    }
+		    .booksList2 ul li .bookInfo{
+		    	width:75%;
+		    }
+		}
+		@media screen and (min-width:376px) and (max-width: 414px){
+		    .booksList2 ul li .bookCover{
+		    	width:20%;
+
+		    }
+		    .booksList2 ul li .bookInfo{
+		    	width:77%;
+		    }
+		}
+		.top{
+    		height:40px;
+    		background:#ffffff;
+    		top: -5px;
+    	}
+
+    	.search{
+    		float:left;
+    		width:90%;
+    		margin-top:5px;
+    		margin-left:5%;
+    	}
+    	.searchInput{
+    		width:100%;
+    		background:url(../image/zui_search_ico.png)  no-repeat 10px #ffffff;
+    		background-size:12px;
+    		background-position:30%;
+    		height:25px !important;
+    		line-height:25px;
+    		font-size:12px !important;
+    		border:none;
+    		border:1px solid #f3f3f3;
+    		border-radius:30px;
+    		outline: none;
+    		color:#666666;
+    		text-align: center;
+    	}
+
+    </style>
+</head>
+<body>
+	<div class="top">
+		<div class="search" onclick="search()">
+			<div class="searchInput" >搜索书名/作者</div>
+		</div>
+	</div>
+	<div class="booksList2">
+		<ul>
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="18"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li><li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+			<li  onclick="expandList('人气好书')" style="text-align: center; font-size: 11px; color: #999999; height: 40px; line-height: 40px;">查看更多></li>
+		</ul>
+	</div>
+
+	<div class="bookList clearfix" style=" border-top:#f3f3f3 2px solid;">
+		<p class="title">
+			<span style="border-left:3px solid #5BD8EF;padding-left:8px;font-size:14px;">包月推荐</span>
+		</p>
+		<ul>
+			<li onclick="openDetails()">
+				<img src="../image/book0.png" alt="" />
+				<p class="bookName">我的盖世英雄</p>
+			</li>
+			<li onclick="openDetails()">
+				<img src="../image/book04_05.png" alt="" />
+				<p class="bookName">以婚试爱</p>
+			</li>
+			<li onclick="openDetails()">
+				<img src="../image/kind-book@2x.png" alt="" />
+				<p class="bookName">至尊神女</p>
+			</li>
+			<li>&nbsp;</li>
+			<li  onclick="baoyue('包月专区')" style="text-align: center; font-size: 11px; color: #999999; height: 40px; line-height: 40px;">查看更多></li>
+		</ul>
+	</div>
+
+	<div class="booksList2">
+		<ul>
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+			<li class="clearfix" onclick="openDetails()">
+				<div class="bookCover">
+					<img src="../image/kind-book@2x.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">至尊神女</p>
+					<div class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</div>
+					<p style="color:#AAA;">
+						<img src="../image/paihang@2x.png" alt="" class="smallSingle" width="16"/>
+						<span>杨十六</span>
+						<span class="labels">
+							都市言情
+						</span>
+						<span class="label">
+							10万字
+						</span>
+					</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+	function openDetails(){
+		api.openWin({
+	       name: 'win_header45541213',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'goods_detail2789',
+               frm_url:'frame0/bookDetails.html',
+               title:'书籍详情',
+	       }
+        });
+	}
+	function openLabel(obj){
+		var title = $(obj).html();
+		api.openWin({
+	       name: 'win_headerfpooii',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'fenlei1893',
+               frm_url:'frame0/fen_lei_son.html',
+               title:title,
+	       }
+        });
+        event.stopPropagation();
+	}
+	apiready = function(){
+
+	};
+
+	function expandList(n)
+{
+	  api.openWin({
+	       name: 'win_headerf1515dsaf',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'goods_detail25655',
+               frm_url:'frame0/fen_lei_son.html',
+               title:n,
+
+	       }
+        });
+
+        }
+        	function baoyue(n)
+{
+	  api.openWin({
+	       name: 'win_headerbao_yue',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'baoyu',
+               frm_url:'frame0/bao_yue.html',
+               title:n,
+
+	       }
+        });
+
+        }
+
+              function search()
+        {
+           api.openWin({
+			       name: 'win_headerfdsaf',
+			       url: 'frame0/seek_win.html',
+
+		        });
+        }
+</script>
+</html>

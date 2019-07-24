@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <link rel="stylesheet" href="./quan_zi.css" />
+    <style>
+    	.top{
+    		background:url(../../image/bgbg@2x.png);
+    		background-size:cover;
+    		padding:0 10px 40px;
+    		position:relative;
+    	}
+    	.back .icon-fanhui{
+    		font-size:25px;
+    		color:white;
+    		font-weight:600;
+    	}
+    	.headPortrait{
+    		width:80px;
+    		height:80px;
+    		border-radius:50%;
+    		margin:5px auto;
+    	}
+    	.headPortrait img{
+    		width:80px;
+    		height:80px;
+    		border-radius:50%;
+    	}
+    	.userInfo{
+    		text-align:center;
+    		color:white;
+    	}
+    	.userInfo .userName{
+    		font-size:15px;
+    	}
+    	.userInfo .address{
+    		font-size:10px;
+    		line-height: 20px;
+    	}
+    	.userInfo .at{
+    		font-size:12px;
+    	}
+    	.btn{
+    		position:absolute;
+    		width:100%;
+    		bottom:0;
+    		left:0;
+    	}
+    	.btn span{
+    		float:left;
+    		width:33%;
+    		line-height:30px;
+    		background:white;
+    		color:#292B33;
+    		font-size:13px;
+    		text-align:center;
+    	}
+		.btn span:first-child,.btn span:nth-child(2){
+			border-right:1px solid #f1f1f1;
+		}
+    	
+    	.dynamic{
+    		background:white;
+    		border-bottom:1px solid #E3E3E3;
+    	}
+    	.dynamic .dynamicTitle{
+    		padding:0 10px;
+    		line-height:40px;
+    		color:#5B5B5B;
+    		border-bottom:1px solid #E3E3E3;
+    	}
+    	.dynamic .content{
+    		padding:0 10px;
+    	}
+    	.dynamic .content .heads{
+    		width:16%;
+    		/*height:40px;*/
+    		float:left;
+    	}
+    	.dynamic .content .heads img{
+    		width:100%;
+    		/*height:40px;*/
+    		border-radius:50%;
+    	}
+    	.dynamic .content .userName{
+    		float:left;
+    		width:80%;
+    		margin-left:4%;
+    		font-size:13px;
+    		line-height:20px;
+    	}
+    	.dynamic .content .userName .userMsg{
+    		width:80%;
+    		font-size:11px;
+    		color:#747474;
+    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp:1;
+    		-webkit-box-orient:vertical;
+    	}
+    	.dynamic .content .userName .time{
+    		float:right;
+    		font-size:11px;
+    		color:#999;
+    	}
+    	.dynamic .content .item1{
+    		text-align:center;
+    	}
+    	.dynamic .content .item1 img{
+    		width:32%;
+    	}
+    	.dynamic .content .item2{
+    		padding:5px 0;
+    		font-size:10px;
+    		color:#747474;
+    	}
+    	.dynamic .content .item2 .delt{
+    		float:right;
+    		margin-top:2px;
+    	}
+    	.back span{
+    		float:right;
+    		margin-top:6px;
+    		color:white;
+    	}
+    	
+    	.quan_zi {
+				background: #fff
+			}
+			.quan_zi .ming_zi {
+				line-height: 36px;
+			}
+			.quan_zi .shi_jian {
+				font-size: 12px;
+				color: #444;
+				margin-top: 10px;
+			}
+			.quan_zi > li {
+				padding: 10px 0px;
+			}
+			.quan_zi .tou_xiang {
+				margin: 0 15px;
+			}
+			.quan_zi .tu_pin, .quan_zi .wei_bu, .quan_zi .ping_lun {
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+			.quan_zi .ni_rong {
+				line-height: 18px;
+				padding: 5px 15px;
+			}
+			.quan_zi .len_jie {
+				color: rgb(247,122,15);
+			}
+			.quan_zi .wei_bu .xin_xi, .quan_zi .wei_bu .zan {
+				float: none;
+				width: 30px;
+				margin: 0;
+			}
+			.quan_zi .wei_bu .xin_xi .iconfont {
+				font-size: 14px;
+				margin: 0;
+				position: relative;
+				top: 1px;
+			}
+			.quan_zi .wei_bu .zan .iconfont {
+				font-size: 15px;
+				margin: 0;
+			}
+			
+			.icon-xinxi{
+    			position:relative;
+	    	}
+	    	.count{
+	    		position:absolute;
+	    		display:inline-block;
+	    		width:16px;
+	    		height:16px;
+	/*    		padding:0 2px;*/
+	    		border-radius:50%;
+	    		background:red;
+	    		right:-11px;
+	    		top:-15px;
+	    		font-size:8px;
+	    		text-align:center;
+	    		line-height:16px;
+	    		display:none;
+	    	}
+	    	
+	    	
+	    	
+	    	.faBu_dongTai{
+	    		background:white;
+	    		border-bottom:1px solid #f1f1f1;
+	    		padding:10px 0;
+	    	}
+	    	.faBu_dongTai .img{
+	    		width:25%;
+	    		margin:0 auto;
+	    	}
+	    	.faBu_dongTai .img img{
+	    		width:100%;
+	    	}
+	    	.faBu_dongTai .fabu_btn{
+	    		width:100px;
+	    		line-height:30px;
+	    		color:white;
+	    		text-align:center;
+	    		margin:10px auto;
+	    	}
+	    	.faBu_dongTai .fabu_btn img{
+	    		vertical-align: text-bottom;
+	    		margin-bottom:1px;
+	    	}
+    </style>
+</head>
+<body ng-controller="LoctionController">
+	<div class="top">
+		<div class="back" style="padding-top:10px;">
+			<i class="iconfont icon-fanhui" onclick="api.closeWin({})"></i>
+			<span ng-if="isUser" class="iconfont icon-bianji" style="margin-left:20px;margin-top:0;font-size:18px;" onclick="postActive()"></span>
+			<span ng-if="isUser" class="iconfont icon-xinxi" onclick="goMess()">
+				<span class="count" id="messageCount">
+					
+				</span>
+			</span>
+		</div>
+		<div class="headPortrait">
+			<img src="{{ Imageurl + userInfo.sumbheadimg }}" alt="" />
+		</div>
+		<div class="userInfo"> 
+			<p class="userName">{{ userInfo.name }}</p>
+			<p class="address">{{ userInfo.address }}</p>
+			<p class="at" style="margin-top:10px;">
+				<span onclick="openGuanZhu()" style="margin-right:15px;">{{ attention }}关注</span>
+				<span onclick="openGuanZhu('fans')" style="margin-left:20px;">{{ fans }}粉丝</span>
+			</p>
+		</div>
+		<p class="btn clearfix">
+			<span ng-if="isUser" class="attention appbackground" onclick="goMyactive()">我的活动</span>
+			<span ng-if="isUser" class="attention appbackground" onclick="goMyactive1()">参与的活动</span>
+			<span ng-if="!isUser" class="attention appbackground" ng-click="attentions()">{{ guan==1?'取消关注':'+关&nbsp;注'}}</span>
+			<span ng-if="!isUser" class="privateLetter appbackground" ng-click="goChat(userInfo.name)">私&nbsp;&nbsp;信</span>
+			<span class="attention appbackground" onclick="goHuoYueDu()">个人活跃度排名</span>
+		</p>
+	</div>
+	<div class="faBu_dongTai" ng-if="isUser" onclick="faTie()">
+		<div class="img">
+			<img src="../../image/fabu.png" alt="" />
+		</div>
+		<div class="fabu_btn appbackground">
+			<img src="../../image/00bi.png" width="15" alt="" />新动态
+		</div>
+	</div>
+	<ul class="quan_zi">
+		<li onclick="dongTai(this.id)" ng-repeat="x in Talk" id="{{ x.circletalk_id }}">
+			<div class="tou_xiang flex-wrap" >
+				<div class="flex-con" style="height:50px;">
+					<span class="img-w-c tou_xiang_img"> 
+						<img  src="{{ Imageurl+x.sumbheadimg }}" alt=""> 
+					</span>
+					<h3 class="ming_zi">{{ x.name }}</h3>
+				</div>
+				<span class="shi_jian">{{ x.addtime  }}</span>
+			</div>
+			<p class="ni_rong">
+				<span class="len_jie" onclick="huaTi(this.id)" ng-show="x.topicname"  id="{{ x.topic_id }}">#{{ x.topicname }}#</span>
+				{{ x.content }}
+				<span class="len_jie" style="margin:0px 2px"  onclick="$api.open_user(this.id)" ng-repeat="a in x.at" ng-show="a.name"  id="{{ a.name+','+a.userid }}" >
+	            	@{{ a.name }}
+	            </span>
+			</p>
+			
+			<div class="tu_pin" ng-show="x.sumbimages.length" >
+				<div class="img-w-c " ng-repeat="i in x.sumbimages track by $index" >
+					<img  class="sumbimages{{ x.page }}" src="{{ Imageurl + i  }}" alt="">
+				</div>
+				<!--<div class="img-w-c">
+					<img src="../../image/frame0/goods_4.png" alt="">
+				</div>
+				<div class="img-w-c">
+					<img src="../../image/frame0/goods_4.png" alt="">
+				</div>-->
+			</div>
+			<p class="quan_zi_di_zhi" data-lon="{{ x.longitude }}"  data-lat="{{ x.latitude }}" data-id="{{ x.circletalk_id }}" ng-show="x.location" onclick="$api.location&&$api.location(this)"><i class="iconfont icon-dingwei"></i>{{ x.location }}</p>
+			<div class="wei_bu">
+				<span class="zan" ng-click="addLike($event , $index , x.isdan)" ><i class="iconfont icon-zan {{ x.isdan==1?'apptxtcolor':'' }}"></i>{{ +x.likenum || '' }}</span>
+				<span class="xin_xi"><i class="iconfont icon-xinxi"></i>{{ +x.replycount || '' }}</span>
+				<span ng-if="isUser" ng-click="deteles($event,$index)" style="float:right"><i class="iconfont icon-iconfontshanchu"></i></span>
+			</div>
+		</li>
+		
+		<p ng-if="!Talk.length" style="text-align:center;font-size:12px;line-height:30px;">没有动态</p>
+	</ul>
+			
+	
+	
+	
+	<!--<div class="dynamic">
+		<p class="dynamicTitle">动态</p>
+		<div class="content" onclick="openWs()">
+			<div class="itme0 clearfix" style="padding:10px 0;">
+				<div class="heads">
+					<img src="../../image/tx@2x.png" alt="" />
+				</div>
+				<div class="userName">
+					<p>MR.L君君 <span class="time">1小时前</span></p>
+					<p class="userMsg">这个平衡车非常6666666，谁买水知道</p>
+				</div>
+			</div>
+			<div class="item1">
+				<img src="../../image/tu1@2x.png" alt="" />
+				<img src="../../image/tu1@2x.png" alt="" />
+				<img src="../../image/tu1@2x.png" alt="" />
+			</div>
+			<div class="item2">
+				<span>
+					<i class="iconfont icon-zan"></i> 1200
+				</span>
+				<span style="line-height:25px;margin-left:20px;">
+					<img src="../../image/message.png" alt="" style="width:15px;vertical-align: text-bottom;margin-bottom:0px;"/> 1200
+				</span>
+				<span class="delt">
+					<i class="iconfont icon-iconfontshanchu"></i>
+				</span>
+			</div>
+		</div>
+	</div>-->
+	<div  class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script src="../../script/jqthumb.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+	getTheme();
+	var to_user_id = 0;
+	apiready = function(){
+	  if(!userid){
+		      api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+			        }
+		changeTheme();
+		to_user_id =api.pageParam.id||userid;
+		EventT.emit('apiready');
+	};
+	
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope',function($scope) {
+		$scope.attention  = 0;
+		$scope.fans  =0;
+		$scope.fans  =0;
+		$scope.Imageurl = Imageurl;
+		
+		$scope.Talk=[];
+		$scope.img_h = (window.innerWidth -30)* 0.333;
+//		var r = [{"distance":"17.65","second":"629020","MINUTE":"10483","HOUR":"174","DAY":"7","WEEK":"1","longitude":"113.35083921592124","latitude":"23.128174579974306","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"6","sumbimages":["Uploads/20170316/104139kqlji85c.jpg"],"images":"Uploads/20170316/104139ptguwkma.jpg","content":"55555","location":"富力·公园28","addtime":"1周前","likenum":"0","replycount":"0","topic_id":"10","isdan":1,"topicname":"4545454","page":0},{"distance":"59.77","second":"628638","MINUTE":"10477","HOUR":"174","DAY":"7","WEEK":"1","longitude":"113.21983034038934","latitude":"23.381960345778516","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"7","sumbimages":["Uploads/20170316/104801v7ku6zti.jpg"],"images":"Uploads/20170316/104801lka0xf7s.jpg","content":"55555","location":"公园前路5号","addtime":"1周前","likenum":"2","replycount":"0","topic_id":"14","isdan":1,"topicname":"小卢","page":0},{"distance":"60.64","second":"266387","MINUTE":"4439","HOUR":"73","DAY":"3","WEEK":"0","longitude":"113.21762050883552","latitude":"23.38697733550799","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"8","sumbimages":["Uploads/20170320/1525292qcork9e.jpg","Uploads/20170320/1525298og2p5c0.jpg","Uploads/20170320/152529yugh6bcj.jpg","Uploads/20170320/152530lrh158ud.jpg","Uploads/20170320/152530x1so8fr4.jpg","Uploads/20170320/152530iu5lqjhw.jpg","Uploads/20170320/1525313pfch51d.jpg","Uploads/20170320/15253172rlj1qw.jpg","Uploads/20170320/152531wvb3tonu.jpg"],"images":"Uploads/20170320/1525298n1rafld.jpg,Uploads/20170320/152529i5tveyph.jpg,Uploads/20170320/152530w845cxfq.jpg,Uploads/20170320/1525303g27wva6.jpg,Uploads/20170320/152530bm16wpes.jpg,Uploads/20170320/152531pcwzaji6.jpg,Uploads/20170320/152531qa9vsujx.jpg,Uploads/20170320/152531jt18f4w9.jpg,Uploads/20170320/1525316olwcsj3.jpg","content":"555555","location":"花都公园前路小区","addtime":"3天前","likenum":"0","replycount":"0","topic_id":"14","isdan":1,"topicname":"小卢","page":0},{"distance":"18501.65","second":"109669","MINUTE":"1827","HOUR":"30","DAY":"1","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"10","sumbimages":["Uploads/20170322/1057297ck5l48t.jpg","Uploads/20170322/105729sr12m5w6.jpg","Uploads/20170322/105729ornh3e2s.jpg"],"images":"Uploads/20170322/105729vqo1k358.jpg,Uploads/20170322/105729pi9qd3zr.jpg,Uploads/20170322/10572914dju2z8.jpg","content":"5555555997543855","location":"","addtime":"1天前","likenum":"1","replycount":"0","topic_id":"10","isdan":1,"topicname":"4545454","page":0},{"distance":"18501.65","second":"9766","MINUTE":"162","HOUR":"2","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"11","sumbimages":["Uploads/20170323/144230d508npo2.jpg","Uploads/20170323/144231i7mlx4pz.jpg","Uploads/20170323/144231f8d1klyt.jpg","Uploads/20170323/144232dzkju27n.jpg","Uploads/20170323/144232pfsrdqa8.jpg","Uploads/20170323/1442325r2e8dyk.jpg","Uploads/20170323/144232u273a1vm.jpg","Uploads/20170323/144233scyoz9gh.jpg","Uploads/20170323/144233sthjv6ib.jpg"],"images":"Uploads/20170323/144230vuwcqiy3.jpg,Uploads/20170323/144231y1vie9on.jpg,Uploads/20170323/144231i0tbmp97.jpg,Uploads/20170323/144232821qlu7f.jpg,Uploads/20170323/1442329jmnobds.jpg,Uploads/20170323/144232wyfiob8e.jpg,Uploads/20170323/144232hdo2iryp.jpg,Uploads/20170323/14423307twjfbl.jpg,Uploads/20170323/144233ewt8gslf.jpg","content":"85555555","location":"","addtime":"2小时前","likenum":"0","replycount":"0","topic_id":"10","isdan":1,"topicname":"4545454","page":0},{"distance":"18501.65","second":"1371","MINUTE":"22","HOUR":"0","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"13","sumbimages":[],"images":"","content":"555","location":"","addtime":"22分钟前","likenum":"0","replycount":"0","topic_id":"0","isdan":0,"topicname":null,"page":0},{"distance":"18501.65","second":"1357","MINUTE":"22","HOUR":"0","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"14","sumbimages":["Uploads/20170323/170241g45zf6as.jpg"],"images":"Uploads/20170323/170242q2g6mlsf.jpg","content":"656758","location":"","addtime":"22分钟前","likenum":"0","replycount":"0","topic_id":"0","isdan":0,"topicname":null,"page":0},{"distance":"18501.65","second":"1342","MINUTE":"22","HOUR":"0","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"15","sumbimages":["Uploads/20170323/170257sd4g5i7l.jpg"],"images":"Uploads/20170323/170257xumg0lor.jpg","content":"5555","location":"","addtime":"22分钟前","likenum":"0","replycount":"0","topic_id":"0","isdan":0,"topicname":null,"page":0},{"distance":"18501.65","second":"1329","MINUTE":"22","HOUR":"0","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"16","sumbimages":["Uploads/20170323/170310ncg452r1.jpg"],"images":"Uploads/20170323/170310rl9gpvbi.jpg","content":"555","location":"","addtime":"22分钟前","likenum":"0","replycount":"0","topic_id":"0","isdan":0,"topicname":null,"page":0},{"distance":"18501.65","second":"1317","MINUTE":"21","HOUR":"0","DAY":"0","WEEK":"0","longitude":"0","latitude":"0","name":"456","user_id":"5","headimg":"Uploads/20170315/153141zgasxiv1.png","sumbheadimg":"Uploads/20170315/153141hujn7qaw.png","circletalk_id":"17","sumbimages":["Uploads/20170323/170322dkbz7a3x.jpg"],"images":"Uploads/20170323/170322t0pch4nk.jpg","content":"55555","location":"","addtime":"21分钟前","likenum":"0","replycount":"0","topic_id":"0","isdan":0,"topicname":null,"page":0}];
+//		$scope.Talk = $scope.Talk.concat(r);
+//		
+//		setTimeout(function(){
+//			$('.quan_zi .sumbimages'+page).jqthumb({
+//				width: $scope.img_h,
+//				height: $scope.img_h,
+//				after: function(imgObj){imgObj.css('opacity', 0).animate({opacity: 1},500)}
+//			});	
+//		},10);
+		EventT.on('apiready', function() {
+			// 拿 关注数 ,粉丝数
+			
+			api.addEventListener({
+	            name:'sheQuChange'
+            },function(ret,err){
+            	getUserInfo();
+            	Talk(0);
+            });
+			getUserInfo();
+			function getUserInfo(){
+				$scope.isUser = to_user_id==userid?true:false;
+				$api.post(phpurl+'Activity/MyLocation' ,{
+					values:{
+						user_id:userid,
+						to_user_id:to_user_id
+					}
+				},function(ret){
+				
+					if(ret){
+						ret.address = ret.address|| '';
+						var ads = ret.address.replace(/\>/g,"");
+						$scope.userInfo = {
+							name :ret.name,
+							address:ads,
+							sumbheadimg :ret.headimg
+						};
+						$scope.userInfo;
+						$scope.attention = ret.attention || 0 ;
+						$scope.fans = ret.fans || 0;
+						$scope.guan = ret.guan || 0;
+						$scope.$apply();
+					}
+					$api.closeloadding();
+				});
+			}
+			
+			
+			var getCircleTalk = $api.getCircleTalk({ to_user_id:to_user_id, });
+			
+			getCircleTalk(0 ,Talk);
+			$api.up(function(page,callback){
+	            getCircleTalk(page,function(page ,ret){
+		           callback&&callback(ret);
+		           Talk(page,ret);
+		        })
+		    });
+			    
+			    
+			function Talk(page,ret){
+				if(ret&&ret.result&&ret.result.length){
+					$api.each(ret.result , function(v,i){
+						if(v.sumbimages){
+							v.sumbimages = v.sumbimages.split(',');
+						}else{
+							v.sumbimages = [];
+						}
+						v.page = page;
+					});
+					console.log($api.jsonToStr(ret.result))
+					$scope.Talk = $scope.Talk.concat(ret.result);
+				}else{
+					if(page==0){
+						$scope.Talk=[]
+					}
+				}
+				$scope.$apply();
+				setTimeout(function(){
+					$('.quan_zi .sumbimages'+page).jqthumb({
+						width: $scope.img_h,
+						height: $scope.img_h,
+						after: function(imgObj){imgObj.css('opacity', 0).animate({opacity: 1},500)}
+					});	
+				},10);	
+			};
+			
+			$scope.attentions = function(index){
+				
+//				if($scope.guan == 1){
+//					return ;
+//				}
+				$api.loadding('frame2',2);
+				if(userid == to_user_id){
+					api.toast({
+		                msg:'不能关注自己'
+		            });
+		            $api.closeloadding();
+		            return false;
+				}
+				$api.post(phpurl+'Activity/addFriend',{
+					values:{
+						user_id:userid,
+						touserid:to_user_id 
+					}
+				},function(ret){
+					if(ret.code == 200){
+						api.toast({
+		                    msg:'关注成功'
+		                });
+		               	$scope.guan = 1;
+		                $scope.$apply();
+		                $api.closeloadding();		                
+		                var guanzhu = 'guanzhu('+to_user_id+',1);';
+						api.execScript({
+						    name: 'root1',
+						    frameName: 'frame0',
+						    script: guanzhu
+						});
+					}else if(ret.code == 201){
+						api.toast({
+		                    msg:'取消成功'
+		                });
+		               	$scope.guan = 0;
+		                $scope.$apply();
+		                $api.closeloadding();	                
+		                var guanzhu = 'guanzhu('+to_user_id+',0)';
+						api.execScript({
+						    name: 'root1',
+						    frameName: 'frame0',
+						    script: guanzhu
+						});
+					}else{
+						$api.closeloadding();
+						
+					}
+				});
+				event.stopPropagation();
+			}
+
+			$scope.deteles = function (e , i ){
+				if (e.stopPropagation) e.stopPropagation();//防冒泡
+				$api.confirm({
+					msg:'确定要删除吗！',
+					fn_arr:[s , false]
+				});
+				
+				function s(){
+					var circletalk_id = $scope.Talk[i].circletalk_id
+					$api.post(phpurl+'CircleTalk/delTalk', {
+						values:{
+							circletalk_id:circletalk_id,
+						}
+					},function(ret){
+						if(ret&&ret.code==200){
+							$scope.Talk.splice(i , 1);
+							$scope.$apply();
+						}
+					})
+				}
+			}
+			
+			$scope.goChat = function (name,touserid){
+		        openW({ 
+		        	win:{
+		        		url:'html/frame0/liao_tian_win.html',
+		        		name:'liao_tian_win'
+		        	},
+		        	data:{
+		        		txt:name,
+		                touserid:to_user_id
+		        	}
+		        })
+	    	}
+			
+			$scope.addLike = function (e , i ,isdan){
+				if (e.stopPropagation) e.stopPropagation();//防冒泡
+				if(isdan){
+					$api.t('点赞过了')
+					return 
+				}
+				
+				var circletalk_id = $scope.Talk[i].circletalk_id
+				$api.post(phpurl+'CircleTalk/addLike', {
+					values:{
+						circletalk_id:circletalk_id,
+						user_id:userid
+					}
+				},function(ret){
+					if(ret&&ret.code==200){
+						$scope.Talk[i].likenum =(+ $scope.Talk[i].likenum ) +1;
+						$api.t('+1');
+						$scope.Talk[i].isdan  = 1;
+						$scope.$apply();
+					}	
+				});
+			}
+			
+			var count = 0;
+	        getC();
+	        getMessageCount();
+			function getMessageCount(){
+				if(count == 0){
+					$("#messageCount").css('display','none');
+				}else if(count > 0){
+					$("#messageCount").css('display','block');
+					$("#messageCount").text(count);
+				}
+			}
+	
+			function getC(){
+				userid = $api.getStorage('userid');
+				util.longAjax(phpurl+'Message/getNewMsg?user_id='+userid+'&count='+count,40,function(result){
+					count = result.count;
+					getMessageCount();
+				});
+			}
+			
+		})
+	}]);
+	
+	//打开我的关注，和我的粉丝的 
+	function openGuanZhu(type){
+		if(to_user_id==userid){
+			openW({
+				frm_url:'frame2/guan_zhu_lie_biao.html',
+				title:type=='fans'?'我的粉丝':'我的关注',
+				data:{
+					type:type
+				}
+			})	
+		}
+	}
+	
+	
+	function huaTi(id){
+		openW({
+			frm_url : 'frame2/hua_ti_xiang_qing.html',
+			title : '话题详情',
+			data:{
+				is_win:false,
+				topic_id:id
+			}
+		});
+		event.stopPropagation();
+	}
+	function dongTai(id){
+		openW({
+			frm_url : 'frame2/dong_tai_xiang_qing.html',
+			title : '动态详情',
+			data:{
+				dynamic_id:id
+			}
+		})
+	}
+	
+	
+	
+	
+	
+	$(function(){
+		var h = $('.heads').width();
+		$('.heads img').css('height',h+'px');
+		$('.userName p').css('line-height',h/2+'px');
+	})
+	
+
+	
+	
+	
+
+	
+	function goMess(){
+	
+        
+        openW({
+        	win:{
+        		url:'html/frame0/tong_zhi/win.html',
+        		name:'tong_zhi'
+        	}
+        })
+	}
+	
+	function postActive(){
+		openW({
+			frm_url : 'frame2/she_qu_ge_ren_zi_liao.html',
+			title : '个人资料'
+		})	
+	}
+	
+	function goMyactive(){
+		api.openWin({
+	        name: 'huo_dong_lie_biao_win',
+	        url: 'huo_dong_lie_biao_win.html',
+        });
+	}
+	function goMyactive1(){
+		api.openWin({
+	        name: 'wo_de_bao_ming_win',
+	        url: 'wo_de_bao_ming_win.html',
+        });
+	}
+	
+	function faTie(){
+		openW({
+			frm_url : 'frame2/xin_zeng_dong_tao.html',
+			title : '新帖子',
+			data: {
+				r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>'
+			}
+		})
+	}
+	
+	function goHuoYueDu(){
+		openW({
+			frm_url : 'frame2/pai_hang_frame0.html',
+			title : '个人活跃度排名',
+		})
+	}
+</script>
+</html>

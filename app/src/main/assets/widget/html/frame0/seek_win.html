@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/css/icon/iconfont.css" />
+    <style>
+        header{
+            /*background: #0ba0f9;*/background:red;
+        }
+        .top{
+            height: 45px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*background: #0ba0f9;*/background:red;
+        }
+        .back{
+            float: left;
+            width: 38px;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+        }
+        .search{
+            float: left;
+            width: 82%;
+        }
+        .searchInput{
+            width: 85%;
+            margin-left: 14px;
+            padding-left: 20px !important;
+            height: 30px !important;
+            line-height: 30px;
+            font-size: 11px !important;
+            border: none;
+            border: 1px solid #e6e6e6;
+            border-radius: 25px;
+            outline: none;
+            color: #939393;
+            background: #f7f7f7;
+        }
+        .tip{
+            color: #fff;
+            width: 50px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="top">
+        <div class="back" onclick="api.closeWin({});">
+            <i class="iconfont icon-xiangshangbiaoshi-copy"></i>
+        </div>
+        <div class="search">
+            <input type="search" id="keys" class="searchInput" placeholder="搜索书名、作者、分类" onkeydown="openfrm(event)">
+        </div>
+        <div class="iconfont icon-sousuo tip">
+        </div>
+    </div>
+</header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/FInit.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var $top = $api.dom('header');
+        $api.fixStatusBar($top);
+        var systemType = api.systemType;
+        if (systemType == 'ios') {
+            api.openFrame({
+                name              : 'fddfsdsf',
+                url               : 'seek.html',
+                rect              : {
+                    x : 0,
+                    y : $api.dom('header').offsetHeight + 0,
+                    w : api.winWidth,
+                    h : 'auto',
+                },
+                vScrollBarEnabled : false,
+                pageParam         : api.pageParam,
+            });
+        } else {
+            api.openFrame({
+                name              : 'fdfsf',
+                url               : 'seek.html',
+                rect              : {
+                    x : 0,
+                    y : $api.dom('header').offsetHeight,
+                    w : api.winWidth,
+                    h : 'auto',
+                },
+                vScrollBarEnabled : false,
+                pageParam         : api.pageParam,
+            });
+        }
+    };
+    $('.tip').click(function() {
+        var keys = document.getElementById('keys').value;
+        $api.send('sou_suo', {keys : keys});
+    });
+    //搜索
+    function openfrm(event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e.keyCode == 13) { // enter 键
+            var keys = document.getElementById('keys').value;
+            $api.send('sou_suo', {keys : keys});
+        }
+    }
+</script>
+</html>

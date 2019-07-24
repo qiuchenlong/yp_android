@@ -1,0 +1,114 @@
+@charset "UTF-8";
+.header{
+  /*搜索和频道nav*/
+  .base{
+    height: 1.47rem;
+  }
+  .breadcrumbs{
+    position: fixed;
+    top: 0;
+    width: 7.5rem;
+    z-index: 1000;
+    background: inherit;
+    //搜索
+    .u-search{
+      height: 0.64rem;
+      line-height: 0.64rem;
+      .form{
+        display: flex;
+        padding: 0 0.3rem;
+      }
+      .search-div{
+        display: inline-block;
+        margin-right: 0.2rem;
+        height: 0.64rem;
+        padding: 0 0.28rem;
+        background: #f1f1f1;
+        border-radius: 0.38rem;
+        flex: 1;
+        .icon-sousuo{
+          //display: inline-block;
+          //vertical-align: text-bottom;
+          //height: 0.28rem;
+          //width: 0.28rem;
+          //background: url('../../src/images/icon-sousuo.png') no-repeat;
+          //background-size: 0.28rem;
+          font-size: 0.28rem;
+          margin-right: 6px;
+        }
+      }
+      .search-input{
+        background: $default-bg-color;
+        height: 0.38rem;
+        width: 90%;
+        &::-webkit-input-placeholder{
+          font-size: 0.26rem;
+        }
+      }
+      .button{
+        font-size: 0.34rem;
+        width: 1.2rem;
+      }
+    }
+    //频道
+    .nav{
+      border-bottom: 2px solid $default-bg-color;
+      .nav_a{
+        &:first-child{margin-left: 0.58rem;}
+        font-weight: bold;
+        margin: 0.32rem 0 0 0.92rem;
+        padding-bottom: 0.20rem;
+        border-bottom: 3px solid transparent;
+      }
+      .current{
+        color: #1ba976;
+        border-bottom: 3px solid #1ba976;
+      }
+    }
+  }
+}
+.footer{
+  .base{height: 1rem; width: 100%;}
+  .menu{
+    z-index: 50;
+    position: fixed;
+    bottom: 0;
+    width: 7.5rem; height: 0.98rem;
+    @extend %flex-center;
+    border-top: 2px solid #f1f1f1;
+    background: #fff;
+    text-align: center;
+    .footer_a{
+      flex: 1;
+      > *{display: block;}
+    }
+    .current{color:#17bc7a;}
+    .iconfont{
+      font-size: 0.4rem;
+      padding-bottom: 0.05rem;
+    }
+  }
+}
+//项目共用page mixin
+%padding_lr{padding: 0 0.3rem;}
+%img_shadow{
+  box-shadow: 0 0 0.12rem #646464;
+  -webkit-box-shadow: 0 0 0.12rem #646464;
+  -o-box-shadow: 0 0 0.12rem #646464;
+  -moz-box-shadow: 0 0 0.12rem #646464;
+}
+.content{
+  .bd{
+    @extend %padding_lr;
+  }
+  background: $default-bg-color;
+  & > *{background: #fff;}
+  > * + *{ margin-top: 0.1rem;}
+}
+.g-propagation{
+  display: none;
+  position: fixed;
+  top:0;
+  width: 7.5rem;height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}

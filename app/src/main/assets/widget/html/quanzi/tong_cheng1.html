@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.CollectionList ul li{
+    		padding:10px;
+    		background:white;
+    		border-bottom:1px solid #EBEBEB;
+    	}
+    	.CollectionList ul li div{
+    		float:left;
+    	}
+    	.goodsPicture{
+    		width:30%;
+    		margin-right:5%;
+    	}
+    	.goodsPicture img{
+    		width:100%;
+    	}
+    	.goodsDescribe{
+    		width:65%;
+    		font-size:12px;
+    		position: relative;
+    	}
+    	.goodsDescribe .item2{
+    		position:absolute;
+    		bottom:0;
+    		width:100%;
+    		color:#7A7A7A;
+    	}
+    	.goodsDescribe .goodsNmae{
+    		font-weight:600;
+    		width:100%;
+    	}
+    	
+    	
+    	 .can_yu_hua_ti {
+			position: fixed;
+			bottom: 35px;
+			right: 15px;
+			width: 65px;
+			height: 65px;
+			font-size: 10px;
+			line-height: 12px;
+			text-align: center;
+			border-radius: 50%;
+			color: #333;
+		}
+		.can_yu_hua_ti .icon-bianji {
+			display: block;
+			font-size: 30px;
+			color: #333;
+			text-align: center;
+			line-height: 40px;
+			margin-top: 2px;
+		}
+    </style>
+</head>
+<body ng-controller="LoctionController">
+	
+	<div class="CollectionList">
+		<ul>
+			<li class="clearfix" onclick="openWs(this.id)" ng-repeat="x in lists" id="{{ x.activity_id }}">
+				<div class="goodsPicture">
+					<img src="{{ Imageurl+x.image }}" alt="" />
+				</div>
+				<div class="goodsDescribe">
+					<p class="item0">
+						<span class="goodsNmae">{{ x.title }}</span>
+					</p>
+					<p class="item2">
+						<span>
+							地点：{{ x.location }}
+						</span>
+						<span style="width:100%;">
+							时间：{{ x.activitytime }}
+							<span style="float:right;">
+								<i class="iconfont icon-user7" style="font-size:12px;"></i> {{ x.sum }}
+							</span>
+						</span>
+					</p>
+				</div>
+			</li>
+			<div  class="bottom_loadmore"></div>
+			<!--<li class="clearfix" onclick="openWs()">
+				<div class="goodsPicture">
+					<img src="../../image/sctu1@2x.png" alt="" />
+				</div>
+				<div class="goodsDescribe">
+					<p class="item0">
+						<span class="goodsNmae">2017广州城市定向户外挑战赛自备户外保险报名参加</span>
+					</p>
+					<p class="item2">
+						<span>
+							地点：广州塔（地铁站）
+						</span>
+						<span style="width:100%;">
+							时间：02/12 12:00
+							<span style="float:right;">
+								<i class="iconfont icon-user7" style="font-size:12px;"></i> 100
+							</span>
+						</span>
+					</p>
+				</div>
+			</li>
+			<li class="clearfix" onclick="openWs()">
+				<div class="goodsPicture">
+					<img src="../../image/sctu1@2x.png" alt="" />
+				</div>
+				<div class="goodsDescribe">
+					<p class="item0">
+						<span class="goodsNmae">2017广州城市定向户外挑战赛自备户外保险报名参加</span>
+					</p>
+					<p class="item2">
+						<span>
+							地点：广州塔（地铁站）
+						</span>
+						<span style="width:100%;">
+							时间：02/12 12:00
+							<span style="float:right;">
+								<i class="iconfont icon-user7" style="font-size:12px;"></i> 100
+							</span>
+						</span>
+					</p>
+				</div>
+			</li>-->
+		</ul>
+		<span class="can_yu_hua_ti appbackground" onclick="postActive()"> <i class="iconfont icon-bianji "></i> 发布活动 </span>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+	getTheme();
+	apiready = function(){
+		changeTheme();
+		EventT.emit('apiready',{noload:true});
+	};
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope',function($scope) {
+		$scope.lists = [];
+		$scope.Imageurl = Imageurl;
+
+		EventT.on('apiready', function() {
+			getData(0)
+			$api.up(function(page,callback){
+		    	getData(page,function(ret){
+			    	callback&&callback(ret);
+				})
+			});
+			
+			function getData(page ,fn){
+				var site = $api.getStorage('site')||{};	
+				$api.post(phpurl+'Activity/getHotActivity', {
+					values:{
+						page:page,
+						city:site.city
+					}
+				},function(ret){
+					fn&&fn(ret);
+					$api.closeloadding();
+					if(ret&&ret.code==200&&ret.result&&ret.result.length){
+						$scope.lists = $scope.lists.concat(ret.result);
+						$scope.$apply();
+						$(function(){
+							var imgHeight1 = $('.goodsPicture img').width();
+							$('.goodsPicture img').css('height',imgHeight1+'px');
+							$('.goodsDescribe').css('height',imgHeight1+'px');
+							var imgHeight2 = $('.guessGoodsPicture img').width();
+							$('.guessGoodsPicture img').css('height',imgHeight2+'px');
+						})
+					}else{
+						if(page==0){
+							$scope.list = [];
+							$api.noDate();
+						}
+					}
+				})	
+			}
+		})
+	}]);
+	
+	function openWs(id){
+		openW({
+			frm_url : 'frame2/huo_dong_xiang_qing.html',
+			title : '活动详情',
+			data:{
+				activeId:id,
+			}
+		})	
+	}
+	
+	function postActive(){
+		openW({
+			frm_url : 'frame2/fa_bu_huo_dong.html',
+			winName:'fa_bu_huo_dong_win',
+			title : '发布活动'
+		})	
+	}
+</script>
+</html>

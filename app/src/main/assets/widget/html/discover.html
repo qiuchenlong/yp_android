@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <link rel="stylesheet" href="../src/css/swiper-4.2.2.min.css"><!--轮播css-->
+    <!-- <link rel="stylesheet" href="//at.alicdn.com/t/font_703623_1797hj4x65p.css"> --><!--图标字体-->
+    <script src="../src/library/zepto.js"></script><!--页面js-->
+    <script src="../src/library/swiper-4.2.2.min.js"></script><!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+<body>
+<!--<header class="disabled_header">-->
+    <!--<a href="javascript:;">图</a>-->
+    <!--<span>签到推荐领搜豆</span>-->
+    <!--<a href="frame1.html">书架</a>-->
+<!--</header>-->
+<div class="m-discover">
+    <div class="circle">
+        <p class="js-discover">签到</p>
+        <p class="js-finish">已签到</p>
+    </div>
+</div>
+<div class="content">
+    <ul class="m-user_list">
+        <a href="javascript:;">
+            <li class="li">
+                <div class="left">
+                    <i class="iconfont icon-money"></i>
+                    <p class="h4">
+                        <span>社区</span>
+                    </p>
+                </div>
+                <div class="right">go
+                    <!--<i class="iconfont icon-signboard_right"></i>-->
+                </div>
+            </li>
+        </a>
+        <a href="javascript:;">
+            <li class="li">
+                <div class="left">
+                    <i class="iconfont icon-vip-copy"></i>
+                    <p class="h4">
+                        <span>VIP专区</span>
+                    </p>
+                </div>
+                <div class="right">go
+                    <!--<i class="iconfont icon-signboard_right"></i>-->
+                </div>
+            </li>
+        </a>
+        <a href="message.html">
+            <li class="li">
+                <div class="left">
+                    <i class="iconfont icon-mulu"></i>
+                    <p class="h4">
+                        <span>书评广场</span>
+                    </p>
+                </div>
+                <div class="right">go
+                    <!--<i class="iconfont icon-signboard_right"></i>-->
+                </div>
+            </li>
+        </a>
+         <a href="message.html">
+            <li class="li">
+                <div class="left">
+                    <i class="iconfont icon-mulu"></i>
+                    <p class="h4">
+                        <span>书单</span>
+                    </p>
+                </div>
+                <div class="right">go
+                    <!--<i class="iconfont icon-signboard_right"></i>-->
+                </div>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function($) {
+        $('.js-discover').on('click',function(e) {
+            $('.js-discover').hide();
+            $('.js-finish').show();
+        })
+        // $('.js-finish').on('click', function(e) {
+        //     $('.js-finish').hide();
+        //     $('.js-discover').show();
+        // })
+    })
+</script>
+</body>
+</html>

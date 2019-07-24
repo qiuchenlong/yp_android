@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    
+    
+    	.banner img{
+    		width:100%;
+    		vertical-align:top;
+    	}
+    	.activeTitle{
+    		background:white;
+    		padding:10px 0;
+    	}
+    	.activeTitle>div{
+    		float:left;
+    	}
+    	.titleName{
+    		width:58%;
+    		height:40px;
+    		font-size:14px;
+    		padding:0 4.5% 0 2.5%;
+    		border-right:1px solid #bebebe;
+    		overflow: hidden;
+    		text-overflow:ellipsis;
+    		word-break:break-all;
+    		display:-webkit-box;
+    		-webkit-line-clamp:2;
+    		-webkit-box-orient:vertical;
+    	}
+    	.baoMing{
+    		width:30%;
+    		font-size: 12px;
+    		padding-left:4.5%;
+    		line-height:40px;
+    	}
+    	.baoMing i{
+    		font-size:30px;
+    		float:left;
+    		margin-right:5px;
+    	}
+    	
+    	.activeInfo{
+    		margin-top:8px;
+    		background:white;
+    	}
+    	.activeInfo ul li{
+    		padding:0 2.5%;
+    		border-bottom:1px solid #DDD;
+    		line-height:40px;
+    		font-size:14px;
+    		color:#656565;
+    		word-break:break-all;
+    	}
+    	.activeInfo ul li:last-child{
+    		border:0;
+    	}
+    	
+    	.activityDescribe{
+    		margin-top:8px;
+    		background:white;
+    		padding:2.5%;
+    		font-size:14px;
+    	}
+    	.activityDescribe .des{
+    		margin-top:2.5%;
+    		line-height:20px;
+    		color:#656565;
+    		word-break:break-all;
+    	}
+    	
+    	.baoMingList{
+    		margin-top:8px;
+    		background:white;
+    		font-size:14px;
+    	}
+    	.boMingTitle{
+    		border-bottom:1px solid #DDD;
+    		line-height:35px;
+    		padding:0 2.5%;
+    	}
+    	
+    	.baoMingList ul li{
+    		border-bottom:1px solid #DDD;
+    		padding:10px 2.5%;
+    	}
+    	.baoMingList ul li>div{
+    		float:left;
+    	}
+    	.baoMingList ul li .head{
+    		width:20%;
+    		text-align:left;
+    	}
+    	.baoMingList ul li .head img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+    	}
+    	.baoMingList ul li .nack{
+    		width:60%;
+    		margin-top:5px;
+    	}
+    	.baoMingList ul li .nack .userMsg{
+    		font-size:12px;
+    		color:#656565;
+    		word-break:break-all;
+    		line-height:25px;
+    	}
+    	.baoMingList ul li .nack .userMsg,.baoMingList ul li .nack .userName{
+    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display: -webkit-box;
+    		word-break:break-all;
+		 	-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;
+    	}
+    	.baoMingList ul li .guanZhu{
+    		width:20%;
+    		margin-top:15px;
+    	}
+    	.baoMingList ul li .guanZhu button{
+    		border:1px solid ;
+    		width:60px;
+    		height:25px;
+    		line-height:25px;
+    		border-radius:5px;
+    		font-size:12px;
+    	}
+    	
+    	.fts{
+    		margin:10px 0;
+    		font-size:14px;
+    		text-align:center;
+    		color:black;
+    	}
+    	.fts span{
+    		border-bottom:1px solid #000;
+    		padding-bottom:5px;
+    	}
+    	
+    	
+		.noData{
+			width:80%;
+			line-height:35px;
+			margin:15px auto 0;
+			text-align:center;
+			border-radius:5px;
+			font-size:12px;
+		}
+    </style>
+</head>
+<body ng-controller="activeDescribe">
+	<div class="banner">
+		<img src="{{ imgurl+myData.image }}" alt="" />
+	</div>
+	<div class="activeTitle clearfix">
+		<div class="titleName">
+			{{ myData.title }}
+		</div>
+		<div class="baoMing" ng-click="go_baoMing()">
+			<i class="iconfont icon-user7 apptxtcolor"></i>
+			<span style="line-height:43px;">我要报名</span>
+		</div>
+	</div>
+	
+	<div class="activeInfo">
+		<ul>
+			<li>
+				活动地点：{{ myData.location }}
+			</li>
+			<li>
+				活动时间：{{ myData.activitytime }}
+			</li>
+			<li>
+				发起人：{{ myData.name }}
+			</li>
+			<li>
+				联系方式：{{ myData.phone }}
+			</li>
+			<li>
+				活动费用：{{ myData.price }}
+			</li>
+		</ul>
+	</div>
+	
+	<div class="activityDescribe">
+		<p>活动详情</p>
+		<div class="des">
+			{{ myData.content }}
+<!--			<p>赛事时间：2017年02月21日</p>
+			<p>比赛起终点：广州塔</p>
+			<p>赛事项目：城市定向</p>
+			<p>赛事口号：定向城市，Let's go!</p>
+			<p>赛事规模：限600队（约3000人）</p>-->
+		</div>
+	</div>
+	
+	<div class="baoMingList">
+		<p class="boMingTitle">报名列表（{{ myData.sum }}）</p>
+		<ul style="padding-bottom:15px;">
+			<li class="clearfix" ng-repeat="list in listData" onclick="haoYouDiPan(this.id)" id="{{ list.user_id }}">
+				<div class="head">
+					<img src="{{ imgurl+list.sumbheadimg }}" alt="" />
+				</div>
+				<div class="nack">
+					<p class="userName">{{ list.name }}</p>
+					<p class="userMsg">{{ list.content }}</p>
+				</div>
+				<div class="guanZhu" ng-if="list.guan==0">
+					<button class="appBordercolor" ng-click="attentions(list.user_id,$index)">
+						<span class="apptxtcolor" style="font-size:16px;line-height:15px;">+</span> 关注
+					</button>
+				</div>
+				<div class="guanZhu" ng-if="list.guan==1">
+					<button class="appBordercolor appbackground">
+						已关注
+					</button>
+				</div>
+			</li>
+			
+<!--			<li class="clearfix" onclick="haoYouDiPan()">
+				<div class="head">
+					<img src="../../image/tx@2x.png" alt="" />
+				</div>
+				<div class="nack">
+					<p class="userName">我是你的好友</p>
+					<p class="userMsg">第一次参加请多多关照！</p>
+				</div>
+				<div class="guanZhu">
+					<button class="appBordercolor appbackground">
+						已关注
+					</button>
+				</div>
+			</li>-->
+		</ul>
+	</div>
+	<div class="bottom_loadmore"></div>
+	<div class="fts">
+		<span onclick="goStatement()">同城活动免责声明</span>
+	</div>
+	
+	
+<!--分享-->	
+	<div class="shareCover" style="display:none">
+		<div class="shareList" style="display:none">
+			<ul>
+				<li>
+					<img src="../../image/qq@2x.png" alt="" />
+					<br />
+					QQ好友
+				</li>
+				<li>
+					<img src="../../image/kj@2x.png" alt="" />
+					<br />
+					QQ空间
+				</li>
+				<li>
+					<img src="../../image/wechat@2x.png" alt="" />
+					<br />
+					微信好友
+				</li>
+				<li>
+					<img src="../../image/pyq@2x.png" alt="" />
+					<br />
+					朋友圈
+				</li>
+			<!--	<li>
+					<img src="../../image/weibo@2x.png" alt="" />
+					<br />
+					新浪微博
+				</li>-->
+			</ul>
+			<div class="cancel" onclick="cancel()">
+				取消
+			</div>
+		</div>
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript" src="../../script/Share.js"></script>
+<script type="text/javascript">
+	getTheme();
+	var active_id;
+	$api.loadding('huo_dong_xiang_qing',1);
+	apiready = function(){
+		changeTheme();
+		active_id = api.pageParam.activeId;
+		EventT.emit("apiready");
+		api.addEventListener({
+	        name:'shareShow'
+        },function(ret,err){
+        	$('.shareCover').show();
+			setTimeout(function(){
+				$('.shareList').slideDown(300);
+			},200)
+			$('.shareList li').each(function(i,v){
+				$(this).click(function(){
+					shares(i, false ,function(){
+						
+					});
+				})
+			})
+        });
+        
+        api.addEventListener({
+	        name:'exitActivity'
+        },function(ret,err){
+        	api.refreshHeaderLoading();
+        })
+	};
+	
+	var app = angular.module("myApp",[]);
+	app.controller("activeDescribe",["$scope",function($scope){
+		$scope.myData = [];
+		$scope.listData = [];
+		$scope.imgurl = Imageurl;
+		
+		
+		$scope.attentions = function(id,index){
+			$api.loadding('huo_dong_xiang_qing',0);
+			if(userid == id){
+				api.toast({
+	                msg:'不能关注自己哦'
+                });
+                return false;
+			};
+			$api.post(phpurl+'Activity/addFriend',{
+				values:{
+					user_id:userid,
+					touserid:id 
+				}
+			},function(ret){
+				if(ret.code == 200){
+					api.toast({
+	                    msg:'关注成功'
+                    });
+                    $scope.listData[index].guan = 1;
+                    $scope.$apply();
+                    $api.closeloadding();
+				}else{
+					$api.closeloadding();
+				}
+			});
+			event.stopPropagation();
+		}
+		
+		$scope.go_baoMing = function(){
+		  if(!userid){
+				    api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+            	}
+            	
+			api.openWin({
+		        name: 'bao_ming_win',
+		        url: '../Win.html',
+		        pageParam:{
+	                frm_name:'bao_ming',
+	                frm_url:'frame2/bao_ming.html',
+	                title:'报名',
+	                activeId:active_id
+		        }
+	        });
+		}
+		
+		EventT.on("apiready",function(){
+			getActiveDel();
+			getBaoMing(0);
+			$api.up(function(page,callback){
+	            getBaoMing(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    })
+		    
+		    $api.pull(function(callback){
+		        getBaoMing(0,function(){
+		            callback&&callback();
+		        })
+		    });
+		    api.addEventListener({
+		        name:'baoMingOk'
+	        },function(ret,err){
+	        	getActiveDel();
+				getBaoMing(0);
+	        });
+		});
+		
+		function getActiveDel(){
+			$api.post(phpurl+'Activity/getDetail',{
+				values:{
+					activity_id:active_id,
+					user_id:userid
+				}
+			},function(ret){
+				if(ret.code == 200 && ret.result){
+					$scope.myData = ret.result[0];
+					$scope.$apply();
+					$api.closeloadding();
+				}else{
+					$api.closeloadding();
+				}
+			});
+		}
+		
+		function getBaoMing(page,callback){
+			$api.loadding('huo_dong_xiang_qing',0)
+			$api.post(phpurl+'Activity/getBaoList',{
+				values:{
+					activity_id:active_id,
+					user_id:userid,
+					page:page,
+					type:3
+				}
+			},function(ret){
+				if(ret.code == 200){
+					if(ret.result.length > 0){
+						if(page == 0){
+							$scope.listData = [];
+						}
+						$scope.listData = $scope.listData.concat(ret.result);
+						$scope.$apply();
+					}else if(ret.result.length <= 0 && page == 0){
+						$('.baoMingList ul').html('<div class="noData appbackground">还没有人报名哦</div>');
+					}
+					$api.closeloadding();
+				}else{
+					$api.closeloadding();
+				}
+				callback&&callback(ret);
+			})
+		}
+		
+	}]);
+	
+//	function go_baoMing(){
+//		
+//	}
+	function cancel(){
+		$('.shareList').slideUp(300);
+		setTimeout(function(){
+			$('.shareCover').hide();
+		},200)
+	}
+	
+//	function goBaoMing(){
+//		api.openWin({
+//	        name: 'bao_ming_lie_biao_win',
+//	        url: 'bao_ming_lie_biao_win.html',
+//	        pageParam:{
+//	        	type:active_id
+//	        }
+//      });
+//	}
+	
+	function haoYouDiPan(id){
+		openW({
+			frm_url : 'frame2/wo_de_di_pan.html',
+			title : '发布活动',
+			data:{
+				is_win:false,
+				id:id
+			}
+		})
+	}
+	function goStatement(){
+		openW({
+			frm_url : 'frame2/statement.html',
+			title : '同城活动免责声明',
+		})
+	}
+</script>
+</html>

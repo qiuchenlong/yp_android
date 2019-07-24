@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <link rel="stylesheet" href="../src/css/swiper-4.2.2.min.css">
+    <!--轮播css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/library/swiper-4.2.2.min.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+<body ng-controller="DataCtrl">
+<header class="frame3_header">
+    <div class="hd">
+        <img class="frame3_my" style="border-radius: 50%" src="../image/my_fff.png" alt="" onclick="myfile()">
+        <h1 class="h1">发现</h1>
+        <!--<i class="iconfont icon-sousuo" onclick="sousuo()"></i>-->
+        <i style="    width: 0.62rem;"></i>
+    </div>
+    <!--<img src="../image/frame3_bg.png" alt="" style="width: 100%;height: 3rem;">-->
+    <!--<ul class="nav">
+       <li class="li" ng-click="chongzhi(dataList.egold)">
+           <div class="iconfont icon-tubiao207" style="    color: #eecc08;"></div>
+           <p>我的金币</p>
+       </li>
+       <li class="li">
+           <div class="iconfont icon-wodedaijinquan" style="color: gold;"></div>
+           <p>代金券</p>
+       </li>
+       <li class="li" onclick="renmai()">
+           <div class="iconfont icon-ai-connection" style="    color: #007aff;"></div>
+           <p>我的人脉</p>
+       </li>
+        <li class="li" onclick="tuijian()">
+            <div class="iconfont icon-tuijian" style="    color: #f95504;"></div>
+            <p>我要推荐</p>
+        </li>
+       <li class="li" onclick="shouyi()">
+           <div class="iconfont icon-shouyi" style="    color: #ffc73e;"></div>
+           <p>我的收益</p>
+       </li>
+       <li class="li" onclick="shuping()">
+           <div class="iconfont icon-faxian-copy" style="color: #8095ff;"></div>
+           <p>书评广场</p>
+       </li>
+        <li class="li" onclick="shudan()">
+            <div class="iconfont icon-shujia" style="    color: #614339;"></div>
+            <p>书单</p>
+        </li>
+       <li class="li" onclick="paihang()">
+           <div class="iconfont icon-paixing" style="color: #ff8080;"></div>
+           <p>排行榜</p>
+       </li>
+    </ul>-->
+    <div class="base" style="height: 1.62rem;"></div>
+</header>
+<!--2018/11/12 old-->
+<!--<div class="m-discover" style="margin-bottom: 10px;">
+    <div class="touxiang" onclick="myfile()">
+        <img src="{{ userimg+dataList.images }}" alt="">
+        <span>{{ dataList.name||'登陆' }}</span>
+    </div>
+    &lt;!&ndash;<div class="middle">
+    <div class="left">
+        <p class="h4">
+            <span>金币金币</span>
+            <span class="pri">99999</span>
+        </p>
+    </div>
+    <div class="right">充值
+    </div>
+</div>&ndash;&gt;
+    <div class="under" id="qian_dao" style="display: none;">
+        <div class="left">
+            <div class="pmgressbar">
+                <div class="pmgressbar_bg"></div>
+            </div>
+            <p class="pmgressbar_p">已签到
+                <span>{{ cishu }}</span>天，
+                <span ng-click="qiandao()">{{qiandaoStr}}</span>
+            </p>
+        </div>
+        &lt;!&ndash;  <div class="right" >
+             <p class="js-discover">签到</p> &ndash;&gt;
+        &lt;!&ndash; <p class="js-finish">已签到</p> &ndash;&gt;
+        &lt;!&ndash;<p>{{qiandaoStr}}</p>
+    </div>&ndash;&gt;
+    </div>
+</div>-->
+<!--<div class="content">
+    <ul class="m-user_list" id="jin_e" style="display: none;">
+        <li class="li" ng-click="chongzhi(dataList.egold)">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/yaoqing.png">
+                </i>
+                <p class="h4">
+                        <span>金币金币
+                            <b style=" position:relative;color: #b93221;margin-left:9px;">$：{{ dataList.egold }}</b>
+                        </span>
+                </p>
+            </div>
+            <div class="right">充值
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/yaoqing.png">
+                </i>
+                <p class="h4">
+                        <span>代金券金币
+                            <b style=" position:relative;color: #b93221;margin-left:9px;">$：{{ dataList.gcount }}</b>
+                        </span>
+                </p>
+            </div>
+            <div class="right">领取
+                &lt;!&ndash; <div ng-class="{right: dataList.gcount>0}" class="gray">领取 &ndash;&gt;
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="renmai()">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/yaoqing.png">
+                </i>
+                <p class="h4">
+                        <span>我的人脉
+                            <b style=" position:relative;color: #b93221;margin-left:9px;">{{ dataList.yshuliang }}人</b>
+                        </span>
+                </p>
+            </div>
+            <div class="right">查看
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="tuijian()">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/woyao.png">
+                </i>
+                <p class="h4">
+                    <span>我要推荐</span>
+                </p>
+            </div>
+            <div class="right">推荐
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="shouyi()">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/yaoqing.png">
+                </i>
+                <p class="h4">
+                    <span>我的收益</span>
+                </p>
+            </div>
+            <div class="right">查看
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+    </ul>
+    <ul class="m-user_list">
+        <li class="li" onclick="shuping()">
+            <div class="left">
+                <i class="iconfont">
+                    <img src="../src/images/shuping.png">
+                </i>
+                <p class="h4">
+                    <span>书评广场</span>
+                </p>
+            </div>
+            <div class="right">参加
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="shudan()">
+            <div class="left">
+                <i class="iconfont"><img src="../src/images/shudan.png"></i>
+                <p class="h4">
+                    <span>书单</span>
+                </p>
+            </div>
+            <div class="right">go
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+        <li class="li" onclick="paihang()">
+            <div class="left">
+                <i class="iconfont"><img src="../src/images/shudan.png"></i>
+                <p class="h4">
+                    <span>排行</span>
+                </p>
+            </div>
+            <div class="right">go
+                &lt;!&ndash;<i class="iconfont icon-signboard_right"></i>&ndash;&gt;
+            </div>
+        </li>
+    </ul>
+</div>-->
+<section class="content">
+    <div class="m-comment" style="padding-top: 0.4rem; ">
+        <div class="bd">
+            <div class="u-comment" ng-repeat="d in allreplyList" ng-cloak>
+                <p class="comment_user">
+                        <span class="iconfont">
+                            <img src="{{ imgurl + d.uimg || '../image/my.png' }}" style="width: 0.72rem;height: 0.72rem;border-radius: 50%;">
+                        </span>
+                    <span class="user_name">{{ d.username }}</span>
+                    <span class="u-score">
+                            <span class="star" ng-style="{'width':'{{d.xing*20}}%'}"></span>
+                        </span>
+                </p>
+                <p class="comment_text">{{ d.content }}</p>
+                <ul class="u-ul_lr">
+                    <li class="li" ng-click="bookdetail(d.aid)">
+                        <div class="left">
+                            <img src="{{imgurl + d.book.images}}" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">{{ d.book.articlename }}</h3>
+                            <p class="text">
+                                <span class="author">{{ d.book.author }}</span>
+                                <span class="u-title1">{{ d.book.shortname }}</span>
+                                <!-- <span class="u-title2">女尊天下</span> -->
+                            </p>
+                            <p class="u-line2">{{ d.book.intro }}</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="foot">
+                    <p class="left">{{ d.addtime }}</p>
+                    <p class="right">
+                        <i>
+                            <span ng-click="dianzan(d.id)">点赞</span>
+                            <span class="nmb">{{ d.likes }}</span>
+                        </i>
+                        <!--  <i>
+                        <span>回复</span>
+                        <span class="nmb">0</span>
+                    </i> -->
+                    </p>
+                </div>
+            </div>
+            <!--  <div class="u-comment">
+            <p class="comment_user">
+                <span class="iconfont icon-user"></span>
+                <span class="user_name">ren111111</span>
+                <span class="u-score">
+                    <span class="star"></span>
+                </span>
+            </p>
+            <p class="comment_text">
+                "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+            </p>
+            <ul class="u-ul_lr">
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="foot">
+                <p class="left">36天前</p>
+                <p class="right">
+                    <i>
+                        <span>点赞</span>
+                        <span class="nmb">0</span>
+                    </i>
+                    <i>
+                        <span>回复</span>
+                        <span class="nmb">0</span>
+                    </i>
+                </p>
+            </div>
+        </div> -->
+        </div>
+    </div>
+</section>
+<div class="bottom_loadmore"></div>
+<script type="text/javascript">
+    $(function($) {
+        $('.js-discover').on('click', function(e) {
+            $('.js-discover').hide();
+            $('.js-finish').show();
+        });
+        // $('.js-finish').on('click', function(e) {
+        //     $('.js-finish').hide();
+        //     $('.js-discover').show();
+        // })
+    });
+</script>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- <script type="text/javascript" src="../script/common.js"></script> -->
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+    var userid;
+    apiready = function() {
+        $api.post(phpurl + 'Home/ad/shang', { //上线状态屏蔽
+        }, function(ret) {
+            if (ret.result[0].shang == 0) {
+                if (document.getElementById('qian_dao') != undefined) {
+                    document.getElementById('qian_dao').style.display = 'block';
+                }
+                if (document.getElementById('jin_e') != undefined) {
+                    document.getElementById('jin_e').style.display = 'block';
+                }
+            }
+        });
+        userid = $api.getStorage('user_id');
+        // alert(userid)
+        EventT.emit('apiready');
+        api.setFullScreen({
+            fullScreen : false,
+        });
+    };
+    function renmai() {
+        api.openWin({
+            name      : 'win_herenmai',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'ren_mai',
+                frm_url  : 'invite.html',
+                title    : '团队',
+            },
+        });
+    }
+    function tuijian() {
+        api.openWin({
+            name      : 'win_tui',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'tui_jian',
+                frm_url  : 'yaoqing.html',
+                title    : '邀请好友',
+            },
+        });
+    }
+    function shouyi() {
+        api.openWin({
+            name      : 'win_shouyi',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'shou_yi',
+                frm_url  : 'shouyi.html',
+                title    : '我的收益',
+            },
+        });
+    }
+    function shuping() {
+        api.openWin({
+            name      : 'win_shuping',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'shuping',
+                frm_url  : 'review.html',
+                title    : '书评',
+            },
+        });
+    }
+    function shudan() {
+        api.openWin({
+            name      : 'win_shudan',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'shudan',
+                frm_url  : 'BookSelection.html',
+                title    : '书单',
+            },
+        });
+    }
+    function paihang() {
+        api.openWin({
+            name      : 'win_ph',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'rank_ing',
+                frm_url  : 'ranking.html',
+                title    : '排行榜',
+            },
+        });
+    }
+    function myfile() {
+        api.openDrawerPane({
+            type : 'left',
+        });
+    }
+    var app = angular.module('myApp', []);
+    app.controller('DataCtrl', function($scope) { //angular开始
+        $scope.imgurl = imageUrl;
+        $scope.userimg = userimg;
+        $scope.dataList = [];
+        $scope.allreplyList = [];
+        //判断签到
+        function judgeQiandao() {
+            $api.post(phpurl + '/Home/Qiandao/qiandao?', {
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                $scope.cishu = ret.cishu;
+                if (ret.code == 200) {
+                    $scope.qiandaoStr = '签到';
+                } else if (ret.code == 220) {
+                    $scope.qiandaoStr = '已签到';
+                }
+                $scope.$apply();
+                // $api.closeloadding(); //关闭加载
+            });
+            // $api.closeloadding(); //关闭加载
+        }
+        //签到
+        $scope.qiandao = function() {
+            $api.post(phpurl + 'Home/Qiandao/qiandaoj?', {
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    api.toast({
+                        msg : '签到成功',
+                    });
+                } else if (ret.code == 220) {
+                    api.toast({
+                        msg : '您已经签到过了哦，请明天再来吧',
+                    });
+                }
+                judgeQiandao();
+                // $api.closeloadding(); //关闭加载
+            });
+            // $api.closeloadding(); //关闭加载
+        };
+        /*function getData() {
+            //	var sortid=api.pageParam.data.sortid;
+            $api.post(phpurl + 'Home/User/faxian?', {
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    $scope.dataList = ret.result;
+                    // console.log($scope.dataList)
+                    $scope.$apply();
+                }
+                // $api.closeloadding(); //关闭加载
+            });
+            // $api.closeloadding(); //关闭加载
+        }*/
+        function getData(page, callback) {
+            $api.post(phpurl + 'Home/User/faxian?', {
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    $scope.dataList = ret.result;
+                    // console.log($scope.dataList)
+                    $scope.$apply();
+                    var user_head = $api.getStorage('user_head');
+                    if (user_head != '' && user_head != 'touxiang.png' && user_head) {
+                        $('.frame3_my').attr('src', imageUrl + user_head);
+                    }
+                }
+                // $api.closeloadding(); //关闭加载
+            });
+            //	var sortid=api.pageParam.data.sortid;
+            $api.post(phpurl + "Home/Book/allreply", {
+                values : {
+                    page : page
+                }
+            }, function(ret) {
+                if (ret.code == 200) {
+                    var result = ret.result;
+                    if (page == 0) {
+                        $scope.allreplyList = [];
+                    }
+                    $scope.allreplyList = $scope.allreplyList.concat(result);
+                    // console.log(JSON.stringify($scope.dataList))
+                    $scope.$apply();
+                }
+                // $api.closeloadding(); //关闭加载
+                callback && callback(ret);
+            })
+            // $api.closeloadding(); //关闭加载
+        }
+        $scope.chongzhi = function(datas) {
+            api.openWin({
+                name      : 'win_chongzhi',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'chongzhi',
+                    frm_url  : 'frame1/chong_zhi.html',
+                    title    : '充值',
+                    data     : {
+                        yue : datas,
+                    },
+                },
+            });
+        };
+        //书籍详情
+        $scope.bookdetail = function(dates) {
+            api.openWin({
+                name      : dates + 'detail_list_win',
+                url       : 'dtail.html',
+                pageParam : {
+                    data     : {
+                        bookid : dates
+                    }
+                }
+            });
+        }
+        //点赞
+        $scope.dianzan = function(id) {
+            $api.post(phpurl + "Home/Book/addlike", {
+                values : {
+                    rid : id,
+                }
+            }, function(ret) {
+                if (ret.code == 200) {
+                    getData(0);
+                    api.toast({
+                        msg : '点赞成功',
+                    });
+                }
+            })
+        }
+        EventT.on('apiready', function() {
+            getData(0);
+            // judgeQiandao();
+            //监听登录情况，一旦登录成功刷新个人资料数据
+            api.addEventListener({
+                name : 'usershuas',
+            }, function(ret, err) {
+                userid = $api.getStorage('user_id');
+                // getData(0);
+                var user_head = $api.getStorage('user_head');
+                if (user_head != '' || user_head == 'touxiang.png') {
+                    $('.frame3_my').attr('src', imageUrl + user_head);
+                }
+                else {
+                    $('.frame3_my').attr('src', '../image/my_fff.png');
+                }
+            });
+            $api.cyUp(function(page, callback) {
+                // 通过par_len判断是否还有数据
+                getData(page, function(ret) {
+                    callback && callback(ret);
+                })
+            });
+            $api.pull(function(callback) {
+                getData(0, function() {
+                    callback && callback();
+                })
+            })
+        });
+    });
+    function sousuo() {
+        api.openWin({
+            name : 'win_header_fdsaf',
+            url  : 'frame0/seek_win.html',
+        });
+    }
+</script>
+</body>
+</html>

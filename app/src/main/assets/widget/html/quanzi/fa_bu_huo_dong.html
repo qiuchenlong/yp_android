@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/area.css" />
+    <style>
+    	.covers{
+    		width:100%;
+/*    		height:146px;*/
+    		background:#D2D2D2;
+    		text-align:center;
+    	}
+    	.covers img{
+    		width:100%;
+    		vertical-align: text-top;
+    		/*height:146px;*/
+    	}
+    	
+    	.activesDescribe{
+    		background:white;
+    	}
+    	.activesDescribe ul li{
+    		padding:0 10px;
+    		line-height:50px;
+    		color:#2A2A2A;
+    		border-bottom:1px solid #DADADA;
+    	}
+    	.activesDescribe ul li lable{
+    		font-size:15px;
+    		/*width:30%;*/
+    	}
+    	.activesDescribe ul li input{
+    		width:70%;
+    		font-size:12px;
+    		line-height: 50px;
+    		color:#2A2A2A;
+    	}
+    	.activesDescribe ul li:last-child textarea{
+    		float:left;width:70%;padding:20px 0 0 3px;font-size:12px;
+    		resize:none;
+    	}
+    	.activesDescribe ul li:last-child p{
+    		text-align:right;
+    		font-size:12px;
+    		color:#999;
+    	}
+    	
+    	.quit{
+    		margin:10px 0;
+    		padding:0 10px;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		color:#5C5C5C;
+    		border-radius:5px;
+    		font-size:14px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="covers" onclick="getBanner()">
+		<img src="../../image/fabu_021.png" alt="" id="bannerImg"/>
+	</div>
+	<div class="activesDescribe">
+		<ul>
+			<li>
+				<lable>活动标题：</lable>
+				<input type="text" placeholder="填写标题" id="activeTitle"/>
+			</li>
+			<li>
+				<lable>活动时间：</lable>
+				<input type="text" placeholder="填写活动时间" id="activeTime"/>
+			</li>
+			<div class="browser">
+		        <!--选择地区-->
+		        <section class="express-area">
+		            <a id="expressArea" href="javascript:void(0)" style="padding:15px 10px;">
+		                <dl>
+		                    <dt style="font-size:15px;color:#2A2A2A">所在地区：</dt>
+		                    <dd id="area" style="font-size:12px;margin-left:80px;padding-top:3px;color:#999;">省 > 市 > 区/县</dd>
+		                </dl>
+		            </a>
+		        </section>
+		        <!--选择地区弹层-->
+		        <section id="areaLayer" class="express-area-box">
+		            <header>
+		                <h3>选择地区</h3>
+		                <a id="backUp" class="back" href="javascript:void(0)" title="返回"></a>
+		                <a id="closeArea" class="close" href="javascript:void(0)" title="关闭"></a>
+		            </header>
+		            <article id="areaBox">
+		                <ul id="areaList" class="area-list"></ul>
+		            </article>
+		        </section>
+		        <!--遮罩层-->
+		        <div id="areaMask" class="mask"></div>
+		    
+		    </div>
+			<li>
+				<lable>活动地点：</lable>
+				<input type="text" placeholder="填写活动详细地点" id="activeAddress"/>
+			</li>
+			<li>
+				<lable>发&nbsp;起&nbsp;人&nbsp;：</lable>
+				<input type="text" placeholder="填写真实姓名审核" id="activeSponsor"/>
+			</li>
+			<li>
+				<lable>联系电话：</lable>
+				<input type="text" placeholder="填写发起人联系方式" id="activeContact"/>
+			</li>
+			<li>
+				<lable>活动费用：</lable>
+				<input type="text" placeholder="填写参加活动AA人均费用" id="activeCost"/>
+			</li>
+			<li class="clearfix">
+				<lable style="float:left;">活动详情：</lable>
+				<textarea id="msg" cols="30" rows="10" placeholder="填写活动介绍及活动流程"></textarea>
+				<!--<p style="clear: both;"><span id="ziShu">0</span>/200</p>-->
+			</li>
+		</ul>
+	</div>
+	
+	<div class="quit" onclick="sub()">
+		<button class="appbackground">
+			提交审核
+		</button>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/shangtu.js"></script>
+<script type="text/javascript" src="../frame3/jquery.area.js" ></script>
+<script type="text/javascript">
+//	$('#msg').on("input",function(){
+//		//var count = $(this).val().length;
+//		$(this).val($(this).val().substring(0,200));
+//	})
+	getTheme();
+	var banner;
+	apiready = function(){
+	
+	  if(!userid){
+				    api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+            	}
+            	
+		changeTheme();
+	};
+	
+	function getBanner(){
+//		selectAction.shang_tu(function(url){
+//          var bannerImg = document.getElementById('bannerImg');
+//          banner = url;
+//          bannerImg.src = banner;
+//	   })
+	   
+	   
+	   selectAction.shang_tu(function(url){
+	   		api.openWin({
+	            name: 'clip',
+	            url: '../clip.html',
+	            pageParam:{
+	               url:url,
+	               nameImg:'huoDongImg'
+	            }
+            });
+            var bannerImg = document.getElementById('bannerImg');
+            api.addEventListener({
+	            name:'clip'
+            },function(ret,err){
+            	banner = ret.value.url;
+            	bannerImg.src = banner;
+            });
+	   })
+	}
+	
+	function sub(){
+	           if(!userid){
+		      api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+			        }
+		$api.loadding('fa_bu_huo_dong',0);
+		var activeTitle = $('#activeTitle').val();
+		var activeTime = $('#activeTime').val();
+		var activeAddress = $('#activeAddress').val();
+		var activeSponsor = $('#activeSponsor').val();
+		var activeContact = $('#activeContact').val();
+		var activeCost = $('#activeCost').val();
+		var des = $('#msg').val();
+		var city = $('#area').text();
+		city = city.replace(/\>/g,' ');
+		if(!activeTitle || !activeTime || !activeAddress || !activeSponsor || !activeContact || !activeCost || !des){
+			api.toast({
+	            msg:'内容填写不完整哦'
+            });
+            $api.closeloadding();
+            return false;
+		}
+		if(!banner){
+			api.toast({
+	            msg:'活动封面还没上传'
+            });
+            $api.closeloadding();
+            return false;
+		}
+		$api.post(phpurl+"Activity/addActivity",{
+			values:{
+				phone:activeContact,
+				name:activeSponsor,
+				content:des,
+				location:activeAddress,
+				price:activeCost,
+				user_id:userid,
+				title:activeTitle,
+				activitytime:activeTime,
+				city:city
+			},
+			files:{
+				image:banner
+			}
+		},function(ret,err){
+			if(ret.code == 200){
+				$api.send('activePostOk');
+				api.openWin({
+	                name: 'huo_dong_lie_biao_win',
+	                url: 'huo_dong_lie_biao_win.html'
+                });
+                setTimeout(function(){
+                	api.closeWin({});
+                },500)
+                
+			}
+			$api.closeloadding();
+		})
+	}
+</script>
+</html>

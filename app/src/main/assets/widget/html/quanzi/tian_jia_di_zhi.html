@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+	<style>
+
+	.sou_suo {
+		padding:10px 20px;
+		position: relative;
+	}
+	.sou_suo input {
+		height: 34px;
+		width: 100%;
+		padding: 5px 10px 5px 40px;
+		box-sizing: border-box;
+		border-radius: 3px;
+		background: #fff;
+	}
+	.icon-iconfontsousuo {
+		position: absolute;
+		left: 28px;
+		top: 14px;
+		font-size: 20px;
+	}
+	.di_zhi_lie_biao{
+		margin-top:10px;
+		background:#fff;
+	}
+
+	.di_zhi_lie_biao li {
+		padding:5px 10px;
+		line-height: 44px;
+		height: 40px;
+		color:#666;
+		position: relative; 
+		border-bottom: 1px solid #eee;
+	}
+
+	.di_zhi_lie_biao li h5 {
+		line-height: 20px;
+		font-weight: 300;
+		font-size: 14px;
+		margin-top:2px;
+		color:#666;
+	}
+	.di_zhi_lie_biao li p {
+		line-height: 17px;
+		font-size: 10px;
+		color:#999;
+	}
+
+	.di_zhi_lie_biao .icon-xuanzhong {
+		display: none;
+	}
+
+	.di_zhi_lie_biao .active .icon-xuanzhong {
+		display: block;
+		position: absolute;
+		right:10px;
+		line-height: 18px;
+		font-size: 22px;
+		top:50%;
+		width: 18px;
+		text-indent: -2px;
+		margin-top:-10px;
+		background:#333;
+		border-radius: 50%;
+	}
+	</style>
+</head>
+<body ng-controller="LoctionController">
+
+   	<div class="sou_suo">
+	   	<input type="search" placeholder="周边地标" id="text" ng-model="searchname" ng-search="seek()" >
+	   	<i class="iconfont icon-iconfontsousuo apptxtcolor" ng-click="seek()" ></i>
+   	</div>
+
+    <ul class="di_zhi_lie_biao">
+   		<li ng-click="select(false)">不显示<i class="iconfont icon-xuanzhong apptxtcolor" ></i></li>
+   		<li  ng-repeat="localItem in localList" ng-click="select(localItem)">
+   			<h5>{{ localItem.name }}</h5>
+	   		<p class="text-ov">{{localItem.address}}</p>
+	   		<i class="iconfont icon-xuanzhong apptxtcolor"></i>
+   		</li>
+   		<!--<li>
+   			<h5>礼村</h5>
+	   		<p>番禺区大石</p>
+	   		<i class="iconfont icon-xuanzhong apptxtcolor"></i>
+   		</li>-->
+   </ul>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script>
+	var city = '';
+	//键盘出发搜索
+	$api.byId('text').onkeydown = function(event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e.keyCode == 13) {
+			api.closeFrame({
+				name : 'seek'
+			});
+			$api.loadding('name' , 0);
+			get_data($api.byId('text').value)
+		};
+	};
+	
+	
+	apiready = function() {
+		changeTheme()
+		EventT.emit('apiready');
+	};
+	
+	var get_data = '' ;
+	var app = angular.module("myApp", []);
+	
+	//手势监控指令
+	"use strict";
+	app.directive("ngSearch", function () {
+	    return {
+	        controller: ["$scope", "$element", function ($scope, $element) {
+	            $element.bind("search", onSearch);
+	            function onSearch(event) {
+	                var method = $element.attr("ng-search");
+	                $scope.$apply(method);
+	            }
+	        }]
+	    }
+	});
+	app.controller('LoctionController', ['$scope',
+	function($scope) {
+		get_data = function (keyword ){
+			var aMap = api.require('aMap');
+			aMap.open({  //这个是因为getLocation方法就要先open先调用才行
+			    rect: {
+			        x: 0,
+			        y: 0,
+			        w: 0,
+			        h: 0
+			    },
+			    showUserLocation: true,
+			    zoomLevel: 11,
+			    center: {
+			        lon: 116.4021310000,
+			        lat: 39.9994480000
+			    },
+			    fixedOn: api.frameName,
+			    fixed: true
+			}, function(ret, err) {
+				console.log($api.jsonToStr(err))
+				console.log($api.jsonToStr(ret))
+			    if (ret.status) {
+			 
+			      	aMap.getLocation(function(ret, err) {			 
+						console.log($api.jsonToStr(err))
+						console.log($api.jsonToStr(ret))
+					    if (ret.status) {
+					        var lon = ret.lon, lat = ret.lat;
+					        console.log(lon +'   '+lat) ;
+					        aMap.getNameFromCoords({
+							    lon: lon,
+							    lat: lat
+							}, function(ret, err) {
+								var site = $api.getStorage('site');	
+							    if (ret.status) {
+							      	city = ret.city||site.city
+							    }else{
+							    	city = site.city
+							    } 
+							});
+					        
+							aMap.searchNearby({
+							    keyword: '小区|地标|大厦|写字楼|景点|酒店|公园|医院|游乐场',
+							    lon: lon,
+							    lat: lat,
+							    radius: 1000,
+							    offset: 50,
+							    page: 1,
+							    sortrule: 0
+							}, function(ret, err) {
+								
+								aMap.stopLocation();
+								aMap.close();
+								console.log($api.jsonToStr(ret));
+								console.log($api.jsonToStr(err))
+							    if (ret.status) {
+									$scope.localList = ret.pois;
+									$scope.$apply();
+									$api.closeloadding();
+								} else {
+									$api.t('无法搜索附近的地点，请确定应用有定位权限',5000);
+									setTimeout(api.closeWin , 3000)
+								}
+							});
+					    } else {
+					       $api.t('无法搜索附近的地点，请确定应用有定位权限1',5000);		
+							setTimeout(api.closeWin , 3000)
+					    }
+					});
+			  
+			    } 
+			})
+			
+			return ;
+//			aMap.getLocation({
+//				accuracy : '100m',
+//				autoStop : true,
+//				filter : 1
+//			}, function(ret, err) {
+//				if (ret.status) {
+//					aMap.searchNearby({
+//						keyword : keyword,
+//						lon : ret.lon,
+//						lat : ret.lat,
+//						radius : 500
+//					}, function(ret, err) {
+//						if (ret.status) {
+//							$scope.localList = ret.results;
+//							$scope.$apply();
+//							$api.closeloadding();
+//						} else {
+//							$api.t('无法搜索附近的地点，请确定应用有定位权限',5000);
+//							setTimeout(api.closeWin , 3000)
+//						}
+//					});
+//				} else {
+//					$api.t('无法搜索附近的地点，请确定应用有定位权限',5000);		
+//					setTimeout(api.closeWin , 3000)
+//				}
+//			});
+		}
+		$scope.localList = [];
+		$scope.searchname = "";
+		EventT.on('apiready', function() {
+			get_data('商店,超市');
+			$scope.select = function(item) {
+				var data = {};
+				if(item){
+					data = {
+						location : item.name,
+						lat : item.lat,
+						lon : item.lon,
+						city : city
+					}
+				}
+				api.sendEvent({
+					name : 'sLoction',
+					extra : data
+				});
+				api.closeWin({
+				});
+			}
+			$scope.seek = function() {
+				if($api.trimAll($scope.searchname)){
+					$api.loadding('name' , 0);
+					get_data($scope.searchname);
+				}else{
+					$api.t('请输入搜索的关键字',2000);
+				}
+			}
+			
+		})
+	}]);
+	
+	
+function go_faBu(){//发布
+	 api.openWin({
+       name: 'di_tu_win',
+       url: 'di_tu_win.html',
+       pageParam:{
+         
+       }
+    });
+}
+</script>
+</html>

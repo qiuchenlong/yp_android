@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.booksList2{
+    		background:white;
+    		margin-top:5px;
+    		padding:0 10px 10px 10px;
+    	}
+    	.booksList2 img { width: 100%; height: auto;}
+    </style>
+</head>
+<body>
+	<div class="booksList2">
+		<img src="../../image/shuoming.JPG"/>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+	$(".booksList2 li").click(function(){
+	    api.openWin({
+	       name: 'win_header4545454',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'goods_detai54565',
+               frm_url:'frame0/bookDetails.html',
+               title:'书籍详情',
+              
+	       }
+        });
+	})
+	apiready = function(){
+		
+	};
+</script>
+</html>

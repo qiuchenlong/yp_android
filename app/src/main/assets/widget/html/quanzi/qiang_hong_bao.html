@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+	<style>
+	
+		
+		.yong_hu_lie_baio {
+			padding:0 10px;
+			background:#fff;
+			background:rgb(191,64,58);
+			border-top: 1px solid rgb(163,43,48);
+		
+		}
+		.yong_hu_lie_baio {
+			overflow: scroll;
+		}
+		.yong_hu_lie_baio li {
+			padding:15px 0 ;
+			height: 40px;
+			border-bottom: 1px solid rgb(163,43,48);
+		}
+
+		.yong_hu_lie_baio li img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+		.yong_hu_lie_baio .text .ming_zi {
+			margin-top:2px;
+		}
+		.yong_hu_lie_baio .text p {
+			font-size: 12px;
+			line-height: 20px;
+			color:#fff;
+		}
+
+		.yong_hu_lie_baio .quan_zi_ming_zi {
+			font-size: 12px;
+			margin-top: 2px;
+		}
+
+		.yong_hu_lie_baio .cheng_yuan_shu{
+			font-size: 10px;
+		}
+
+		.yong_hu_lie_baio span {
+			width: 60px;
+			line-height: 42px;
+			color:#fff;
+			font-size: 12px;
+		}
+
+		.tou_xiang {
+			position: relative;
+		}
+		
+		
+		.tou_xiang img {
+			width: 100%;
+		}
+
+		.tou_xiang .tou_xiang_img{
+			width:80px;
+			position:absolute;
+			top:20%;
+			left:50%;
+			margin-left:-40px;
+		}
+
+		.tou_xiang .tou_xiang_img img{
+			border-radius: 50%;
+			height: 80px;
+		}
+
+		.tou_xiang .tou_xiang_img button {
+			width: 100%;
+			line-height: 30px;
+			text-align: center;
+			margin-top:10px;
+			padding:0 10px;
+			background: rgb(231,59,49);
+			color:#fff;
+			border-radius: 5px;
+		}
+
+		body ,html {
+			background:rgb(191,64,58);
+		}
+
+		body {
+			padding-bottom: 60px;
+		}
+		.kan_kan {
+			line-height: 20px;
+			text-align: center;
+			color:#fff;
+			padding-bottom: 30px;
+		}
+		
+		.no-datas {
+			line-height:50px;
+			color:#fff;
+			font-size:12px;
+			
+			text-align:center;
+		}
+		
+	</style>
+</head>
+<body ng-controller="LoctionController">
+   <div class="tou_xiang">
+   	<img src="../../image/hao_bao_bg.jpg" alt="">
+   	<div class="tou_xiang_img">
+   		<img src="{{ Imageurl + userInfo.sumbheadimg }}" alt="">
+   		<button ng-click="qiangHongBao(ret.isqiang)">  {{ ret.isqiang==1?ret.money:'抢红包' }} </button>
+   	</div>
+   </div>
+   <h5 class="kan_kan" onclick="openKanKan();">看看谁还在抢红包</h5>
+    <ul class="yong_hu_lie_baio ">
+   		<li class="flex-wrap" ng-repeat="i in ret.list">
+   			<img src="{{ Imageurl + i.sumbheadimg }}" onclick="$api.open_user(this.id)" id="{{ i.name+','+i.user_id }}" alt="">
+   			<div class="flex-con text">
+   				<p class="ming_zi">{{ i.name }}</p>
+   				<p class="shi_jian">{{ i.addtime }}</p>
+   			</div>
+   			<span>{{ i.money }}元</span>
+   		</li>
+   		
+		<!--<li class="flex-wrap">
+   			<img src="../../image/frame0/goods_5.png" alt="">
+   			<div class="flex-con text">
+   				<p class="ming_zi">名字</p>
+   				<p class="shi_jian">2017-03-21</p>
+   			</div>
+   				<span>0.15元</span>
+   		</li>-->   		
+   </ul>
+   <p class="no-datas" ng-show="!ret.list.length" >还没有人抢红包,快去抢吧！</p>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script>
+	getTheme();
+	var circle_id = 0;
+	apiready = function(){
+		changeTheme();
+		circle_id = api.pageParam.circle_id||0;
+		EventT.emit('apiready');
+	};
+	
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope',function($scope) {
+		$scope.Imageurl = Imageurl;
+		$scope.userInfo = $api.getStorage('userInfo');
+		EventT.on('apiready', function() {
+			$api.post(phpurl+'RedPacket/getRedDetail', {
+				values:{
+					user_id:userid,
+					circle_id:circle_id
+				}
+			},function(ret){
+				if(ret){
+					$scope.ret = ret;
+					$scope.$apply();
+					$api.closeloadding();
+				}else{
+					$api.t('服务器错误 ，请联系客服');
+					setTimeout(api.closeWin , 500)
+				}
+			})
+		});
+		
+		
+		$scope.qiangHongBao=function(n){
+			if(!n){
+				$api.post(phpurl+'RedPacket/GrabRedPacket' , {
+					values:{
+						user_id:userid,
+						circle_id:circle_id
+					}
+				},function(ret){
+					if(ret.code==200){
+						$scope.ret.isqiang = 1;
+						$scope.ret.money = ret.money+'元';
+						$scope.$apply();
+					}else{
+						$api.t(ret.msg)
+					}
+				})
+			}
+		}
+	}]);
+	
+	function openKanKan(){
+		
+		openW({
+			frm_url:'frame2/kan_kan_qiang_hong_bao.html',
+			title:'fsf',
+			data:{
+				is_win:false,
+				circle_id:circle_id
+			}
+		})
+	}
+	
+</script>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+        html{
+            height: 100%;
+            /*height: 100vh;*/
+            background: url('../../image/loginbg.png') no-repeat;
+            position: relative;
+        }
+        body{
+            background: #f3f3f3;
+        }
+        .content{
+            /*background:white;*/
+            /*width:90%;*/
+            width: calc(100% - 75px);
+            margin: 0 auto;
+            /*border:1px solid #ddd;*/
+        }
+        .content ul li{
+            border-bottom: 1px solid #ddd;
+            /*padding:6px 6px 6px 10px;*/
+            font-size: 14px;
+            /*line-height:30px;*/
+            height: 54px;
+            display: flex;
+            align-items: center;
+        }
+        .content ul li:last-child{
+            /*border:0;*/
+        }
+        .content ul li input{
+            color: #989898;
+            outline: none;
+            width: 100%;
+        }
+        .content ul li input::-webkit-input-placeholder{ /* WebKit browsers */
+            color: #d3d3d4;
+        }
+        /*    	.content ul li:first-child input{
+                    width:70%;
+                }*/
+        .getCode{
+            float: right;
+            text-decoration: underline;
+            color: #2674cc;
+        }
+        .forget{
+            /*background:white;*/
+            /*width:84%;*/
+            width: calc(100% - 75px);
+            margin: 0 auto;
+            font-size: 12px;
+            /*line-height:35px;*/
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /*padding:0 3%;*/
+        }
+        .forget span{
+            color: #4e4d4b;
+        }
+        .forget span:nth-child(2){
+            color: #fc6a4c;
+        }
+        .forget_psd{
+            color: #2674cc;
+        }
+        .btn{
+            width: calc(100% - 75px);
+            margin: 0 auto;
+        }
+        .btn button{
+            width: 100%;
+            height: 35px;
+            background: #ccc;
+            color: white;
+            border-radius: 3px;
+        }
+        .footer{
+            /*position:fixed;*/
+            /*position: absolute;*/
+            /*left:0;*/
+            /*bottom:0;*/
+            margin-top: 112px;
+            width: 100%;
+        }
+        .footer p{
+            font-size: 13px;
+            /*color:#151515;*/
+            color: #959595;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+        .footer p .line1, .footer p .line2{
+            border-top: 1px solid #a4a4a4;
+            width: 25%;
+            position: absolute;
+            top: 6px;
+            right: 20px;
+        }
+        .footer p .line1{
+            left: 20px;
+        }
+        .login_way{
+            /*width:50%;*/
+            display: flex;
+            justify-content: center;
+            width: calc(100% - 60px);
+            /*padding:20px 0;*/
+            margin: 25px auto 0;
+            /*text-align:center;*/
+        }
+        /*    	.qq{
+                    float:left;
+                    width:40%;
+                }*/
+        .weixin{
+            /*    		float:right;*/
+            width: 58px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        /*.weixin:nth-child(2){
+            margin: 0 66px;
+        }*/
+        .weixin img{
+            width: 58px;
+            height: 58px;
+        }
+        .weixin span{
+            font-size: 12px;
+            margin-top: 11px;
+            color: #a2a2a2;
+        }
+        .qq img, .weixin img{
+            /*width:40%;*/
+        }
+        .go-register{
+            float: right;
+        }
+        .page_1{
+            display: flex;
+            height: 121px;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .page_1 .row{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page_1 .line{
+            height: 1px;
+            width: 120px;
+            background: #ccc;
+        }
+        .page_1 .txt{
+            padding: 0 14px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .page_1 .tip{
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c0bfc1;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="page_1">
+    <div class="row">
+        <div class="line"></div>
+        <div class="txt">账号登录</div>
+        <div class="line"></div>
+    </div>
+    <div class="tip">
+        （各登录方式不同，信息不互通）
+    </div>
+</div>
+<div class="content">
+    <ul>
+        <li>
+            <input type="text" id="phone" placeholder="账号" onchange="bianse();" value="" />
+            <!--<a class="getCode" href="javascript:;">获取验证码</a>-->
+        </li>
+        <!--			<li>
+                        <input type="text" placeholder="输入你收到的验证码"/>
+                    </li>-->
+        <li>
+            <input type="password" id="pwd" placeholder="密码" value="" />
+        </li>
+    </ul>
+</div>
+<div class="forget">
+    <span class="forget_psd" onclick="openR()">忘记密码</span>
+    <!--<a href="javascript:;" style="text-decoration: underline;color:#484848;float:right;">已有账号，点击登录</a>-->
+    <span class="go-register" onclick="openreguster()">注册账号</span>
+</div>
+<div class="btn">
+    <button id="tijiao">
+        登录
+    </button>
+</div>
+<div class="footer">
+    <p><span class="line1" style=""></span><span style="width:40%;">或使用第三方账号登录</span><span class="line2" style=""></span></p>
+    <div class="login_way clearfix">
+ <!--       <div class="qq">
+            <img src="../../image/qq_login.png" alt="" />
+        </div>
+        <div class="weixin">
+            <img src="../../image/1.png" alt="" onclick=""/>
+            <span>QQ账号</span>
+        </div>-->
+        <div class="weixin">
+            <img src="../../image/2.png" alt="" id="wx"/>
+                <span>微信登录</span>
+        </div>
+     <!--   <div class="weixin">
+            <img src="../../image/3.png" alt="" onclick=""/>
+                <span>微博账号</span>
+        </div>-->
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/userModel.js"></script>
+<script type="text/javascript" src="../../script/f_otherLogin.js"></script>
+<script type="text/javascript">
+    function bianse() {
+        $api.dom('#tijiao').style.background = '#fd7656';
+    }
+    apiready = function() {
+        document.getElementById('phone').value = '';
+        document.getElementById('pwd').value = '';
+        $api.dom('body').style.height = (api.winHeight - api.pageParam - 10) + 'px';
+        var tiojiao = document.getElementById('tijiao');
+        tijiao.onclick = function() {
+            var connectionType = api.connectionType;
+            if (connectionType == 'none' || connectionType == 'unknown') {
+                alert('网络未连接');
+                return false;
+            }
+            var phone = document.getElementById('phone').value;
+            var pwd = document.getElementById('pwd').value;
+            //				if(!checkMobile(phone)){
+            //					api.toast({
+            //	                    msg:'请输入正确的手机号'
+            //                  });
+            //                  return;
+            //				}
+            if (!(pwd && pwd.length >= 6)) {
+                api.toast({
+                    msg : '密码不能为空并且不少于6位',
+                });
+                return;
+            }
+            if (!phone) {
+                api.toast({
+                    msg : '账号未填写',
+                });
+                return;
+            }
+            $api.post(phpurl + 'Home/User/login', {//设置上线
+                values : {
+                    phone    : phone,
+                    password : pwd,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    api.toast({
+                        msg : '登录成功',
+                    });
+                    $api.setStorage('user_id', ret.result[0].uid);
+                    $api.setStorage('user', ret.result[0]);
+                    $api.send('usershua', {cid : 1});
+                    $api.send('usershuas', {cid : 1});
+                    setTimeout(function() {
+                        /*api.openSlidLayout({
+                            type          : 'left',
+                            fixedPane     : {
+                                name : 'wo',
+                                url  : '../wo.html',
+                            },
+                            slidPane      : {
+                                name : 'homeSlid',
+                                url  : '../homeSlid.html',
+                            },
+                            slidPaneStyle : {
+                                leftEdge : window.innerWidth * 0.2,
+                            },
+                        }, function(ret, err) {
+                        });*/
+                        api.openDrawerLayout({
+                            type            : 'left',
+                            name            : 'homeSlid',
+                            url             : '../homeSlid.html',
+                            slidBackEnabled : false,
+                            slidBackType    : false,
+                            leftPane        : {
+                                edge : 60,
+                                // bgColor : 'rgba(0,0,0,0.5)',
+                                name : 'wo',
+                                url  : '../wo.html',
+                            },
+                            animation       : {
+                                type : "none",
+                            },
+                            // bgColor         : 'rgba(0,0,0,0.5)',
+                        });
+                    }, 800);
+                }
+                else {
+                    api.toast({
+                        msg : '账号或者密码错误',
+                    });
+                }
+            });
+            //				user.login(phone,pwd,function(ret){
+            //					if(ret && ret.code==200){
+            //						api.toast({
+            //	                        msg:'登录成功'
+            //                      });
+            //
+            //                      $api.send('fresh');//登录之后重新加载数据
+            //                      $api.post(phpurl+'set_online_state.php',{//设置上线
+            //                      	values:{
+            //                      		state:1,
+            //                      		user_id:ret.result
+            //                      	}
+            //                      },function(ret){});
+            //                      setTimeout(function(){
+            //                      	api.openWin({
+            //		                        name: 'homeSlid',
+            //			                    url: '../homeSlid.html',
+            //			                    bounces:false,
+            //			                    slidBackEnabled:false
+            //	                        })
+            //                      },800)
+            //					}else if(ret && ret.code==201){
+            //						api.toast({
+            //	                        msg:'该账号还没为注册'
+            //                      });
+            //					}else if(ret && ret.code==202){
+            //						api.toast({
+            //	                        msg:'密码不正确'
+            //                      });
+            //					}else if(ret && ret.code == 203){
+            //						api.toast({
+            //	                        msg:'账号已被封禁，请联系客服'
+            //                      });
+            //					}else{
+            //						api.toast({
+            //	                        msg:'网络不稳定'
+            //                      });
+            //					}
+            //				})
+        };
+    };
+    function openreguster() {
+        api.openWin({
+            name : 'register_win',
+            url  : 'register_win.html',
+        });
+    }
+    function openR() {
+        api.openWin({
+            name : 'reset_win',
+            url  : 'reset_win.html',
+        });
+    }
+
+
+    $api.byId('wx').onclick=function(){
+	var wx = api.require('wx');
+		wx.auth({
+			apiKey : 'wx5aa686959aa89f63'
+		}, function(ret, err) {
+
+			if (ret.status) {
+			api.toast({
+	            msg:'登陆中'
+            });
+				wx.getToken({
+					code : ret.code
+				}, function(ret, err) {
+
+					if (ret.status) {
+						//获取用户信息
+						var accessToken = ret.accessToken;
+						var openId = ret.openId;
+						wx.getUserInfo({
+							accessToken : ret.accessToken,
+							openId : ret.openId
+						}, function(ret, err) {
+//                         alert($api.jsonToStr(ret));
+							if (ret.status) {
+								var oid = ret.openid;
+								var nm = ret.nickname;
+								var sex = ret.sex;
+								var images=ret.headimgurl;
+//                                    alert(oid);
+                                             $api.post(phpurl+'Home/User/otherRegister',{
+		            values:{
+		               sex:sex,
+		               openid:oid,
+		               name:nm,
+		               images:images
+		            }
+
+		        },function(ret,err){
+//		        alert($api.jsonToStr(ret));
+
+		                          if(ret.code==200)
+                          {
+                          api.toast({
+	                        msg:'登录成功'
+                        });
+                         $api.setStorage('user_id',ret.result.uid);
+                        $api.setStorage('user',ret.result);
+                         $api.send("usershua",{cid:1});
+                            $api.send("usershuas",{cid:1});
+                        setTimeout(function(){
+
+
+                        	api.openSlidLayout({
+            type: 'left',
+            fixedPane: {
+                name: 'wo',
+                url: '../wo.html'
+            },
+            slidPane: {
+                name: 'homeSlid',
+                url: '../homeSlid.html'
+            },
+            slidPaneStyle: {
+                leftEdge: window.innerWidth * 0.2
+            }
+        }, function(ret, err) {
+
+        });
+
+                        },800)
+
+                        }
+
+
+
+		        })
+
+
+
+							} else {
+
+							}
+						});
+					}
+				});
+
+			} else {
+
+				if (api.systemType == 'android' && err.code == 3) {
+
+				}
+			}
+		})
+
+    };
+
+    function weiXinLogin() {
+        //		var loginWay = new otherLogin();
+        //		loginWay.wx_register();
+        var Login = new otherLogin();
+        Login.wx_register(function(ret, err) {
+            if (ret) {
+                var sex;
+                if (ret.sex == 1) {
+                    sex = '男';
+                } else if (ret.sex == 0) {
+                    sex = '女';
+                }
+                $api.post(phpurl + 'wx_login.php', {
+                    values : {
+                        name   : ret.name,
+                        wechat : ret.openid,
+                        sex    : sex,
+                    },
+                    files  : {
+                        images : ret.headimgurl,
+                    },
+                }, function(rel, err) {
+                    if (rel && rel.state == 1) {
+                        $api.setStorage('userid', rel.result.user_id);
+                        api.openWin({
+                            name            : 'she_zhi_ji_ben_zi_liao_win',
+                            url             : '../frame0/she_zhi_ji_ben_zi_liao_win.html',
+                            slidBackEnabled : false,
+                            pageParam       : {flag : 1},
+                        });
+                    } else if (rel && rel.state == 0) {
+                        $api.setStorage('userid', rel.result.user_id);
+                        $api.setStorage('sex', rel.result.sex);
+                        $api.send('fresh');//登录之后重新加载数据
+                        api.openWin({
+                            name            : 'homeSlid',
+                            url             : '../homeSlid.html',
+                            bounces         : false,
+                            slidBackEnabled : false,
+                        });
+                    }
+                });
+            } else {
+            }
+        });
+    }
+</script>
+</html>

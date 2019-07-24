@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.ranking ul li{
+    		padding:10px;
+    		background:white;
+    		height:50px;
+    		line-height:50px;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    	.ranking ul li img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+/*    		vertical-align: text-bottom;
+    		margin-bottom:-15px;*/
+    	}
+    	.ranking ul li span{
+    		display:inline-block;
+    	}
+    	.ranking ul li .nos,.ranking ul li .userHead{
+    		float:left;
+    		margin-right:6px;
+    	}
+    	.ranking ul li .userHead{
+    		height:40px;
+    	}
+    	.ranking ul li .nos{
+    		overflow:hidden;
+    	}
+    	.ranking ul li .userName,.ranking ul li .point{
+    		font-size:12px;
+    	}
+    	.ranking ul li .userName{
+    		float:left;
+    		width:45%;
+    		height:30px;
+    		line-height:15px;
+    		margin-top:10px;
+			margin-left:8px;
+    		overflow: hidden;
+    	}
+    	.ranking ul li .userName span:first-child{
+    		width:100%;
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+    	}
+    	.ranking ul li .point{
+    		float:right;
+    		color:#999;
+    		font-size:25px;
+    		line-height: 40px;
+    	}
+    	
+    	.foot{
+    		position:fixed;
+    		bottom:0;
+    		width:94%;
+    		background:white;
+    		line-height:16px;
+    		font-size:12px;
+    		color:#717171;
+    		padding:15px 3%;
+    		margin-top:10px;
+    	}
+    	.foot .cha{
+    		float:right;
+    	}
+    	.foot .cl{
+    		color:#F5892B;
+    	}
+    	#ge_ren .ge_ren_title{
+    		background:white;
+    		text-align:center;
+    		font-size:14px;
+    		line-height:40px;
+    		margin:8px 0;
+    	}
+    </style>
+</head>
+<body ng-controller="rankingList">
+<!--	<div id="ge_ren" onclick="openGuiZe()">
+		<p class="ge_ren_title">部落活跃度规则及奖励说明</p>
+	</div>-->
+	<div class="ranking" style="margin-bottom:45px;">
+		<ul>
+			<li ng-repeat="i in listData" ng-click="openQuanZi(i.circle_id)">
+				<span class="nos" ng-style="i.Col">No.{{ i.rownum }}</span>
+				<span class="userHead">
+					<img src="{{ imgurl+i.sumbmasterimg }}" alt=""/>
+				</span>
+				<span class="userName">
+					<span>{{ i.name }}</span>
+					<br />
+					<span>{{ i.huoyue }}点</span>
+				</span>
+				<span class="point">
+					<i ng-if="i.guan==0" class="iconfont icon-plus" ng-click="guan(i.circle_id,$index)"></i>
+					<i ng-if="i.guan==1" class="iconfont icon-duigou"></i>
+				</span>
+			</li>
+<!--			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;color:#FEAF20;">No.2</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">
+					<span>MR.L君君</span>
+					<br />
+					<span>11200点</span>
+				</span>
+				<span class="point"><span class="point"><i class="iconfont icon-duigou"></i></span></span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;color:#FED620;">No.3</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">
+					<span>MR.L君君</span>
+					<br />
+					<span>11200点</span>
+				</span>
+				<span class="point"><span class="point"><i class="iconfont icon-duigou"></i></span></span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;">No.4</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">
+					<span>MR.L君君</span>
+					<br />
+					<span>11200点</span>
+				</span>
+				<span class="point"><span class="point"><i class="iconfont icon-plus"></i></span></span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;">No.5</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">
+					<span>MR.L君君</span>
+					<br />
+					<span>11200点</span>
+				</span>
+				<span class="point"><span class="point"><i class="iconfont icon-plus"></i></span></span>
+			</li>-->
+		</ul>
+	</div>
+	<div class="bottom_loadmore" style="text-align:center;"></div>
+	<div class="foot">
+		你加入的部落中活跃度排名最高为<span class="cl">{{ paiMing.name }}</span>,活跃度<span>{{ paiMing.huoyue }}</span>,排名<span class="cl">{{ paiMing.rownum }}</span>名
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		changeTheme();
+		EventT.emit("apiready");
+	};
+	var app = angular.module("myApp",[]);
+	app.controller("rankingList",["$scope",function($scope){
+		$scope.listData = [];
+		$scope.paiMing = [];
+		$scope.imgurl = Imageurl;
+		
+		$scope.openQuanZi = function(id){
+			openW({
+				frm_url : 'frame2/quan_zi_xiang_qing.html',
+				title : 'dsaf',
+				data:{
+					is_win:false,
+					circle_id:id
+				}
+			})	
+		}
+		
+		$scope.guan = function (id, index){
+			  if(!userid){
+		      api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+			        }
+			        
+			event.stopPropagation();
+			$api.post(phpurl +'Circle/addGuan', {
+				values:{
+					user_id:userid,
+					circle_id:id
+				}
+			},function (ret){
+				if(ret&&ret.code==200){
+					$api.t('关注成功!');
+					$scope.listData[index].guan = 1;
+					$scope.$apply();
+				}else{
+					$api.t('未知错误，无法关注!');
+				}
+			})
+		}
+		
+		EventT.on("apiready",function(){
+			$api.post(phpurl+'Circle/getCircleTophy',{
+				values:{
+					user_id:userid
+				}
+			},function(ret){
+				if(ret.code == 200){
+					$scope.paiMing = ret.Obj;
+				}else if(ret.code == 201){
+					$('.foot').html('你还未加入任何部落哦');
+				}
+			})
+			
+			getData(0);
+			$api.up(function(page,callback){
+	            getData(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    })
+		    
+		    $api.pull(function(callback){
+		        getData(0,function(){
+		            callback&&callback();
+		        })
+		    })
+		})
+		
+		function getData(page,callback){
+			$api.post(phpurl+'Circle/getCircleHuoYue',{
+				values:{
+					user_id:userid,
+					page:page
+				}
+			},function(ret){
+				if(ret.code == 200){
+					if(ret.result.length > 0){
+						if(page == 0){
+							$scope.listData = [];
+						}
+						$scope.listData = $scope.listData.concat(ret.result);
+						for(var i=0;i<$scope.listData.length;i++){
+							if($scope.listData[i].rownum == 1){
+								$scope.listData[i]['Col'] = {
+									color:'#F5892B'
+								}
+							}else if($scope.listData[i].rownum == 2){
+								$scope.listData[i]['Col'] = {
+									color:'#FEAF20'
+								}
+							}else if($scope.listData[i].rownum == 3){
+								$scope.listData[i]['Col'] = {
+									color:'#FED620'
+								}
+							}else{
+								$scope.listData[i]['Col'] = {
+									color:'#717171'
+								}
+							}
+						}
+						$scope.$apply();
+						$api.closeNoDate();
+					}else if(ret.result.length <= 0 && page == 0){
+						$api.noDate();
+					}
+					$api.closeloadding();
+				}else{
+					$api.closeloadding();
+				}
+				callback&&callback(ret);
+			})
+		}
+	}])
+//	function openWs(){
+//		openW({
+//			frm_url : 'frame2/quan_zi_xiang_qing.html',
+//			title : 'dsaf',
+//			data:{
+//				is_win:false
+//			}
+//		})	
+//	}
+	function openGuiZe(){
+		openW({
+			frm_url : 'frame2/quan_zi_huo_yue_gui_zhe.html',
+			title : '部落活跃度规则'
+		})
+	}
+</script>
+</html>

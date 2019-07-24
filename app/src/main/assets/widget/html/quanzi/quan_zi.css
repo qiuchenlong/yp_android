@@ -1,0 +1,179 @@
+/*部落的css*/
+.quan_zi {
+	border-bottom: 10px solid #eee;
+	background: #fff;
+}
+
+.quan_zi > li {
+	padding: 6px;
+	padding-bottom: 6px;
+	border-bottom: 1px solid #eee;
+}
+
+.quan_zi .tou_xiang {
+	padding: 4px 2px 2px 52px;
+	position: relative;
+	height: 40px;
+}
+
+.quan_zi .tou_xiang_img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	position: absolute;
+	left: 2px;
+	top: 0;
+}
+
+.quan_zi .ming_zi {
+	color: rgb(0,0,0);
+	font-size: 14px;
+	font-weight: 300;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.quan_zi .ni_rong {
+	font-size: 12px;
+	color: rgb(98,98,98);
+	word-break:break-all;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	position:relative;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	line-height: 18px;
+	padding: 5px 15px;
+	margin-bottom:1px;
+}
+
+.quan_zi .ni_rong:after  {
+	content: ' ';
+	position:absolute;
+	left:0;
+	bottom:-1px;
+	width:100%;
+	height:5px;
+	background:#fff;
+}
+.quan_zi .ming_zi {
+	line-height: 16px;
+}
+
+.quan_zi .guan_zhu {
+	text-align: center;
+	padding: 0px 10px;
+	line-height: 24px;
+	height: 24px;
+	font-size: 10px;
+	margin-top: 3px;
+	border: 1px solid #eee;
+	border-radius: 3px;
+}
+
+.quan_zi .tu_pin {
+	font-size: 0px;
+}
+.quan_zi .tu_pin>div {
+	width: 33.33%;
+	overflow: hidden;
+	box-sizing: border-box;
+	display: inline-block;
+	border-right: 2px solid #fff;
+	border-left: 2px solid #fff;
+	border-bottom: 4px solid #fff;
+}
+.quan_zi  .wei_bu {
+	padding-top: 4px;
+	line-height: 20px;
+	font-size: 10px;
+	color: rgb(96,96,96);
+	margin: 0 2px;
+}
+.quan_zi  .wei_bu .xin_xi, .quan_zi  .wei_bu .zan {
+	float: right;
+	margin: 0 8px;
+	color: rgb(96,96,96);
+}
+
+.quan_zi  .wei_bu .xin_xi > .iconfont, .quan_zi  .wei_bu .zan > .iconfont {
+	font-size: 14px;
+	margin: 0 8px;
+	vertical-align: middle;
+}
+
+.img-h-c, .img-w-c {
+	overflow: hidden;
+	position: relative;
+}
+.img-h-c img {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
+}
+.img-w-c img {
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+}
+
+.quan_zi {
+	background: #fff
+}
+.quan_zi .ming_zi {
+	line-height: 36px;
+}
+.quan_zi .shi_jian {
+	font-size: 12px;
+	color: #ccc;
+	margin-top: 0px; float: right;
+}
+.quan_zi > li {
+	padding: 10px 0px;
+}
+.quan_zi .tou_xiang {
+	margin: 0 15px;
+}
+.quan_zi .tu_pin, .quan_zi .wei_bu, .quan_zi .ping_lun {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+
+.quan_zi .len_jie {
+	color: rgb(247,122,15);
+}
+.quan_zi .wei_bu .xin_xi, .quan_zi .wei_bu .zan {
+	float: none;
+	width: 30px;
+	margin: 0;
+}
+.quan_zi .wei_bu .xin_xi .iconfont {
+	font-size: 14px;
+	margin: 0;
+	margin-right:2px;
+	position: relative;
+	top: 1px;
+}
+.quan_zi .wei_bu .zan .iconfont {
+	font-size: 12px;
+	margin: 0; color:#999999;
+	margin-right:2px;
+}
+
+.quan_zi_di_zhi {
+	padding:0 15px;
+	line-height:16px;
+	font-size:10px;
+}
+
+.quan_zi_di_zhi .icon-dingwei{
+	font-size:12px;
+	margin-right:2px;
+}
+

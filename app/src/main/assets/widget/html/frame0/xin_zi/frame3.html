@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="myApp"  class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    	body{
+
+    	}
+
+        .icon-zan {
+           color:rgb(255,100,0);
+        }
+    </style>
+</head>
+<body ng-controller="controllerame">
+	<ul class="xin_xi_lie_biao">
+        <li class="flex-wrap" ng-repeat="i in listData" ng-cloak ng-click="dongTaiDetail(i.circletalk_id,i.message_id,3,$index)">
+            <div class="tou_xiang">
+                <img src="{{ imgurl+i.sumbheadimg }}" alt="">
+                <span class="count" ng-if="i.isRead==0"></span>
+            </div>
+            <div class="flex-con text">
+                <h3 class="ming_zi text-ov">{{ i.name }}<span></span></h3>
+                <p class="ni_rong text-ov-2">
+                	<i class="iconfont icon-zan" style="color:#FD4E00;"></i>
+                </p>
+                <p class="shi_jian">{{ i.addtime }}</p>
+            </div>
+        </li>
+<!--        <li class="flex-wrap" onclick="dongTaiDetail()">
+            <div class="tou_xiang">
+                <img src="../../../../image/frame0/goods_5.png" alt="">
+            </div>
+            <div class="flex-con text">
+                <h3 class="ming_zi text-ov">名字<span></span></h3>
+                <p class="ni_rong text-ov-2"><i class="iconfont icon-zan"></i></p>
+                <p class="shi_jian">2017-02-01 15:00</p>
+            </div>
+            <div class="ni_rong_tuo">
+                <img src="../../../../image/frame0/goods_5.png" alt="">
+            </div>
+        </li>
+        <li class="flex-wrap" onclick="dongTaiDetail()">
+            <div class="tou_xiang">
+                <img src="../../../../image/frame0/goods_5.png" alt="">
+            </div>
+            <div class="flex-con text">
+                <h3 class="ming_zi text-ov">名字<span></span></h3>
+                <p class="ni_rong text-ov-2"><i class="iconfont icon-zan"></i>
+                </p>
+                <p class="shi_jian">2017-02-01 15:00</p>
+            </div>
+            <div class="ni_rong_tuo">
+                <img src="../../../../image/frame0/goods_5.png" alt="">
+            </div>
+        </li>-->
+
+    </ul>
+    <div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../../script/quanzi/api.js"></script>
+<script type="text/javascript" src="../../../script/quanzi/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../../script/quanzi/common.js"></script>
+<script type="text/javascript" src="../../../script/quanzi/angular.min.js"></script>
+<script type="text/javascript" src="../../../script/quanzi/ev.js"></script>
+<script type="text/javascript" src="../../../script/quanzi/message.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        changeTheme();
+        EventT.emit("apiready",{types:3,noload:true});
+    };
+
+
+</script>
+</html>

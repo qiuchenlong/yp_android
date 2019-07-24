@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link href="../../css/swiper.min.css" rel="stylesheet"/>
+    <style>
+    	
+    </style>
+</head>
+<body>	
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script type="text/javascript">
+
+		var dashenid=1;
+		apiready = function () {
+		dashenid=api.pageParam.index;
+		
+			var shakeView = api.require('shakeView');
+			shakeView.open({
+			    x: 0,
+			    y: 66,
+			    w: api.winWidth,
+			    h: api.winHeight,
+			    type: 'left_right',  //up_down:触动摇动动画后视图上下裂开  left_right:触动摇动动画后视图左右裂开 shake:触动摇动动画后视图左右晃动
+			    img: {
+			        leftUp: 'widget://image/zuos.png',
+			        rightDown: 'widget://image/yous.png',
+			        bg: 'widget://image/wode-bg.jpg'
+			    },
+			    anim: {
+			        time: '3',
+			        sound: 'widget://mp3/liushui.mp3',
+			        isShake: true,
+			        percent: 200
+			    }
+			});
+			
+
+			
+			api.addEventListener({
+                   name:'shake'
+            },function(ret,err){
+	            shakeView.shake({
+//				    time: 5.0 ,         //（可选项）数字类型；动画持续时间；默认：3.0秒
+//				    isShake: true,       //（可选项）布尔类型；是否添加手机震动效果；默认：false   
+//				    percent: 50,      //（可选项）数字类型；裂开距离占摇动视图的百分比；默认：50
+				},function(ret, err) {
+//				    if (ret) {
+//                   post('/index.php/Api/Pray/chouquan', {
+//					user_id:ls.get('userid'),
+//					dashen:dashenid,
+//				}, function(ret) {
+//					if (ret.code === 200) {
+//						if(ret.result.length > 0){
+//						
+//						openWs('woDeqian', '我的签')
+////						    api.confirm({
+////                       title: '你抽的签是：'+ret.result[0].title,
+////                         msg: '点击确定解签',
+////                        buttons: ['确定', '取消']
+////                         }, function(ret, err) {
+////                        var index = ret.buttonIndex;
+////                                    });
+//                                    
+//						}else{
+//							Toast('未抽到签请摇一摇')
+//						}
+//					} else {
+//						Toast('没签')
+//					}
+//				})
+//
+//
+//				    } else {
+//				        
+//				    }
+//				});
+            });
+           })      
+		}
+
+</script>
+</html>

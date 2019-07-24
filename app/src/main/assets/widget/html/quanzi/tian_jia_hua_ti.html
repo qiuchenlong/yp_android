@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+    <style>
+    	body{
+    		background:#fff;
+    		padding:0 10px;
+    		font-size:0px;
+    	}
+    	.zhang_tui ,  .tui {
+    		background:#eee;
+    		display:inline-block;
+    		height:100px;
+    		position:relative
+    	}
+    	
+    	.zhang_tui {
+    		width:200px;
+    		margin-bottom:20px;
+    		
+    	}
+    	.tui {
+    		width:100px;
+    	}
+    	.tui img ,
+    	.zhang_tui img{
+    		width:100%;
+    		height:100%;
+    	}
+    	
+    	img {
+    		vertical-align: middle
+    	}
+    	.tui img[src=""] ~ b,
+    	.zhang_tui img[src=""] ~ b {
+    		font-size:60px;
+    		font-weight: normal;
+    		position:absolute;
+    		left:50%;
+    		top:50%;
+    		height:50px;
+    		color:#999;
+    		line-height:44px;
+    		transform: translate(-50%,-50%);
+    		-webkit-transform: translate(-50%,-50%);
+    	}
+    	
+    	
+    	
+    	
+    	.shu_ru input {
+    		width:100%;
+    		border:1px solid #eee;
+    		line-height:28px;
+    		border-radius:3px;
+    		padding:2px 10px;
+    		font-size:12px;
+    		box-sizing: border-box;
+    	}
+    	
+    	.biao_ti {
+    		line-height:30px;
+    		font-weight: normal;
+    		font-size:13px;
+    	}
+    	
+    	.quit{
+    		/*position:fixed;
+    		width:100%;
+    		bottom:0;
+    		left:0*/padding:0 0px 20px;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		font-size:14px;
+    		color:#292B33;
+    		border-radius:2px;
+    	}
+    </style>
+</head>
+<body>
+	<h6 class="biao_ti">标题</h6>
+	<div class="shu_ru">
+		<input type="text" />
+	</div><h6 class="biao_ti">上传主图</h6>
+	<div class="tui" onclick="openPictrue($('.tui img')[0],'huati0')">
+		<img src="" alt="" />
+		<b>+</b>
+	</div>
+	<h6 class="biao_ti">上传详情图</h6>
+	<div class="zhang_tui" onclick="openPictrue($('.zhang_tui img')[0] ,'huati1' ,api.frameWidth,api.frameWidth/2)">
+		<img src="" alt="" />	
+		<b>+</b>
+	</div>
+	
+	
+	<div class="quit" onclick="ti_jiao()">
+		<button class="appbackground">
+			保存
+		</button>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript" src="../../script/shangtu.js"></script>
+<script type="text/javascript">
+	
+	
+	
+	
+	function openPictrue(obj ,imgName, w , h ){
+	   selectAction.shang_tu(function(url){
+	   		api.openWin({
+	            name: 'clip',
+	            url: '../clip.html',
+	            pageParam:{
+	               url:url,
+	               w:w, 
+	               h:h,
+	               nameImg:imgName
+	            }
+            });
+            
+            api.addEventListener({
+	            name:'clip'
+            },function(ret,err){
+            	obj.src = ret.value.url;
+//          	obj.onerror = function(){
+//          		this.onerror = '';
+//          		this.src = '';
+//          	}
+            });
+	   })
+	}
+	
+	function ti_jiao () {
+		var circle_id = api.pageParam.circle_id;
+		var ming_zi = $api.biao_dan_yan_zheng($api.trimAll($('.shu_ru input').val()));
+		if(!ming_zi){
+			$api.t('请输入话题的名字！')
+			return ;
+		}
+		var zhang_tui = $('.zhang_tui img').attr('src');
+		var tui = $('.tui img').attr('src');
+		
+		if(!zhang_tui){
+			$api.t('请上传详情图！')
+		}
+		
+		if(!tui){
+			$api.t('请上传主图！')
+		}
+		$api.loadding(api.frameName, 2);
+		
+		
+		$api.post(phpurl+'Topic/createTopic', {
+			values:{
+				circle_id:circle_id,
+				content:ming_zi,
+				user_id:userid
+			},
+			files:{
+				image:zhang_tui,
+				masterimg:  tui,
+				
+			}
+		}, function (ret){
+			$api.closeloadding();
+		
+			if(ret&&ret.code==200){
+				var data = {
+					topic_id:ret.id,
+					content:ming_zi,
+				}
+				 
+				$api.t('创建成功');
+				
+				setTimeout(function(){
+					api.sendEvent({
+						name : 'tian_jia_hua_ti',
+						extra :data||{}  
+					});
+					
+					api.closeWin()
+				},200)
+			}
+		})
+		
+	}
+	
+	
+	
+</script>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" id="css" href="../../css/theme.css">
+		<link rel="stylesheet" href="./quan_zi.css">
+		<style>
+			/*最上面的图片*/
+			.head {
+				position: relative;
+			}
+			.head img {
+				width: 100%;
+				vertical-align: top;
+			}
+			.head .text {
+				position: absolute;
+				width: 100%;
+				top: 65%;
+				box-sizing: border-box;
+				padding: 0 70px 0 10px;
+			}
+			.head .text p {
+				line-height: 12px;
+				color: #fff;
+				font-size: 12px;
+			}
+			.head .text h5 {
+				font-weight: 400;
+				line-height: 20px;
+				color: #fff;
+				font-size: 16px;
+			}
+			.head .text .qian_dao {
+				width: 50px;
+				height: 22px;
+				position: absolute;
+				right: 10px;
+				top: 50%;
+				margin-top: -12px;
+				line-height: 22px;
+				border-radius: 3px;
+				font-size: 12px;
+				color: #fff;
+				border: 1px solid #fff;
+			}
+			.head .icon-gengduo, .icon-fanhui {
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 26px;
+				color: #fff;
+				top: 0px;
+				position: fixed;
+				z-index: 999;
+			}
+			.head .icon-gengduo {
+				left: auto;
+				font-size: 24px;
+				right: 5px;
+			}
+			.ping_lun {
+				margin-top: 5px;
+				position: relative;
+				padding: 5px 0 20px 0;
+				border-top: 1px solid #eee;
+			}
+			.ping_lun > .cha_kan_ping_lun {
+				line-height: 30px;
+				position: absolute;
+				bottom: -9px;
+				left: 0;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 15px;
+				text-align: left;
+				font-size: 13px;
+				color: #999;
+			}
+			.ping_lun > .cha_kan_ping_lun span {
+				margin: 0 5px;
+			}
+			.ping_lun li {
+				line-height: 20px;
+				font-size: 13px;
+				color: #999;
+			}
+			.ping_lun.yin_cang {
+				height: 40px;
+				overflow: hidden;
+			}
+			.can_yu_hua_ti {
+				position: fixed;
+				bottom: 20px;
+				right: 15px;
+				width: 65px;
+				height: 65px;
+				line-height:65px;
+				font-size: 16px;
+				text-align: center; 
+				background:#000000;
+				opacity:0.3;
+				border-radius: 50%;
+				color: #fff;
+			}
+			.can_yu_hua_ti .icon-bianji {
+				display: block;
+				font-size: 30px;
+				color: #333;
+				text-align: center;
+				line-height: 40px;
+				margin-top: 2px;
+			}
+			/*通知*/
+			.tong_zhi {
+				background: #fff;
+				margin-bottom: 8px;
+			}
+			.tong_zhi h5 {
+				line-height: 20px;
+				padding: 10px;
+				background: #fff;
+				font-size: 12px;
+				color: #555;
+				font-weight: 100;
+				border-bottom: 8px solid #eee;
+			}
+			.tong_zhi .img {
+				background: #fff;
+				padding: 10px 0;
+				margin: 0 10px;
+				position: relative;
+			}
+			.tong_zhi .img img {
+				width: 100%;
+				border-radius: 6px;
+				vertical-align: top;
+			}
+			.tong_zhi .img p {
+				padding: 10px 10px;
+				box-sizing: border-box;
+				position: absolute;
+				left: 0px;
+				bottom: 10px;
+				width: 100%;
+				font-size: 12px;
+				color: #fff;
+				text-align: center;
+				border-radius: 0 0 6px 6px;
+				background: rgba(0,0,0,0.5);
+			}
+			.tong_zhi .icon-laba {
+				margin-right: 8px;
+			}
+			/*签到列表*/
+			.qian_dao_lie_biao {
+				margin-bottom: 8px;
+				padding: 5px 10px;
+				color: #555;
+				background-color: #fff;
+			}
+			.qian_dao_lie_biao > i {
+				width: 26px;
+				margin: 7px 0 0 10px;
+				line-height: 24px;
+				height: 26px;
+				border: 1px solid #555;
+				border-radius: 50%;
+				text-align: center;
+			}
+			.qian_dao_lie_biao .text {
+				height: 40px;
+				overflow: hidden;
+				box-sizing: border-box;
+				padding: 4px 5px 4px 0;
+				font-size: 12px;
+			}
+			.qian_dao_lie_biao .text p {
+				line-height: 15px;
+			}
+			.qian_dao_lie_biao .text p:first-child {
+				margin-top: 1px;
+			}
+			.qian_dao_lie_biao .img {
+				overflow: hidden;
+				height: 40px;
+				line-height: 36px;
+			}
+			.qian_dao_lie_biao img {
+				width: 29px;
+				height: 29px;
+				vertical-align: middle;
+				border: 2px solid #fff;
+				overflow: hidden;
+				display: inline;
+				word-spacing: 10px;
+				letter-spacing: 20px;
+				border-radius: 50%;
+				position: relative;
+			}
+			.qiang_hong_bao {
+				position: fixed;
+				left: 0%;
+				right: 0px;
+				bottom: -0%;
+				top: 200%;
+				z-index: 454;
+				transition: 0.2s ease;
+				-webkit-transition: 0.2s ease;
+				background: rgba(0,0,0,0.3)
+			}
+			.qiang_hong_bao.show {
+				top: 0px;
+			}
+			.qiang_hong_bao .bg {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 70%;
+				border-radius: 8px;
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
+			.qiang_hong_bao .bg img {
+				width: 100%;
+				vertical-align: middle;
+			}
+			.qiang_hong_bao .bg .centent {
+				position: absolute;
+				left: 0px;
+				right: 0px;
+				bottom: 0px;
+				top: 0px;
+			}
+			.qiang_hong_bao  .centent .head {
+				display: block;
+				width: 80px;
+				border-radius: 50%;
+				height: 80px;
+				margin: 45px auto 0;
+			}
+			.qiang_hong_bao  .bg .icon-plus {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				padding: 10px;
+				border-radius: 50%;
+				font-size: 18px;
+				color: #333;
+				z-index: 445;
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+			}
+			.qiang_hong_bao  .centent .name {
+				line-height: 40px;
+				font-size: 16px;
+				color: #fff;
+				text-align: center;
+			}
+			.qiang_hong_bao  .centent .kai {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 80px;
+				transform: translate(-50%, -10%);
+				-webkit-transform: translate(-50%, -10%);
+			}
+			.qiang_hong_bao.price  .centent {
+				background: rgb(222,85,77);
+				border-radius: 8px;
+			}
+			.qiang_hong_bao.price .price_box {
+				display: block;
+			}
+			.qiang_hong_bao.price .kai {
+				display: none;
+			}
+			.price_box {
+				display: none;
+			}
+			.price_box > p {
+				text-align: center;
+			}
+			.price_box  .price {
+				margin-top: 35px;
+				font-size: 32px;
+				height: 35px;
+				line-height: 35px;
+				color: rgb(254,216,69);
+			}
+			.price_box  .price span {
+				font-size: 10px;
+				line-height: 14px;
+			}
+			.price_box .text {
+				font-size: 8px;
+				line-height: 8px;
+				color: #fff;
+			}
+			.price_box .bottom_text {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				font-size: 12px;
+				line-height: 12px;
+				color: #fff;
+				line-height: 40px;
+			}
+			.price_box .bottom_text  span {
+				text-decoration: underline
+			}
+		</style>
+	</head>
+	<body ng-controller="myAppCon">
+		<div class="head">
+			<i class="iconfont icon-fanhui" onclick="api.closeWin({})"></i>
+			<i class="iconfont icon-gengduo" onclick="sheZhi()"></i>
+			<img src="../../image/quanzibg.jpg" alt="">
+			<div class="text">
+				<h5>{{ ret.name }}</h5>
+				<p>
+					<span>{{ ret.membercount }}人</span>&nbsp;&nbsp;<span>{{ ret.replycount||0 }}条动态</span>
+				</p>
+				<button ng-click="attention($event)" class="qian_dao" style="opacity: {{ (ret.attention==1&&ret.issign=='已签到')?0.1:1 }}"  >
+					{{ ret.attention==1?ret.issign:'关注' }}
+				</button>
+			</div>
+		</div>
+		<div class="qian_dao_lie_biao flex-wrap" >
+			<div class="text">
+				<p>
+					{{ ret.qianlist.length || 0 }}人
+				</p>
+				<p>
+					当日签到
+				</p>
+			</div>
+			<div class="flex-con img">
+				<img ng-show="ret.qianlist.length"  ng-repeat="j in ret.qianlist"  src="{{ Imageurl + j.sumbheadimg }}" alt="">
+				<!--	<img src="../../image/frame0/goods_5.png" alt="">
+				<img src="../../image/frame0/goods_4.png" alt="">
+				<img src="../../image/frame0/goods_5.png" alt="">
+				<img src="../../image/frame0/goods_4.png" alt="">-->
+			</div>
+			<i class="iconfont icon-gengduo" onclick="qiaoDao()"></i>
+		</div>
+		<div class="tong_zhi" ng-show="ret.notice" ng-click="tong_zhi()">
+			<h5><i class="iconfont icon-laba" style="color:#F3700C"></i>{{ ret.notice }}</h5>
+			<div class="img">
+				<img src="{{ Imageurl+ret.noticeimg }}" alt="">
+				<p class="text-ov">
+					{{ ret.notice }}
+				</p>
+			</div>
+		</div>
+		<ul class="quan_zi">
+			<li onclick="dongTai(this.id)" ng-repeat="x in Talk" id="{{ x.circletalk_id }}">
+				<div class="tou_xiang flex-wrap" >
+					<div class="flex-con" style="height:50px;">
+						<span class="img-w-c tou_xiang_img"> <img  src="{{ Imageurl+x.uimg }}" alt=""> </span>
+						<h3 class="ming_zi">{{ x.name }}</h3>
+					</div>
+					<span class="shi_jian">{{ x.addtime  }}</span>
+				</div>
+				<p class="ni_rong">
+					<span class="len_jie" onclick="huaTi(this.id)" ng-show="x.topicname"  id="{{ x.topic_id }}">#{{ x.topicname }}#</span>
+					{{ x.content }} <span class="len_jie" style="margin:0px 2px"  onclick="$api.open_user(this.id)" ng-repeat="a in x.at" ng-show="a.name"  id="{{ a.name+','+a.userid }}" > @{{ a.name }} </span>
+				</p>
+				<div class="tu_pin" ng-show="x.sumbimages.length" >
+					<div class="img-w-c " ng-repeat="i in x.sumbimages track by $index" >
+						<img  class="sumbimages{{ x.page }}" src="{{ Imageurl + i  }}" alt="">
+					</div>
+					<!--<div class="img-w-c">
+					<img src="../../image/frame0/goods_4.png" alt="">
+					</div>
+					<div class="img-w-c">
+					<img src="../../image/frame0/goods_4.png" alt="">
+					</div>-->
+				</div>
+			<!--	<p class="quan_zi_di_zhi" data-lon="{{ x.longitude }}"  data-lat="{{ x.latitude }}" data-id="{{ x.circletalk_id }}" ng-show="x.location" onclick="$api.location&&$api.location(this)">
+					<i class="iconfont icon-dingwei"></i>{{ x.location }}
+				</p>-->
+				<div class="wei_bu">
+					<span class="zan " ng-click="addLike($event , $index , x.isdan)"><i class="iconfont icon-zan {{ x.isdan==1?'apptxtcolor':'' }}">赞</i>{{ +x.likenum || '' }}</span>
+					<span class="xin_xi"><i class="iconfont icon-xinxi"></i>{{ +x.replycount || '' }}</span>
+				</div>
+			</li>
+			<div  class="bottom_loadmore"></div>
+			<!--<li onclick="dongTai()">
+			<div class="tou_xiang flex-wrap">
+			<div class="flex-con" style="height:50px;">
+			<span class="img-w-c tou_xiang_img"> <img  src="../../image/frame0/goods_4.png" alt=""> </span>
+			<h3 class="ming_zi">名字</h3>
+			</div>
+			<span class="shi_jian">12:30</span>
+			</div>
+			<div class="tu_pin">
+			<div class="img-w-c">
+			<img src="../../image/frame0/goods_4.png" alt="">
+			</div>
+			<div class="img-w-c">
+			<img src="../../image/frame0/goods_4.png" alt="">
+			</div>
+			<div class="img-w-c">
+			<img src="../../image/frame0/goods_4.png" alt="">
+			</div>
+			</div>
+			<div class="wei_bu">
+			<span class="zan"><i class="iconfont icon-zan"></i></span>
+			<span class="xin_xi"><i class="iconfont icon-xinxi"></i></span>
+			</div>
+			<ul class="ping_lun hide">
+			<li>
+			君君：好看好看好看
+			</li>
+			<li>
+			君君：好看好看好看
+			</li>
+			<button class="cha_kan_ping_lun">
+			查看全部<span>6</span>条评论
+			</button>
+			</ul>
+			</li>-->
+		</ul>
+		<span class="can_yu_hua_ti appbackground" onclick="openWs()"> <i class="iconfont icon-bianji "></i> 发帖 </span>
+		<div class="qiang_hong_bao {{ ret.isqiang==1?'price':'' }} ">
+			<div class="bg">
+				<i class="iconfont icon-plus"></i>
+				<img src="../../image/hbbg@2x.png"  alt="" />
+				<div class="centent ">
+					<img src="{{ Imageurl + ret.sumbimages }}" class="head" alt="" />
+					<p class="name">
+						{{ ret.name }}
+					</p>
+					<img src="../../image/kai@2x.png"  class="kai" alt="" />
+					<div class="price_box">
+						<p class="price">
+							{{ ret.moeny||0 }} <span>元</span>
+						</p>
+						<p class="text">
+							已存入账号， 可以用于抵扣购物
+						</p>
+						<p class="bottom_text">
+							<span>查看其他朋友领取的情况</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/quanzi/api.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/common.js"></script>
+	<script src="../../script/quanzi/angular.min.js"></script>
+	<script src="../../script/quanzi/jqthumb.js"></script>
+	<script src="../../script/quanzi/ev.js"></script>
+	<script>
+		var app = angular.module("myApp", []), circle_id,userid //部落的id
+		qianlist = [], //签到的
+		sumbimages = '', name = '';
+		app.controller('myAppCon', function($scope) {
+			var isBegin = 0;
+			//这个判断通知是否可以点击的 1是可以点击的，　0是不可以
+			$scope.Imageurl = Imageurl;
+			EventT.on('apiready', function() {
+				$scope.Talk = [];
+				$api.post(phpurl + 'Circle/getDetail', {
+					values : {
+						user_id : userid,
+						circle_id : circle_id
+					}
+				}, function(ret) {
+				
+					if (ret) {
+						isBegin = ret.obj.isbegin;
+						ret.obj.qianlist = ret.qianlist;
+						ret.obj.issign = ret.obj.issign == 1 ? '已签到' : '签到';
+						$scope.ret = ret.obj;
+						$scope.ret.isqiang = ret.isqiang;
+						$scope.ret.moeny = ret.moeny;
+						name = ret.obj.name;
+						sumbimages = Imageurl + ret.obj.sumbimages;
+					} else {
+						$scope.ret = [];
+					}
+					$scope.$apply();
+					$api.closeloadding();
+					set_img_margin();
+				});
+				$scope.img_h = (api.winWidth - 30) * 0.333;
+				var getCircleTalk = $api.getCircleTalk({
+					circle_id : circle_id
+				});
+				getCircleTalk(0, Talk);
+				$api.up(function(page, callback) {
+					getCircleTalk(page, function(page, ret) {
+						callback && callback(ret);
+						Talk(page, ret);
+					})
+				});
+				function Talk(page, ret) {
+					if (ret && ret.result && ret.result.length) {
+						$api.each(ret.result, function(v, i) {
+							if (v.sumbimages) {
+								v.sumbimages = v.sumbimages.split(',');
+							} else {
+								v.sumbimages = [];
+							}
+							v.page = page
+						});
+						console.log($api.jsonToStr(ret.result))
+						$scope.Talk = $scope.Talk.concat(ret.result);
+					} else {
+						if (page == 0) {
+							$scope.Talk = []
+						}
+					}
+					$scope.$apply();
+					setTimeout(function() {
+						$('.quan_zi .sumbimages' + page).jqthumb({
+							width : $scope.img_h,
+							height : $scope.img_h,
+							after : function(imgObj) {
+								imgObj.css('opacity', 0).animate({
+									opacity : 1
+								}, 500)
+							}
+						});
+					}, 10)
+				};
+				$scope.addLike = function(e, i, isdan) {
+					  if(!userid){
+		      api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+			        }
+			        
+					e = e || event;
+					if (e.stopPropagation)
+						e.stopPropagation();
+					//防冒泡
+					if (isdan) {
+						$api.t('点赞过了')
+						return
+					}
+					var circletalk_id = $scope.Talk[i].circletalk_id
+					$api.post(phpurl + 'CircleTalk/addLike', {
+						values : {
+							circletalk_id : circletalk_id,
+							user_id : userid
+						}
+					}, function(ret) {
+						if (ret && ret.code == 200) {
+							$scope.Talk[i].likenum = (+$scope.Talk[i].likenum) + 1;
+							$api.t('+1');
+							$scope.Talk[i].isdan = 1;
+							$scope.$apply();
+						}
+					});
+				}
+				//这个是那个活动的点击事件
+				$scope.tong_zhi = function() {
+					if (isBegin) {
+						$('.qiang_hong_bao').addClass('show');
+						$('.qiang_hong_bao .icon-plus').click(function() {
+							$('.qiang_hong_bao').removeClass('show');
+						});
+						var init = false;
+						if (!init) {
+							init = true;
+							//防止点击事件添加多次
+							var isSub = false;
+							$('.qiang_hong_bao .kai').click(function() {
+								if (!isSub) {
+									$api.loadding('name', 0);
+									isSub = true;
+									$api.post(phpurl + 'RedPacket/GrabRedPacket', {
+										values : {
+											user_id : userid,
+											circle_id : circle_id
+										}
+									}, function(ret) {
+										isSub = false;
+										$api.closeloadding();
+										if (ret.code == 200) {
+											$scope.ret.isqiang = 1;
+											$scope.ret.moeny = ret.money;
+											$scope.$apply();
+											$('.qiang_hong_bao').addClass('price');
+										} else if (ret.code == 203) {
+											$api.t('您还有没关注该部落！');
+										} else {
+											$api.t(ret.msg);
+										}
+										;
+									});
+								}
+							});
+							$('.qiang_hong_bao .bottom_text').click(function() {
+								openW({
+									frm_url : 'frame2/kan_kan_qiang_hong_bao.html',
+									title : 'fsf',
+									data : {
+										is_win : false,
+										circle_id : circle_id
+									}
+								});
+							});
+						}
+					} else {
+						$api.t('活动时间还没有到！');
+					}
+				}
+				//关注和签到的点击事件
+				$scope.attention = function(e) {
+				   	  if(!userid){
+		      api.openWin({
+				        name: 'login',
+				        url: '../user/login.html',
+				        slidBackEnabled:false
+			        });
+			        return false;
+			        }
+			        
+					var text = e.target.innerText;
+					if (text.indexOf('关注') != -1) {
+						$api.post(phpurl + 'Circle/addGuan', {
+							values : {
+								user_id : userid,
+								circle_id : circle_id
+							}
+						}, function(ret) {
+							if (ret && ret.code == 200) {
+								$api.t('关注成功,快签到吧!');
+								$scope.ret.attention = 1;
+								$scope.$apply();
+							} else {
+								$api.t('未知错误，无法关注!');
+							}
+						})
+					} else if (text.indexOf('已签到') != -1) {
+						$api.t('今天已经签到了！')
+					} else {
+						$api.post(phpurl + 'Circle/signup', {
+							values : {
+								user_id : userid,
+								circle_id : circle_id
+							}
+						}, function(ret) {
+							if (ret && ret.code == 200) {
+								$api.t('签到成功!');
+								$scope.ret.issign = '已签到';
+								var info = $api.getStorage('userInfo')||{};
+								$scope.ret.qianlist.push({
+									sumbheadimg:info.headimg
+								});
+								$scope.$apply();
+								set_img_margin();
+							} else {
+								$api.t('未知错误，无法签到!');
+							}
+						})
+					}
+				}
+			});
+		});
+		var circle_id;
+		apiready = function() {
+			circle_id = api.pageParam.data.cid;
+			userid=$api.getStorage('user_id');
+			EventT.emit('apiready');
+			api.addEventListener({
+				name : 'addTalk'
+			}, function(ret, err) {
+				EventT.emit('apiready');
+			});
+		}
+		function set_img_margin() {
+			var img = $api.domAll('.qian_dao_lie_biao img');
+			for (var i = 0, l = img.length; i < l; i++) {
+				img[i].style.cssText = 'left:-' + (i * 10) + 'px; z-index:' + (l - i);
+			}
+		}
+
+		function openWs() {
+		   		if(!userid)//
+		 {
+				 api.openWin({
+				 name: 'win_login',
+				 url: '../user/login_win.html',
+			 });
+			 return;
+		 }
+	api.openWin({
+	       name: 'win_headerquanziz',
+	       url: '../Wins.html',
+	       pageParam:{
+               frm_name:'xinzeng',
+               frm_url:'quanzi/xin_zeng_dong_tao.html',
+               title:'新帖子',
+               data : {
+					cid : circle_id,
+					
+				},
+				r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>'
+	       }
+        });
+//			openW({
+//				frm_url : 'quanzi/xin_zeng_dong_tao.html',
+//				title : '新帖子',
+//				data : {
+//					circle_id : 6,
+//					r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>'
+//				}
+//			})
+		}
+
+		function huaTi(id) {
+			openW({
+				frm_url : 'quanzi/hua_ti_xiang_qing.html',
+				title : '话题详情',
+				data : {
+					is_win : false,
+					topic_id : id
+				}
+			});
+			event.stopPropagation();
+		}
+
+		function dongTai(id) {
+			api.openWin({
+	       name: 'win_headerhuati',
+	       url: '../Wins.html',
+	       pageParam:{
+               frm_name:'huatixiang',
+               frm_url:'quanzi/dong_tai_xiang_qing.html',
+               title:'动态详情',
+               data : {
+					dynamic_id : id,	
+				}
+	       }
+        });
+//			openW({
+//				frm_url : 'frame2/dong_tai_xiang_qing.html',
+//				title : '动态详情',
+//				data : {
+//					dynamic_id : id
+//				}
+//			})
+		}
+
+		function qiaoDao() {
+			openW({
+				frm_url : 'frame2/qian_dao_lie_biao.html',
+				title : '签到列表',
+				data : {
+					circle_id : circle_id
+				}
+			})
+		}
+
+		function sheZhi() {
+			openW({
+				frm_url : 'frame2/quan_zi_she_zhi.html',
+				title : '设置',
+				data : {
+					name : name,
+					sumbimages : sumbimages,
+					circle_id : circle_id,
+				}
+			})
+		}
+	</script>
+</html>

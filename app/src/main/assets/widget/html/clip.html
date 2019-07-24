@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	body{
+    		
+    	}
+    </style>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript" src="../script/quanzi/api.js"></script>
+<script type="text/javascript" src="../script/quanzi/pictureclip.js"></script>
+<script type="text/javascript">
+	var imgName;
+	apiready = function(){
+	    var url = api.pageParam.url;
+	    imgName = api.pageParam.nameImg || 0;
+		var FnimageClip = api.require('FNImageClip');
+		var w = api.pageParam.w || api.winWidth ;
+		var h = api.pageParam.h || api.winWidth ;
+		var mySlip = new clipImage(FnimageClip,function(rurl){
+		   api.sendEvent({
+	           name:'clip',
+	           extra: {
+			      url: rurl
+			   }
+           });      
+		   mySlip.close();
+		   api.closeWin({}); 
+		});
+		var $body = $api.dom('body');
+		if(api.winWidth >= 350){
+	       mySlip.open(url,api,$body,'rectangle',w,h,0,50,api.frameHeight-75,25);
+	    }else{
+	       mySlip.open(url,api,$body,'rectangle',w,h,0,50,api.frameHeight-75,25);
+	    }	
+	};
+</script>
+</html>

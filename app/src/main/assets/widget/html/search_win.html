@@ -1,0 +1,133 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/win_header.css" />
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/FInit.js"></script>
+    <style type="text/css">
+   		html,body{
+   			height:100%;
+   		}
+   		header{ background: #ffffff;}
+    </style>
+</head>
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header class="appHeaderColor">
+          <span class="title"></span>
+          <span class="back iconfont icon-llmainpageback"  tapmode="active"></span>
+          <div class="icon"><span class="iconfont icon-sousuo" style="font-size:20px;"></span></div>
+        </header>
+        <div id="main" class="flex-con"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+
+    var frameName="";
+    apiready = function(){
+		newwin();
+
+		var $back = $api.dom('.back');
+
+		$back.onclick = function(){
+
+		   api.sendEvent({
+		      name:'closeW',
+		      extra:{
+		        framename:frameName
+		      }
+		   })
+
+		   api.closeWin({
+           });
+		}
+		$api.fixStatusBar($api.dom('header'));
+		var SBColor = $api.getStorage('SBColor');
+		api.setStatusBarStyle({//设置背景色
+	        style: 'light', // 'rgb(0,0,0)' || '#fff'
+	    });
+		/*打开此win时通过传递过来的参数操作页面 */
+		var frm_name = api['pageParam']['frm_name'];
+		var frm_url = api['pageParam']['frm_url'];
+		var title = api['pageParam']['title'] || false;
+		var r_txt = api['pageParam']['r_txt'] || false;
+		var datas = api['pageParam']['data'] || {};
+//		var new_name =  api['pageParam']['new_name'] || false;
+//		var new_url =  api['pageParam']['new_url'] || false;
+		if(title){
+			$api.dom('.title').innerHTML = title;
+		}
+		if(r_txt){
+			$api.dom('header').innerHTML+= '<div class="icon">'+r_txt+'</div>';
+		}
+
+		/*打开子窗口*/
+		openFrm(frm_name, frm_url,datas);
+    };
+    /*apiready结束*/
+/*********静态操作*************/
+	/*打开子窗口函数*/
+	function openFrm (frm_name, frm_url, datas){
+
+        var systemType = api.systemType;
+        frameName = frm_name;
+        if(systemType == 'ios'){
+			api.openFrame({
+			    name: frm_name,
+			    url: frm_url,
+			    rect: {
+				    x:0,
+				    y: $api.dom('header').offsetHeight,
+				    w: api.winWidth,
+				    h: 'auto'
+			    },
+			    vScrollBarEnabled:false,
+			    pageParam:{
+			    	data: datas
+			    }
+			});
+		}else{
+		    api.openFrame({
+			    name: frm_name,
+			    url: frm_url,
+			    rect: {
+				    x:0,
+				    y: $api.dom('header').offsetHeight,
+				    w: api.winWidth,
+				    h: 'auto'
+			    },
+			    vScrollBarEnabled:false,
+			    pageParam:{
+			    	data: datas
+			    }
+			});
+		}
+	}
+	/*打开子窗口函数结束*/
+/*********静态操作结束*************/
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei" >
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	body,html{
+    		height:100%;
+    		background:#f7f7f7;
+    	}
+    	
+    	header{
+    	   padding:15px;
+    	   background:#fff;
+    	   overflow:hidden;
+    	}
+    	
+    	header .hd{
+    	   width:60px;
+    	   height:auto;
+    	   border-radius: 4px;
+    	   float:left;
+    	}
+    	
+    	header .ct{
+    	   margin-left:70px;
+    	}
+    	
+    	header .ct .book_name{
+    	   font-size:15px;
+    	   margin-top:4px;
+    	}
+    	
+    	header .ct .book_ct{
+    	   font-size:12px;
+    	   margin-top:8px;
+    	   color:#A2856F;
+    	   overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+    	}
+    	
+    	header .ct .book_ft{
+    	   overflow: hidden;
+    	   margin-top:15px;
+    	}
+    	
+    	header .ct .book_ft span{
+    	   background:#F6AE6F;
+    	   padding:4px 12px;
+    	   border-radius: 3px;
+    	   color:#fff;
+    	   font-size:11px;
+    	   margin-right:12px;
+    	}
+    	
+    	.content{
+    	   margin-top:10px;
+    	   background:#fff;
+    	   padding:10px;
+    	}
+    	
+    	.content .item{
+    	   padding:20px 0px;
+    	   border-bottom: 1px solid #eaeaea;
+    	}
+    	
+    	.content .hd{
+    	   font-size:15px;
+    	   margin-bottom:8px;
+    	   color:#484848;
+    	}
+    	
+    	.content .top_ct{
+    	   
+    	   overflow:hidden;
+    	}
+    	
+    	.content .top_ct img{
+    	   width:40px;
+    	   height:40px;
+    	   border-radius: 50%;
+    	   float:left;
+    	}
+    	
+    	.content .top_ct .p_ct{
+    	   margin-left:50px;
+    	   margin-top:6px;
+    	}
+    	
+    	.p_content{
+    	   margin-top:10px;
+    	   color:#989898;
+    	   font-size:13px;
+    	   margin-top:8px;
+    	}
+    	
+    	.p_ft{
+    	   overflow: hidden;
+    	}
+    	
+    	.p_ft p{
+    	   float:right;
+    	   margin-top:10px;
+    	   color:#C1C1C1;
+    	   font-size:14px;
+    	   text-indent: 3px;
+    	}
+    	
+    	
+    </style>
+</head>
+<body ng-controller="DataController">
+	<header>
+	   <img src="{{imgurl + bookdetail.images}}" class="hd"/>
+	   <div class="ct">
+	      <p class="book_name">{{bookdetail.articlename}}</p>
+	      <p class="book_ct">{{bookdetail.intro}}</p>
+	      <!--<div class="book_ft">
+	          <span>享读</span>
+	      </div>-->
+	   </div>
+	</header>
+	
+	<div class="content">
+	    <p class="hd">评论<span style="color:#D0D0D0;">({{bookdetail.count}})</span></p>
+	    <ul>
+	       <li class="item"  ng-repeat="b in bookList" >
+	           <div class="top_ct">
+	              <img src="{{uimg+b.uimg}}" />
+	              <div class="p_ct">
+	                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">{{b.username}}</span><span style="float:right;color:#D0D0D0;font-size:11px;">{{b.addtime}}</span></p>
+	                 <p class="p_content">{{b.content}}</p>
+	              </div>
+	              
+	              <div class="p_ft" ng-click="dianzan(b.id)" >
+	                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>{{b.likes}}</p>
+	             
+	                 
+	              </div>
+	           </div>
+	       </li>
+	       <!--<li class="item">
+	           <div class="top_ct">
+	              <img src="../../image/to.png" />
+	              <div class="p_ct">
+	                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+	                 <p class="p_content">结尾是不是太仓促了???</p>
+	              </div>
+	              
+	              <div class="p_ft">
+	                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+	                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+	                 
+	              </div>
+	           </div>
+	       </li>
+	       <li class="item">
+	           <div class="top_ct">
+	              <img src="../../image/to.png" />
+	              <div class="p_ct">
+	                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+	                 <p class="p_content">结尾是不是太仓促了???</p>
+	              </div>
+	              
+	              <div class="p_ft">
+	                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+	                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+	                 
+	              </div>
+	           </div>
+	       </li>
+	       <li class="item">
+	           <div class="top_ct">
+	              <img src="../../image/to.png" />
+	              <div class="p_ct">
+	                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+	                 <p class="p_content">结尾是不是太仓促了???</p>
+	              </div>
+	              
+	              <div class="p_ft">
+	                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+	                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+	                 
+	              </div>
+	           </div>
+	       </li>-->
+	    </ul>
+	</div>
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ionic.bundle.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+
+var bookid=0;
+	apiready = function(){
+	bookid=api.pageParam.bookid;
+		EventT.emit("apiready");
+
+//getData(0);
+	};
+	
+	
+		var app = angular.module("myApp", []);
+	app.controller("DataController",function($scope){//angular开始
+	$scope.bookList = [];
+	$scope.bookdetail = {};
+	$scope.imgurl = imageUrl;
+	$scope.uimg = uimgUrl;
+	function getData(page,callback){
+//	var sortid=api.pageParam.data.sortid;
+	$api.post(phpurl+"Home/Book/bookreply?id="+bookid,{
+			values:{
+				page:page
+			}
+		},function(ret){
+		var bookslist = ret.result.book_bookreply_list2;
+			if(ret.code == 200){
+			 if(page == 0){
+				          $scope.bookList = [];
+				       }
+					$scope.bookList = $scope.bookList.concat(bookslist);
+//			$scope.bookList = ret.result.book_bookreply_list2;
+			$scope.bookdetail = ret.result.book_bookreply_list1[0];
+			$scope.$apply();
+			
+				
+			}
+			callback&&callback(ret);
+				 $api.closeloadding();//关闭加载
+		})
+	
+	}
+	
+	$scope.dianzan=function(id)
+		{
+
+		$api.post(phpurl+"Home/Book/addlike",{
+			values:{
+				rid:id,
+			}
+		},function(ret){
+			if(ret.code == 200){
+			   api.toast({
+	               msg:'点赞成功',
+               });
+               getData(0);
+			}
+			
+		})
+		     
+		
+
+		
+		}
+		
+	
+	     EventT.on("apiready",function(){
+	     api.addEventListener({//换字体
+					name : 'pin_lun'
+				}, function(ret, err) {
+					getData(0);
+				});
+				
+		getData(0);
+		$api.up(function(page,callback){
+            getData(page,function(ret){
+	           callback&&callback(ret);
+	        })
+	    });
+	    $api.pull(function(callback){
+	        getData(0,function(){
+	            callback&&callback();
+	        })
+	    })
+	})
+	
+	});
+
+	
+</script>
+</html>

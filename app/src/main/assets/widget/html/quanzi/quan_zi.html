@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+    	.list{
+			background:white;
+			border-bottom:1px solid #ECECEC;
+		}
+		.list ul li{
+    		width:33%;
+    		float:left;
+    		font-size:14px;
+    		line-height:35px;
+    		color:#666666;
+    		text-align:center;
+    	}
+    	.list ul .active span{
+    		border-bottom:2px solid;
+    		color:#030303;
+    	}
+    	.recommend{
+    		font-size:12px;
+    		background:white;
+    		margin-top:6px;
+    	}
+    	.recommend .smallTitle{
+    		padding:0 10px;
+    		line-height:40px;
+    		border-bottom:1px solid #EDEDED;
+    	}
+    	.recommend .smallTitle span{
+    		float:right;
+    		font-size:12px;
+    	}
+    	
+    	.quan_zi_lie_baio {
+			padding:0 10px;
+			background:#fff;
+			border-top: 1px solid #eee;
+			border-bottom: 6px solid #eee;
+		}
+
+		.quan_zi_lie_baio li {
+			padding:8px 0 ;
+			height: 40px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.quan_zi_lie_baio li img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+
+		.quan_zi_lie_baio .text p {
+			font-size: 12px;
+			line-height: 18px;
+		}
+
+		.quan_zi_lie_baio .quan_zi_ming_zi {
+			font-size: 12px;
+			margin-top: 4px;
+		}
+
+		.quan_zi_lie_baio .cheng_yuan_shu{
+			font-size: 12px;
+		}
+		
+		
+		.can_yu_hua_ti {
+			position: fixed;
+			bottom: 35px;
+			right: 15px;
+			width: 65px;
+			height: 65px;
+			font-size: 10px;
+			line-height: 12px;
+			text-align: center;
+			border-radius: 50%;
+			color: #333;
+		}
+		.can_yu_hua_ti .icon-bianji {
+			display: block;
+			font-size: 30px;
+			color: #333;
+			text-align: center;
+			line-height: 40px;
+			margin-top: 2px;
+		}
+    </style>
+</head>
+<body ng-controller="myAppCon">
+	<div class="list clearfix" id="nav">
+		  <ul>
+			<li class="active"><span class="appBordercolor">热门部落</span></li>
+			<li class="appBordercolor"><span class="appBordercolor" onclick="openWs(0)">我的部落</span></li>
+			<li class="appBordercolor"><span class="appBordercolor" onclick="openWs(1)">排行榜</span></li>
+		</ul>
+	</div>
+	<div class="recommend" ng-repeat="x in ret">
+		<p class="smallTitle" style="border:0;" ng-click="openAllQuanZi(x.classify_id,x.name)">{{ x.name }}<span >更多<i class="iconfont icon-icon07"></i></span></p>
+		<div class="quziList">
+			<ul class="quan_zi_lie_baio ">
+		   		<li class="flex-wrap"  ng-repeat=" i in x.data"    onClick="openWs(2,this )" id="{{ i.circle_id }}" >
+		   			<img src="{{ i.sumbmasterimg }}" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">{{ i.name }}</p>
+		   				<p class="cheng_yuan_shu">{{ i.membercount }}个成员</p>
+		   			</div>
+		   		</li>
+		   		<!--<li class="flex-wrap" onclick="openWs(2)">
+		   			<img src="../../image/frame0/goods_5.png" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">部落名字</p>
+		   				<p class="cheng_yuan_shu">220个成员</p>
+		   			</div>
+		   		</li>
+		   		<li class="flex-wrap" onclick="openWs(2)">
+		   			<img src="../../image/frame0/goods_5.png" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">部落名字</p>
+		   				<p class="cheng_yuan_shu">220个成员</p>
+		   			</div>
+		   		</li>-->
+		   </ul>
+		</div>
+	</div>
+	<!--<div class="recommend">
+		<p class="smallTitle">手机数码<span >更多<i class="iconfont icon-icon07"></i></span></p>
+		<div class="quziList">
+			<ul class="quan_zi_lie_baio ">
+		   		<li class="flex-wrap" onclick="openWs(2)">
+		   			<img src="../../image/frame0/goods_5.png" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">部落名字</p>
+		   				<p class="cheng_yuan_shu">220个成员</p>
+		   			</div>
+		   		</li>
+		   		<li class="flex-wrap" onclick="openWs(2)">
+		   			<img src="../../image/frame0/goods_5.png" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">部落名字</p>
+		   				<p class="cheng_yuan_shu">220个成员</p>
+		   			</div>
+		   		</li>
+		   		<li class="flex-wrap" onclick="openWs(2)">
+		   			<img src="../../image/frame0/goods_5.png" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">部落名字</p>
+		   				<p class="cheng_yuan_shu">220个成员</p>
+		   			</div>
+		   		</li>
+		   </ul>
+		</div>
+	</div>-->
+	<p class="no-data" ng-show="!ret.length" >暂无部落</p>
+	<span class="can_yu_hua_ti appbackground" onclick="applicationCircle()"> <i class="iconfont icon-bianji"></i> 申请部落 </span>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+
+	var app = angular.module("myApp", []);
+	app.controller('myAppCon', function($scope) {
+		
+		$scope.openAllQuanZi = function(type,name){
+			openW({
+				frm_url : 'frame2/all_Quan_zi.html',
+				winName:'all_Quan_zi',
+				title : name+'部落',
+				data:{
+					type:type
+				}
+			})	
+		}
+		
+		EventT.on('apiready',function(){
+		$api.closeloadding();
+			$api.post(phpurl+'Home/Circle/getHot', {values:{user_id:1}}, function (ret){
+			alert($api.jsonToStr(ret));
+				if(ret&&ret.result&&ret.result.length){
+					$api.each(ret.result , function(v){
+						$api.each(v.data,function(x){
+							x.sumbmasterimg = Imageurl +x.sumbmasterimg;
+						});	
+					});
+					$scope.ret = ret.result;
+				}else{
+					$scope.ret= [];
+				}
+				$scope.$apply();
+				$api.closeloadding();
+			});
+			
+			
+//			api.addEventListener({
+//	            name:'quanZiSearch'
+//          },function(ret,err){
+//          	//coding...
+//          });
+			
+			
+		})
+	})
+	
+	apiready = function(){
+		EventT.emit('apiready');
+	};
+//	function openWs(n,dom){
+//		var open_list = {
+//			0 : {
+//				frm_url : 'frame2/wo_de_quan_zi.html',
+//				title : '我的部落',
+//			},
+//			1 : {
+//				frm_url :  'frame2/pai_ming_win.html',
+//				title : '活跃排行榜',
+//			},
+//			2 : {
+//				frm_url :  'frame2/quan_zi_xiang_qing.html',
+//				title : '部落详情',
+//				data:{
+//					is_win:false,
+//					circle_id:dom?dom.id:''
+//				}
+//			},
+//		}
+//		
+//		if(open_list[n]){
+//		
+//			openW(open_list[n])
+//		}
+//	}
+	
+	function applicationCircle(){
+//	          if(!userid){
+//				    api.openWin({
+//				        name: 'login',
+//				        url: '../user/login.html',
+//				        slidBackEnabled:false
+//			        });
+//			        return false;
+//          	}
+		openW({
+			frm_url : 'frame2/shen_qing_quan_zi.html',
+			winName:'shen_qing_quan_zi',
+			title : '申请部落'
+		})	
+	}
+	
+</script>
+</html>

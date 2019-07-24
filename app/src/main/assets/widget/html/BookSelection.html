@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html ng-app="myApp"  class="htmlWeiLei"  >
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+
+<body ng-controller="DataCtrl">
+
+    <div class="content">
+        <ul class="m-bookList">
+            <li class="li" ng-click="addetail(d)" ng-repeat="d in dataList">
+                <h4 class="h4">{{ d.title }}</h4>
+                <p class="imgList">
+                    <img src="{{userimgUrl+d.images}}" alt="">
+                    <img src="{{userimgUrl+d.imagest}}" alt="">
+                    <img src="{{userimgUrl+d.imagess}}" alt="">
+                </p>
+                <p class="ft">
+                    <span>官方</span>
+                    <span>
+                        <i class="mr">{{ d.addtime }}</i>
+                        <i>{{ d.views }}关注</i>
+                    </span>
+                </p>
+            </li>
+            <!-- <li class="li"  onClick="shuji()" >
+            <h4 class="h4">【拯救书荒】2017年古代言情top30</h4>
+            <p class="imgList">
+                <img src="../src/images/ind-01.png" alt="">
+                <img src="../src/images/ind-01.png" alt="">
+                <img src="../src/images/ind-01.png" alt="">
+            </p>
+            <p class="ft">
+                <span>老阿姨的少女心</span>
+                <span>
+                    <i class="mr">8小时前</i>
+                    <i>69关注</i>
+                </span>
+            </p>
+        </li>
+       <li class="li"  onClick="shuji()" >
+            <h4 class="h4">【拯救书荒】2017年古代言情top30</h4>
+            <p class="imgList">
+                <img src="../src/images/ind-01.png" alt="">
+                <img src="../src/images/ind-01.png" alt="">
+                <img src="../src/images/ind-01.png" alt="">
+            </p>
+            <p class="ft">
+                <span>老阿姨的少女心</span>
+                <span>
+                    <i class="mr">8小时前</i>
+                    <i>69关注</i>
+                </span>
+            </p>
+        </li> -->
+        </ul>
+    </div>
+    <div class="bottom_loadmore"></div>
+    <script src="../script/angular.min.js"></script>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script src="../script/ev.js"></script>
+    <script src="../src/js/book.js"></script>
+    <script>
+        apiready = function () {
+            EventT.emit("apiready");
+        }
+
+
+        var app = angular.module('myApp', []);
+        app.controller('DataCtrl', function ($scope) {
+            $scope.userimgUrl = userimg;
+            $scope.dataList = [];
+
+            function getData(page, callback) {
+                $api.post(phpurl + 'Home/Book/shudan?', {
+                    values: {
+                        page: page
+                    }
+                }, function (ret) {
+                    if (ret.code == 200) {
+                        var result = ret.result;
+                        if (result.length > 0) {
+                            if (page == 0) {
+                                $scope.dataList = [];
+                            }
+
+                            $scope.dataList = $scope.dataList.concat(result);
+                            $scope.$apply();
+
+                        }else{
+                            api.toast({msg: '没有更多了哦'})
+                        }
+                    } else {
+                        $api.toast('很是遗憾，没加载到数据');
+                    }
+                    callback && callback(ret);
+                    $api.closeloadding();//关闭加载
+                })
+            }
+
+            $scope.addetail = function (data) {
+                if (data.gotos == 0) //打开书籍详情
+                {
+                    api.openWin({
+                        name: data + 'shu_ji_xiang_qing_win',
+                        url: 'dtail.html',
+                        pageParam: {
+                            data: {
+                                bookid: data.bookid
+                            }
+                        }
+                    });
+
+                } else if (data.gotos == 1) //打开广告详情
+                {
+                    api.openWin({
+                        name: data + 'win_headerad',
+                        url: 'win_header.html',
+                        pageParam: {
+                            frm_name: data + 'guanggxq',
+                            frm_url: 'addetail.html',
+                            title: '美书',
+                            data: {
+                                content: data.content
+                            }
+                        }
+                    });
+
+                } else if (data.gotos == 2) //打开网址
+                {
+                    api.openWin({
+                        name: '美书',
+                        url: data.weburl
+                    });
+                }
+
+            }
+
+            EventT.on("apiready", function () {
+                getData(0);
+
+                $api.up(function (page, callback) {
+                    console.log(page)
+                    getData(page, function (ret) {
+                        callback && callback(page,ret);
+                    })
+                });
+                $api.pull(function (callback) {
+                    getData(0, function () {
+                        callback && callback();
+                    })
+                })
+
+            })
+        })
+    </script>
+</body>
+
+</html>

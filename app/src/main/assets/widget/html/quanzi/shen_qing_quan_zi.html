@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+	<style>
+		body,html {
+			background-color: #eee;
+		}
+		.shu_ru_lie_biao {
+			padding-top:10px  ;
+		}
+		.shu_ru_lie_biao li {
+			line-height: 42px;
+			padding:0 10px;
+			font-size: 12px;
+			border-bottom: 1px solid #eee;
+			background-color: #fff;
+		}
+
+		.shu_ru_lie_biao li input {
+			outline: 0;
+			font-size: 12px;
+		}
+
+		.shu_ru_lie_biao li span {
+			width:80px;
+		}
+
+		.zi_zhi_wen_jian {
+			padding:0 10px;
+		}
+
+		.zi_zhi_wen_jian p {
+			font-size: 14px;
+			line-height: 40px;
+			color:#999;
+		}
+
+		.zi_zhi_wen_jian ul li {
+			width: 70px;
+			height: 70px;
+			margin-right:10px;
+			display: inline-block;
+			position: relative;
+			box-sizing: border-box;
+			border:1px dashed #999;
+		}
+		.zi_zhi_wen_jian ul li.wl:after{
+			content: '';
+			position: absolute;
+			width: 50%;
+			height: 2px;
+			background-color: #999;
+			left:25%;
+			top:50%;
+			margin-top: -1px;
+		}
+		.zi_zhi_wen_jian ul li.wl2:after{
+			content: '';
+			position: absolute;
+			width: 25%;
+			height: 2px;
+			background-color: #999;
+			left:38%;
+			top:50%;
+			margin-top: -1px;
+		}
+		.zi_zhi_wen_jian ul li.wl:before{
+			content: '';
+			position: absolute;
+			height: 50%;
+			width: 2px;
+			background-color: #999;
+			top:25%;
+			left:50%;
+			margin-left: -1px;
+		}
+		.zi_zhi_wen_jian ul li img {
+			position:relative;
+			width: 100%;
+			height: 100%;
+			z-index:999;
+		}
+		.zi_zhi_wen_jian ul li img[src=""]{
+			display: none;
+		}
+		.footer {
+/*			position: fixed;
+			bottom:10px;
+			left:0;*/
+			margin:10px 0;
+			width: 100%;
+			box-sizing: border-box;
+			padding:0 10px;
+		}
+		.btn {
+			display: block;
+			width: 100%;
+			font-size: 12px;
+			color:rgb(51,51,51);
+			line-height: 42px;
+			border-radius:5px;
+		}
+		
+		.myAlert{
+    		position:fixed;
+    		top:0;
+    		left:0;
+    		width:100%;
+    		height:100%;
+    		background:rgba(0,0,0,.3);
+    		display:none;
+    		z-index:999;
+    	}
+    	.alertContent{
+    		background:white;
+    		position:absolute;
+    		bottom:0;
+    		width:100%;
+    	}
+    	.alertContent>p{
+    		line-height:40px;
+    		text-align:center;
+    		font-size:14px;
+    		border-bottom:1px solid #EFEFEF;
+    	}
+    	.alertContent>p:last-child{
+    		border-bottom:0;
+    	}
+	</style> 
+</head>
+<body>
+    <ul class="shu_ru_lie_biao">
+	   	<li class="flex-wrap"><span>部落名称:</span><input placeholder="请填写部落名称" class="flex-con" type="text" id="pname"></li>
+	   	<li class="flex-wrap"><span>所属分类:</span><input placeholder="请选择分类" class="flex-con" type="text" readonly="readonly" id="cname" onclick="showClassify()"></li>
+	   	
+	   	<li class="flex-wrap"><span>部落描述:</span>
+	   		<textarea cols="30" rows="10" id="des" placeholder="请填写部落简介" style="padding-top:15px;width:75%;resize:none;"></textarea>
+	   	</li>
+	   	
+    </ul>
+	
+	<div class="zi_zhi_wen_jian">
+    	<p>上传部落主图</p>
+    	<ul>
+    		<li class="wl" onclick="getMark(this)"><img src="" alt="" id="margkImg"></li>
+    	</ul>
+    </div>
+    
+    <div class="zi_zhi_wen_jian">
+    	<p>上传部落详情图</p>
+    	<ul>
+    		<li class="wl wl2" onclick="getQualifications(this)" style="width:140px;"><img src="" alt="" id="zz0"></li>
+    	</ul>
+    </div>
+    
+    <div class="footer" onclick="sub()">
+    	<button class="btn appbackground">提交</button>
+    </div>
+    
+    
+    
+    
+    <div class="myAlert" ng-controller="classifyContrller">
+		<div class="alertContent">
+			<p ng-repeat="i in classifyList" ng-click="choose(i.classify_id,i.name)">{{ i.name }}</p>
+			<p onclick="cancel()">取消</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/shangtu.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script>
+	var tradeMark;//主图
+	var qualifications;//详情图
+	var classifyId;
+	apiready = function (){
+		changeTheme();
+		EventT.emit('apiready');
+	}
+	var app = angular.module("myApp",[]);
+	app.controller("classifyContrller",["$scope",function($scope){
+		$scope.classifyList = [];
+		
+		$scope.choose = function(classid,classname){
+			classifyId = classid;
+			$("#cname").val(classname);
+			cancel();
+		}
+		
+		EventT.on("apiready",function(){
+			$api.post(phpurl+"Classify/getAll",function(ret){
+				if(ret.code == 200){
+					$scope.classifyList = ret.result;
+					$scope.$apply();
+				}
+			})
+			$api.closeloadding();
+		})
+		
+	}]);
+	
+	function showClassify(){
+		$('.myAlert').fadeIn();
+		$('.alertContent').slideDown();
+	}
+	function cancel(){
+		$('.myAlert').fadeOut();
+		$('.alertContent').slideUp();
+	}
+	function getMark(obj){
+		selectAction.shang_tu(function(url){
+			
+			api.openWin({
+	            name: 'clip',
+	            url: '../clip.html',
+	            pageParam:{
+	               url:url,
+	               nameImg:'marsterImg'
+	            }
+            });
+            
+            var margkImg = document.getElementById('margkImg');
+			api.addEventListener({
+	            name:'clip'
+            },function(ret,err){
+            	tradeMark = ret.value.url;
+            	margkImg.src = tradeMark;
+            	$(obj).removeClass('wl');
+            });
+            
+//          tradeMark = url;
+//          margkImg.src = tradeMark;
+            
+	   })
+	}
+	function getQualifications(obj){
+		selectAction.shang_tu(function(url){
+		
+			api.openWin({
+	            name: 'clip1',
+	            url: '../clip1.html',
+	            pageParam:{
+	               url:url,
+	               nameImg:'quanZiXiangQingImg'
+	            }
+            });
+            
+            
+			var margkXiangQingImg = document.getElementById('zz0');
+			api.addEventListener({
+	            name:'clip1'
+            },function(ret,err){
+            	qualifications = ret.value.url;
+            	margkXiangQingImg.src = qualifications;
+            	$(obj).removeClass('wl');
+            });
+            
+            
+            
+            
+//          var margkImgs = $(obj).find('img');
+//          margkImgs.attr('src',url);
+//          
+//          if(type == 0){
+//          	qualifications0 = url;
+//          }
+//          if(type == 1){
+//          	qualifications1 = url;
+//          }
+//          if(type == 2){
+//          	qualifications2 = url;
+//          }
+//          $(obj).removeClass('wl');
+	   })
+	}
+	function sub(){
+		
+		var pname = $('#pname').val();
+		var des = $('#des').val();
+		if(!pname || !des){
+			api.toast({
+	            msg:'请填写完整内容'
+            });
+            return false;
+		}
+		if(!classifyId){
+			api.toast({
+	            msg:'还没选择所属分类哦'
+            });
+            return false;
+		}
+		if(!tradeMark || !qualifications){
+			api.toast({
+	            msg:'还有文件未上传'
+            });
+            return false;
+		}
+//		alert('pname:'+pname+'---content:'+des+'---classify_id:'+classifyId+'---masterimg:'+tradeMark+'---images:'+qualifications);
+		
+		
+		$api.loadding('shen_qing_ru_xhu',0);
+		$api.post(phpurl+'Circle/addCircle',{
+			values:{
+				user_id:userid,
+				name:pname,
+				content:des,
+				classify_id:classifyId
+			},
+			files:{
+				masterimg:tradeMark,
+				images:qualifications
+			}
+		},function(ret){
+			if(ret.code == 200){
+				api.toast({
+	                msg:'提交成功，请耐心等待'
+                });
+                $api.closeloadding();
+                api.closeWin({
+                });
+			}
+		})
+	}
+	
+	
+</script>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <title>飞翔网络</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/ffxiang.css" />
+    <link rel="stylesheet" type="text/css" href="../css/view.css" />
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav fx-view-header " id="fx-header">
+        <a class="aui-pull-left aui-btn" tapmode onclick="c()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title"></div>
+    </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/ffxiang.js"></script>
+<script type="text/javascript">
+    var fan;
+    apiready = function () {
+        //进入广告详情页首页加载数据
+//      api.execScript({
+//          name: 'ffxiang_win',
+//          script: 'showData()'
+//      })
+
+//      api.addEventListener({
+//          name: 'viewappear'
+//      }, function (ret, err) {
+////          _heibai(1)
+//      });
+//      _heibai(1);
+        fan = api.pageParam['fan'];
+        $api.html($api.dom('.aui-title'), api.pageParam['title'])
+        _openFrame(api.pageParam['url'], '', '1', api.pageParam, api.pageParam['useHi'])
+//      api.addEventListener({
+//          name: 'yejian'
+//      }, function (ret, err) {
+//          if (ret) {
+//              _yejians();
+//          }
+//      });
+    }
+
+    function _openFrame(url, header, footer, pageParam, useHi, bounces) {
+        // 解析属性	消除点击300S 延时问题 tapmode
+        api.parseTapmode();
+        if (!useHi) {
+            useHi = false;
+        } else {
+            useHi = true;
+        }
+        var headerh;
+        var footerh;
+        if (header == 1) {
+            headerh = 0;
+        } else {
+            var header = $api.byId('fx-header');
+            $api.fixStatusBar(header);
+            var headerPos = $api.offset(header);
+            headerh = headerPos.h
+        }
+        var body_h = api.winHeight;
+        if (footer == 1) {
+            footerh = 0;
+        } else {
+            $api.fixTabBar($api.byId('fx-footer'))
+            footerh = $api.offset($api.byId('fx-footer')).h;
+        }
+        if (bounces) {
+            bounces = false
+        } else {
+            bounces = true 
+        }
+        console.log(url);
+        api.openFrame({
+            name: url,
+            url: url,
+            bounces: true,
+            //showProgress : true,
+            reload: true,
+            rect: {  
+                x: 0,
+                y: headerh,
+                w: 'auto',
+                h: body_h - headerh - footerh
+            },
+
+            //useWKWebView : true,
+            //historyGestureEnabled : true,
+            //		vScrollBarEnabled : false,
+            //		hScrollBarEnabled : false,
+            pageParam: pageParam,
+        })
+
+    }
+
+
+//  function c() {
+//      api.closeWin({
+//          name:'ggxq_win'
+//      })
+//
+//  }
+</script>
+
+</html>

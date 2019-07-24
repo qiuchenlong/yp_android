@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	img{
+    		vertical-align: text-bottom;
+    		margin-bottom:4px;
+    	}
+    	.ranking ul li{
+    		padding:5px 10px;
+    		background:white;
+    		height:40px;
+    		position:relative;
+    		line-height:40px;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    
+    
+    	
+    	.ranking ul li .userName{
+    		font-size:12px;
+    		width:55%;
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+    	}
+    	
+    	
+    	.hua_ti {
+    		position:fixed;
+    		left:0;
+    		right:0;
+    		bottom:0;
+    		top:0;
+    		padding:0 15%;
+    		
+    	}
+    	.hua_ti .bg {
+    		
+    		position:absolute;
+    		height:100%;
+    		width:100%;
+    		left:0;
+    		top:0;
+    		background:rgba(0,0,0,0.3);
+    	}
+    	.hua_ti>.content{
+    		width:100%;
+    		position:absolute;
+    		top:50%;
+    		left:15%;
+    		width:15%;
+    		width:70%;
+    		
+    		box-sizing:border-box; 
+    		border-radius:3px;
+    		transform: translate(0 , -50%);
+			-webkit-transform: translate(0 , -50%);
+			background:#fff;
+    	}
+    	
+    	.hua_ti .content h5 {
+    		line-height:40px;
+    		font-size:12px;
+    		font-weight:normal;
+    		text-align:center;
+    		color:#999;
+    		border-bottom:1px solid #eee;
+    	}
+    	.hua_ti .input_box {
+    		padding:0 10px;
+    		
+    	}
+    	.hua_ti .content   input {
+    		width:100%;
+    		padding:5px 0;
+    		line-height:16px;
+    		font-size:12px;
+    		color:#999;
+    		border-radius:2px;
+    		margin:10px 0 10px;
+    		border:1px solid #ccc;
+    	}
+    	.btn,
+    	.hua_ti .content button {
+    		line-height:40px;
+    		font-size:12px;
+    		width:100%;
+    		color:#333;
+    		border-radius:0  0 3px 3px;
+    		border-top:1px solid #eee;
+    		text-align:center;
+    	}
+    	
+    	.btn {
+    		margin:20px 0 20px 10%;
+    		border-radius:3px;
+    		width:80%;
+    		
+    	}
+    </style>
+</head>
+<body ng-controller="LoctionController">
+	<div class="ranking">
+		<ul>
+			<li ng-repeat="i in ret"  ng-click="select(i)">
+				<span class="userName">{{ i.content }}</span>
+			</li>
+			<!--<li onclick="openWs()">
+				
+				<span class="userName">MR.L君君</span>
+				
+			</li>
+			<li onclick="openWs()">
+				
+				<span class="userName">MR.L君君</span>
+				
+			</li>
+			<li onclick="openWs()">
+				
+				<span class="userName">MR.L君君</span>
+			</li>
+			<li onclick="openWs()">
+				
+				<span class="userName">MR.L君君</span>
+			</li>-->
+		</ul>
+		
+	</div>
+	<div class="hua_ti" style="display:none">
+		<div class="bg"></div>
+		<div class="content">
+			<h5>创建话题</h5>
+			<div class="input_box"><input type="text"  oninput = "this.value = this.value.substring(0 ,50)"/></div>
+			<button class="appbackground">创建</button>
+		</div>
+	</div>
+	<div><button class="btn appbackground">创建话题</button></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+	var circle_id = '';
+	apiready = function() {
+		changeTheme();
+		circle_id = api.pageParam.circle_id||1;
+		EventT.emit('apiready');
+	};
+	
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope', function($scope) {
+		EventT.on('apiready', function() {
+			$api.post(phpurl+'Topic/getAll' , {
+				values:{
+					circle_id:circle_id
+				}
+			},function(ret){
+				if(ret&&ret.result&&ret.result.length){
+					$scope.ret = ret.result
+				}else{
+					$scope.ret  = [];
+				}
+				$scope.$apply();
+				$api.closeloadding();
+			})
+		})
+		
+		$scope.select= function(i){
+			select(i)
+		}
+	}]);
+	
+	$('.btn').click(function(){
+		openW({
+			frm_url:'frame2/tian_jia_hua_ti.html',
+			title:'添加话题',
+			data:{
+				circle_id:circle_id,
+			}
+		});
+		
+		api.addEventListener({
+		    name: 'tian_jia_hua_ti'
+		}, function(ret, err) {
+		   if(ret&&ret.value){
+		   		select(ret.value);
+		   		setTimeout(api.closeWin, 500)
+		   };
+		});
+		
+		
+		
+//		return ;
+//		$('.hua_ti').show();
+//		$('.hua_ti .bg').click(function(){
+//			$('.hua_ti').hide();
+//		});
+//		$('.hua_ti button').click(function(){
+//			$api.loadding('name', 1);
+//			var text = $api.trimAll($('.hua_ti input').val());
+//			if(!text){
+//				$api.t('请输入话题的名字');
+//				return; 
+//			}
+//			$api.post(phpurl+'Topic/createTopic',{
+//				values:{
+//					circle_id:circle_id,
+//					content:text,
+//					user_id:userid
+//				}
+//			}, function(ret){
+//				$('.hua_ti').hide();
+//				$api.closeloadding();
+//				if(ret&&ret.code==200){
+//					$api.t('创建成功');
+//					var data = {
+//						topic_id:ret.id,
+//						content:text,
+//					}
+//					select(data);
+//				}else{
+//					$api.t('创建失败')
+//				}
+//			})
+//		})
+	})
+	
+	function select(i){
+		api.sendEvent({
+			name : 'xuan_ze_hua_ti',
+			extra : i||{}  
+		});
+		api.closeWin();  
+	}
+	
+	
+</script>
+</html>

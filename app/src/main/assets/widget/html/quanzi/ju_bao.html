@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.text{
+    		margin-top:8px;
+    		background:white;
+    		
+    	}
+    	#msg{
+    		resize:none;
+    		width:94%;
+    		padding:3%;
+    		color:#5B5B5B;
+    	}
+    	.text p{
+    		/*position:absolute;*/
+    		float:right;
+    		font-size:12px;
+    		margin:0 10px 10px 0;
+    		color:#989898;
+    	}
+    	.quit{
+    		margin-top:10px;
+    		padding:0 10px;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		color:#5C5C5C;
+    		border-radius:5px;
+    	}
+    	
+    	.tian_jia_tu_pin {
+			padding:10px 10px;
+			border-top:1px solid #EDEDED;
+			background:white;
+		}
+		.tian_jia_tu_pin ul li {
+			width: 80px;
+			height: 80px;
+			margin-right:10px;
+			display: inline-block;
+			position: relative;
+			box-sizing: border-box;  
+			border:1px dashed #999;
+		}
+		.tian_jia_tu_pin ul li:after{
+			content: '';
+			position: absolute;
+			width: 50%;
+			height: 2px;
+			background-color: #999;
+			left:25%;
+			top:50%;
+			margin-top: -1px;
+		}
+
+		.tian_jia_tu_pin ul li:before{
+			content: '';
+			position: absolute;
+			height: 50%;
+			width: 2px;
+			background-color: #999;
+			top:25%;
+			left:50%;
+			margin-left: -1px;
+		}
+		.tian_jia_tu_pin ul li img {
+			width: 100%;
+			height: 100%;
+			position:relative;
+			z-index:545;
+		}
+		.tian_jia_tu_pin ul li img[src=""]{
+			display: none;
+		}
+    </style>
+</head>
+<body>
+	<div class="text clearfix">
+		<textarea cols="30" rows="10" id="msg" placeholder="举报内容简介或上传举报证据" maxlength='100'></textarea>
+		<p><span id="ziShu">0</span>/300</p>
+	</div>
+	<div class="tian_jia_tu_pin">
+    	<ul>
+    		<li><img src="" alt=""></li>
+    	</ul>
+    </div>
+	<div class="quit">
+		<button class="appbackground">
+			提交
+		</button>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/shangtu.js"></script>
+<script type="text/javascript">
+	var imgUrl = '' ,  bid  = 0, classify='', circle_id = '', type = ''  ,activeId = '' ;
+	apiready = function(){
+		changeTheme();
+		bid = api.pageParam.bid||0;
+		classify = api.pageParam.classify||'';
+		circle_id = api.pageParam.circle_id||'';
+		type = api.pageParam.type||0;
+		activeId = api.pageParam.activeId||0;
+	};
+	$('.tian_jia_tu_pin').click(function(){
+		selectAction.shang_tu(function(url){
+			$('.tian_jia_tu_pin img').attr('src', url);
+			imgUrl = url;
+			
+		});
+	})
+	$('.quit>button').click(function(){
+		var text = $api.trimAll($('#msg').val());
+		if(!text){
+			$api.t('请输入举报的内容！');
+			return;
+		}
+		
+		var values = {
+			user_id:userid,
+			content :text,//内容
+			type:type,  //0为举报部落 1为举报活动
+			bid : circle_id , // 部落 id
+			classify : classify //举报类型
+		}
+		
+		if(circle_id){
+			values.bid = circle_id;
+		}
+		
+		if(activeId){
+			values.bid = activeId;
+		}
+		
+		if(classify){
+			values.classify = classify;
+		}
+		$api.loadding('nbame', 2);
+		$api.post(phpurl +'Report/addReport',{
+			values:values,
+			files : {
+				'file[]': [imgUrl||'']
+			},
+			
+		},function(){
+			$api.closeloadding();
+			$api.t('举报成功');
+			setTimeout(api.closeWin, 500)
+		})
+	})
+	
+	$('#msg').on("keyup",function(){
+		var count = $(this).val().length;
+		$("#ziShu").html(count);
+	})
+</script>
+</html>

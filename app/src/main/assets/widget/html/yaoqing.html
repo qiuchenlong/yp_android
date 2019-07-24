@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+   <style>
+   /*分享*/
+.shareCover { position: fixed; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); top: 0; left: 0; text-align: center; font-size: 12px; color: #5c5c5c; z-index: 50; }
+
+.shareCover .shareList { background: white; position: absolute; bottom: 0; width: 100%; }
+
+.shareCover ul { padding: 15px 0; border-bottom: 1px solid #ebebeb; }
+
+.shareCover ul li { display: inline-block; width: 19%; }
+
+.shareCover ul li img { width: 65%; }
+
+.shareCover .shareList .js-cancel { line-height: 45px; }
+   </style>
+</head>
+<body>
+<img src="../src/images/timg.jpg" style=" width: 100%; height: 100%;" class="js-share">
+<div class="shareCover" style="display: none">
+                    <div class="shareList">
+                         <ul>
+                <li onclick="fenxiang(1)">
+                    <img src="../image/weixin_login.png" alt="" />
+                    <br /> 好友
+                </li>
+                <li>
+                    <!-- <img src="../src/images/pyq@2x.png" alt="" />
+                                <br />
+                                朋友圈 -->
+                </li>
+                <li>
+                    <!-- <img src="../src/images/qq@2x.png" alt="" />
+                                <br />
+                                QQ好友 -->
+                </li>
+                <li onclick="fenxiang(2)">
+                    <img src="../image/pyq@2x.png" alt="" />
+                    <br /> 朋友圈
+                </li>
+                <!--<li>
+                                 <img src="../../image/weibo@2x.png" alt="" />
+                                <br />
+                                新浪微博
+                            </li>-->
+            </ul>
+                        <div class="js-cancel">
+                            取消
+                        </div>
+                    </div>
+                </div>
+</body>
+</html>
+
+  <script src="../src/library/zepto.js"></script><!--页面js-->
+    <script src="../src/js/global.js"></script>
+    <script type="text/javascript" src="../script/api.js"></script>
+<script>
+var  userid;
+ var shareurl;;
+      var sharecontent="海量小说免费看，惊喜不断，持续更新";
+      var sharetitle="一品阅读";
+
+    apiready = function () {
+         userid = $api.getStorage('user_id');
+         shareurl="http://106.52.204.57?userid="+userid;
+                   $api.post(phpurl + 'Home/Ad/xitong', {//获取分享配置
+
+            }, function(ret) {
+              console.log(JSON.stringify(ret));
+
+                if (ret.result.length == 0) {
+                  api.toast({msg: '数据加载失败，请重试'});
+                  return;
+                }
+
+                shareurl=ret.result[0].address+"?userid="+userid;
+                sharecontent=ret.result[0].content;
+                sharetitle=ret.result[0].title;
+            });
+
+
+
+
+    }
+
+
+ /*分享*/
+        $('.js-share').on('click', function (e) {
+            $('.shareCover').show();
+        });
+        $('.shareCover').on('click', function (e) {
+            $('.shareCover').hide();
+
+        });
+        $('.shareCover .shareList').on('click', function (e) {
+            e.stopPropagation();
+        });
+        $('.js-cancel').on('click', function (e) {
+            $('.shareCover').hide();
+        });
+
+          function fenxiang(m)
+          {
+
+
+
+              if(m==1)
+              {
+              var path="session";
+              }
+              else
+              {
+              var path="timeline";
+              }
+ var wx = api.require('wx');
+wx.shareWebpage({
+    apiKey: '',
+    scene: path,
+    title: sharetitle,
+    description: sharecontent,
+    thumb: 'widget://image/logo.png',
+    contentUrl: shareurl,
+}, function(ret, err) {
+    if (ret.status) {
+        alert('分享成功');
+    } else {
+        alert(err.code);
+    }
+});
+          }
+
+
+
+</script>

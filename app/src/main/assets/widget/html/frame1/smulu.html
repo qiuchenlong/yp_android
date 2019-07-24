@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html ng-app="myApp"class="htmlWeiLei" >
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+    	<link rel="stylesheet" href="../../css/api.css" />
+	</head>
+	<style>
+		.list{
+			
+			background:white;
+		}
+		.list ul li{
+			font-size:14px;
+			color:#484848;
+			line-height: 40px;
+			padding-left:10px;
+			padding-right:10px;
+			border-bottom:1px solid #f1f1f1;
+			overflow:hidden;
+		}
+		
+		.list ul li span:nth-child(1){
+		    float:left;
+		}
+		
+	/*	.list ul li span:nth-child(2){
+		    float:left;
+		}*/
+		
+		.list ul li span:nth-child(2){
+		    float:right; color: #DC143C;
+		}
+		
+		.ft{
+		   background:#E6EFF6;
+		   height:46px;
+		   line-height:46px;
+		   font-size:16px;
+		   color:#85D2E0;
+		   text-align: center;
+		   position:fixed;
+		   width:100%;
+		   bottom:0px;
+		   left:0px;
+		}
+	</style>
+<body ng-controller="DataController">
+		<div class="top">
+			
+		</div>
+		
+		<div class="list">
+			<ul>
+				<li ng-repeat="b in bookList" ng-click="bookdetail(b)" >
+					<!--<span>第1章:</span>-->
+					<span>{{b.chaptername}}</span>
+					
+					<span ng-if="b.saleprice>0">￥：{{b.saleprice}}</span>
+					<span else ng-if="b.saleprice<=0" >推荐</span>
+				</li>
+				<!--<li>
+					<span>第1章:</span>
+					<span>向死而生,我要活着</span>
+					<span>推荐</span>
+				</li>
+				<li>
+					<span>第1章:</span>
+					<span>向死而生,我要活着</span>
+					<span>推荐</span>
+				</li>-->
+				
+			</ul>
+		</div>
+		
+		<!--<div class="ft">
+		    <span class="iconfont icon-xiazai" style="font-size:22px;"></span>
+		    下载全部可读章节
+		</div>-->
+		<div class="bottom_loadmore"></div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ionic.bundle.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+	var bookid=0;
+		apiready = function(){
+		EventT.emit("apiready");
+
+//getData(0);
+	};
+	
+	
+		var app = angular.module("myApp", []);
+	app.controller("DataController",function($scope){//angular开始
+	$scope.bookList = [];
+	$scope.imgurl = imageUrl;
+	function getData(page,callback){
+	$api.post(phpurl+"Home/Book/chapter?id="+bookid,{
+			values:{
+				page:page
+			}
+		},function(ret){
+//		alert($api.jsonToStr(ret));
+			if(ret.code == 200){
+				if(ret.result.length > 0){
+					$scope.bookList = ret.result;
+					$scope.$apply();
+				}
+				// $api.closeloadding();//关闭加载
+			}else{
+				 $api.toast('很是遗憾，没加载到数据');
+				// $api.closeloadding();//关闭加载
+			}
+			callback&&callback(ret);
+		})
+	
+	}
+	
+	$scope.bookdetail=function(dates)
+		{
+         var cid=dates.chapterid
+         var paixu=dates.paixu
+//$api.send("xuanze_zhangjie",{cid:cid,sort:paixu});
+
+		  api.openWin({
+	         name: 'bookRead',
+	         url: '../readbook.html',
+	          pageParam:{
+	                 bookid:bookid,
+	                 cid:cid,
+	                 sort:paixu
+	                }
+	       
+         });
+         
+		}
+		
+	
+	     EventT.on("apiready",function(){
+	     		bookid=api.pageParam.data.bookid;
+
+		getData(0);
+		$api.up(function(page,callback){
+            getData(page,function(ret){
+	           callback&&callback(ret);
+	        })
+	    });
+	    $api.pull(function(callback){
+	        getData(0,function(){
+	            callback&&callback();
+	        })
+	    })
+	})
+	
+	});
+</script>

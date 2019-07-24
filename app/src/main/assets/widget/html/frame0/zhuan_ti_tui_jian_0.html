@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/ionic.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.banner{
+    		padding:13px;
+    		background:white;
+			margin-bottom:10px;
+    	}
+    	.banner img{
+    		width:100%;
+    	}
+    	.banner p.msg{
+    		font-size:12px;
+    		color:#989898;
+    		line-height:20px;
+    	}
+    	.banner p.booksName{
+    		line-height:30px;
+    		font-size:14px;
+    	}
+    	
+/*    	.lh-over{
+    		position: relative;
+    	}
+    	.spinner-calm{
+    		position:absolute;
+
+    	}*/
+    </style>
+</head>
+<body ng-controller="listDate">
+	
+	
+
+        <div class="banner" ng-repeat="i in bookList" ng-click="openW(i.name,i.theme_id)">
+			<p class="booksName">{{ i.name }}</p>
+			<p class="msg">{{ i.intro }}</p>
+			<img src="{{ imgurl+i.sumbimg }}" alt="" />
+		</div>
+
+	
+	
+<!--	<div class="banner" onclick="openW(this)">
+		<p class="booksName">婚宠之先婚后爱</p>
+		<p class="msg">没有穿越解决不了的事,如果有，那就两次</p>
+		<img src="../../image/zhuanti_03.png" alt="" />
+	</div>
+	<div class="banner" onclick="openW(this)">
+		<p class="booksName">婚宠之先婚后爱</p>
+		<p class="msg">没有穿越解决不了的事,如果有，那就两次</p>
+		<img src="../../image/zhuanti_03.png" alt="" />
+	</div>-->
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script src="../../script/ionic.bundle.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	var app = angular.module("myApp",[]);
+	
+
+	
+	app.controller("listDate",["$scope",function($scope){
+		$scope.bookList = [];
+		$scope.imgurl = imageUrl;
+		
+		
+		$scope.openW = function(title,id){
+			api.openWin({
+		       name: 'win_headertyhuuf',
+		       url: '../win_header.html',
+		       pageParam:{
+	               frm_name:'goods_detail25655',
+	               frm_url:'frame0/zhuan_ti_tui_jian.html',
+	               title:title,
+	               data:{themtid:id}
+		       }
+	        });
+		}
+		
+		EventT.on("apiready",function(){
+			getDate(0);
+			$api.up(function(page,callback){
+	            getDate(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    })
+		    
+		    $api.pull(function(callback){
+		        getDate(0,function(){
+		            callback&&callback();
+		        })
+		    })
+			
+		})
+		
+		function getDate(page,callback){
+			$api.loadding('zhuan_ti_tui_jian_0',1);
+			$api.post(phpurl+"m=api&c=index&a=theme&page=page",function(ret){
+				if(ret.code == 200){
+					if(ret.result.length > 0){
+						if(page == 0){
+			     	    	$scope.bookList = [];
+			     	    }
+			     	    $scope.bookList = $scope.bookList.concat(ret.result);
+			     		$scope.$apply();
+						$api.closeNoDate();
+			     		// $api.closeloadding();
+					}else if(ret.result.length <= 0 && page == 0){
+//						alert(page);
+						$api.noDate();
+		     			// $api.closeloadding();
+		     		}else{
+		     			// $api.closeloadding();
+		     		}
+		     		callback&&callback(ret);
+				}
+				
+			})
+		}
+	}])
+	
+	
+	apiready = function(){
+		EventT.emit("apiready");
+	};
+</script>
+</html>

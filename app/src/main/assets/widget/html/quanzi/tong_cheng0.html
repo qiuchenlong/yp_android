@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" id="css" href="../../css/theme.css">
+		<link rel="stylesheet" href="./quan_zi.css">
+		<style>
+		
+			
+			.quan_zi {
+				background: #fff
+			}
+			.quan_zi .ming_zi {
+				line-height: 36px;
+			}
+			.quan_zi .shi_jian {
+				font-size: 12px;
+				color: #444;
+				margin-top: 10px;
+			}
+			.quan_zi > li {
+				padding: 10px 0px;
+			}
+			.quan_zi .tou_xiang {
+				margin: 0 15px;
+			}
+			.quan_zi .tu_pin, .quan_zi .wei_bu, .quan_zi .ping_lun {
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+			.quan_zi .ni_rong {
+				line-height: 18px;
+				padding: 5px 15px;
+			}
+			.quan_zi .len_jie {
+				color: rgb(247,122,15);
+			}
+			.quan_zi .wei_bu .xin_xi, .quan_zi .wei_bu .zan {
+				float: none;
+				width: 30px;
+				margin: 0;
+			}
+			.quan_zi .wei_bu .xin_xi .iconfont {
+				font-size: 14px;
+				margin: 0;
+				position: relative;
+				top: 1px;
+			}
+			.quan_zi .wei_bu .zan .iconfont {
+				font-size: 15px;
+				margin: 0;
+			}
+			.ping_lun {
+				margin-top: 5px;
+				position: relative;
+				padding: 5px 0 20px 0;
+				border-top: 1px solid #eee;
+			}
+			.ping_lun > .cha_kan_ping_lun {
+				line-height: 30px;
+				position: absolute;
+				bottom: -9px;
+				left: 0;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 15px;
+				text-align: left;
+				font-size: 13px;
+				color: #999;
+			}
+			.ping_lun > .cha_kan_ping_lun span {
+				margin: 0 5px;
+			}
+			.ping_lun li {
+				line-height: 20px;
+				font-size: 13px;
+				color: #999;
+			}
+			.ping_lun.yin_cang {
+				height: 40px;
+				overflow: hidden;
+			}
+			.can_yu_hua_ti {
+				position: fixed;
+				bottom: 20px;
+				right: 15px;
+				width: 65px;
+				height: 65px;
+				font-size: 10px;
+				line-height: 12px;
+				text-align: center;
+				border-radius: 50%;
+				color: #333;
+			}
+			.can_yu_hua_ti .icon-bianji {
+				display: block;
+				font-size: 30px;
+				color: #333;
+				text-align: center;
+				line-height: 40px;
+				margin-top: 2px;
+			}
+			
+
+			.can_yu_hua_ti {
+				position: fixed;
+				bottom: 20px;
+				right: 15px;
+				width: 65px;
+				height: 65px;
+				font-size: 10px;
+				line-height: 12px;
+				text-align: center;
+				border-radius: 50%;
+				color: #333;
+			}
+			.can_yu_hua_ti .icon-bianji {
+				display: block;
+				font-size: 30px;
+				color: #333;
+				text-align: center;
+				line-height: 40px;
+				margin-top: 2px;
+			}
+		</style>
+	</head>
+	<body ng-controller="myAppCon">
+		
+		
+		
+		<ul class="quan_zi">
+			<li onclick="dongTai(this.id)" ng-repeat="x in Talk" id="{{ x.circletalk_id }}">
+				<div class="tou_xiang flex-wrap" >
+					<div class="flex-con" style="height:50px;">
+						<span class="img-w-c tou_xiang_img"> 
+							<img  src="{{ Imageurl+x.sumbheadimg }}" onclick="$api.open_user(this.id)"  id="{{ '454,'+x.user_id }}"  alt=""> 
+						</span>
+						<h3 class="ming_zi">{{ x.name }}</h3>
+					</div>
+					<span class="shi_jian">{{ x.addtime  }}</span>
+				</div>
+				<p class="ni_rong">
+					<span class="len_jie" onclick="huaTi(this.id)" ng-show="x.topicname"  id="{{ x.topic_id }}">#{{ x.topicname }}#</span>
+					{{ x.content }}
+					<span class="len_jie" style="margin:0px 2px"  onclick="$api.open_user(this.id)" ng-repeat="a in x.at" ng-show="a.name"  id="{{ a.name+','+a.userid }}" >
+		            	@{{ a.name }}
+		            </span>
+				</p>
+				
+				<div class="tu_pin" ng-show="x.sumbimages.length" >
+					<div class="img-w-c " ng-repeat="i in x.sumbimages track by $index" >
+						<img  class="sumbimages{{ x.page }}" src="{{ Imageurl + i  }}" alt="">
+					</div>
+					<!--<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+					</div>
+					<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+					</div>-->
+				</div>
+				<p class="quan_zi_di_zhi" data-lon="{{ x.longitude }}"  data-lat="{{ x.latitude }}" data-id="{{ x.circletalk_id }}" ng-show="x.location" onclick="$api.location&&$api.location(this)"><i class="iconfont icon-dingwei"></i>{{ x.location }}</p>
+				<div class="wei_bu">
+					<span class="zan " ng-click="addLike($event , $index , x.isdan)"><i class="iconfont icon-zan {{ x.isdan==1?'apptxtcolor':'' }}"></i>{{ +x.likenum || '' }}</span>
+					<span class="xin_xi"><i class="iconfont icon-xinxi"></i>{{ +x.replycount || '' }}</span>
+				</div>
+			</li>
+			<div  class="bottom_loadmore"></div>
+			<!--<li onclick="dongTai()">
+				<div class="tou_xiang flex-wrap">
+					<div class="flex-con" style="height:50px;">
+						<span class="img-w-c tou_xiang_img"> <img  src="../../image/frame0/goods_4.png" alt=""> </span>
+						<h3 class="ming_zi">名字</h3>
+					</div>
+					<span class="shi_jian">12:30</span>
+				</div>
+				<div class="tu_pin">
+					<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+					</div>
+					<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+					</div>
+					<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+					</div>
+				</div>
+				<div class="wei_bu">
+					<span class="zan"><i class="iconfont icon-zan"></i></span>
+					<span class="xin_xi"><i class="iconfont icon-xinxi"></i></span>
+				</div>
+				<ul class="ping_lun hide">
+					<li>
+						君君：好看好看好看
+					</li>
+					<li>
+						君君：好看好看好看
+					</li>
+					<button class="cha_kan_ping_lun">
+						查看全部<span>6</span>条评论
+					</button>
+				</ul>
+			</li>-->
+		</ul>
+		<!--<span class="can_yu_hua_ti appbackground" onclick="openWs()"> <i class="iconfont icon-bianji "></i> 发帖 </span>
+-->	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script src="../../script/angular.min.js"></script>
+	<script src="../../script/jqthumb.js"></script>
+	<script src="../../script/ev.js"></script>
+	<script>
+
+	
+
+		
+		
+		var app = angular.module("myApp", []) ,
+		circle_id= 1 , //部落的id
+		qianlist= [], //签到的 
+		sumbimages = '' ,
+		name = '' ;
+		app.controller('myAppCon', function($scope) {
+			var isBegin = 0; //这个判断通知是否可以点击的 1是可以点击的，　0是不可以
+			EventT.on('apiready',function(){	
+				$scope.Talk=[];
+				$scope.img_h = (api.winWidth -30)* 0.333;
+				$scope.Imageurl = Imageurl;
+				var site = $api.getStorage('site')||{};	
+				var getCircleTalk = $api.getCircleTalk({
+					city:site.city
+				});
+				
+				getCircleTalk(0 ,Talk);
+				$api.up(function(page,callback){
+		            getCircleTalk(page,function(page ,ret){
+			           callback&&callback(ret);
+			           Talk(page,ret);
+			        })
+			    });
+				function Talk(page,ret){
+					 $api.closeloadding();
+					if(ret&&ret.result&&ret.result.length){
+						$api.each(ret.result , function(v,i){
+							if(v.sumbimages){
+								v.sumbimages = v.sumbimages.split(',');
+							}else{
+								v.sumbimages = [];
+							}
+							v.page = page;
+						});
+						
+						$scope.Talk = $scope.Talk.concat(ret.result);
+					}else{
+						if(page==0){
+							$scope.Talk=[]
+						}
+					}
+					
+					$scope.$apply();
+					setTimeout(function(){
+						$('.quan_zi .sumbimages'+page).jqthumb({
+							width: $scope.img_h,
+							height: $scope.img_h,
+							after: function(imgObj){imgObj.css('opacity', 0).animate({opacity: 1},500)}
+						});	
+					},10)
+				}
+				
+				
+				$scope.addLike = function (e , i ,isdan){
+					if (e.stopPropagation) e.stopPropagation();//防冒泡
+					if(isdan){
+						$api.t('点赞过了')
+						return 
+					}
+					
+					var circletalk_id = $scope.Talk[i].circletalk_id
+					$api.post(phpurl+'CircleTalk/addLike', {
+						values:{
+							circletalk_id:circletalk_id,
+							user_id:userid
+						}
+					},function(ret){
+						if(ret&&ret.code==200){
+							$scope.Talk[i].likenum = (+$scope.Talk[i].likenum)  +1;
+							$api.t('+1');
+							$scope.Talk[i].isdan  = 1;
+							$scope.$apply();
+						}	
+					});
+				}
+			});
+		});
+		
+		
+	
+		apiready = function (){
+			changeTheme();
+			
+			EventT.emit('apiready',{noload:true});
+		} 
+		
+		
+		
+		
+		function openWs(){
+			openW({
+				frm_url : 'frame2/xin_zeng_dong_tao.html',
+				title : '新帖子',
+				data:{
+					circle_id:circle_id,
+					r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>'
+				}
+			})	
+		}
+		
+		
+		
+		function huaTi(id){
+			openW({
+				frm_url : 'frame2/hua_ti_xiang_qing.html',
+				title : '话题详情',
+				data:{
+					is_win:false,
+					topic_id:id
+				}
+			});
+			event.stopPropagation();
+		}
+		function dongTai(id){
+			openW({
+				frm_url : 'frame2/dong_tai_xiang_qing.html',
+				title : '动态详情',
+				data:{
+					dynamic_id:id
+				}
+			})
+		}
+		function openWs(){
+			openW({
+				frm_url : 'frame2/xin_zeng_dong_tao.html',
+				title : '新帖子',
+				data:{
+					circle_id:circle_id,
+					r_txt: '<span onclick="$api.send(\'xin_zeng_dong_tao\')">发布</span>'
+				}
+			})	
+		}
+		
+	</script>
+</html>

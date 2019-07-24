@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+	/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<meta content="telephone=no" name="format-detection" />
+	<!--去除iPhone端默认数字为a-->
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/area.css" />
+	<style>
+		html,
+		body {
+			font-size: 16px;
+		}
+
+		.dataList {
+			padding: 10px;
+			margin-bottom: 50px;
+		}
+
+		.dataList>ul>li {
+			background: white;
+			width: 100%;
+			height: 50px;
+			border-radius: 5px;
+			margin-top: 10px;
+			line-height: 50px;
+		}
+
+		.dataList ul li .left {
+			float: left;
+			width: 30%;
+			text-align: center;
+			color: #5d5d5d;
+		}
+
+		.dataList ul li .left img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin-top: 5px;
+		}
+
+		.dataList ul li .right {
+			float: right;
+			width: 70%;
+			color: #5d5d5d;
+		}
+
+		.dataList ul li .right input {
+			line-height: 52px;
+			color: #5d5d5d;
+		}
+
+		.autograph {
+			margin-top: 10px;
+			background: white;
+			border-radius: 5px;
+			padding: 10px 0;
+		}
+
+		.autograph p {
+			width: 30%;
+			text-align: center;
+			color: #5d5d5d;
+		}
+
+		.autograph textarea {
+			resize: none;
+			padding: 10px;
+			color: #5d5d5d;
+			font-size: 15px;
+		}
+
+		.quit {
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+		}
+
+		.quit button {
+			width: 100%;
+			height: 45px;
+			color: #292b33;
+		}
+
+		#areaLayer {
+			font-size: 20px !important;
+		}
+
+		.express-area dl dt {
+			line-height: 50px;
+		}
+
+		.appbackground {
+			background: #ee5048;
+		}
+	</style>
+</head>
+
+<body ng-controller="myData">
+	<div class="dataList">
+		<ul>
+			<li onclick="openPictrue()">
+				<div class="left" style="line-height:20px;">
+					<img src="{{ myInfo.images }}" alt="{{ myInfo.images }}" id="headimg" />
+				</div>
+				<div class="right">
+					更新头像
+				</div>
+			</li>
+			<li>
+				<div class="left">
+					昵
+					<span style="visibility: hidden;">昵称</span>称 :
+				</div>
+				<div class="right">
+					<input type="text" placeholder="请输入昵称" value="{{ myInfo.name }}" id="name" />
+				</div>
+			</li>
+			<li>
+				<div class="left">
+					性
+					<span style="visibility: hidden;">性别</span>别 :
+				</div>
+				<div class="right">
+					<span ng-if="myInfo.sex==1">
+						<input type="radio" name="sex" value="1" checked="checked"> 男神
+						<input type="radio" name="sex" value="0"> 女神 </span>
+					<span ng-if="myInfo.sex==0">
+						<input type="radio" name="sex" value="0" checked="checked"> 女神
+						<input type="radio" name="sex" value="1"> 男神 </span>
+				</div>
+			</li>
+			<!--	<li>
+				<div class="left">
+				出身年月 :
+				</div>
+				<div class="right" id="birth">
+				<input name="appDate" id="appDate"  type="text" value="{{ myInfo.birthday }}">
+				</div>
+				</li>-->
+		</ul>
+		<div class="autograph">
+			<p>
+				个性签名：
+			</p>
+			<textarea cols="30" rows="5" id="qianMing">{{ myInfo.intro }}</textarea>
+		</div>
+	</div>
+	<div class="quit" tapmode onclick="sub()">
+		<button class="appbackground">
+			保存
+		</button>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/quanzi/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/quanzi/common.js"></script>
+<script type="text/javascript" src="../../script/quanzi/shangtu.js"></script>
+<script type="text/javascript" src="../../script/quanzi/angular.min.js"></script>
+<script type="text/javascript" src="../../script/quanzi/ev.js"></script>
+<script type="text/javascript">
+	var headimage = '';
+	var name = '';
+	var sex = 0,
+		userid;
+	var resiterYesOrNo;
+	var info = $api.getStorage('user');
+	var app = angular.module('myApp', []);
+	var fiterSex;
+	apiready = function () {
+		userid = $api.getStorage('user_id');
+		//		sex = api['pageParam']['data']['sex'];
+		//		headimage = api['pageParam']['data']['headimg'];
+		//		name = api['pageParam']['data']['name'];
+		//		resiterYesOrNo = api['pageParam']['data']['firstResiter'];
+		EventT.emit('apiready', {
+			noload: true,
+		});
+	};
+	app.controller('myData', function ($scope) {
+		$scope.myInfo = [];
+		$scope.imgurl = userimg;
+		$scope.isActive = true;
+		EventT.on('apiready', function () {
+			//			$api.loadding('she_qu',1);
+			console.log(JSON.stringify(info));
+			if (info) {
+				// 设置个人头像
+				// $('#headimg').attr('src',userimg+info.images);
+				info.images = userimg+info.images;
+				// 设置性别
+				if (info.sex == 0) {
+					$scope.isActive = true;
+				}
+				if (info.sex == 1) {
+					$scope.isActive = false;
+				}
+			}
+
+			// 若没有个人信息，设置默认头像
+			if (!info) {
+				$('#headimg').attr('src', '../../image/head.png');
+			}
+			if (sex == 0) {
+				$scope.isActive = true;
+			} else if (sex == 1) {
+				$scope.isActive = false;
+			}
+			if (headimage) {
+				$('#headimg').attr('src', headimage);
+				$('#name').val(name);
+			}
+			$scope.myInfo = info;
+			$scope.$apply();
+			// $api.closeloadding();
+		});
+	});
+
+	function sub() {
+		var name = $('#name').val();
+		var qianming = $('#qianMing').val();
+		console.log(headimage)
+
+		// 如果只是单纯的换头像根本无法正确访问该函数，故无法获取新的用户信息
+		// 之前之所以可以换，是因为函数外调用了监听函数usershua，使得wo.html访问
+		$api.post(phpurl + 'Home/User/registerWan', {
+			values: {
+				name: name,
+				user_id: userid,
+				intro: qianming,
+			},
+			files: {
+				headimg: headimage,
+			},
+		}, function (ret, err) {
+			if (ret.code == 200) {
+				$api.setStorage('user', ret.result);
+				console.log(JSON.stringify(ret.result))
+				api.toast({
+					msg: '修改成功',
+				});
+
+
+				$api.setStorage('user_id', ret.result.uid);
+
+
+				$api.send('usershua', {
+					cid: 1,
+				});
+				$api.send('usershuas', {
+					cid: 1,
+				});
+				// $api.closeloadding();
+				setTimeout(function () {
+					api.closeWin({});
+				}, 800);
+			} else if (ret.code == 203) {
+				api.toast({
+					msg: '昵称已存在，请重新输入',
+				});
+			} else {
+
+			}
+		});
+		$api.send('usershua', {
+			cid: 1,
+		});
+		// $api.send('usershuas', {
+		// 	cid: 1,
+		// });
+		$api.closeloadding();
+		setTimeout(function () {
+			api.closeWin({});
+		}, 800);
+	}
+
+	function openPictrue() {
+		api.actionSheet({
+			title: '修改头像',
+			cancelTitle: '取消',
+			buttons: ['拍照', '相册'],
+		}, function (ret, err) {
+			var index = ret.buttonIndex;
+			if (index != 3) {
+				var sourceType = 'album';
+				if (index == 1) {
+					sourceType = 'camera';
+				}
+				api.getPicture({
+					sourceType: sourceType,
+					encodingType: 'jpg',
+					mediaValue: 'pic',
+					destinationType: 'url',
+					allowEdit: true,
+					quality: 50,
+					targetWidth: 800,
+					targetHeight: 800,
+				}, function (ret, err) {
+					headimage = ret.data;
+					if (headimage != "") {
+						headimg.src = headimage;
+						console.log(headimage)
+					}
+				});
+			}
+		});
+	}
+</script>
+
+</html>

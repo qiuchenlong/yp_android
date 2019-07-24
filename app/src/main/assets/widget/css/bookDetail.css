@@ -1,0 +1,1640 @@
+@charset "UTF-8";
+.dialog.dialog-buy .balance i, .dialog.dialog-buy .discountMsg i {
+    font-family: Arial
+}
+
+.text-center {
+    display: block;
+    text-align: center
+}
+
+.default {
+    color: #ccc
+}
+
+.dialog {
+    position: fixed;
+    width: 90%;
+    min-height: 50px;
+    background: #fff;
+    border-radius: 4px;
+    font-size: 12px
+}
+
+.wrapper, body, html {
+    min-height: 100%
+}
+
+.dialog>.bd {
+    padding: 0 10px 15px
+}
+
+.dialog h3 {
+    margin-top: 15px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 18px
+}
+
+.dialog .icon-action {
+    float: left;
+    width: 0;
+    margin-top: -3px
+}
+
+.dialog .result-tip {
+    font-size: 14px;
+    padding: 30px;
+    text-align: center
+}
+
+.dialog .result-tip>.bd {
+    display: inline-block
+}
+
+.dialog .content {
+    padding-left: 36px;
+    display: block;
+    width: 100%;
+    line-height: 18px;
+    overflow: hidden;
+    text-align: left
+}
+
+.dialog .bun-closed {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px
+}
+
+.dialog .action {
+    text-align: center
+}
+
+.dialog .action .button {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 68%;
+    background: #10c1ae;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px
+}
+
+.dialog-pos {
+    position: fixed;
+    z-index: 10001;
+    margin: 0 auto 0 -45%;
+    left: 50%;
+    top: 30%
+}
+
+.btn {
+    display: block;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    padding: 0 .8rem;
+    border: 1px solid #10c1ae;
+    border-radius: .6rem;
+    color: #10c1ae;
+    font-size: 12px
+}
+
+.dialog.dialog-buy {
+    top: 15%
+}
+
+.dialog.dialog-buy .buy-chapters {
+    width: 100%;
+    padding: 10px 0;
+    display: inline-block
+}
+
+.dialog.dialog-buy .buy-chapters li {
+    float: left;
+    width: 50%;
+    height: 44px;
+    margin: 8px 0;
+    text-align: center
+}
+
+.dialog.dialog-buy .buy-chapters .buy-num {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 82%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px
+}
+
+.dialog.dialog-buy .buy-chapters .buy-num.active {
+    background: #10c1ae;
+    color: #fff;
+    border-color: #10c1ae
+}
+
+.dialog.dialog-buy .buy-chapters .buy-num p {
+    display: inline-block;
+    font-size: 12px;
+    text-align: center
+}
+
+.dialog.dialog-buy .buy-chapters .buy-num i {
+    position: absolute;
+    right: -11px;
+    top: 4px;
+    width: 46px;
+    height: 15px;
+    line-height: 14px;
+    font-size: 12px;
+    background: #ee5048;
+    color: #fff;
+    -webkit-transition: all .5s ease-in;
+    transition: all .5s ease-in;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+.dialog.dialog-buy .tip {
+    padding: 0 10px;
+    color: #999
+}
+
+.dialog.dialog-buy .tip span {
+    display: block;
+    position: relative;
+    line-height: 18px;
+    padding-left: 16px
+}
+
+.dialog.dialog-buy .tip span i {
+    position: absolute;
+    left: 0
+}
+
+.dialog.dialog-buy .balance {
+    margin-left: 5%;
+    padding: 10px 0
+}
+
+.dialog.dialog-buy .go-reward {
+    padding: 6px 0 14px;
+    color: #10c1ae
+}
+
+.dialog.dialog-buy .discountMsg {
+    margin-left: 5%
+}
+
+.dialog.dialog-buy .discountMsg .costPrice {
+    text-decoration: line-through;
+    padding-right: 8px
+}
+
+.dialog.dialog-buy .discountMsg .discountPrice {
+    color: #ee5048
+}
+
+.dialog.dialog-buy .void {
+    background-color: #ddd
+}
+
+.dialog.dialog-buy .loading-price {
+    position: absolute;
+    left: 74px;
+    height: 45px;
+    width: 62%;
+    background: #fff;
+    text-align: center
+}
+
+.dialog.dialog-buy .loading-price span {
+    display: block;
+    margin-top: 12px;
+    margin-left: 20px;
+    width: 15px;
+    height: 15px;
+    border-top: 1px solid #10c1ae;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: #fff;
+    transition: all .8s;
+    -webkit-transform: rotateZ(0);
+    -moz-transform: rotateX(0);
+    -ms-transform: rotateZ(0);
+    -o-transform: rotateZ(0);
+    transform: rotateZ(0);
+    -webkit-animation: loading-price .8s infinite linear;
+    -o-animation: loading-price .8s infinite linear;
+    animation: loading-price .8s infinite linear
+}
+
+@-webkit-keyframes loading-price {
+    from {
+        -webkit-transform: rotateZ(0)
+    }
+    to {
+        -webkit-transform: rotateZ(360deg)
+    }
+}
+
+@keyframes loading-price {
+    from {
+        transform: rotateZ(0)
+    }
+    to {
+        transform: rotateZ(360deg)
+    }
+}
+
+.dialog.dialog-del-book .btn-action {
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 40px
+}
+
+.dialog.dialog-del-book .btn-action p {
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center
+}
+
+.dialog.dialog-del-book .btn-action .btn {
+    display: inline-block;
+    width: 84%;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    border: none
+}
+
+.dialog.dialog-del-book .btn-action .btn.btn-confirm {
+    background: #ee5048
+}
+
+.dialog.dialog-del-book .btn-action .btn.btn-cancel {
+    background: #ccc
+}
+
+.loading {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -30px 0 0 -30px;
+    z-index: 1000001;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 10px solid #10c1ae
+}
+
+.icon-action::before, .loading:after {
+    content: '';
+    position: absolute;
+    border-radius: 100%
+}
+
+.loading:after {
+    background: trasparent;
+    width: 200%;
+    height: 200%;
+    top: -45%;
+    left: -50%;
+    opacity: .7;
+    box-shadow: rgba(13, 138, 165, .6) -4px -5px 3px -3px;
+    -webkit-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+    -webkit-animation: rotate 2s infinite linear;
+    animation: rotate 2s infinite linear
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotateZ(0)
+    }
+    100% {
+        -webkit-transform: rotateZ(360deg)
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateZ(0)
+    }
+    100% {
+        transform: rotateZ(360deg)
+    }
+}
+
+.shadow {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2)
+}
+
+.shadow.zIndex {
+    z-index: 10002
+}
+
+.icon-action {
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    margin-right: 1rem;
+    -webkit-transition: all;
+    transition: all;
+    -webkit-transform: scale(2);
+    transform: scale(2)
+}
+
+.icon-action::before {
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    overflow: hidden;
+    vertical-align: middle;
+    border-width: 2px;
+    border-style: solid;
+    font: 700 10px "宋体";
+    line-height: 1rem;
+    text-align: center
+}
+
+.icon-error::before {
+    content: '\21';
+    color: #dc143c
+}
+
+.icon-success::before {
+    content: '\2713';
+    color: #10c1ae
+}
+
+.dialog-comment .comment {
+    padding-top: 24px
+}
+
+.dialog-comment .comment .input-text {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0 5px;
+    height: 30px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.dialog-comment .comment .input-text input {
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.dialog-comment .comment .textarea-text {
+    position: relative;
+    width: 100%;
+    height: 75px;
+    padding: 5px;
+    text-align: left;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.dialog-comment .comment .textarea-text textarea {
+    width: 100%;
+    height: 100%;
+    border: none
+}
+
+.dialog-comment .comment .textarea-text .textarea-ph {
+    position: absolute;
+    left: 5px;
+    top: 5px
+}
+
+.dialog-comment .comment .tip-msg {
+    color: #999;
+    padding: 5px 0
+}
+
+.dialog-comment .comment .tip-msg span {
+    font-family: Arial
+}
+
+.dialog-comment .comment .tip-msg .error-tip {
+    color: #ee5048
+}
+
+.dialog-comment .comment .tip-msg .error-tip i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../../img/mobile/lk_bg.png) no-repeat;
+    -webkit-background-size: 100px 100px;
+    background-size: 100px 100px;
+    vertical-align: -3px;
+    margin-right: 4px
+}
+
+.dialog-comment .comment .btn-action {
+    margin: 8px -10px 0;
+    display: -webkit-flex;
+    display: flex
+}
+
+.dialog-comment .comment .btn-action a {
+    display: block;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 0 10px
+}
+
+.dialog-comment .comment .btn-action a.act span {
+    background: #10c1ae;
+    color: #fff
+}
+
+.dialog-comment .comment .btn-action a span {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #10c1ae;
+    color: #10c1ae;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.dialog-reward .dialog-reward-surplus {
+    margin-top: 10px
+}
+
+.dialog-reward .dialog-reward-surplus span {
+    display: inline-block;
+    padding: 0 4px;
+    color: #ee5048;
+    font-family: Arial
+}
+
+.dialog-reward .dialog-reward-surplus .recharge {
+    color: #10c1ae
+}
+
+.dialog-reward .dialog-reward-num {
+    margin: 18px auto;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #10c1ae;
+    color: #10c1ae;
+    background: #fff;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    border-radius: 45px;
+    text-align: center
+}
+
+.wrapper, body {
+    width: 100%
+}
+
+.dialog-reward .dialog-reward-num b, .dialog-reward .dialog-reward-num i {
+    display: block
+}
+
+.dialog-reward .dialog-reward-num b {
+    margin-top: 8px;
+    line-height: 14px
+}
+
+.dialog-reward .action .reward-void {
+    background: #ddd
+}
+
+html {
+    font-size: 62.5%;
+    -webkit-text-size-adjust: 100%
+}
+
+* {
+    padding: 0;
+    margin: 0
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.ovh {
+    overflow: hidden
+}
+
+.hidden {
+    display: none!important
+}
+
+a {
+    color: #666;
+    text-decoration: none
+}
+
+li, ul {
+    list-style: none
+}
+
+i {
+    font-style: normal
+}
+
+[v-cloak] {
+    display: none
+}
+
+.textOverFlow, .wrapper .book-detail .book-lists span.serialize, .wrapper .shelf-tip .chapterName {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.wrapper {
+    position: relative;
+    background: #f6f6f6;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    font-size: 12px
+}
+
+.wrapper .book-detail {
+    width: 100%;
+    margin-top: 1rem;
+    background: #fff
+}
+
+.wrapper .book-detail:first-child {
+    margin-top: 0!important
+}
+
+.wrapper .book-detail>.bd {
+    padding: 1.2rem 15px
+}
+
+.wrapper .book-detail .pic {
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #cecece;
+    border-radius: 32px
+}
+
+.wrapper .book-detail .more {
+    border-top: 1px solid #ddd;
+    margin: -1rem -1.2rem;
+    text-align: center;
+    height: 3.8rem;
+    line-height: 3.8rem;
+    font-size: 12px
+}
+
+.wrapper .book-detail .btn {
+    display: block;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    padding: 0 .8rem;
+    border: 1px solid #10c1ae;
+    border-radius: .6rem;
+    color: #10c1ae;
+    font-size: 12px
+}
+
+.wrapper .book-detail .arrow {
+    border: .5rem solid #999
+}
+
+.wrapper .book-detail .arrow i {
+    position: absolute;
+    border: .5rem solid #fff;
+    top: -8px;
+    left: -8px
+}
+
+.wrapper .book-detail .arrow-left, .wrapper .book-detail .arrow-right, .wrapper .book-detail .arrow-right i {
+    border-left: .5rem solid transparent;
+    border-top: .5rem solid transparent
+}
+
+.wrapper .book-detail .arrow-right {
+    transform: rotate(-45deg)
+}
+
+.wrapper .book-detail .arrow-left {
+    transform: rotate(135deg)
+}
+
+.wrapper .book-detail .arrow-left i {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    border: .5rem solid #fff;
+    border-left: .5rem solid transparent;
+    border-top: .5rem solid transparent
+}
+
+.wrapper .book-detail .comment-lists {
+    margin-top: 2rem;
+    overflow: hidden
+}
+
+.wrapper .book-detail .comment-lists .list-item {
+    padding-bottom: 1rem
+}
+
+.wrapper .book-detail .comment-lists .list-item:last-child .item {
+    border-bottom: none
+}
+
+.wrapper .book-detail .comment-lists .list-item .item {
+    overflow: hidden;
+    padding-left: .8rem;
+    padding-bottom: 1rem;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd
+}
+
+.wrapper .book-detail .comment-lists .list-item h3, .wrapper .book-detail .comment-lists .list-item h4 {
+    line-height: 1.5rem
+}
+
+.wrapper .book-detail .comment-lists .list-item p {
+    margin-top: 1rem;
+    line-height: 1.4rem;
+    color: #999
+}
+
+.wrapper .book-detail .comment-lists .list-item p.upfold {
+    height: 4rem
+}
+
+.wrapper .book-detail .comment-lists .list-item .date {
+    float: right;
+    line-height: 2rem;
+    color: #999
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle {
+    overflow: hidden;
+    margin-top: 1rem
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li {
+    float: left;
+    width: 6rem
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li span.icon {
+    display: inline-block;
+    padding-left: 20px;
+    height: 14px;
+    vertical-align: -2px
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li i {
+    display: inline-block;
+    padding-top: .2rem
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li.like span.icon {
+    background: url(../images/icon-like.png?version=20160726001) no-repeat;
+    background-size: 16px 14px
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li.like.do span.icon {
+    background: url(../images/icon-like-do.png?version=20160726001) no-repeat;
+    background-size: 16px 14px
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle li.comment span.icon {
+    background: url(../images/icon-comment.png?version=20160726001) no-repeat;
+    background-size: 16px 14px
+}
+
+.wrapper .book-detail .comment-lists .list-item .item-handle a {
+    color: #999
+}
+
+.wrapper .book-detail .noComment {
+    margin-top: -20px;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px
+}
+
+.wrapper .book-detail .noComment a {
+    height: 24px;
+    color: #10c1ae;
+    text-decoration: underline
+}
+
+.wrapper .book-detail .noComment a span {
+    display: block;
+    margin: 0 auto 10px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/icon-write-comment.png?version=20160726001) no-repeat;
+    -webkit-background-size: 24px 24px;
+    background-size: 24px 24px
+}
+
+.wrapper .book-detail .upfold-more {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    right: 0;
+    text-align: center
+}
+
+.wrapper .book-detail .upfold-more .arrow {
+    display: inline-block;
+    margin-top: 17px;
+    border: .5rem solid #999;
+    border-bottom: 0 solid transparent;
+    border-left: .5rem solid transparent;
+    border-right: .5rem solid transparent;
+    transition: transform .5s
+}
+
+.wrapper .book-detail .upfold-more .arrow-down {
+    transform: rotate(0)
+}
+
+.wrapper .book-detail .upfold-more .arrow-up {
+    transform: rotate(180deg)
+}
+
+.wrapper .book-detail .book-info {
+    position: relative
+}
+
+.wrapper .book-detail .add-to-shelf {
+    z-index: 10;
+    position: absolute;
+    right: -15px;
+    top: 3.4rem;
+    padding: 0 1rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    background: #ee5048;
+    font-size: 1.2rem;
+    color: #fff;
+    border-radius: 2.5rem 0 0 2.5rem
+}
+
+.wrapper .book-detail .add-to-shelf.done {
+    background: #ccc
+}
+
+.wrapper .book-detail .add-to-shelf.done i {
+    display: none
+}
+
+.wrapper .book-detail .book-pic {
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 1px 1px 1px #cacaca;
+    box-shadow: 1px 1px 1px #cacaca
+}
+
+.wrapper .book-detail .book-pic .discount, .wrapper .book-detail .book-pic .free, .wrapper .book-detail .book-pic .whole-free {
+    position: absolute;
+    right: -11px;
+    top: 7px;
+    width: 4em;
+    text-align: center;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 1.2rem;
+    background: #ee5048;
+    color: #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+.wrapper .book-detail .book-pic .free {
+    background-color: #16d579
+}
+
+.wrapper .book-detail .book-pic .whole-free {
+    background-color: #ff9c00
+}
+
+.wrapper .book-detail .book-pic img {
+    display: block
+}
+
+.wrapper .book-detail .info {
+    overflow: hidden;
+    padding-left: 1.2rem;
+    color: #333
+}
+
+.wrapper .book-detail .info h2 {
+    margin: .6rem 0 5px;
+    font-size: 1.6rem
+}
+
+.wrapper .book-detail .info h3 {
+    font-size: 1.2rem;
+    line-height: 1.6rem
+}
+
+.wrapper .book-detail .info h3 a {
+    color: #333
+}
+
+.wrapper .book-detail .tip {
+    margin-top: .8rem;
+    color: #ee5048;
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-action {
+    clear: both;
+    overflow: hidden;
+    padding-top: 1.8rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex
+}
+
+.wrapper .book-detail .book-action li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 0 5px;
+    text-align: center
+}
+
+.wrapper .book-detail .book-action li.active a {
+    background: #10c1ae;
+    color: #fff
+}
+
+.wrapper .book-detail .book-action li.try a {
+    background: #10c1ae;
+    border-color: #10c1ae;
+    color: #fff
+}
+
+.wrapper .book-detail .book-action li a {
+    display: block;
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    border: 1px solid #10c1ae;
+    color: #10c1ae;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    text-decoration: none
+}
+
+.wrapper .book-detail .book-content {
+    position: relative;
+    margin-top: 1.6rem;
+    padding-bottom: .2rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    color: #666;
+    border-bottom: 1px solid #ccc
+}
+
+.wrapper .book-detail .book-content.upfold {
+    padding-bottom: 32px
+}
+
+.wrapper .book-detail .book-content p {
+    line-height: 18px
+}
+
+.wrapper .book-detail .book-content p.upfold {
+    height: 56px;
+    overflow: hidden
+}
+
+.wrapper .book-detail .book-content .tag {
+    overflow: hidden;
+    margin-top: .3rem;
+    margin-left: 0
+}
+
+.wrapper .book-detail .book-content .tag li {
+    float: left;
+    margin: .4rem .2rem;
+    padding: .2rem .4rem;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-content .tag li a {
+    color: #fff
+}
+
+.wrapper .book-detail .book-content .tag li.yel {
+    border: #f3f3f3 1px solid;
+    color: #cccccc;
+}
+
+.wrapper .book-detail .book-content .tag li.blue {
+    background: #72a0ff
+}
+
+.wrapper .book-detail .book-content .tag li.pink {
+    background: #ff72a4
+}
+
+.wrapper .book-detail .book-content .tag.upfold {
+    overflow: hidden;
+    height: 28px;
+    padding-right: 60px
+}
+
+.wrapper .book-detail .book-content .upfold-more {
+    position: absolute;
+    width: 60px;
+    height: 2rem;
+    right: 0;
+    bottom: 1rem;
+    text-align: center;
+    border: 1px solid #fff
+}
+
+.wrapper .book-detail .book-content .upfold-more .arrow {
+    margin-top: 1rem
+}
+
+.wrapper .book-detail .book-content .arrow {
+    display: inline-block;
+    margin-top: 17px;
+    border: 7px solid #999;
+    border-bottom: 0 solid transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    -webkit-transition: all .3s ease-in;
+    transition: all .3s ease-in
+}
+
+.wrapper .book-detail .book-content .arrow-down {
+    -webkit-transform: rotate(0);
+    transform: rotate(0)
+}
+
+.wrapper .book-detail .book-content .arrow-up {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.wrapper .book-detail .book-lists {
+    position: relative;
+    font-size: 1.5rem;
+    color: #333;
+    display: inline-block;
+    margin-bottom: -10px;
+    width: 100%
+}
+
+.wrapper .book-detail .book-lists a {
+    -webkit-box-align: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    color: #333
+}
+
+.wrapper .book-detail .book-lists span {
+    display: block;
+    font-size: 12px;
+    color: #666
+}
+
+.wrapper .book-detail .book-lists span.serialize {
+    width: 38%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1
+}
+
+.wrapper .book-detail .book-lists .time {
+    width: 138px;
+    font-size: 1.2rem
+}
+
+.wrapper .book-detail .book-lists .time i {
+    font-family: Arial
+}
+
+.wrapper .book-detail .book-lists .arrow-right {
+    position: relative;
+    display: block;
+    border: 6px solid #999;
+    border-left: 6px solid transparent;
+    border-top: 6px solid transparent;
+    width: 0;
+    height: 0;
+    padding: 0;
+    -webkit-transition: all .5s ease-in;
+    transition: all .5s ease-in;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+
+.wrapper .book-detail .book-lists .arrow-right i {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    border: 6px solid #fff;
+    border-left: 6px solid transparent;
+    border-top: 6px solid transparent
+}
+
+.wrapper .book-detail .book-handle .tab {
+    overflow: hidden
+}
+
+.wrapper .book-detail .book-handle .tab li {
+    float: left;
+    font-size: 1.4rem;
+    color: #333;
+    padding-bottom: .4rem
+}
+
+.wrapper .book-detail .book-handle .tab li.active {
+    color: #10c1ae;
+    border-bottom: 1px solid #10c1ae
+}
+
+.wrapper .book-detail .book-handle .tab li.gap {
+    color: #666;
+    border-left: 1px solid #999;
+    margin: 5px 1rem 0;
+    height: .9rem
+}
+
+.wrapper .book-detail .book-handle .book-container .price-list {
+    margin-top: 2rem;
+    overflow: hidden
+}
+
+.wrapper .book-detail .book-handle .book-container .price-list li {
+    float: left;
+    width: 20%;
+    text-align: center
+}
+
+.wrapper .book-detail .book-handle .book-container .price-list li span {
+    display: inline-block;
+    width: 4.5rem;
+    height: 4.5rem;
+    background: #10c1ae;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4.5rem;
+    text-align: center
+}
+
+.wrapper .book-detail .book-handle .book-container .price-list li span b {
+    display: block;
+    margin-top: 1rem;
+    line-height: 12px
+}
+
+.wrapper .book-detail .book-handle .book-container .price-list li span b, .wrapper .book-detail .book-handle .book-container .price-list li span i {
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list {
+    margin-top: 16px;
+    height: 130px;
+    padding: 15px 4px;
+    overflow: hidden
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list.rewrad-list-init {
+    height: auto;
+    margin-bottom: -28px
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list li {
+    height: 44px
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list li.first {
+    transition: all 1.5s;
+    transform: translateY(-50px);
+    opacity: 0;
+    height: 45px;
+    position: absolute
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list li.trans {
+    height: 45px;
+    transform: translateY(0);
+    opacity: 1;
+    position: relative
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list li.last {
+    transition: all 1.5s;
+    transform: translateY(50px)
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .reward-info {
+    display: inline-block
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .pic {
+    margin-top: -10px;
+    margin-right: .8rem
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .fool {
+    font-family: Arial
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .voucher {
+    color: #10c1ae
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .voucher i {
+    font-family: Arial
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .voucher b {
+    font-weight: 400
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .date {
+    color: #999;
+    font-family: Arial
+}
+
+.wrapper .book-detail .book-handle .book-container .reward-list .action {
+    margin: -5px 4px 0;
+    padding: 0 4px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/icon-reward.gif?version=20160726001) center center no-repeat;
+    -webkit-background-size: 24px 24px;
+    background-size: 24px 24px;
+    font-size: 0
+}
+
+.wrapper .book-detail .book-handle .book-container .book-enjoy .more {
+    margin-top: 8px
+}
+
+.wrapper .book-detail .book-module {
+    position: relative
+}
+
+.wrapper .book-detail .book-module .tit {
+    color: #333;
+    font-size: 1.4rem
+}
+
+.wrapper .book-detail .book-module .change-items {
+    position: absolute;
+    right: 0;
+    top: .2rem;
+    color: #999;
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-module .book-items {
+    margin-top: 1.1rem
+}
+
+.wrapper .book-detail .book-module .book-items h3 {
+    font-size: 1.5rem;
+    color: #333;
+    line-height: 1.5rem
+}
+
+.wrapper .book-detail .book-module .book-items h4 {
+    padding-top: 4px;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    color: #333
+}
+
+.wrapper .book-detail .book-module .book-items p {
+    padding-top: .8rem;
+    color: #999;
+    height: 5.4rem;
+    line-height: 1.5rem;
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-module .book-items dt {
+    width: 80px;
+    -webkit-box-shadow: 1px 1px 1px #cacaca;
+    box-shadow: 1px 1px 1px #cacaca
+}
+
+.wrapper .book-detail .book-module .book-items dt img, .wrapper .book-detail .book-module .layout-l-r a {
+    display: block
+}
+
+.wrapper .book-detail .book-module .layout-l-r dl {
+    display: inline-block;
+    padding: .7rem 0
+}
+
+.wrapper .book-detail .book-module .layout-l-r dl dt {
+    float: left
+}
+
+.wrapper .book-detail .book-module .layout-l-r dl dd {
+    overflow: hidden;
+    padding: .6rem 0 0 1.4rem
+}
+
+.wrapper .book-detail .book-module .layout-l-r dl dd p {
+    word-break: break-all
+}
+
+.wrapper .book-detail .book-module .layout-t-b {
+    overflow: hidden
+}
+
+.wrapper .book-detail .book-module .layout-t-b li {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    border: 0;
+    padding: 0
+}
+
+.wrapper .book-detail .book-module .layout-t-b li a {
+    display: inline-block
+}
+
+.wrapper .book-detail .book-module .layout-t-b li h3 {
+    padding-top: .5rem;
+    width: 7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 12px
+}
+
+.wrapper .book-detail .book-module .more {
+    margin-top: .7rem
+}
+
+.wrapper .book-shelf .book-module .book-items {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd
+}
+
+.wrapper .book-shelf .book-module .book-items li {
+    position: relative;
+    padding: 5px 0;
+    border-top: 1px solid #ddd
+}
+
+.wrapper .book-shelf .book-module .book-items li:first-child {
+    border-top: none
+}
+
+.wrapper .book-shelf .book-module .book-items h4 {
+    padding-top: 6px;
+    line-height: 14px
+}
+
+.wrapper .book-shelf .book-module .book-items h4 a {
+    color: #999
+}
+
+.wrapper .book-shelf .book-module .book-items dl dd {
+    padding-top: 10px
+}
+
+.wrapper .book-shelf .book-module .book-items dl dd a {
+    display: inline-block
+}
+
+.wrapper .book-shelf .book-module .book-items p {
+    color: #666;
+    font-size: 13px
+}
+
+.wrapper .book-shelf .book-module .book-items .goon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+    color: #ee5048;
+    font-size: 1.4rem
+}
+
+.wrapper .book-shelf .book-module .book-items .del {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+    color: #ee5048;
+    border-color: #ee5048
+}
+
+.wrapper .book-shelf .book-module .have-no-books {
+    padding: 50px 0;
+    text-align: center;
+    color: #999;
+    font-size: 14px
+}
+
+.wrapper .book-shelf .book-module .have-no-books a {
+    position: relative;
+    display: inline-block;
+    width: 37.5%;
+    height: 80px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    text-align: center
+}
+
+.wrapper .book-shelf .book-module .have-no-books a span {
+    margin: 0 auto;
+    display: block;
+    width: 3.2rem;
+    height: .4rem;
+    background: #ccc;
+    -webkit-transition: all;
+    transition: all
+}
+
+.wrapper .book-shelf .book-module .have-no-books a span.hor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.2rem;
+    margin-left: -1.6rem
+}
+
+.wrapper .book-shelf .book-module .have-no-books a span.ver {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.wrapper .book-shelf .book-module .have-no-books p {
+    padding: 8px 0
+}
+
+.wrapper .book-shelf.book-shelf-add .shelf-tab ul {
+    display: inline-block;
+    width: 100%
+}
+
+.wrapper .book-shelf.book-shelf-add .shelf-tab li {
+    float: left;
+    width: 49.5%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+    border-bottom: 1px solid #ddd
+}
+
+.wrapper .book-shelf.book-shelf-add .shelf-tab li.active {
+    border-color: #10c1ae
+}
+
+.wrapper .book-shelf.book-shelf-add .shelf-tab li.gap {
+    margin-top: 12px;
+    border-left: 1px solid #ddd;
+    height: 10px;
+    width: .5px
+}
+
+.wrapper .book-others .book-module .book-items {
+    margin-top: 0
+}
+
+.wrapper .book-others .book-module .book-items li {
+    border-top: 1px solid #ddd;
+    padding: 5px 0
+}
+
+.wrapper .book-others .book-module .book-items li:first-child {
+    border: none
+}
+
+.wrapper .book-others .book-module .book-items li dl dd {
+    margin-top: 10px
+}
+
+.wrapper .shelf-tip {
+    margin-top: -1.2rem;
+    margin-left: -15px;
+    margin-right: -15px
+}
+
+.wrapper .shelf-tip .bd {
+    padding-right: 10px;
+    width: 100%;
+    height: 48px;
+    background: #f6f6f6;
+    overflow: hidden;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center
+}
+
+.wrapper .shelf-tip .mark {
+    background: #ee5048;
+    width: 35px;
+    height: 30px;
+    padding: 2px 0 0 2px;
+    line-height: 14px;
+    color: #fff
+}
+
+.wrapper .shelf-tip .mark::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 20px solid #f6f6f6;
+    border-top: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 10px solid #f6f6f6;
+    -webkit-transition: all;
+    transition: all;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    margin-top: 8px;
+    margin-left: 7px
+}
+
+.wrapper .shelf-tip .records {
+    width: 54px;
+    font-size: 12px;
+    color: #10c1ae
+}
+
+.wrapper .shelf-tip .btn {
+    width: 48px;
+    border: none;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    padding: 0 1rem;
+    background-color: #ee5048;
+    color: #fff;
+    text-align: center
+}
+
+.wrapper .shelf-tip .chapterName {
+    width: 50%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1
+}
+
+.wrapper .reward-list .shelf-tip .mark {
+    position: relative;
+    flex: 1;
+    width: auto;
+    padding-left: 15px;
+    margin-right: 10px;
+    font-size: 12px;
+    line-height: 30px
+}
+
+.wrapper .reward-list .shelf-tip .mark span {
+    display: inline-block;
+    padding: 0 4px
+}
+
+.wrapper .reward-list .shelf-tip .mark::before {
+    right: -21px
+}
+
+.wrapper .reward-list .shelf-tip .btn {
+    width: auto;
+    padding: 0 6px;
+    font-size: 12px;
+    background: #fff;
+    color: #ee5048;
+    border: 1px solid #ee5048;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.wrapper .reward-list .reward-list-ranking {
+    padding-top: 10px
+}
+
+.wrapper .reward-list .reward-list-ranking li {
+    -webkit-box-align: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd
+}
+
+.wrapper .reward-list .reward-list-ranking li:first-child .order {
+    background-color: #ee5048
+}
+
+.wrapper .reward-list .reward-list-ranking li:nth-child(2) .order {
+    background-color: #f68b00
+}
+
+.wrapper .reward-list .reward-list-ranking li:nth-child(3) .order {
+    background-color: #ffd200
+}
+
+.wrapper .reward-list .reward-list-ranking li i, .wrapper .reward-list .reward-list-ranking li span {
+    display: block
+}
+
+.wrapper .reward-list .reward-list-ranking li .order {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    line-height: 18px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    text-align: center;
+    color: #fff;
+    background-color: #ccc
+}
+
+.wrapper .reward-list .reward-list-ranking li .img {
+    margin-right: 15px;
+    border: 1px solid #e4e4e4;
+    width: 32px;
+    height: 32px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px
+}
+
+.wrapper .reward-list .reward-list-ranking li .img img {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px
+}
+
+.wrapper .reward-list .reward-list-ranking li .author {
+    -webkit-flex-grow: 1;
+    flex-grow: 1
+}
+
+.wrapper .reward-list .reward-list-ranking li .rewardK {
+    margin-left: 10px;
+    text-align: right;
+    color: #ee5048
+}
+
+.wrapper .reward-list .reward-list-ranking li .rewardK b {
+    display: inline-block;
+    font-family: Arial;
+    font-weight: 400;
+    color: #ee5048
+}

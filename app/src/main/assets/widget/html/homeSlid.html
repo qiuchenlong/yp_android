@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"
+    />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/FInit.js"></script>
+    <style>
+        *{ margin: 0; padding: 0; }
+        body{ width: 100%; }
+        /*  搜索和频道nav  */
+        #firstHeader .header{ top: 20px; height: 20px; background: #fff; }
+        #firstHeader .header .base{ height: 70px; }
+        #firstHeader .header .breadcrumbs{ position: fixed; top: 30px; width: 100%; z-index: 1000; background: inherit; background: #fff; }
+        #firstHeader .header .breadcrumbs .u-search{ height: 30px; line-height: 30px; }
+        #firstHeader .header .breadcrumbs .u-search .form{ display: flex; padding: 0 15px; }
+        #firstHeader .header .breadcrumbs .u-search .search-div{ display: inline-block; margin-right: 10px; height: 30px; padding: 0 15px; background: #f1f1f1; border-radius: 18px; flex: 1; }
+        #firstHeader .header .breadcrumbs .u-search .search-div .icon-sousuo{ font-size: 14px; margin-right: 6px; }
+        #firstHeader .header .breadcrumbs .u-search .search-input{ background: #f1f1f1; height: 1.5rem;line-height: 1.5rem; width: 89%; }
+        #firstHeader .header .breadcrumbs .u-search .search-input::-webkit-input-placeholder{ font-size: 12px; height: 1.5rem;line-height: 1.5rem;}
+        #firstHeader .header .breadcrumbs .u-search .button{ font-size: 16px; width: 60px; }
+        #firstHeader .header .breadcrumbs .nav{ border-bottom: 2px solid #f1f1f1; font-size: 14px; }
+        #firstHeader .header .breadcrumbs .nav .nav_a{ font-weight: bold; margin: 15px 0 0 35px; padding-bottom: 10px; border-bottom: 3px solid transparent; }
+        #firstHeader .header .breadcrumbs .nav .nav_a:first-child{ margin-left: 28px; }
+        /* #firstHeader .header .breadcrumbs .nav .nav_a:hover { color: #1ba976; border-bottom: 3px solid #1ba976;} */
+        #firstHeader .header .breadcrumbs .nav .nav_a.current{ color: #1ba976; border-bottom: 3px solid #1ba976; }
+        /*  搜索和频道nav  */
+        #thridHeader .header{ top: 20px; height: 20px; background: #fff; }
+        #thridHeader .header .base{ height: 70px; }
+        #thridHeader .header .breadcrumbs{ position: fixed; top: 30px; width: 100%; z-index: 1000; background: inherit; background: #fff; }
+        #thridHeader .header .breadcrumbs .u-search{ height: 30px; line-height: 30px; }
+        #thridHeader .header .breadcrumbs .u-search .form{ display: flex; padding: 0 15px; }
+        #thridHeader .header .breadcrumbs .u-search .search-div{ display: inline-block; margin-right: 10px; height: 30px; padding: 0 15px; background: #f1f1f1; border-radius: 18px; flex: 1; }
+        #thridHeader .header .breadcrumbs .u-search .search-div .icon-sousuo{ font-size: 14px; margin-right: 6px; }
+        #thridHeader .header .breadcrumbs .u-search .search-input{ background: #f1f1f1; height: 1.5rem;line-height: 1.5rem; width: 89%; }
+        #thridHeader .header .breadcrumbs .u-search .search-input::-webkit-input-placeholder{ font-size: 12px;height: 1.5rem;line-height: 1.5rem; }
+        #thridHeader .header .breadcrumbs .u-search .button{ font-size: 16px; width: 60px; }
+        #thridHeader .header .breadcrumbs .nav{ border-bottom: 2px solid #f1f1f1; font-size: 14px; }
+        #thridHeader .header .breadcrumbs .nav .nav_a{ font-weight: bold; margin: 15px 0 0 35px; padding-bottom: 10px; border-bottom: 3px solid transparent; }
+        #thridHeader .header .breadcrumbs .nav .nav_a:first-child{ margin-left: 28px; }
+        /* #thridHeader .header .breadcrumbs .nav .nav_a:hover { color: #1ba976; border-bottom: 3px solid #1ba976;} */
+        #thridHeader .header .breadcrumbs .nav .nav_a.current{ color: #1ba976; border-bottom: 3px solid #1ba976; }
+        .tishi{ position: absolute; top: 5px; right: 6px; width: 20px; height: 20px; line-height: 20px; text-align: center; display: block; background: red; color: white; border-radius: 50%; }
+        .icon-shezhi, .icon-shousuo, .icon-shousuozhuangtai3{ font-size: 25px; }
+        .bianj{ position: absolute; right: 10px; top: 0px; color: #fff; font-size: 16px; }
+        .icon-liebiao{ position: absolute; bottom: 3px; right: 10px; font-size: 16px; color: #333; }
+        #secHeader #search{ position: absolute; bottom: 3px; left: 10px; font-size: 22px; color: #333; }
+        #search img{ width: 20px; height: auto; }
+        #search1{ position: absolute; bottom: 3px; right: 10px; font-size: 15px; color: #334333; }
+        .quanxuan{ position: absolute; bottom: 3px; left: 10px; font-size: 16px; color: #333; }
+        .appHeaderColor{ background: #fff !important; }
+        li{ list-style: none; }
+        #footer{ position: fixed; width: 100%; bottom: 0; }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <!-- 第一个头部-->
+    <div id="firstHeader" class="titlebar activebar appHeaderColor">
+        <header class="header">
+            <div class="base"></div>
+            <div class="breadcrumbs">
+                <div class="u-search">
+                    <form class="form" action="">
+                        <div class="search-div" onClick="sousuo()">
+                            <i class="iconfont icon-sousuo"></i>
+                            <input class="search-input" type="search" placeholder="搜索我的书架、在线书库">
+                        </div>
+                        <button type="button" class="button" onClick="paihang()">排行</button>
+                    </form>
+                </div>
+                <div class="nav">
+                    <a class="nav_a nav_b current nav_sty">女频</a>
+                    <a class="nav_a nav_b nav_sty">男频</a>
+                    <a class="nav_a nav_b nav_sty">出版</a>
+                    <a class="nav_a nav_b nav_sty">推荐</a>
+                    <a class="nav_a" href="javascript:;" onclick="shudan()">书单</a>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!--第二个头部 -->
+    <div id="secHeader" class="titlebar  appHeaderColor" style="height: 0;">
+        <!--<div class="topbar defaultcolor_bg " id="t_bg">
+            <li>
+                    <span class="iconfont" id="search" onclick="myfile()">
+                        <img src="../image/my.png" />
+                    </span> 书架
+                <span class="iconfont icon-liebiao"></span>
+            </li>
+        </div>
+        <div class="topbar defaultcolor_bg " id="t_bg1" style="display:none;">
+            <li>
+                <span class="quanxuan" style="font-size:15px;">全选</span>
+                <span id="search1">完成</span>
+            </li>
+        </div>-->
+        <!--<span class="iconfont icon-liebiao"></span>书架<span class="iconfont icon-sousuo" id="search"></span>-->
+    </div>
+    <!-- 第三个头部-->
+    <div id="thridHeader" class="titlebar appHeaderColor">
+        <header class="header" style="display: none;">
+            <div class="base"></div>
+            <div class="breadcrumbs">
+                <div class="u-search">
+                    <form class="form" action="">
+                        <div class="search-div" onclick="sousuo()">
+                            <i class="iconfont icon-sousuo"></i>
+                            <input class="search-input" type="search" placeholder="搜索我的书架、在线书库">
+                        </div>
+                        <button type="button" class="button" onClick="paihang()">排行</button>
+                    </form>
+                </div>
+                <div class="nav">
+                    <a class="nav_a current nav_thrid nav_sty">女频</a>
+                    <a class="nav_a nav_thrid nav_sty">男频</a>
+                    <a class="nav_a nav_thrid nav_sty">出版</a>
+                    <!-- <a class="nav_a nav_thrid nav_sty">推荐</a> -->
+                    <a class="nav_a" href="javascript:;" onclick="shudan()">书单</a>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!-- 第4个头部-->
+    <div id="foreHeader" class="titlebar appHeaderColor">
+    </div>
+    <div id="main">
+    </div>
+    <div id="footer">
+        <ul class="footer_Bg_Tx_Color">
+            <li onclick="switchframe('first_frame', 0)">
+                <a class="bottom_btn activebtn"></a>
+            </li>
+            <li onclick="switchframe('second_frame', 1)">
+                <a class="bottom_btn"></a>
+            </li>
+            <li onclick="switchframe('third_frame', 2)">
+                <a class="bottom_btn"></a>
+            </li>
+            <li onclick="switchframe('fore_frame', 3)">
+                <a class="bottom_btn"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../script/home.js"></script>
+<script type="text/javascript" src="../script/util.js"></script>
+<script type="text/javascript">
+    // apiready = function () {
+    //     $api.fixStatusBar($api.dom('header'));
+    //     // api.removeLaunchView();
+    //     // api.setStatusBarStyle({
+    //     //     style: 'dark'
+    //     // });
+    //     funIniGroup();
+    // };
+    $('.icon-liebiao').click(function() {
+        api.openFrame({
+            name              : 'choosebianj',
+            url               : 'frame1/tan_kuang.html',
+            bounces           : false,
+            bgColor           : 'none',
+            vScrollBarEnabled : false,
+            rect              : {
+                x : 0,
+                y : 5,
+                w : 'auto',
+                h : 'auto',
+            },
+            pageParam         : api.pageParam,
+            animation         : {
+                type     : 'movein',
+                curve    : 'ease_in', //动画类型（详见动画类型常量）
+                subType  : 'from_top', //动画子类型（详见动画子类型常量）
+                duration : 300, //动画过渡时间，默认300毫
+            },
+        });
+        //frame1 头部切换
+        api.addEventListener({
+            name : 'bbook',
+        }, function(ret, err) {
+            // alert(1);
+            $('#t_bg').css('display', 'none');
+            $('#t_bg1').css('display', 'block');
+        });
+        //frame1 点击完成
+        $('#search1').click(function() {
+            $('#t_bg').css('display', 'block');
+            $('#t_bg1').css('display', 'none');
+            api.sendEvent({
+                name : 'bok',
+            });
+        });
+        //frame1 点击全选
+        $('.quanxuan').click(function() {
+            api.sendEvent({
+                name : 'quanxuan',
+            });
+        });
+    });
+    function paihang() {
+        api.openWin({
+            name      : 'win_hd',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'rank_home',
+                frm_url  : 'ranking.html',
+                title    : '排行榜',
+            },
+        });
+    }
+    function sousuo() {
+        api.openWin({
+            name : 'win_header_fdsaf',
+            url  : 'frame0/seek_win.html',
+        });
+    }
+    function shudan() {
+        api.openWin({
+            name      : 'win_shudan',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'shudan',
+                frm_url  : 'BookSelection.html',
+                title    : '书单',
+            },
+        });
+    }
+    // function go_search() {
+    //     api.openWin({
+    //         name: 'seek_win1',
+    //         url: 'frame0/seek_win.html',
+    //     });
+    // }
+    function myfile() {
+        api.openSlidPane({
+            type : 'left',
+        });
+    }
+    //点击样式
+    $('.nav_sty').on('click', function() {
+        $(this).addClass('current').siblings().removeClass('current');
+    });
+</script>
+</html>

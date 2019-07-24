@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html  ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    
+		.booksList2 .tubiao{ float: left;border-radius:5px; margin-top: 10px;padding-top:5px; background:#fefefe; margin-bottom: 0px;
+     width:46%; text-align: left; overflow: hidden; height: 120px; margin-left: 4%; box-sizing:border-box} 
+       .booksList2 .tubiao .left_l{ float: left; text-align: left;line-height: 20px; 
+       color: #333333; font-size: 18px;}
+       .xiaozi{font-size: 12px; color: #cccccc;}
+     .booksList2 .tubiao img{ width: 100px; height: auto; margin-top: 40px;}
+    </style>
+</head>
+<body ng-controller="myAppCon">
+
+<div class="booksList2">
+
+ <div class="tubiao" ng-repeat="x in ret" ng-click="openquanzi(x.circle_id)" >
+ 	<span class="left_l"><strong>{{x.name}}</strong><br/><span class="xiaozi">{{x.replycount}}个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/1.png"></span>
+ </div>
+ 
+ <!--<div class="tubiao" >
+ 	<span class="left_l"><strong>书荒互助</strong><br/><span class="xiaozi">10000个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/2.png"></span>
+ </div>
+ 
+  <div class="tubiao" >
+ 	<span class="left_l"><strong>书荒互助</strong><br/><span class="xiaozi">10000个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/3.png"></span>
+ </div>
+  <div class="tubiao" >
+ 	<span class="left_l"><strong>书荒互助</strong><br/><span class="xiaozi">10000个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/1.png"></span>
+ </div>
+ <div class="tubiao" >
+ 	<span class="left_l" ><strong>书荒互助</strong><br/><span class="xiaozi">10000个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/2.png"></span>
+ </div>
+ <div class="tubiao">
+ 	<span class="left_l" ><strong>书荒互助</strong><br/><span class="xiaozi">10000个帖子</span></span>
+  	<span class="left_l"><img src="../../image/icon/3.png"></span>
+ </div>-->
+
+ <div style="clear: both;"></div>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+//	$(".tubiao").click(function(){
+//	   api.openWin({
+//			       name: 'win_headerquan',
+//			       url: '../win_header.html',
+//			       pageParam:{
+//		               frm_name:'shu_you',
+//		               frm_url:'shuyou.html',
+//		               title:'书友圈',
+//		              
+//			       }
+//		        });
+//		      })
+		      
+		      	
+var app = angular.module("myApp", []);
+	app.controller('myAppCon', function($scope) {
+		
+		$scope.openquanzi = function(cid){
+//		alert(cid);
+		api.openWin({
+			        name: 'quan_zi_win',
+			        url: '../Win.html',
+			        pageParam:{
+		                frm_name:'quan_zi',
+		                frm_url:'quanzi/quan_zi_xiang_qing.html',
+		                title:'圈子详情',
+		                data:{
+		                	firstResiter:false,
+		                	cid:cid
+		                }
+
+			        }
+		        });
+		  
+		}
+		
+		$scope.ret= [];
+		
+		EventT.on('apiready',function(){
+			$api.post(phpurl+'Home/Circle/getHot', {values:{user_id:1}}, function (ret){
+//			alert($api.jsonToStr(ret));
+				if(ret&&ret.result&&ret.result.length){
+//					$api.each(ret.result , function(v){
+//						$api.each(v.data,function(x){
+//							x.sumbmasterimg = Imageurl +x.sumbmasterimg;
+//						});	
+//					});
+					$scope.ret = ret.result;
+					$scope.$apply();
+					// $api.closeloadding();//关闭加载
+				}else{
+				// $api.closeloadding();//关闭加载
+				$api.toast('没数据');	
+				}
+				
+			});
+			
+			
+		})
+	})
+	
+	apiready = function(){
+		EventT.emit('apiready');
+	};
+	
+</script>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	/*.top{
+    		text-align:center;
+    		padding:30px 0 50px;
+    		font-size:14px;
+    		position: relative;
+    	}
+    	.top p:nth-child(2){
+    		font-size:12px;
+    		color:#484848;
+    	}
+    	.top_foot{
+    		position:absolute;
+    		bottom:0;
+    		width:90%;
+    		background:rgba(0,0,0,.3);
+    		font-size:10px;
+    		color:white;
+    		line-height:30px;   
+    		text-align:left;
+    		padding-left:10%;		
+    	}
+    	.top_foot .icon-laba{
+    		float:left;
+    	}
+    	.navbs{
+    		line-height:40px;
+    		background:white;
+    		font-size:14px;
+    		border-bottom:1px solid #BEBEBE;
+    		position:relative;
+    	}
+    	.navbs span{
+    		display:inline-block;
+    		float:left;
+    		width:50%;
+    		text-align:center;
+    	}
+    	.navbs .line{
+    		position: absolute;
+    		top:39px;
+    		left:17%;
+    		width:15%;
+    		border-top:2px solid;
+    		transition:all .3s linear;
+    	}*/ 
+    	
+    	/*#ge_ren .ge_ren_title{
+    		background:white;
+    		text-align:center;
+    		font-size:14px;
+    		line-height:40px;
+    		margin:10px 0;
+    	}*/
+    	.ranking ul li{
+    		padding:10px;
+    		background:white;
+    		height:50px;
+    		line-height:50px;
+    		position:relative;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    	.ranking ul li img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+/*    		vertical-align: text-bottom;
+    		margin-bottom:-15px;*/
+    	}
+    	.ranking ul li span{
+    		display:inline-block;
+    	}
+    	
+    	.ranking ul li .nos{
+    		float:left;
+    		/*margin-top:10px;*/
+    		margin-left:6px;
+    	}
+    	.ranking ul li .userHead{
+    		float:left;
+    		margin-right:6px;
+    		margin-left:6px;
+    		height: 50px;
+    	}
+    	.ranking ul li .userName,.ranking ul li .point{
+    		font-size:12px;
+    	}
+    	.ranking ul li .userName{
+    		float:left;
+    		width:45%;
+    		line-height:50px;
+    		margin-left:8px;
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+/*    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;*/
+    	}
+    	.ranking ul li .point{
+    		float:right;
+    		color:#999;
+    	}
+    	
+    	.foot{
+    		position:fixed;
+    		bottom:0;
+    		width:94%;
+    		background:white;
+    		line-height:50px;
+    		font-size:12px;
+    		color:#717171;
+    		padding:0 3%;
+    		margin-top:10px;
+    	}
+    	.foot .cha{
+    		float:right;
+    	}
+    	.foot .cl{
+    		color:#F5892B;
+    	}
+    	
+    	#ge_ren .ge_ren_title{
+    		background:white;
+    		text-align:center;
+    		font-size:14px;
+    		line-height:40px;
+    		margin:8px 0;
+    	}
+    	
+    </style>
+</head>
+<body ng-controller="rankingList">
+<!--	<div class="top appbackground">
+		<p><span style="font-size:25px;">1000</span> 点</p>
+		<p>本月活跃度</p>
+		<div class="top_foot">
+			<i class="iconfont icon-laba"></i>
+			&nbsp;&nbsp;&nbsp;&nbsp;x月份，每月x号重新计算排名，整点更新
+		</div>
+	</div>
+	<div class="navbs clearfix">
+		<span class="nav0">个人活跃排名</span>
+		<span class="nav1">部落活跃排名</span>
+		<span class="line appBordercolor"></span>
+	</div>-->
+	<!--个人排行榜-->	
+	<!--<div id="ge_ren">
+		<p class="ge_ren_title">部落活跃度规则及奖励说明</p>
+	</div>-->
+<!--	<div id="ge_ren" onclick="openGuiZe()">
+		<p class="ge_ren_title">个人活跃度规则及奖励说明</p>
+	</div>-->
+	
+	<div class="ranking" style="margin-bottom:45px;">
+		<ul>
+			<li ng-repeat="i in listData track by $index" ng-click="goDiPan(i.user_id)">
+				<span class="nos" ng-style="i.Col">No.{{ i.rownum }}</span>
+				<span class="userHead">
+					<img src="{{ imgurl+i.sumbheadimg }}" alt="" />
+				</span>
+				<span class="userName">{{ i.name }}</span>
+				<span class="point">{{ i.core }}点</span>
+			</li>
+			
+<!--			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;color:#FEAF20;">No.2</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" style="height:50px;"/>
+				</span>
+				<span class="userName">MR.L君君</span>
+				<span class="point">11200点</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;color:#FED620;">No.3</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" style="height:50px;"/>
+				</span>
+				<span class="userName">MR.L君君</span>
+				<span class="point">11200点</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;">No.4</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" style="height:50px;"/>
+				</span>
+				<span class="userName">MR.L君君</span>
+				<span class="point">11200点</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="nos" style="overflow: hidden;">No.5</span>
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" style="height:50px;"/>
+				</span>
+				<span class="userName">MR.L君君</span>
+				<span class="point">11200点</span>
+			</li>-->
+		</ul>
+	</div>
+	<div class="bottom_loadmore"></div>
+	<div class="foot">
+		<span>
+			我的排名：<span class="cl">{{ paiMing.count }}名</span>
+		</span>
+		<span class="cha">
+			距离上一名活跃度相差：<span class="cl">{{ paiMing.chanum }}点</span>
+		</span>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript">
+	getTheme();
+	apiready = function(){
+		changeTheme();
+		EventT.emit("apiready");
+	};
+	
+	var app = angular.module("myApp",[]);
+	app.controller("rankingList",["$scope",function($scope){
+		$scope.listData = [];
+		$scope.paiMing = [];
+		$scope.imgurl = Imageurl;
+		
+		$scope.goDiPan = function(id){
+			openW({
+				frm_url : 'frame2/wo_de_di_pan.html',
+				title : 'dsaf',
+				data:{
+					is_win:false,
+					id:id
+				}
+			})	
+		}
+		
+		EventT.on("apiready",function(){
+			$api.post(phpurl+'Circle/getHuoYueMessage',{
+				values:{
+					user_id:userid
+				}
+			},function(ret){
+				if(ret.code == 200){
+					$scope.paiMing = ret;
+					$scope.$apply();
+				}
+			})
+			getData(0);
+			$api.up(function(page,callback){
+	            getData(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    })
+		    
+		    $api.pull(function(callback){
+		        getData(0,function(){
+		            callback&&callback();
+		        })
+		    })
+		})
+		
+		function getData(page,callback){
+			$api.post(phpurl+'Circle/getHuoYue',{
+				values:{
+					user_id:userid,
+					page:page
+				}
+			},function(ret){
+				if(ret.code == 200){
+					if(ret.result.length > 0){
+						if(page == 0){
+							$scope.listData = [];
+						}
+						$scope.listData = $scope.listData.concat(ret.result);
+						for(var i=0;i<$scope.listData.length;i++){
+							if($scope.listData[i].rownum == 1){
+								$scope.listData[i]['Col'] = {
+									color:'#F5892B'
+								}
+							}else if($scope.listData[i].rownum == 2){
+								$scope.listData[i]['Col'] = {
+									color:'#FEAF20'
+								}
+							}else if($scope.listData[i].rownum == 3){
+								$scope.listData[i]['Col'] = {
+									color:'#FED620'
+								}
+							}else{
+								$scope.listData[i]['Col'] = {
+									color:'#717171'
+								}
+							}
+						}
+						$scope.$apply();
+						$api.closeNoDate();
+					}else if(ret.result.length <= 0 && page == 0){
+						$api.noDate();
+					}
+					$api.closeloadding();
+				}else{
+					$api.closeloadding();
+				}
+				callback&&callback(ret);
+			})
+		}
+	}])
+	
+//	function openWs(n){
+//		openW({
+//			frm_url : 'frame2/wo_de_di_pan.html',
+//			title : 'dsaf',
+//			data:{
+//				is_win:false,
+//				id:
+//			}
+//		})	
+//	}
+	
+	function openGuiZe(){
+		openW({
+			frm_url : 'frame2/ge_ren_huo_yue_gui_zhe.html',
+			title : '个人活跃度规则'
+		})
+	}
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	header{
+			border-bottom:1px solid #ddd;
+			text-align:center;
+			line-height:45px;
+			background:#fd7656;
+			position:relative;
+		}
+		.back,.more{
+			display:inline-block;
+			width:40px;
+			height:45px;
+			line-height:45px;
+			color:white;
+			text-align:center;
+			position:absolute;
+			right:0;
+		}
+		header span{
+			font-weight:600;
+			color:white;
+		}
+		header .back{
+			left:0;
+		}
+		.icon-xiugai{
+			position:absolute;
+			right:0;
+			width:40px;
+			text-align:center;
+		}
+    </style>
+</head>
+<body>
+	<header>
+		<div class="back" onclick="api.closeWin();"><i class="iconfont icon-llmainpageback"></i></div>
+		<span>评论</span>
+		<span class="iconfont icon-xiugai" onclick="openM()"></span>
+	</header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+    var bookid;
+	apiready = function(){
+	bookid=api.pageParam.bookid;
+		$api.fixStatusBar($api.dom('header'));
+		var h = $api.offset($api.dom('header')).h;
+//		var title = api.pageParam.txt;
+		
+		api.openFrame({
+	        name: 'pinglun_frame',
+	        url: 'pinglun.html',
+	        softInputBarEnabled:false,
+	        softInputMode:'resize',
+	        rect: {
+		        x:0,
+		        y:h,
+		        w:'auto',
+		        h:'auto'
+	        },
+	        pageParam:api.pageParam
+        });
+	};
+	
+	    function openM(){
+        api.openWin({
+	       name: 'win_headerrtrtyt',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'fa_biao_ping_lun',
+               frm_url:'frame1/fa_biao_ping_lun.html',
+               title:'发布评论',
+               data:{bookid:bookid}
+	       }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+    <style>
+    	.recommend{
+    		font-size:12px;
+    		background:white;
+    		margin-top:6px;
+    	}
+    	.recommend .smallTitle{
+    		padding:0 10px;
+    		line-height:40px;
+    		border-bottom:1px solid #EDEDED;
+    	}
+    	.recommend .smallTitle span{
+    		float:right;
+    		font-size:14px;
+    	}
+    	
+    	.quan_zi_lie_baio {
+			padding:0 10px;
+			background:#fff;
+			border-top: 1px solid #eee;
+			border-bottom: 6px solid #eee;
+		}
+
+		.quan_zi_lie_baio li {
+			padding:8px 0 ;
+			height: 40px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.quan_zi_lie_baio li img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+
+		.quan_zi_lie_baio .text p {
+			font-size: 12px;
+			line-height: 18px;
+		}
+
+		.quan_zi_lie_baio .quan_zi_ming_zi {
+			font-size: 12px;
+			margin-top: 4px;
+		}
+
+		.quan_zi_lie_baio .cheng_yuan_shu{
+			font-size: 12px;
+		}
+    </style>
+</head>
+<body ng-controller="quanZiController">
+	<div class="recommend">
+		<!--<p class="smallTitle" style="border:0;">{{ x.name }}<span class="iconfont icon-icon07"></span></p>-->
+		<div class="quziList">
+			<ul class="quan_zi_lie_baio ">
+		   		<li class="flex-wrap"  ng-repeat=" i in quanziList" onClick="openWs(2,this )" id="{{ i.circle_id }}" >
+		   			<img src="{{ Imageurl+i.sumbmasterimg }}" alt="">
+		   			<div class="flex-con text">
+		   				<p class="quan_zi_ming_zi">{{ i.name }}</p>
+		   				<p class="cheng_yuan_shu">{{ i.membercount }}个成员</p>
+		   			</div>
+		   		</li>
+		   </ul>
+		</div>
+	</div>
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript">
+	var type;
+	apiready = function(){
+		changeTheme();
+		type = api.pageParam.type;
+		EventT.emit("apiready");
+	};
+	var app=angular.module("myApp",[]);
+	app.controller("quanZiController",["$scope",function($scope){
+		$scope.quanziList = [];
+		$scope.Imageurl = Imageurl;
+		EventT.on("apiready",function(){
+			
+			getDate(0);
+			$api.up(function(page,callback){
+	            getDate(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    })
+		    
+		    $api.pull(function(callback){
+		        getDate(0,function(){
+		            callback&&callback();
+		        })
+		    })
+			
+			
+		})
+		function getDate(page,callback){
+			$api.loadding(api.frameName,1);
+			if(type == 10){
+				$api.post(phpurl+"Circle/MyGanCircle",{
+					values:{
+						user_id:userid,
+						page:page
+					}
+				},function(ret){
+					if(ret.code == 200){
+						if(ret.result.length > 0){
+							if(page == 0){
+								$scope.quanziList = [];
+							}
+							$scope.quanziList = $scope.quanziList.concat(ret.result);
+							$scope.$apply();
+							$api.closeNoDate();
+							$api.closeloadding();
+						}else if(ret.result.length <= 0 && page == 0){
+							$api.noDate();
+						}
+						$api.closeloadding();
+					}else{
+						$api.closeloadding();
+					}
+					callback&&callback(ret);
+					
+				})
+			}else{
+				$api.post(phpurl+"Circle/getAllCircle",{
+					values:{
+						classify_id:type,
+						user_id:userid,
+						page:page
+					}
+				},function(ret){
+					if(ret.code == 200){
+						if(ret.result.length > 0){
+							if(page == 0){
+								$scope.quanziList = [];
+							}
+							$scope.quanziList = $scope.quanziList.concat(ret.result);
+							$scope.$apply();
+							$api.closeNoDate();
+							$api.closeloadding();
+						}else if(ret.result.length <= 0 && page == 0){
+							$api.noDate();
+						}
+						$api.closeloadding();
+					}else{
+						$api.closeloadding();
+					}
+					callback&&callback(ret);
+				})
+			}
+			
+		}
+	}]);
+	
+	
+	function openWs(n,dom){
+		var open_list = {
+			2 : {
+				frm_url :  'frame2/quan_zi_xiang_qing.html',
+				title : '部落详情',
+				data:{
+					is_win:false,
+					circle_id:dom?dom.id:''
+				}
+			}
+		}
+		
+		if(open_list[n]){
+			openW(open_list[n])
+		}
+	}
+</script>
+</html>

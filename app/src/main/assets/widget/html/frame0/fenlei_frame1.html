@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>frame</title>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+
+	<style>
+		html, body {width: 100%;min-height: 100%;background: #ffffff;}
+		.h80 {height: 80px;}
+		.h40 {height: 40px;}
+		.h20 {height: 20px;}
+    	.h10 {height: 10px;background: #e5e5e5;}
+		.h1 {height: 1px;margin-left: 15px;background: #e5e5e5;}
+		.fr {float: right;}
+		.fl {float: left;}
+		.hightitem {background-color: #fff;}
+		.inwrap {margin: 0 10px;}
+
+		/* 2X2样式 */
+		.row {display: -webkit-box;display: -webkit-flex;display: flex;}
+		.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;position: relative;}
+		.col img {position: absolute; right: 0; width: 80px; top: 0;}
+		.col .matrixcell {display: table-cell;vertical-align: middle; padding-left: 10px;}
+		.col .matrixcell .title {margin-bottom: 10px;}
+		.matrix {display: table;height: inherit;}
+
+		/* 1. 2X2 */
+		.flipcard {height: 30px; line-height: 30px; text-align: center; margin: 5px 5px 3px 5px; color: #000; background-color: #fff; font-size: 14px;}
+		.darktitle {
+			height: 45px;
+			line-height: 55px;
+			 margin-top:10px;
+			 margin-left: 15px;
+			 font-size: 15px;
+		/*border-left:3px solid #cccccc;*/
+		 padding-left:5px;color: #666;
+	 }
+	 .darktitle i{
+	 	display: inline-block;;
+	 	height: 13px;
+	 	width: 3px;
+	 	background: #3f3f3f;
+	 	border-radius: 3px;
+	 	margin-right: 9px;
+	 	vertical-align: middle;
+	 	margin-top: -2px;
+	 }
+		/* 2. 三列 */
+		.scratch02 .word {margin-top: 10px;margin-left: 10px;}
+		.scratch02 .word .title{font-size: 18px;}
+		.scratch02 .word .info{font-size: 12px;color: #666;}
+		.scratch02 img {position: relative;width: 60px; height: 50px;}
+		.showposter {text-align: center;margin-top: 5px;padding-bottom: 10px;}
+
+		/* 列表 */
+		.classify {height: 60px;line-height: 60px; width:90%; margin-left:5%;background-color: #fff;position: relative;border-bottom: 1px solid #f3f3f3;}
+		.classify .sublogo {width: 30px;margin-top: 15px;margin-left: 15px;float: left;}
+		.classify .arrow {position: absolute;vertical-align: top;right: 15px;top:20px;height: 20px;}
+		.classify .info {line-height: 20px; float: left; height: 60px;margin-left: 10px;}
+		.classify .info .title {font-size: 15px; color: #303030; margin-top: 10px;}
+		.classify .info .subtitle {
+			font-size: 12px;
+			 color: #a3a3a3;
+			 /*margin-top: 5px;*/
+			 white-space: nowrap;
+			 overflow: hidden;
+			 text-overflow: ellipsis;
+			 width: 270px;
+		 }
+		.subclass {display: none;}
+		.subclass .flipcard {margin:0;}
+		.brb {border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;}
+		.bb {border-bottom: 1px solid #e0e0e0;}
+
+	</style>
+</head>
+<body>
+	<!-- 2 列表 -->
+	<div class="darktitle"><i></i>男频系列</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+
+
+
+	<!-- 2 列表 -->
+	<div class="darktitle"><i></i>女频系列</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+
+	<!-- 2 列表 -->
+	<div class="darktitle"><i></i>出版商系列</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+	<div class="classify" tapmode onclick="expandList()">
+		<img src="../../image/girl@2x.png" alt="" class="sublogo">
+		<div class="info">
+			<div class="title">现代都市</div>
+			<div class="subtitle">都市生活&nbsp;|&nbsp;热血暧昧&nbsp;|&nbsp;都市异能&nbsp;|&nbsp;娱乐明星</div>
+		</div>
+		<img src="../../image/ic_arrow_down_black.png" alt="" class="arrow" >
+	</div>
+
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script>
+
+function expandList()
+{
+	  api.openWin({
+	       name: 'win_headerf1515dsaf',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'goods_detail25655',
+               frm_url:'frame0/fen_lei_son.html',
+               title:'现代都市',
+
+	       }
+        });
+
+        }
+</script>
+</html>

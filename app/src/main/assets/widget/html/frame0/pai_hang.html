@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.content ul li{
+    		background:white;
+    		padding:10px;
+    		font-size:12px;
+    		margin-bottom:10px;
+    	}
+    	.content ul li>div{
+    		float:left;
+    	}
+    	.content ul li .imgs{
+    		width:30%;
+    	}
+    	.content ul li .imgs img{
+    		width:100%;
+    	}
+    	.content ul li .youJianTou{
+    		float:right;
+    	}
+    	.content ul li .booksName{
+    		width:61%;
+    		margin-left:3%;
+    		overflow: hidden;
+		 	text-overflow: ellipsis;
+		 	display: -webkit-box;
+		 	-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;
+    	}
+    	.content ul li .booksName p{
+    		line-height:23px;
+    	}
+    	.content ul li .booksName p span:first-child{
+    		width:16px;
+    		height:16px;
+    		line-height:16px;
+    		text-align:center;
+    		background:#F95939;
+    		border-radius:50%;
+    		color:white;
+    	}
+    	.youJianTou{
+    		margin-top:8.5%;
+    	}
+    	.youJianTou i{
+    		color:#999;
+    		font-size:14px;
+    	}
+    	@media screen and (max-width: 320px) {
+		    .content ul li .imgs{
+	    		width:30%;
+	    	}
+	    	.content ul li .booksName{
+	    		width:61%;
+	    	}
+		}
+		@media screen and (min-width:321px) and (max-width: 375px){
+		     .content ul li .imgs{
+	    		width:25%;
+	    	 }
+	    	 .content ul li .booksName{
+	    		width:66%;
+	    	}
+		}
+		@media screen and (min-width:376px) and (max-width: 414px){
+		     .content ul li .imgs{
+	    		width:24%;
+	    	 }
+	    	 .content ul li .booksName{
+	    		width:67%;
+	    	}
+		}
+		
+		.title{
+			display:none;
+		}
+    </style>
+</head>
+<body>
+	<div class="content">
+		<ul>
+			<li class="clearfix">
+				<div class="imgs">
+					<img src="../../image/01_03.png" alt="" />
+					<span class="title">女生热销榜</span>
+				</div>
+				<div class="booksName">
+					<p>
+						<span>1</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#FB9119;">2</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#95D935;">3</span>
+						<span>原来你还在这里</span>
+					</p>
+				</div>
+				<div class="youJianTou">
+					<i class="iconfont icon-you"></i>
+				</div>
+			</li>
+			
+			<li class="clearfix">
+				<div class="imgs">
+					<img src="../../image/01_03.png" alt="" />
+					<span class="title">男生热销榜</span>
+				</div>
+				<div class="booksName">
+					<p>
+						<span>1</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#FB9119;">2</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#95D935;">3</span>
+						<span>原来你还在这里</span>
+					</p>
+				</div>
+				<div class="youJianTou">
+					<i class="iconfont icon-you"></i>
+				</div>
+			</li>
+			
+			<li class="clearfix">
+				<div class="imgs">
+					<img src="../../image/01_03.png" alt="" />
+					<span class="title">出版热销榜</span>
+				</div>
+				<div class="booksName">
+					<p>
+						<span>1</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#FB9119;">2</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#95D935;">3</span>
+						<span>原来你还在这里</span>
+					</p>
+				</div>
+				<div class="youJianTou">
+					<i class="iconfont icon-you"></i>
+				</div>
+			</li>
+			
+			<li class="clearfix">
+				<div class="imgs">
+					<img src="../../image/01_03.png" alt="" />
+					<span class="title">女生热销榜</span>
+				</div>
+				<div class="booksName">
+					<p>
+						<span>1</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#FB9119;">2</span>
+						<span>原来你还在这里</span>
+					</p>
+					<p>
+						<span style="background:#95D935;">3</span>
+						<span>原来你还在这里</span>
+					</p>
+				</div>
+				<div class="youJianTou">
+					<i class="iconfont icon-you"></i>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+	$('.content li').click(function(){
+		var title = $(this).find('.title').html();
+		api.openWin({
+	       name: 'win_header123213',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'re_xiao_bang',
+               frm_url:'frame0/re_xiao_bang.html',
+               title:title,
+              
+	       }
+        });
+	})
+	apiready = function(){
+		
+	};
+</script>
+</html>

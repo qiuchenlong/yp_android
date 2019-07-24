@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <style>
+        .personal_info{
+            width: 94%;
+            background: white;
+            padding: 0 3% 0 3%;
+        }
+        .personal_info ul li{
+            border-bottom: 1px solid #e1e1e1;
+            line-height: 40px;
+            font-size: 14px;
+        }
+        .personal_info ul li span{
+            display: inline-block;
+            width: 92%;
+            outline: none;
+            color: #5e5e5e;
+        }
+        .personal_info ul li i{
+            color: #abacb0;
+        }
+    </style>
+</head>
+<body>
+<div class="personal_info">
+    <ul>
+        <li onclick="xiu_gai_mi_ma()">
+            <span>修改密码</span>
+            <i class="icon iconfont icon-you"></i>
+        </li>
+        <li onclick="clear_huncun()">
+            <span>清除缓存</span>
+            <i class="icon iconfont icon-you"></i>
+        </li>
+        <li onclick="tuichu()">
+            <span>退出登录</span>
+            <i class="icon iconfont icon-you"></i>
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    apiready = function() {
+    };
+    function xiu_gai_mi_ma() {
+        api.openWin({
+            name            : 'reset_win',
+            url             : '../user/reset_win.html',
+            slidBackEnabled : false,
+        });
+    }
+    function tuichu() {
+        $api.setStorage('user_id', '');
+        $api.setStorage('user', '');
+        $api.setStorage('user_head', '');
+        $api.send('usershua', {cid : 1});
+        $api.send('usershuas', {cid : 1});
+        setTimeout(function() {
+            api.openWin({
+                name            : 'login_win1',
+                url             : '../user/login_win.html',
+                slidBackEnabled : false,
+            });
+        }, 800);
+    }
+    //清除缓存
+    function clear_huncun() {
+        api.clearCache(function() {
+            api.toast({
+                msg : '清除完成',
+            });
+        });
+    }
+</script>
+</html>

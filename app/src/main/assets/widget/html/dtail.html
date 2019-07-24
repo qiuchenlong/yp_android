@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <!--图标字体-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+    <style>
+        .moremore{
+            width: 100%; background: #fff; margin-bottom: 20px; line-height: 35px; height: 35px; color: #4291fb; text-align: center;
+        }
+    </style>
+</head>
+<body ng-controller="DataController">
+<header class="detail_header">
+    <i class="iconfont iconfont icon-xiangshangbiaoshi-copy"  onclick="fanhui()"></i>
+    <h1 class="h1" style="    display: none;">书籍详情</h1>
+    <div class="right" >
+        <i class="iconfont icon-fenxiang js-share" ></i>
+        <!-- <i class="iconfont icon-more-copy" style="font-size: 0.5rem;margin-left: 1em;" onclick="alert('敬请期待')"></i> -->
+    </div>
+</header>
+<div class="content">
+    <!--小说详头部-->
+    <div class="m-dtail_hd">
+        <!-- <div class="m-dtail_hd-bg" ng-style="{'background-image':'url('+ imgurl + dlist.images +')'}"> -->
+        <div class="top">
+            <div class="left">
+                <img src="{{imgurl + dlist.images}}" />
+            </div>
+            <div class="right">
+                <h2 class="h2">{{ dlist.articlename }}</h2>
+                <p class="author">{{ dlist.author }}</p>
+                <p>
+                    <span>{{(dlist.size/20).toFixed(1)}}万字</span>
+                    <span ng-if="dlist.articletype==3">（已完结）</span>
+                    <span ng-if="dlist.articletype!=3">（连载中）</span>
+                    <span style=" color: red; display: none;" id="yuedu">{{dlist.saleprice}}金币/每章</span>
+                </p>
+                <p style=" display:  flex;justify-content: space-between;">
+                        <span class="u-score">
+                            <span class="star"></span>
+                        </span>
+                    <span>{{dlist.pingluns}}人评分</span>
+                </p>
+                <p style=" display:  flex;justify-content: space-between;display: none;" id="goumai">
+                    <span>{{dlist.salenum}}人购买</span>
+                </p>
+            </div>
+            <!--<a class="iconfont icon-xiangshangbiaoshi-copy" style="margin-top: 15px;" href="javascript:;" onclick="fanhui();"></a>-->
+        </div>
+        <div class="m-dtail_hd-bg">
+            <img src="{{imgurl + dlist.images}}" alt="">
+        </div>
+        <ul class="btnList">
+            <li class="li" ng-click="jiaru()">
+                <p class="num">{{ dlist.shoucangs || '0' }}</p>
+                <p class="type">收藏</p>
+            </li>
+            <i class="i"></i>
+            <li class="li">
+                <p class="num">{{ dlist.allvisit || '0' }}</p>
+                <p class="type">读过</p>
+            </li>
+            <i class="i"></i>
+            <li class="li">
+                <p class="num">{{ dlist.pingluns || '0' }}</p>
+                <p class="type">评论量</p>
+            </li>
+        </ul>
+        <!--<div class="button">
+            <a class="but_a" href="javascript:;" id="buy" style="display: none;">
+                <i class="iconfont icon-money"></i>
+                <i class="text">充值</i>
+            </a>
+            <i class="i">|</i>
+            <a class="but_a" href="javascript:;" ng-click="jiaru()">
+                <i class="iconfont icon-custom-love"></i>
+                <i class="text">收藏</i>
+            </a>
+            <i class="i">|</i>
+            <a class="but_a js-share" href="javascript:;">
+                <i class="iconfont icon-share"></i>
+                <i class="text">分享</i>
+                &lt;!&ndash; <div class="shareCover" style="display: none">
+                <div class="shareList">
+                    <ul>
+                        <li>
+                            <img src="../src/images/wechat@2x.png" alt="" />
+                            <br />
+                            facebook
+                        </li>
+                        <li>
+                           <img src="../src/images/pyq@2x.png" alt="" />
+                            <br />
+                            朋友圈
+                        </li>
+                        <li>
+                           <img src="../src/images/qq@2x.png" alt="" />
+                            <br />
+                            QQ好友
+                        </li>
+                        <li>
+                            <img src="../src/images/kj@2x.png" alt="" />
+                            <br />
+                            line
+                        </li>
+                        <li>
+                            <img src="../../image/weibo@2x.png" alt="" />
+                            <br />
+                            新浪微博
+                        </li>
+                    </ul>
+                    <div class="js-cancel">
+                        取消
+                    </div>
+                </div>
+            </div> &ndash;&gt;
+            </a>
+        </div>-->
+    </div>
+    <!--小说简介与编辑短评-->
+    <div class="m-intro">
+        <p class="appraise">
+            <span class="h4">编辑短评：</span>
+            <span class="p">{{ dlist.duanping }}</span>
+            <!--<i class="double1"></i>
+        <i class="double2"></i>
+        <i class="Buchecke"></i>-->
+        </p>
+        <p class="info">
+            {{ dlist.intro }}
+        </p>
+        <p class="title-List">
+
+            <a class="u-title{{ $index/2 == 0 ? 1 : 2 }}" href="javascript:;" ng-repeat="w in kw track by $index">{{ w }}</a>
+            <!-- <a class="u-title2" href="javascript:;">先婚后爱</a>
+            <a class="u-title1" href="javascript:;">先婚后爱</a>
+            <a class="u-title2" href="javascript:;">先婚后爱</a>
+            <a class="u-title1" href="javascript:;">先婚后爱</a> -->
+        </p>
+    </div>
+    <!--评论区-->
+    <div class="m-comment">
+        <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">评论</span>
+                </span>
+            <span class="right js-comment" href="javascript:;">我要评论</span>
+            <div class="comment-on">
+                <div class="u-hd_f">
+                    <span class="iconfont  icon-xiangshangbiaoshi-copy"></span>
+                    <span>书评区</span>
+                    <span ng-click="shuping(spContent)" style="color:red;">发表</span>
+                </div>
+                <div class="comment_bd">
+                        <span class="u-score">
+                            <span class="star"></span>
+                        </span>
+                    <form class="comment_form" action="">
+                        <!--<input type="text" placeholder="标题 （选填）">-->
+                        <textarea name="" id="plContentId" cols="30" rows="12" placeholder="说说你看完的感受吧~" ng-model="spContent"></textarea>
+                    </form>
+                    <!--<a class="comment_btn" href="javascript:;" ng-click="shuping(spContent)">发表书评</a>-->
+                    <!--<a class="comment-close" href="javascript:;">
+                        <img src="../src/images/close_w.png" alt="">
+                    </a>-->
+                </div>
+            </div>
+        </div>
+        <div class="bd">
+            <div class="u-comment" ng-repeat="p in plList " id="uid">
+                <p class="comment_user">
+                        <span class="iconfont">
+                            <img ng-src="{{ imgurl + p.uimg }}" alt="" src="" onerror="this.src='../image/my.png';this.onerror=null" style="width: 0.72rem;height: 0.72rem;border-radius: 50%;">
+                        </span>
+                    <span class="user_name">{{ p.username }}</span>
+                    <span class="u-score">
+                            <span class="star" ng-style="{'width':'{{p.xing*20}}%'}"></span>
+                        </span>
+                </p>
+                <p class="text">{{ p.content }}</p>
+                <div class="foot">
+                    <p class="left">{{ p.addtime }}</p>
+                    <p class="right">
+                        <i>
+                            <span ng-click="dianzan(p.id)">点赞</span>
+                            <span class="nmb">{{ p.likes }}</span>
+                        </i>
+                        <i class="js-reply" onclick="jubao()">
+                            <span>举报</span>
+                        </i>
+                        <i ng-if="p.user_id==uid" class="" ng-click="delete($index, p.id)">
+                            <span>删除</span>
+                        </i>
+                    </p>
+                </div>
+                <!--<div class="u-reply reply_on">
+                <form class="reply_form" action="">
+                    <h4 class="h4">
+                        <img src="../src/images/close_green.png" alt="">
+                        <span>写回复</span>
+                        <img src="../src/images/send_green.png" alt="">
+                    </h4>
+                    <textarea class="textare" placeholder="写点什么吧亲爱的~"></textarea>
+                </form>
+            </div>-->
+            </div>
+            <!-- <div class="u-comment">
+                <p class="comment_user">
+                    <span class="iconfont icon-user"></span>
+                    <span class="user_name">ren111111</span>
+                    <span class="u-score">
+                        <span class="star"></span>
+                    </span>
+                </p>
+                <p class="text">
+                    "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+                </p>
+                <div class="foot">
+                    <p class="left">36天前</p>
+                    <p class="right">
+                        <i>
+                            <span>点赞</span>
+                            <span class="nmb">0</span>
+                        </i>
+                          <i>
+                        <span>回复</span>
+                        <span class="nmb">0</span>
+                    </i>
+                    </p>
+                </div>
+            </div> -->
+            <p class="moremore" ng-click="pinglun(dlist.articleid)">
+                更多评论
+            </p>
+        </div>
+    </div>
+    <!--大家都在看-->
+    <div class="m-time-travel">
+        <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">大家都在看</span>
+                </span>
+            <!-- <span class="right" href="javascript:;">更多</span> -->
+        </div>
+        <div class="bd">
+            <ul class="u-ul_lr">
+                <li class="li" ng-repeat="b in secList" ng-click="bookdetail(b.articleid)" ng-cloak>
+                    <div class="left">
+                        <img src="{{imgurl + b.images}}" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">{{ b.articlename }}</h3>
+                        <p class="text">
+                            <span class="author">{{ b.author }}</span>
+                            <span class="u-title1">{{ b.shortname }}</span>
+                            <!-- <span class="u-title2">女尊天下</span> -->
+                        </p>
+                        <p class="u-line2" style="width: 100%;">{{ b.intro }}</p>
+                    </div>
+                </li>
+                <!--<li class="li">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+    <!--书友还关注-->
+    <div class="m-dtail_recom">
+        <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">书友还关注</span>
+                </span>
+            <!-- <span class="right" href="javascript:;">更多</span> -->
+        </div>
+        <div class="bd">
+            <ul class="u-ul_flex">
+                <li class="li" ng-repeat="b in triList" ng-click="bookdetail(b.articleid)">
+                    <div class="top">
+                        <a href="javascript:;">
+                            <img src="{{imgurl + b.images}}" />
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;" style="width: 5em;">{{ b.articlename }}</a>
+                    </div>
+                </li>
+                <!-- <li class="li" >
+                <div class="top">
+                    <a href="javascript:;">
+                        <img src="../src/images/i-01.png" />
+                    </a>
+                </div>
+                <div class="button">
+                    <a class="u-line2" href="javascript:;">医妃读心术</a>
+                </div>
+            </li>
+            <li class="li" >
+                <div class="top">
+                    <a href="javascript:;">
+                        <img src="../src/images/i-01.png" />
+                    </a>
+                </div>
+                <div class="button">
+                    <a class="u-line2" href="javascript:;">医妃读心术</a>
+                </div>
+            </li> -->
+                <!--<li class="li">
+                <div class="top">
+                    <a href="javascript:;">
+                        <img src="../src/images/i-01.png"/>
+                    </a>
+                </div>
+                <div class="button">
+                    <a class="u-line2" href="javascript:;">医妃读心术</a>
+                </div>
+            </li>-->
+            </ul>
+        </div>
+    </div>
+    <!--版本信息-->
+    <div class="foot-v_info">
+        <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">版本信息</span>
+                </span>
+            <a class="iconfont icon-xiangshangbiaoshi" href="javascript:;"></a>
+        </div>
+        <div class="bd">
+            <!--<p>
+                本书数字版权由XXX提供，并由其授权XXXXX有限公司制作发行，若包含不良信息，请及时告知客服。
+            </p>-->
+        </div>
+    </div>
+</div>
+<footer class="footer_dtail">
+    <a class="btn" href="javascript:;" ng-if="dlist.shujia>0">
+        已经加入书架
+    </a>
+    <a class="btn js-xgjiaru" href="javascript:;" ng-click="jiaru()" ng-if="dlist.shujia==0">
+        <i class="iconfont icon-icon-test"></i>加入书架
+    </a>
+    <!--
+     <a class="btn current" href="javascript:;" onclick="yuedu()" ng-if="dlist.goumai>0 && dlist.saleprice>0">
+         <i class="iconfont icon-read"></i>马上阅读</a>
+     <a class="btn current" href="javascript:;" onclick="yuedu()" ng-if="dlist.goumai==0 && dlist.saleprice>0">
+         <i class="iconfont icon-read"></i>推荐试读</a>-->
+    <a class="btn current" href="javascript:;" onclick="yuedu()">
+        <i class="iconfont icon-read"></i>马上阅读
+    </a>
+</footer>
+<!--打赏-->
+<div class="liCover" style="display: none">
+    <div class="shareList">
+        <ul>
+            <li ng-click="quanjmai((dlist.zjsum*dlist.saleprice).toFixed(1))">
+                <p>整本购买{{dlist.zjsum}}集</p>
+                <br />{{(dlist.zjsum*dlist.saleprice*0.85).toFixed(1)}}
+                <b>8.5折</b>
+            </li>
+            <li ng-repeat="z in zhangjie" ng-click="goumai(z)">
+                <span ng-if="z.mai==1">已经买</span>
+                <p>{{z.kaishi}}-{{z.jieshu}}集</p>
+                <br /> {{z.jiage}}金币
+            </li>
+            <!--<li>
+                            <img src="../../image/weibo@2x.png" alt="" />
+                            <br />
+                            新浪微博
+                        </li>-->
+        </ul>
+        <div class="li-cancel" style="height: 30px; line-height: 30px;">
+            取消
+        </div>
+    </div>
+</div>
+<!--分享-->
+<div class="shareCover" style="display: none">
+    <div class="shareList">
+        <ul>
+            <li onclick="fenxiang(1)">
+                <img src="../image/weixin_login.png" alt="" />
+                <br /> 好友
+            </li>
+            <li>
+                <!-- <img src="../src/images/pyq@2x.png" alt="" />
+                            <br />
+                            朋友圈 -->
+            </li>
+            <li>
+                <!-- <img src="../src/images/qq@2x.png" alt="" />
+                            <br />
+                            QQ好友 -->
+            </li>
+            <li onclick="fenxiang(2)">
+                <img src="../image/pyq@2x.png" alt="" />
+                <br /> 朋友圈
+            </li>
+            <!--<li>
+                             <img src="../../image/weibo@2x.png" alt="" />
+                            <br />
+                            新浪微博
+                        </li>-->
+        </ul>
+        <div class="js-cancel">
+            取消
+        </div>
+    </div>
+</div>
+</body>
+<script src="../src/js/detail.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zhifu.js"></script>
+<script>
+    var bookid,
+        userid,
+        starNum = 5,
+        wenben;
+        var sharecontent="海量小说免费看，惊喜不断，持续更新";
+         var sharetitle="畅读小说";
+    apiready = function() {
+        $api.post(phpurl + 'Home/ad/shang', { //上线状态屏蔽
+        }, function(ret) {
+            if (ret.result[0].shang == 0) {
+                document.getElementById('buy').style.display = 'block';
+                document.getElementById('yuedu').style.display = 'block';
+                document.getElementById('goumai').style.display = 'block';
+            }
+        });
+        bookid = api.pageParam.data.bookid;
+        userid = $api.getStorage('user_id');
+        EventT.emit('apiready');
+        api.setFullScreen({
+            fullScreen : false,
+        });
+    };
+    function fanhui() {
+        api.closeWin({});
+    }
+    function yuedu() {
+        api.openWin({
+            name      : 'bookRead',
+            url       : 'readbook.html',
+            pageParam : {
+                bookid : bookid,
+                sort   : 0,
+                t      : wenben,
+            },
+        });
+    }
+    // 评论点击
+    $('.comment_bd .u-score').on('click', function(e) {
+        var w = $('.comment_bd .u-score').width();
+        var starW = w / 5;
+        var num = Math.ceil(e.offsetX / starW);
+        starNum = num;
+        $(this).find('.star').css('width', `${20 * num}%`);
+    });
+    var app = angular.module('myApp', []);
+    app.controller('DataController', function($scope) { //angular开始
+        $scope.bookList = [];
+        $scope.imgurl = imageUrl;
+        $scope.userImgurl = userimg;
+        function getData(page, callback) {
+            // console.log(bookid)
+            // console.log(userid)
+            $api.post(phpurl + 'Home/Book/bookdetail', {
+                values : {
+                    id      : bookid,
+                    user_id : userid,
+                },
+            }, function(ret) {
+                                // console.log(JSON.stringify(ret))
+                //alert($api.jsonToStr(ret));
+                if (ret.code == 200) {
+                    var result = ret.result;
+                    if (result != '') {
+                        $scope.book = result;
+                        sharetitle=result.book_bookdetail_list1.articlename;
+                        sharecontent=result.book_bookdetail_list1.intro;
+                        $scope.dlist = result.book_bookdetail_list1;
+                        $scope.secList = result.book_bookdetail_list2;
+                        $scope.triList = result.book_bookdetail_list3;
+                        $scope.plList = result.book_bookdetail_list5;
+                        $scope.uid = userid;
+                        wenben = $scope.dlist.text;
+                        //小说标签
+                        var kw = $scope.dlist.keywords;
+                        if (kw != undefined && kw != "") {
+                          var arr1 = undefined
+                          var arr2 = undefined
+                          var arr3 = undefined
+                          arr1 = kw.split(' ');
+                          arr2 = kw.split(',');
+                          arr3 = kw.split('，');
+                          if (arr1 instanceof Array) {
+                            $scope.kw = arr1;
+                          }
+                          if (arr2 instanceof Array) {
+                            $scope.kw = arr2;
+                          }
+                          if (arr3 instanceof Array) {
+                            $scope.kw = arr3;
+                          }
+                        }
+                        // console.log(JSON.stringify(arr));
+                        $scope.$apply();
+                        $api.removeCls($api.dom('html'), 'htmlWeiLei');
+                        $api.removeCls($api.dom('html'), 'htmlWeiLei-no-bg');
+                        $api.removeCls($api.dom('html'), 'htmlWeiLei-bg');
+                    }
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+                callback && callback(ret);
+                $api.post(phpurl + 'Home/Book/zhangjie', { //获取章节
+                    values : {
+                        id      : bookid,
+                        user_id : userid,
+                    },
+                }, function(ret) {
+                    //          alert(1);
+                    $scope.zhangjie = ret;
+                    $scope.$apply();
+                });
+            });
+        }
+        //点赞
+        $scope.dianzan = function(id) {
+            $api.post(phpurl + 'Home/Book/addlike', {
+                values : {
+                    rid : id,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    api.toast({
+                        msg : '点赞成功',
+                    });
+                    getData(0);
+                }
+            });
+        };
+
+        //删除评论
+        $scope.delete = function(index, id) {
+            $api.post(phpurl + 'Home/Book/deletereply', {
+                values : {
+                    rid : id,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    $scope.plList.splice(index,1)
+                    api.toast({
+                        msg : '删除成功',
+                    });
+                    getData(0);
+                }
+            });
+        };
+
+        //获取评论列表
+        function getplList() {
+            $api.post(phpurl + 'Home/Book/bookdetail', {
+                values : {
+                    id : bookid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    var result = ret.result;
+                    if (ret.result != '') {
+                        $scope.plList = result.book_bookdetail_list5;
+                        $scope.$apply();
+                    }
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+            });
+        }
+        //添加到书架
+        $scope.jiaru = function() {
+            $api.post(phpurl + 'Home/My/addcase?', {
+                values : {
+                    user_id : userid,
+                    bookid  : bookid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    if (ret.result.code == 201) {
+                        api.toast({
+                            msg : '书架已经有该书本了',
+                        });
+                    } else if (ret.result.code == 200) {
+                        api.toast({
+                            msg : '添加成功',
+                        });
+                        $('.js-xgjiaru').text('已经加入书架');
+                        $api.send('shua_shujia');
+                    } else {
+                        api.toast({
+                            msg : '添加失败',
+                        });
+                    }
+                }
+            });
+        };
+        //支付
+        function zhifu(m, money, danhao) {
+            var pays = new pay(money, danhao, 'http://106.52.204.57/book/', 1);
+            if (m == 0) {
+                pays.zhifubao(function(win) {
+                    if (win) {
+                        api.closeWin({});
+                    } else {
+                    }
+                });
+            } else {
+                pays.weixinzhifu(function(win) {
+                    if (win) {
+                        api.closeWin({});
+                    } else {
+                    }
+                });
+            }
+        }
+        //购买章节
+        $scope.goumai = function(data) {
+            $api.post(phpurl + 'Home/My/addorder', {
+                values : {
+                    id      : bookid,
+                    zj      : data.zj,
+                    user_id : userid,
+                    jiage   : data.jiage,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    var result = ret.result;
+                    if (result.paymoney > 0) {
+                        $jia = result.paymoney;
+                        $danhao = result.nums;
+                        api.actionSheet({
+                            title   : '选择支付方式',
+                            buttons : ['支付宝支付', '微信支付'],
+                        }, function(ret, err) {
+                            var index = ret.buttonIndex;
+                            if (index == 1) {
+                                zhifu(0, $jia, $danhao);
+                            } else if (index == 2) {
+                                zhifu(1, $jia, $danhao);
+                            } else {
+                                return;
+                            }
+                        });
+                    } else {
+                        api.toast({
+                            msg : '购买成功',
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg : '已经购买了',
+                    });
+                }
+            });
+        };
+        //全集购买
+        $scope.quanjmai = function(money) {
+            $api.post(phpurl + 'Home/My/addorder', {
+                values : {
+                    id      : bookid,
+                    zj      : 0,
+                    user_id : userid,
+                    jiage   : money,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    var result = ret.result;
+                    if (result.paymoney > 0) {
+                        $jia = result.paymoney;
+                        $danhao = result.nums;
+                        api.actionSheet({
+                            title   : '选择支付方式',
+                            buttons : ['支付宝支付', '微信支付'],
+                        }, function(ret, err) {
+                            var index = ret.buttonIndex;
+                            if (index == 1) {
+                                zhifu(0, $jia, $danhao);
+                            } else if (index == 2) {
+                                zhifu(1, $jia, $danhao);
+                            } else {
+                                return;
+                            }
+                        });
+                    } else {
+                        api.toast({
+                            msg : '购买成功',
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg : '已经购买了',
+                    });
+                }
+            });
+        };
+        //添加评论
+        $scope.shuping = function(data) {
+            if($('#plContentId').val()){
+                $api.post(phpurl + 'Home/Book/addreply?', {
+                    values : {
+                        id      : bookid,
+                        content : data,
+                        user_id : userid,
+                        xing    : starNum,
+                    },
+                }, function(ret) {
+                    if (ret.code == 200) {
+                        api.toast({
+                            msg : '评论成功',
+                        });
+                        getplList();
+                        document.getElementById('plContentId').value = '';
+                    } else {
+                        api.toast({
+                            msg : '评论失败',
+                        });
+                    }
+                });
+            }
+            else{
+                api.toast({
+                    msg : '你还未编辑评论内容',
+                });
+            }
+            $('.comment-on').hide();
+        };
+        $scope.bookdetail = function(dates) {
+            api.openWin({
+                name      : dates + 'win_he_shu_sd',
+                url       : 'dtail.html',
+                pageParam : {
+                    data : {
+                        bookid : dates,
+                    },
+                },
+            });
+        };
+        //打开更多评论页面
+        $scope.pinglun = function(dates) {
+            // console.log(dates)
+            api.openWin({
+                name      : 'win_pinglun',
+                url       : 'pinglun.html',
+                pageParam : {
+                    plbkid : dates,
+                },
+            });
+        };
+        EventT.on('apiready', function() {
+            getData();
+            //监听更多评论处是否添加了评论
+            api.addEventListener({
+                name : 'plSuccess',
+            }, function(ret, err) {
+                getData(0);
+            });
+        });
+    });
+    $('#buy').click(function() {
+        api.openWin({
+            name      : 'win_headerchong',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'chong_zhi',
+                frm_url  : 'frame1/chong_zhi.html',
+                title    : '充值',
+            },
+        });
+    });
+ function fenxiang(m)
+          {
+
+        if (m == 1) {
+            var path = 'session';
+        }
+        else {
+            var path = 'timeline';
+        }
+        var wx = api.require('wx');
+        wx.shareWebpage({
+            apiKey      : '',
+            scene       : path,
+            title       : sharetitle,
+            description : sharecontent,
+            thumb       :  'widget://image/logo.png',
+            contentUrl  :  "http://106.52.204.57/index.php/Home/Index/dtail.html?userid="+userid+"&id="+bookid,
+        }, function(ret, err) {
+            if (ret.status) {
+                alert('分享成功');
+            } else {
+                // err.code
+                alert("您未安装微信");
+            }
+        });
+
+          }
+    function jubao() {
+        api.openWin({
+            name : 'win_jubao',
+            url  : 'jubao.html',
+        });
+    }
+    //头部滚动变色
+    $(window).on('scroll', function() {
+        //scroll
+        var t = $(this).scrollTop();
+        if (t > 28) {
+            $('.detail_header').addClass('js-nav_bg');
+            $('.detail_header .h1').show();
+        } else {
+            $('.detail_header').removeClass('js-nav_bg');
+            $('.detail_header .h1').hide();
+        }
+    });
+</script>
+</html>

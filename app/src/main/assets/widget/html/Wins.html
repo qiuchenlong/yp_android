@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../css/theme.css" />
+    <style>
+    	header{
+			text-align:center;
+			line-height:45px;
+			background:white;
+			position:relative;
+			overflow: hidden
+		}
+		.back,.more{
+			display:inline-block;
+			width:40px;
+			height:45px;
+			line-height:45px;
+			
+			text-align:center;
+			position:absolute;
+			right:8px;
+		}
+		header span{
+			
+		}
+		header .back{
+			left:0;
+			
+			z-index: 154848949;
+/*			line-height:50px;*/
+		}
+		.back img{ width: 20px; height: auto;}
+		.icon-fanhui{
+			font-size:25px;
+			font-weight:600;
+		}
+		.more{
+			width:auto;
+			
+		}
+		.more i{
+			font-size:20px;
+		}
+		
+		
+		
+
+		.fen_xiang {
+			width: 40px;
+			height: 40px;
+			line-height: 38px;
+			text-align: center;
+			font-size: 23px;
+			top: 0px;
+			padding-top: 5px;
+			position: absolute;
+		}
+		.fen_xiang {
+			right: 0px;
+		}
+		.fen_xiang b{
+			font-size: 8px;
+			position: absolute;
+			right: 7px;
+			top: 10px;
+			width: 12px;
+			height: 12px;
+			line-height: 14px;
+			border-radius: 50%;
+			background: rgb(240,124,9);
+			color: #fff;
+		}
+    </style>
+</head>
+<body>
+	<header class="appbackground titlecolor">
+
+
+		<div class="back" id="back"><i class="iconfont icon-fanhui" ><img src="../image/fanhui.png"/></i></div>
+		<span class="title" ></span>
+
+<!--<i class="iconfont icon-gengduo"></i>-->		
+<!--		<div class="more">
+			Operation
+		</div>-->
+	</header>
+</body>
+<script type="text/javascript" src="../script/quanzi/api.js"></script>
+<script type="text/javascript" src="../script/quanzi/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+
+	$api.byId('back').addEventListener('touchstart',function(){
+	    api.closeWin({});
+	})
+
+    apiready = function(){
+        
+		$api.fixStatusBar($api.dom('header'));
+		/*打开此win时通过传递过来的参数操作页面 */
+		var frm_name = api['pageParam']['frm_name'];
+		var frm_url = api['pageParam']['frm_url'];
+		var is_win = api['pageParam']['is_win'];
+		var title = api['pageParam']['title'] || false;
+		var r_txt = api['pageParam']['r_txt'] || false;
+		var datas = api['pageParam'] || {};
+
+		if(is_win===false){
+			$('header').css({height:0})
+		}
+		if(title){
+			$api.dom('.title').innerHTML = title;
+		}
+		if(r_txt){
+			$api.dom('header').innerHTML+= '<div class="more" style="color:#000;">'+r_txt+'</div>';
+			$api.byId('back').addEventListener('touchstart',function(){
+			    api.closeWin({});
+			})
+		}
+		
+		
+		/*打开子窗口*/
+		openFrm(frm_name, frm_url,datas);
+    };
+    /*apiready结束*/
+/*********静态操作*************/	
+	/*打开子窗口函数*/
+	function openFrm (frm_name, frm_url, datas){
+
+        var systemType = api.systemType;
+        frameName = frm_name;
+        if(systemType == 'ios'){
+			api.openFrame({
+			    name: frm_name,
+			    url: frm_url,
+			    rect: {
+				    x:0,
+				    y: $api.dom('header').offsetHeight,
+				    w: api.winWidth,
+				    h: 'auto'
+			    },
+			    vScrollBarEnabled:false,
+			    allowEdit:true,
+			    pageParam:datas
+			    
+			});
+		}else{
+		    api.openFrame({
+			    name: frm_name,
+			    url: frm_url,
+			    rect: {
+				    x:0,
+				    y: $api.dom('header').offsetHeight,
+				    w: api.winWidth,
+				    h: 'auto'
+			    },
+			    vScrollBarEnabled:false,
+			    allowEdit:true,
+			    pageParam: datas
+			    
+			});
+		}
+	}
+	/*打开子窗口函数结束*/
+/*********静态操作结束*************/	
+	
+		
+	function shareShow(){//发送分享事件
+		$api.send('shareShow');
+	}
+	
+	function sheZhi(){
+		openW({
+			frm_url : 'frame2/huo_dong_she_zhi.html',
+			title : '设置',
+			data:{
+				activeId:api.pageParam.activeId
+			}
+		})
+	}
+	
+	function goQuanZiSearch(){//搜部落
+		api.openWin({
+			name : 'quanzi_sou_suo_wins',
+			url : 'frame2/quan_zi_search_win.html'
+		});
+	}
+	
+	bian_ji.is = false;
+	function bian_ji() { //购物车的编辑函数
+		api.sendEvent({
+			name : 'gou_wu_che_bian_ji',
+			extra : {
+				wan_cheng : bian_ji.is
+			}
+		});
+		if (!bian_ji.is) {
+			bian_ji.is = true;
+			$('.bian_ji').text('完成')
+		} else {
+			bian_ji.is = false;
+			$('.bian_ji').text('编辑')
+		}
+	}
+</script>
+</html>

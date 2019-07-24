@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <link rel="stylesheet" href="../src/css/swiper-4.2.2.min.css">
+    <!--轮播css-->
+    <!-- <link rel="stylesheet" href="//at.alicdn.com/t/font_703623_1797hj4x65p.css"> -->
+    <!--图标字体-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/library/swiper-4.2.2.min.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+
+<body ng-controller="DataCtrl">
+
+    <div class="content">
+        <div class="m-stack">
+            <div class="m-stack_rec">
+                <a class="list" ng-click="openws(d.sortid)" ng-repeat="d in dataList | limitTo:4">
+                    <img src="{{ imageUrl + d.imgurl }}" alt="">
+                </a>
+                <!-- <a class="list" onClick="openws()">
+                    <img src="../src/images/ind-02.png" alt="">
+                </a>
+                <a class="list" onClick="openws()">
+                    <img src="../src/images/ind-03.png" alt="">
+                </a>
+                <a class="list" onClick="openws()">
+                    <img src="../src/images/ind-04.png" alt="">
+                </a> -->
+            </div>
+            <ul class="m-types">
+                <li class="li" ng-repeat="d in lastList | limitTo:6" ng-click="openws(d.sortid)">
+                    <div class="left">
+                        <img class="img_pst" src="{{ imageUrl + d.imgurl }}" alt="">
+                        <img class="img_btm" src="{{ imageUrl + d.imgurl }}" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>{{ d.shortname }}</h2>
+                    </div>
+                </li>
+                <!-- <li class="li">
+                    <div class="left">
+                        <img class="img_pst" src="../src/images/i-01.png" alt="">
+                        <img class="img_btm" src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>现代言情</h2>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="left">
+                        <img class="img_pst" src="../src/images/i-01.png" alt="">
+                        <img class="img_btm" src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>现代言情</h2>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="left">
+                        <img class="img_pst" src="../src/images/i-01.png" alt="">
+                        <img class="img_btm" src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>现代言情</h2>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="left">
+                        <img class="img_pst" src="../src/images/i-01.png" alt="">
+                        <img class="img_btm" src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h2>现代言情</h2>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <script src="../script/angular.min.js"></script>
+    <script src="../script/api.js"></script>
+    <script src="../script/ev.js"></script>
+    <script>
+        //搜索
+        function sousuo() {
+            api.openWin({
+                name: 'win_headerfdsaf',
+                url: 'frame0/seek_win.html',
+
+            });
+        }
+
+
+
+        function paihang() {
+            api.openWin({
+                name      : 'win_stack',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'rank_stack',
+                    frm_url  : 'ranking.html',
+                    title    : '排行榜',
+                },
+            });
+
+        }
+
+        function shudan() {
+            api.openWin({
+                name: 'win_shudan',
+                url: 'win_header.html',
+                pageParam: {
+                    frm_name: 'shudan',
+                    frm_url: 'BookSelection.html',
+                    title: '书单'
+                }
+            });
+        }
+
+        apiready = function () {
+            EventT.emit("apiready");
+        }
+
+        var app = angular.module("myApp", []);
+        app.controller("DataCtrl", function ($scope) {
+            $scope.dataList = [];
+            $scope.lastList = [];
+            $scope.imageUrl = imageUrl;
+
+
+            function getData(pd, callback) {
+                $api.post(phpurl + "Home/Book/fenlei?", {
+                    values: {
+                        pindao: pd
+                    }
+                }, function (ret) {
+                    var result = ret.result;
+                    if (ret.code == 200) {
+                        if (ret.result.length > 0) {
+                            $scope.dataList = result;
+                            //    console.log(JSON.stringify(result))
+                            for (var i = 0; i < result.length; i++) {
+                                if (i > 3) {
+                                    $scope.lastList.push(result[i]);
+                                    // console.log(JSON.stringify(result[i]));
+                                    // console.log(JSON.stringify($scope.lastList));
+                                }
+                            }
+                            $scope.$apply();
+                        }
+                        // $api.closeloadding(); //关闭加载
+                    } else {
+                        $api.toast('很是遗憾，没加载到数据');
+                        // $api.closeloadding(); //关闭加载
+                    }
+                    callback && callback(ret);
+                })
+            }
+
+            //分类
+            $scope.openws = function (datas) {
+                api.openWin({
+                    name: datas + 'win_headerfenlei',
+                    url: 'win_header.html',
+                    pageParam: {
+                        frm_name: datas + 'fenlei_detail',
+                        frm_url: 'fenlei.html',
+                        title: '分类',
+                        data: {
+                            sortid: datas
+                        }
+
+                    }
+                });
+            }
+
+            EventT.on("apiready", function () {
+                getData(1);
+            })
+
+        })
+    </script>
+</body>
+
+</html>

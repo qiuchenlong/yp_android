@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+	/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<style>
+		body,
+		html {
+			background: #ffffff;
+		}
+
+		.ul {
+
+			width: 100%;
+			margin: 0 auto;
+			margin-bottom: 50px;
+			/*padding:0 10px;*/
+			/*text-align:center;*/
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+		}
+
+		.ul .li {
+			width: 30%;
+			height: 82px;
+			/*display:inline-block;*/
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: white;
+			font-size: 14px;
+			border: 1px solid #dfdfdf;
+			color: #999999;
+			border-radius: 3px;
+			margin-bottom: 13px;
+		}
+
+		/*ul li:nth-child(3n-1){
+				margin: 0 11.5px;
+			}*/
+
+		.ul .li span {
+			font-size: 18px;
+		}
+
+		.ul .li span a {
+			font-size: 12px;
+		}
+
+		.ul .li span:nth-child(2) {
+			font-size: 12px;
+			color: #929292;
+			margin-top: 9px;
+		}
+
+		.cover {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			background: rgba(0, 0, 0, .3);
+		}
+
+		.pay_way {
+			background: white;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+		}
+
+		.title {
+			line-height: 40px;
+			border-bottom: 1px solid #f1f1f1;
+		}
+
+		.choose {
+			padding: 20px 0;
+			line-height: 25px;
+		}
+
+		.choose img {
+			width: 40%;
+		}
+
+		.close {
+			width: 10%;
+			position: absolute;
+			left: 44.5%;
+			top: 63%;
+		}
+
+		.close img {
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body ng-controller="DataController">
+	<div style="width: 100%; height: 60px; line-height: 60px; background: #ffffff; text-align: center;">
+		金币：
+		<span style=" font-size: 25px; color: #DC143C;" id="yue"></span>
+	</div>
+
+	<ul class="ul">
+
+		<li class="li" ng-repeat="c in bookList" ng-click="opens(c.id)">
+			<span>{{c.cname}}</span>
+			<span>￥{{c.price}}</span>
+		</li>
+
+		<!--   <li class="li"><span>5<a>元</a></span><span>500金币</span></li>
+	   <li class="li"><span>10<a>元</a></span><span>1000金币</span></li>
+	   <li class="li"><span>20<a>元</a></span><span>2000金币</span></li>
+	   <li class="li"><span>50<a>元</a></span><span>5000金币</span></li>
+	   <li class="li"><span>100<a>元</a></span><span>10000金币</span></li>-->
+	</ul>
+	<div style=" width: 80%; margin-left: 10%; color: #999999; font-size: 12px;">
+		温馨提示：
+		<br/> 1. 充值获得的书币仅限在本公司书城使用。
+		<br/> 2. 若是发现充值未到账，请先确认你登录的账号与充值的账号是否一致。
+		<br/> 3. 用户一旦充值成功，不得以任何理由要求本公司退还全部或部分已充值款项，
+		<br/>因不可抗力或本公司单方面原因导致的情况除外。
+		<br/>
+		<!--4. 充值赠送的书币存在有效期，有效期为：自领取时间起， 5天有效；消费时优先扣除赠送书币。-->
+
+	</div>
+
+
+	<div class="cover" style="display:none;">
+		<div class="close" onclick="_close()">
+			<img src="../../image/close.png" alt="" />
+		</div>
+		<div class="pay_way">
+			<div class="title">
+				支付方式
+			</div>
+			<div class="choose">
+				<span onclick="zhifu(1)">
+					<img src="../../image/alipay@2x.png" alt="" />
+					<br /> 支付宝
+				</span>
+				<span style="position:absolute;top:48%;height:40px;border-left:1px solid #f1f1f1;"></span>
+				<span onclick="zhifu(2)">
+					<img src="../../image/wechat@2x.png" alt="" />
+					<br /> 微信
+				</span>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script src="../../script/zhifu.js"></script>
+<script type="text/javascript">
+	var cid = 0,
+		userid;
+	$('li').each(function () {
+		$(this).click(function () {
+			$('.cover').fadeIn();
+		})
+	})
+
+	function _close() {
+		$('.cover').fadeOut();
+	}
+	apiready = function () {
+		EventT.emit("apiready");
+		var yue = api.pageParam.data.yue;
+		document.getElementById('yue').innerText = yue || 0;
+		userid = $api.getStorage('user_id');
+
+
+	};
+
+	var app = angular.module("myApp", []);
+
+	app.controller("DataController", function ($scope, $timeout) { //angular开始
+		$scope.bookList = [];
+
+		function getData() {
+			$api.post("http://106.52.204.57/book/index.php/Home/Ad/czxqs", {
+				values: {}
+			}, function (ret) {
+				if (ret.code == 200) {
+					$scope.bookList = ret.result;
+					$scope.$apply();
+					$api.closeloadding(); //关闭加载
+				} else {
+					$api.toast('很是遗憾，没加载到数据');
+					$api.closeloadding(); //关闭加载
+				}
+				$api.closeloadding(); //关闭加载
+			})
+		}
+
+		$scope.opens = function (data) {
+			cid = data;
+			$('.cover').fadeIn();
+		}
+
+
+		EventT.on("apiready", function () {
+
+			getData();
+		})
+
+
+
+	});
+
+
+	function zhifu(m) {
+		if (m != 1) {
+			api.toast({
+				msg: '未开放请等待'
+			});
+			return;
+		}
+		$api.post("http://106.52.204.57/book/index.php/Home/Ad/addorder", {
+			values: {
+				cid: cid,
+				userid: userid
+			}
+		}, function (ret) {
+
+			var danhao = ret.result.danhao;
+			var price = ret.result.price;
+			var notifyurl = "http://106.52.204.57/wpay/notify.php";
+			$api.post("http://www.fondfell.com/pays/addo.php", {
+				values: {
+					money: price,
+					user_id: 2,
+					shopnum: danhao,
+					notifyurl: notifyurl
+				}
+			}, function (ret) {
+
+
+				var pays = new pay(price, danhao, 'http://www.fondfell.com/');
+
+				pays.zhifubao(function (win) {
+					if (win) {
+						api.toast({
+							msg: '充值成功'
+						});
+
+						$api.send("usershua", {
+							cid: 1
+						});
+						$api.send("usershuas", {
+							cid: 1
+						});
+
+						api.closeWin({});
+
+					} else {
+						api.toast({
+							msg: '充值成功'
+						});
+
+					}
+				});
+
+
+
+				//                               api.openWin({
+				//              name: 'zhifu_win',
+				//              url: '../win_header.html',
+				//              pageParam: {
+				//                  frm_name:'zhifu',
+				//                  frm_url: url+'index.php?danhao='+danhao+'&price='+price,
+				//                  title: '充值中',
+				//
+				//              }
+				//          });
+
+			});
+
+			//                    }
+			//                    else
+			//                    {
+			//                    var url="http://106.52.204.57/wpay/";
+			//
+			//
+			//var wx = api.require('wx');
+			//wx.shareWebpage({
+			//  apiKey: '',
+			//  scene: 'session',
+			//  title: '点击立即支付',
+			//  description: '你的订单尚未付款',
+			//  thumb: 'http://www.youdingb.com/zihuijia/Uploads/logo.png',
+			//  contentUrl: 'http://106.52.204.57/wpay/index.php?danhao='+danhao+'&price='+price,
+			//}, function(ret, err) {
+			//  if (ret.status) {
+			//      alert('分享成功');
+			//  } else {
+			//      alert(err.code);
+			//  }
+			//});
+			//
+			//                    }
+			//
+
+
+
+
+
+
+		})
+	}
+</script>
+
+</html>

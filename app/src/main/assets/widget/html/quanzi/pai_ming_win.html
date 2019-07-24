@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.top{
+    		text-align:center;
+    		padding:30px 0 50px;
+    		font-size:14px;
+    		position: relative;
+    	}
+    	.top p:nth-child(2){
+    		font-size:12px;
+    		color:#484848;
+    	}
+    	.top_foot{
+    		position:absolute;
+    		bottom:0;
+    		width:90%;
+    		background:rgba(0,0,0,.3);
+    		font-size:10px;
+    		color:white;
+    		line-height:30px;   
+    		text-align:left;
+    		padding-left:10%;		
+    	}
+    	.top_foot .icon-laba{
+    		float:left;
+    	}
+    	.navbs{
+    		line-height:40px;
+    		background:white;
+    		font-size:14px;
+    		border-bottom:1px solid #BEBEBE;
+    		position:relative;
+    	}
+    	.navbs li{
+    		display:inline-block;
+    		float:left;
+    		width:50%;
+    		text-align:center;
+    	}
+    	.navbs .line{
+    		position: absolute;
+    		top:39px;
+    		left:17%;
+    		width:15%;
+    		border-top:2px solid;
+    		transition:all .3s linear;
+    	}
+ /*   	#ge_ren .ge_ren_title{
+    		background:white;
+    		text-align:center;
+    		font-size:14px;
+    		line-height:40px;
+    		margin:8px 0;
+    	}*/
+    	.navbs .active span{
+    		border-bottom:2px solid;
+    	}
+    </style>
+</head>
+<body>
+	<div class="top appbackground clearfix">
+		<p><span style="font-size:25px;" id="score"> </span> 点</p>
+		<p>本月活跃度</p>
+		<div class="top_foot">
+			<i class="iconfont icon-laba"></i>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span id="month"></span>月份，每月1号重新计算排名，整点更新
+		</div>
+	</div>
+	<div class="navbs clearfix" id="nav">
+		<ul>
+			<!--<li class="active"><span class="nav0 appBordercolor">个人活跃排名</span></li>-->
+			<!--<li><span class="nav1 appBordercolor">部落活跃排名</span></li>-->
+		</ul>
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/bootstrap.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		changeTheme();
+//		alert($('#nav').offset().top);
+		var h = $('#nav').offset().top;
+//		alert($('body').height()+$('#nav').height());
+//		alert($('.top').height);
+		$('#nav').tabframe({
+		    nameArray:['pai_hang_frame1'],
+		    groupname:'red_paper',
+//		    offsetHeight:$('#nav').offset().top+125,
+			offsetHeight:h+84,
+		});
+		getdata(0);
+		api.addEventListener({
+	        name:'huoYueDu'
+        },function(ret,err){
+        	var huoyue = ret.value;
+        	getdata(huoyue);
+        });
+        function getdata(type){
+        	$api.post(phpurl+'Circle/getAllCore',{
+				values:{
+					type:1,
+					user_id:userid
+				}
+			},function(ret){
+				if(ret.code == 200){
+					$('#score').text(ret.core);
+				}
+			});
+        }
+		
+		var nowDate = new Date();
+		var nowMouth = nowDate.getMonth()+1;
+		$('#month').text(nowMouth);
+	};
+	
+//	function openWs(n){
+//		if($('.active span').text() == '个人活跃排名'){
+//			openW({
+//				frm_url : 'frame2/ge_ren_huo_yue_gui_zhe.html',
+//				title : '个人活跃度规则'
+//			})
+//		}else{
+//			openW({
+//				frm_url : 'frame2/quan_zi_huo_yue_gui_zhe.html',
+//				title : '部落活跃度规则'
+//			})
+//		}
+//	}
+	
+//	$(function(){
+//		$('.navbs span').each(function(){
+//			$(this).click(function(){
+//				var index = $(this).index();
+//				if(index == 0){
+//					$('.line').css('left','17%');
+//				}
+//				if(index == 1){
+//					$('.line').css('left','68%');
+//				}
+//			})
+//		})
+//	})
+</script>
+</html>

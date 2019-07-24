@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.roles{
+    		background:white;
+    		padding:10px;
+    	}
+    	.title h4{
+    		border-left:3px solid;
+    		padding-left:15px;
+    	}
+    	.roleContent{
+    		font-size:14px;
+    		margin-top:10px;
+    		line-height:23px;
+    	}
+/*    	.quit{
+    		margin-top:10px;
+    		padding:0 10px;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		color:#5C5C5C;
+    		border-radius:5px;
+    	}*/
+    </style>
+</head>
+<body>
+	<div class="roles">
+		<div class="title">
+			<h4 class="appBordercolor">部落活跃度规则</h4>
+		</div>
+		<div class="roleContent">
+			<p>1、累计计算圈友每天签到获取奖励活跃度总和，累计计算当月签到获取奖励活跃度总和即为部落总活跃度；</p>
+			<p>2、累计计算圈友在飞鸟商城购买产品消费活跃度；</p>
+			<p>3、累计计算圈友话题活跃度；</p>
+			<p>4、部落活跃度每月结算一次；</p>
+			<p>5、部落活跃度=部落总打卡活跃度*20%+部落总话题活跃度*30%+部落总消费活跃度*50%</p>
+		</div>
+	</div>
+	<div class="roles">
+		<div class="title">
+			<h4 class="appBordercolor">部落活跃度奖励说明</h4>
+		</div>
+		<div class="roleContent">
+			<p>
+				根据每月排名结算时的排名发放奖励，每月结算时间为当月最后一天的23:59截止，详细奖励规则如下：
+			</p>
+			<p>第1名：现金5000元</p>
+			<p>第2名：现金3000元</p>
+			<p>第3名：现金2000元</p>
+		</div>
+	</div>
+	
+	<div class="roles">
+		<div class="title">
+			<h4 class="appBordercolor">声明</h4>
+		</div>
+		<div class="roleContent">
+		
+		苹果公司与本应用相关的任何活动无关,不对抽奖或活动承担任何法律责任。 
+		请用户确保竞赛或抽奖奖品不是苹果的产品(使用苹果产品作为奖品,将造成对苹果公司的不适当关联)。
+		Statement:
+		Apple doesn't have any connections with this app event, and won't take any liabilities to this event.
+		Ensure that the contest or sweeps take prizes are not Apple products.(using Apple products as prizes suggests an inappropriate association with Apple)
+
+		</div>
+	</div>
+	
+<!--	<div class="quit">
+		<button class="appbackground">
+			返回
+		</button>
+	</div>-->
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	getTheme();
+	apiready = function(){
+		changeTheme();
+	};
+</script>
+</html>

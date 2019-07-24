@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+	/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>Hello APP</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+	<link rel="stylesheet" id="css" href="../../../css/theme.css">
+	<style>
+		/*html{
+			top: 0;
+			position: relative;
+			position: absolute;
+		}*/
+
+		.header {
+			height: 50px;
+			position: fixed;
+			/*position: fixed;*/
+			top: 0;
+			width: 100%;
+			z-index: 123;
+		}
+
+		#bodys {
+			/*position: absolute;*/
+			/*top: 0;	*/
+		}
+
+		.iPhone_fixed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 12;
+		}
+
+		body {
+			position: relative;
+			/*top: 0;
+			position: absolute;*/
+			padding-top: 50px;
+		}
+
+
+		.header span {
+			width: 50px;
+			height: 50px;
+			line-height: 54px;
+			text-align: center;
+			font-size: 20px;
+			color: #666;
+			font-weight: 600;
+		}
+
+		.header input {
+			margin-top: 10px;
+			height: 34px;
+			width: 100%;
+			font-size: 14px;
+			padding: 5px 10px 5px 40px;
+			box-sizing: border-box;
+			border-radius: 3px;
+			background: #fff;
+		}
+
+		.header .flex-con {
+			position: relative;
+		}
+
+		.header .icon-iconfontsousuo {
+			position: absolute;
+			left: 8px;
+			top: 14px;
+			font-size: 20px;
+		}
+
+		.header .sou_suo_an_niu {
+			font-size: 16px;
+		}
+
+		.biao_ti {
+			line-height: 40px;
+			background: #fff;
+			padding: 0 10px;
+			font-weight: 100;
+			font-size: 15px;
+			margin-top: 40px;
+		}
+
+		.biao_ti.border-b {
+			border-bottom: 1px solid #eee;
+		}
+
+		.an_niu_lie_biao {
+			background-color: #fff;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+		.an_niu_lie_biao li {
+			display: inline-block;
+			border: 1px solid #aaa;
+			padding: 3px 8px;
+			color: #555;
+			line-height: 18px;
+			font-size: 12px;
+			margin: 5px 2.5px;
+			border-radius: 3px;
+		}
+
+		.tui_jian {
+			line-height: 30px;
+			padding: 0 10px;
+			font-size: 12px;
+			background: #fff;
+			margin-top: 30px;
+			font-weight: normal;
+			color: #666;
+			border-bottom: 1px solid #eee;
+		}
+
+		.yi_pai_shang_pin_lie_biao {
+			padding-top: 0px;
+		}
+
+		.yi_pai_shang_pin_lie_biao li {
+			border-bottom: 1px solid #eee;
+		}
+
+		.tui_jian i {
+			float: right;
+		}
+
+		.mei_you_shang_pin {
+			padding: 70px 10px 0px;
+		}
+
+		.mei_you_shang_pin .icon-iconfontsousuo {
+			display: block;
+			line-height: 140px;
+			font-size: 100px;
+			text-align: center;
+			color: #999;
+			margin: 0 auto;
+		}
+
+		.mei_you_shang_pin p {
+			font-size: 12px;
+			line-height: 20px;
+			text-align: center;
+			color: #999;
+		}
+
+		.linag_pai_shang_pin_lie_biao li .text {
+			padding: 10px 10px 4px 10px;
+		}
+
+		.icon-iconfontshanchu {
+			float: right;
+			width: 30px;
+			margin-right: -10px;
+			text-align: center;
+		}
+
+
+		#nav {
+			line-height: 36px;
+			text-align: center;
+			font-size: 0px;
+			background: #fff;
+		}
+
+		#nav div {
+			width: 50%;
+			font-size: 14px;
+			line-height: 36px;
+		}
+
+		#nav div span {
+			padding: 0 5px;
+		}
+
+
+		.huo_dong_lie_biao {
+			background: #fff;
+		}
+
+		.huo_dong_lie_biao li {
+			padding: 10px;
+			height: 70px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.huo_dong_lie_biao .huo_dong_img {
+			width: 70px;
+			height: 70px;
+			margin-right: 10px;
+		}
+
+		.huo_dong_lie_biao .huo_dong_ming_zi {
+			font-size: 12px;
+			line-height: 16px;
+			height: 32px;
+			margin: 2px 0 5px 0;
+		}
+
+		.huo_dong_lie_biao .shi_jian,
+		.huo_dong_lie_biao .di_zhi {
+			font-size: 10px;
+			line-height: 16px;
+			color: #666;
+		}
+
+		.huo_dong_lie_biao .shi_jian span {
+			margin-right: 15px;
+		}
+
+		.huo_dong_lie_biao .shi_jian .iconfont {
+			font-size: 14px;
+			margin-right: 6px;
+			position: relative;
+			top: 1px;
+			z-index: 1;
+		}
+		/*	        img{
+	    		vertical-align: text-bottom;
+	    		margin-bottom:4px;
+	    	}*/
+
+		.ranking ul li {
+			padding: 10px;
+			background: white;
+			height: 50px;
+			line-height: 50px;
+			padding-left: 70px;
+			position: relative;
+			border-bottom: 1px solid #F0F0F0;
+			color: #717171;
+		}
+
+		.ranking ul li img {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			left: 10px;
+			bottom: 10px;
+			position: absolute;
+			/*    		vertical-align: text-bottom;
+	    		margin-bottom:-15px;*/
+		}
+
+		.ranking ul li span {
+			display: inline-block;
+		}
+
+		.ranking ul li .userHead {
+			margin-right: 6px;
+		}
+
+		.ranking ul li .userName,
+		.ranking ul li .point {
+			font-size: 12px;
+		}
+
+		.ranking ul li .userName {
+			width: 45%;
+			line-height: 50px;
+
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			/*    		overflow:hidden;
+	    		text-overflow:ellipsis;
+	    		display:-webkit-box;
+	    		-webkit-line-clamp: 1;
+			 	-webkit-box-orient: vertical;*/
+		}
+
+		.ranking ul li .point {
+			float: right;
+			color: #999;
+		}
+	</style>
+</head>
+
+<body ng-controller="SearchController">
+	<header class="flex-wrap header appbackground ">
+		<span class="iconfont icon-fanhui" onclick="api.closeWin({})"></span>
+		<div class="flex-con">
+			<input class="sou_suo_kuang" placeholder="请输入关键字" type="search" ng-search="seek()">
+			<i class="iconfont icon-iconfontsousuo apptxtcolor"></i>
+		</div>
+		<span class="sou_suo_an_niu" ng-click="seek()">搜索</span>
+	</header>
+
+	<div id="bodys" style="margin-top:35px;">
+		<ul class="huo_dong_lie_biao">
+			<li class="flex-wrap" ng-repeat="i in res" ng-if="i.TYPE==1" ng-click="goTopic(i.topic_id)">
+				<img src="{{ imgurl+i.sumbmasterimg }}" alt="" class="huo_dong_img">
+				<div class="text flex-con text-ov">
+					<p class="huo_dong_ming_zi text-ov">
+						{{ i.content }}
+					</p>
+					<!--                        <p class="di_zhi">
+                            地点：{{ i.location }}
+                        </p>-->
+					<p class="shi_jian">
+						<!--                            时间：{{ i.activitytime }}-->
+						<span>
+								<i class="iconfont icon-xinxi"></i>{{ i.replycount }}
+							</span>
+						<span>
+                                <i class="iconfont icon-zan"></i>{{ i.likecount }}
+                            </span>
+					</p>
+				</div>
+			</li>
+		</ul>
+
+		<div class="ranking">
+			<ul>
+				<li ng-repeat="i in res" ng-if="i.TYPE==0" onclick="$api.open_user(this.id)" id="{{ i.name+','+i.user_id }}">
+					<span class="userHead">
+							<img src="{{ imgurl+i.sumbheadimg }}" alt="" />
+						</span>
+					<span class="userName text-ov">{{ i.name||'用户' }}</span>
+					<span class="point text-ov">{{ i.distance }}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<!--
+		<div class="mei_you_shang_pin" >
+			<i class="iconfont icon-iconfontsousuo "></i>
+			<p>
+				很抱歉，没找到您想要的商品！
+			</p>
+			<p>
+				看看为您推荐的吧！
+			</p>
+		</div>-->
+
+	<!--<h5 class="biao_ti border-b"> 历史记录 <i class="iconfont icon-iconfontshanchu" ></i></h5>
+		<ul class=" an_niu_lie_biao">
+			<li>
+				热词
+			</li>
+		</ul> -->
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/ev.js"></script>
+<script type="text/javascript" src="../../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../../script/common.js"></script>
+<script src="../../../script/mui.min.js"></script>
+<script>
+	apiready = function () {
+		changeTheme();
+		$api.fixStatusBar($api.dom('header'));
+		EventT.emit('apiready');
+	}
+
+	var app = angular.module("myApp", []);
+	//手势监控指令
+	"use strict";
+	app.directive("ngSearch", function () {
+		return {
+			controller: ["$scope", "$element", function ($scope, $element) {
+
+				$element.bind("search", onSearch);
+
+				function onSearch(event) {
+					var method = $element.attr("ng-search");
+					$scope.$apply(method);
+				}
+
+			}]
+		}
+	})
+
+	app.controller('SearchController', ['$scope', function ($scope) {
+		$scope.res = [];
+		$scope.imgurl = Imageurl;
+		EventT.on('apiready', function () {
+			$api.closeloadding();
+		})
+
+		$scope.goTopic = function (topicid) {
+			openW({
+				frm_url: 'frame2/hua_ti_xiang_qing.html',
+				title: '话题详情',
+				data: {
+					is_win: false,
+					topic_id: topicid
+				}
+			})
+		}
+		$scope.seek = function (name) {
+			name = name || $('.sou_suo_kuang').val();
+			if (!name) {
+				$api.t('请输入搜索的内容！');
+				return;
+			}
+			$('.sou_suo_kuang').val(name);
+			$api.loadding(api.frameName, 0);
+			$api.post(phpurl + 'CircleTalk/searchHua', {
+				values: {
+					name: name
+				}
+			}, function (ret) {
+				if (ret.result.length > 0) {
+					$scope.res = ret.result;
+					if ($api.byId('body')) {
+						$api.byId('body').style.display = 'none';
+					}
+					$scope.$apply();
+				} else if (ret.result.length <= 0) {
+					$api.append($api.byId('bodys'),
+						'<div id="body" style="top:50px;"><div class="null"><img src="../../../image/null.png" alt="" /><p>没有数据哦</p></div></div>'
+					);
+					$api.byId('body').style.display = 'block';
+				}
+				$api.closeloadding();
+			})
+		}
+	}]);
+
+
+	// $('.sou_suo_kuang').on('focus',function(){
+	// 	 $(window).scroll(function(){
+
+	//        // 重点就是下面这一条语句的实现
+	//       $("html").css({top: window.innerHeight + window.scrollY - $(".header").outerHeight() });    
+	//    });
+	// })
+	// $('.sou_suo_kuang').on('blur',function(){
+	//       $("html").css({top:0});    
+	// })
+
+	// $('.sou_suo_kuang').on('focus',function(){
+
+	//       $(".header").css({"position":"static"})
+	// 	  $('body').css({'padding-top':0})
+	// })
+	// $('.sou_suo_kuang').on('blur',function(){
+
+	//       $(".header").css({"position":"fixed"})    
+	// 	  $('body').css({'padding-top':"50px"})
+
+	// })
+
+
+	//  $('.sou_suo_kuang').on('focus', function () {
+	//  	alert('dongl')
+	//  $('body').on('touchmove',function(event){event.preventDefault();});
+	//  })
+	
+	//  $('.sou_suo_kuang').on('blur', function () {
+	//  // document.addEventListener('touchmove', function (event) {
+	//  // 	event.preventDefault();
+	//  // }, false);s
+	//   alert('huiqul ')
+	//  	$('body').off('touchmove',function(event){<even></even>t.preventDefault();});
+	//  })
+
+
+//$(window).scroll(function(){
+//			alert(123)
+//	//        // 重点就是下面这一条语句的实现
+//	      $(".header").css({top: window.innerHeight + window.scrollY - $(".header").outerHeight() });    
+//	   })
+	
+</script>
+
+</html>

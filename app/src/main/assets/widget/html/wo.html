@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../src/css/icon/iconfont.css" />
+    <style>
+        html,
+        body{
+            /*background: rgba(0, 171, 255, 0.6);*/
+            background: rgba(251, 125, 151, 0.4);
+        }
+        .head{
+            /*background: rgba(116, 206, 251, 0.6);*/
+            background: rgba(220, 20, 60, 0.4);
+            color: #fff;
+            background-size: cover;
+            padding-top: 30px;
+        }
+        .content{
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .userName{
+            line-height: 30px;
+            margin-left: 10px;
+        }
+        @media screen and (max-width: 320px){
+            .userName{
+                line-height: 30px;
+            }
+        }
+        @media screen and (min-width: 321px) and (max-width: 375px){
+            .userName{
+                /*margin-top: 8px;*/
+                line-height: 30px;
+            }
+        }
+        @media screen and (min-width: 376px) and (max-width: 414px){
+            .userName{
+                margin-top: 12px;
+                line-height: 30px;
+            }
+        }
+        .icon{
+            margin-top: 7.5%;
+        }
+        .list{
+            margin-top: 10px;
+            /*background: rgba(116, 206, 251, 0.4);*/
+            background: rgba(220, 20, 60, 0.4);
+            color: #fff;
+        }
+        .list ul li{
+            line-height: 40px;
+            font-size: 14px;
+            padding: 0 10px;
+        }
+        .list ul li img{
+            height: 18px;
+            width: auto;
+            vertical-align: middle;
+        }
+        .list ul li .icon-you{
+            float: right;
+            color: #787878;
+            font-size: 14px;
+        }
+        /*    	.no_login{
+             width:100%;
+             margin:80px auto 0;
+             text-align:center;
+             background:#f1f1f1;
+             }
+             .no_login>button{
+             line-height:35px;
+             padding:0 10px;
+             background:#4CBFD2;
+             color:white;
+             border-radius:5px;
+             }*/
+
+        #fanhui{
+            position: fixed;
+            top: 60px;
+            left: 15px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            display: none;
+            background: #fff;
+        }
+        #fanhui img{
+            width: 25px;
+            height: auto;
+        }
+        #tupian{
+            border-radius: 50%;
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    <div id="fanhui" onclick="fanhui();">
+        <img src="../image/fanhui.png" alt="" />
+    </div>
+    <div class="content">
+        <div class="headImg" onclick="openW('frame2/ge_ren_zi_liao','个人资料')">
+            <img id="tupian" src="" onerror="this.src='../image/toux@2x.png';this.onerror=null" alt="" style="border-radius: 50%;flex-shrink:0"
+            />
+        </div>
+        <div class="userName" onclick="openW('frame2/ge_ren_zi_liao','个人资料')">
+            <p style="font-weight:600;" id="name">
+                夹心饼干
+            </p>
+            <p style="font-size:12px;color:#fff;display: flex;">
+					<span style="display: flex;">
+						<span id="jinbi">0 </span>金币 </span>
+                <span style="display: flex;margin-left: 10px;">
+						<span id="yuedu">0 </span>阅读券 </span>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="list">
+    <ul>
+        <li onclick="chongzhi('frame1/chong_zhi','充值')" id="chongzhi">
+            <i class="iconfont icon-chongzhi2">
+                <!--<img src="../image/icon/sidemenuicon_gold_recharge.png" />-->
+            </i>
+            <span>充值</span>
+        </li>
+        <li onclick="renmai()">
+            <i class="iconfont icon-ai-connection">
+                <!--<img src="../image/icon/sidemenuicon_gold_recharge.png" />-->
+            </i>
+            <span>我的人脉</span>
+        </li>
+        <li onclick="tuijian()">
+            <i class="iconfont icon-tuijian">
+                <!--<img src="../image/icon/sidemenuicon_gold_recharge.png" />-->
+            </i>
+            <span>我要推荐</span>
+        </li>
+        <li onclick="shouyi()">
+            <i class="iconfont icon-shouyi">
+                <!--<img src="../image/icon/sidemenuicon_gold_recharge.png" />-->
+            </i>
+            <span>我的收益</span>
+        </li>
+        <!--<li onclick="openW('frame0/bao_yue','包月专区')">
+            <i class="iconfont"><img src="../image/icon/sidemenuicon_vip.png"/></i>
+            <span>我的包月</span>
+            </li>-->
+        <!--	<li onclick="openW('frame0/qian_dao','签到抽奖')">
+            <i class="iconfont"><img src="../image/icon/sidemenuicon_sign.png"/></i>
+            <span>签到抽奖</span>
+            </li>-->
+        <!--<li onclick="openW('frame0/shuyou','书友圈')">
+            <i class="iconfont"><img src="../image/icon/sidemenuicon_topic.png"/></i>
+            <span>书友圈</span>
+            </li>-->
+    </ul>
+</div>
+<div class="list">
+    <ul>
+        <li onclick="lishi()">
+            <i class="iconfont icon-zuji">
+                <!--<img src="../image/icon/sidemenuicon_foot_history.png" />-->
+            </i>
+            <span>我的足迹</span>
+        </li>
+        <li onclick="xinxi()" style="display: none;" id="xiaoxi">
+            <i class="iconfont icon-xiaoxi">
+                <!--<img src="../image/icon/sidemenuicon_msg.png" />-->
+            </i>
+            <span>消息</span>
+        </li>
+    </ul>
+</div>
+<div class="list">
+    <ul>
+        <li onclick="openW('frame2/yi_jian_fan_kui_frame','意见反馈')">
+            <i class="iconfont icon-fankui">
+                <!--<img src="../image/icon/sidemenuicon_suggestion.png" />-->
+            </i>
+            <span>意见反馈</span>
+        </li>
+        <li onclick="openW('frame2/xi_tong_she_zhi_frame','系统设置')">
+            <i class="iconfont icon-shezhi">
+                <!--<img src="../image/icon/sidemenuicon_setting.png" />-->
+            </i>
+            <span>系统设置</span>
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- <script src="../script/angular.min.js"></script> -->
+<script src="../script/ionic.bundle.js"></script>
+<script src="../script/ev.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    var userid,
+        user,
+        xishu,
+        user_head,
+        jinbi;
+    EventT.on('apiready', function() {
+        userid = $api.getStorage('user_id');
+        // console.log(userid);
+        if (!userid) {
+            document.getElementById('name').innerHTML = '未登录';
+            document.getElementById('jinbi').innerHTML = '0';
+            //			document.getElementById('yuedu').innerHTML = "0";
+        } else {
+            $api.post(phpurl + 'Home/User/userinfo', { //设置上线
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                // console.log(JSON.stringify(ret))
+                $api.setStorage('user', ret.result);
+                $api.setStorage('user_head', ret.result.images);
+                user_head = "http://106.52.204.57/Public/"+$api.getStorage('user_head');
+                var users = ret.result;
+                // console.log(JSON.stringify(users))
+                jinbi = users.egold;
+                document.getElementById('name').innerHTML = users.name;
+                document.getElementById('jinbi').innerHTML = users.egold;
+                //				document.getElementById('yuedu').innerHTML = users.score;
+                if(user_head != 'touxiang.png'){
+                    document.getElementById('tupian').src = user_head;
+                }
+                else{
+                    document.getElementById('tupian').src = '../image/toux@2x.png';
+                }
+                // console.log(document.getElementById('tupian').src)
+            });
+        }
+        //监听登录情况，一旦登录成功刷新个人资料数据
+        api.addEventListener({
+            name : 'usershua',
+        }, function(ret, err) {
+            ziliao();
+        });
+    });
+    //充值
+    function chongzhi(url, title) {
+        if (!userid) //
+        {
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+            return;
+        }
+        api.openWin({
+            name      : 'win_headerlklklkl',
+            url       : 'Win.html',
+            pageParam : {
+                frm_name : url,
+                frm_url  : url + '.html',
+                title    : title,
+                data     : {
+                    yue : jinbi,
+                },
+            },
+        });
+    }
+    function openW(url, title) {
+        if (!userid) //
+        {
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name      : 'win_headerlklklkl',
+                url       : 'Win.html',
+                pageParam : {
+                    frm_name : url,
+                    frm_url  : url + '.html',
+                    title    : title,
+                },
+            });
+        }
+    }
+    apiready = function() {
+        $api.post(phpurl + 'Home/ad/shang', { //上线状态屏蔽
+        }, function(ret) {
+            if (ret.result[0].shang == 0) {
+                document.getElementById('chongzhi').style.display = 'block';
+                document.getElementById('jinbi').style.display = 'block';
+                document.getElementById('xiaoxi').style.display = 'block';
+            }
+        });
+        xishu = api.pageParam.xishu;
+        if (xishu == 1) {
+            document.getElementById('fanhui').style.display = 'block';
+        }
+        // user = $api.getStorage('user');
+        //	setInterval(function(){
+        //	$api.post(phpurl+'Home/User/userinfo',{//设置上线
+        //                      	values:{
+        //                      		user_id:userid
+        //                      	}
+        //                      },function(ret){
+        //                      $api.setStorage('user',ret.result);
+        //                     });
+        //                     ziliao();
+        //                     },4000)
+        // if (user != "") {
+        // 	document.getElementById('name').innerHTML = user.name;
+        // 	document.getElementById('jinbi').innerHTML = user.egold;
+        // 	document.getElementById('yuedu').innerHTML = user.score;
+        // 	document.getElementById('tupian').src = uimgUrl + user.images;
+        // } else {
+        // 	document.getElementById('name').innerHTML = "未登录";
+        // 	document.getElementById('jinbi').innerHTML = "0";
+        // 	document.getElementById('yuedu').innerHTML = "0";
+        // }
+        EventT.emit('apiready');
+    };
+    //个人资料数据
+    function ziliao() {
+        userid = $api.getStorage('user_id');
+        if (!userid) {
+            document.getElementById('name').innerHTML = '未登录';
+            document.getElementById('jinbi').innerHTML = '0';
+            document.getElementById('tupian').src = '../image/toux@2x.png';
+            $api.setStorage('user_head', '');
+            //document.getElementById('yuedu').innerHTML = "0";
+        } else {
+            console.log(userid);
+            $api.post(phpurl + 'Home/User/userinfo', { //设置上线
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret, err) {
+                console.log(JSON.stringify(ret));
+                console.log(JSON.stringify(err));
+                console.log(userid);
+                $api.post(phpurl + 'Home/User/userinfo', { //设置上线
+                    values : {
+                        user_id : userid,
+                    },
+                }, function(ret) {
+                    console.log(JSON.stringify(ret));
+                    console.log(JSON.stringify(err));
+                    $api.setStorage('user', ret.result);
+                    $api.setStorage('user_head', ret.result.images);
+                    console.log(ret.result.images);
+                    user_head = "http://106.52.204.57/Public/"+$api.getStorage('user_head');
+                    var users = ret.result;
+                    // console.log(JSON.stringify(users))
+                    jinbi = users.egold;
+                    document.getElementById('name').innerHTML = users.name;
+                    document.getElementById('jinbi').innerHTML = users.egold;
+                    //				document.getElementById('yuedu').innerHTML = users.score;
+                    if (user_head != 'touxiang.png') {
+                        document.getElementById('tupian').src =user_head;
+                    }
+                    else{
+                        document.getElementById('tupian').src = '../image/toux@2x.png';
+                    }
+                    // console.log(document.getElementById('tupian').src)
+                    $api.send('usershuas', {
+                        cid : 1,
+                    });
+                });
+            });
+        }
+    }
+    //阅读历史
+    function lishi() {
+        if (!userid) {
+            api.alert({
+                msg : '您还没登陆呢~',
+            });
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name      : 'win_headerfdsaf',
+                url       : 'frame1/readHistory_win.html',
+                pageParam : {
+                    frm_name : 'goods_detail25655',
+                    frm_url  : 'readHistory.html',
+                    title    : '阅读历史',
+                },
+            });
+        }
+    }
+    //信息
+    function xinxi() {
+        if (!userid) {
+            api.alert({
+                msg : '您还没登陆呢~',
+            });
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name : 'xin_xi_center_win',
+                url  : 'frame0/xinxiwin.html',
+            });
+        }
+    }
+    //返回
+    function fanhui() {
+        api.closeWin({});
+    }
+    //推荐
+    function tuijian() {
+        if (!userid) {
+            api.alert({
+                msg : '您还没登陆呢~',
+            });
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name      : 'win_tui',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'tui_jian',
+                    frm_url  : 'yaoqing.html',
+                    title    : '邀请好友',
+                },
+            });
+        }
+    }
+    function shouyi() {
+        if (!userid) {
+            api.alert({
+                msg : '您还没登陆呢~',
+            });
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name      : 'win_shouyi',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'shou_yi',
+                    frm_url  : 'shouyi.html',
+                    title    : '我的收益',
+                },
+            });
+        }
+    }
+    function renmai() {
+        if (!userid) {
+            api.alert({
+                msg : '您还没登陆呢~',
+            });
+            api.openWin({
+                name : 'win_login',
+                url  : 'user/login_win.html',
+            });
+        } else {
+            api.openWin({
+                name      : 'win_herenmai',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'ren_mai',
+                    frm_url  : 'invite.html',
+                    title    : '团队',
+                },
+            });
+        }
+    }
+</script>
+</html>

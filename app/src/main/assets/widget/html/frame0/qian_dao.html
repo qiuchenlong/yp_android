@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link href="../../css/swiper.min.css" rel="stylesheet"/>
+    <style>
+    	.liebiao{
+    		width: 96%;
+    		margin:12px auto;
+    		border-radius: 8px;
+    		background:url('../../image/c_lie.png');
+    		background-size:100% 100%;
+    		padding-bottom:30px;
+    	}
+    	.title{
+    		text-align:center;
+    		font-size:18px;
+    		font-weight: normal;
+    		padding-top:13px;
+    		color:#7d5363;
+    	}
+
+    	.liebiao .content ul{
+    		width:100%;
+    		display:flex;
+    		justify-content:space-around;
+    		margin-top:12px; 
+    	}
+		.liebiao .content ul li{
+			width:40px;
+    		height: 40px;
+    		background: #7d5363;
+    		border-radius:50%;
+    		font-size: 12px;
+		    text-align: center;
+		    line-height: 40px;
+		    color: #dcbbbb;
+    	}
+    	.liebiao .content ul  li.active{
+    		background:orange;
+    		color:#FFF;
+    	}
+    	
+    	.qiandao{
+    		width: 80px;
+		    height: 80px;
+		    margin: 0 auto;
+		    border-radius: 50%;
+		    background: #7d5363;
+		    margin-top: 30px;
+		    box-shadow: 2px 3px 2px #e676a1;
+    	}
+    	.qiandao p{
+    		width: 100%;
+    		height: 80px;
+    		border-radius: 50%;
+    		color:#dcbbbb;
+    		font-size:20px;
+    		line-height: 80px;
+    		text-align:center;
+    	}
+    	.qiandao p.p_active{
+    		color:#ffa1c5;
+    		font-size:18px;
+    		border-radius: 50%;
+    		line-height:66px;
+    		background:url(../../image/qd.png) no-repeat center bottom 6px;
+    	}
+
+    	.zhanshi{
+    		width: 96%;
+    		margin:12px auto;
+    		border-radius: 8px;
+    		background:url('../../image/c_zhong.png');
+    		background-size:100% 100%;
+    		padding-bottom:30px;
+    	} 
+   
+    	.zhanshi .content{
+    		position:relative;
+    		overflow:hidden;
+    		
+    		width: 80%;
+    		height: 150px;
+    		margin:10px auto;
+    		border-radius:10px;
+    	}
+    	
+    	ul {
+	        list-style: none;
+	        margin: 0;
+	        padding: 0;
+	    }
+	    #content li {
+	        font-size: 14px;
+	        height: 20px;
+	        line-height: 20px;
+	    }
+	    #scrollUpBox {
+			width: 300px;
+		    margin: 10px auto;
+	        height: 200px;
+	        padding-left:15px;
+	        /*border: 2px solid #cccccc;*/
+	        overflow: hidden;
+	    }
+    	
+    	.huojiang{
+    		width: 96%;
+    		height:150px;
+    		margin:12px auto;
+    		border-radius: 8px;
+    		background:#ffa1c5;
+    		line-height:150px;
+    		text-align:center;
+    		font-size:22px;
+    		color:#ccc;
+    		background:url(../../image/bg1.png);
+    	}
+    	
+    </style>
+</head>
+<body>
+	
+	<div class="liebiao">
+		<h3 class="title">连续签到<span>10</span>天</h3>
+		<div class="content">
+			<ul class="">
+				<li class="active">今天</li>
+				<li>04/23</li>
+				<li>04/24</li>
+				<li>04/25</li>
+				<li>04/26</li>
+				<li>04/27</li>
+			</ul>
+			<ul class="">
+				<li>04/23</li>
+				<li>04/24</li>
+				<li>04/25</li>
+				<li>04/26</li>
+				<li>04/27</li>
+				<li>04/27</li>
+			</ul>
+		</div>
+		<div class="qiandao" id="qiandao" >
+			<p class="">签到</p>
+		</div>
+	</div>
+	
+	<div class="zhanshi">
+		<h3 class="title">获奖用户</h3>
+		<div id="scrollUpBox">
+		    <ul id="content">
+		        <li>测试内容1！</li>
+		        <li>测试内容2！</li>
+		        <li>测试内容3！</li>
+		        <li>测试内容4！</li>
+		        <li>测试内容5！</li>
+		        <li>测试内容6！</li>
+		        <li>测试内容7！</li>
+		        <li>测试内容8！</li>
+		        <li>测试内容9！</li>
+		        
+		        <li>测试内容1！</li>
+		        <li>测试内容2！</li>
+		        <li>测试内容3！</li>
+		        <li>测试内容4！</li>
+		        <li>测试内容5！</li>
+		        <li>测试内容6！</li>
+		        <li>测试内容7！</li>
+		        <li>测试内容8！</li>
+		        <li>测试内容9！</li>
+		    </ul>
+		</div>
+	</div>
+	
+	<div class="huojiang" onclick="goYaoyiyao()">
+		摇一摇抢大奖
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script type="text/javascript">
+
+    var scrollUpBox = document.getElementById('scrollUpBox');
+    var content = document.getElementById('content');
+    function scrollUp() {
+        if (scrollUpBox.scrollTop >= (content.clientHeight - scrollUpBox.clientHeight)) {
+            scrollUpBox.scrollTop = 0;
+        } else {
+            scrollUpBox.scrollTop++;
+        }
+    }                
+    var TIME = 50;
+    var timer = setInterval(scrollUp, TIME);
+    scrollUpBox.onmouseover = function() {
+        clearInterval(timer);
+    }
+    scrollUpBox.onmouseout = function() {
+        timer = setInterval(scrollUp, TIME);
+    }
+
+
+	function goYaoyiyao(){
+	   api.openWin({
+	       name: 'win_headershuo_m',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'yaoyiyao_frame',
+               frm_url:'frame0/yaoyiyao.html',
+               title:'摇一摇',
+	       }
+        });  
+	}
+
+	$("#qiandao").click(function(){
+		
+		$(this).css({'background':'#fff'}).find('p').text('已签到').addClass('p_active');
+		
+		
+	})
+
+//
+//	$(".booksList2 li").click(function(){
+//	    api.openWin({
+//	       name: 'win_header4545454',
+//	       url: '../win_header.html',
+//	       pageParam:{
+//             frm_name:'goods_detai54565',
+//             frm_url:'frame0/bookDetails.html',
+//             title:'书籍详情',
+//            
+//	       }
+//      });
+//	})
+//	$(".shuoming").click(function(){
+//	   api.openWin({
+//			       name: 'win_headershuo_m',
+//			       url: '../win_header.html',
+//			       pageParam:{
+//		               frm_name:'baoyue_shuoming',
+//		               frm_url:'frame0/shuoming.html',
+//		               title:'尊享特权',
+//		              
+//			       }
+//		        });
+//		      })
+//		      
+//		      	$(".baoyue_book").click(function(){
+//	   			api.openWin({
+//			       name: 'win_headerby',
+//			       url: '../win_header.html',
+//			       pageParam:{
+//		               frm_name:'baoyue_book',
+//		               frm_url:'fenlei.html',
+//		               title:'尊享特权',
+//		              
+//			       }
+//		        });
+//		      })
+		        
+	apiready = function(){
+		
+
+		
+	};
+</script>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mycss.css"/>
+    <style>
+		html{
+			height: 100%;
+			background: #f7f7f7;
+		}
+		body{
+		height: 100%;
+		background: #f7f7f7;
+		}
+    	.content{
+    		background:white;
+    		/*width:90%;*/
+				width: 100%;
+    		margin:10px auto 0;
+    		/*border:1px solid #ddd;*/
+    	}
+			.content ul{
+				width: calc(100% - 16px);
+				/*margin: 0 auto;*/
+      margin-left: 16px;
+			}
+    	.content ul li{
+    		border-bottom:1px solid #ddd;
+    		/*padding:6px 6px 6px 10px;*/
+    		font-size:14px;
+    		/*line-height:30px;*/
+ 				height: 52px;
+				/*line-height: 52px;*/
+				display: flex;
+justify-content: space-between;
+align-items: center;
+    	}
+    	.content ul li:last-child{
+    		border:0;
+    	}
+    	.content ul li input{
+    		color:#989898;
+    		outline: none;
+    		width:100%;
+    	}
+    	.content ul li:first-child input{
+    		width:60%;
+    	}
+    	.getCode{
+    		/*float:right;*/
+				display: flex;
+				align-items: center;
+				justify-content: center;
+    		text-decoration:underline;
+			text-decoration: none;
+    		/*color:#2674cc;*/
+				margin-right: 16px;
+				width: 80px;
+				height: 31px;
+				background: red;
+				color: #fff;
+				border-radius: 3px;
+    	}
+    	.forget{
+    		background:white;
+    		width:100%;
+    		margin:0 auto;
+    		font-size:12px;
+    		line-height:35px;
+    	}
+/*    	.forget_psd{
+    		color:#2674cc;
+    	}*/
+    	.btn{
+    		width:90%;
+    		margin:6px auto 0;
+    	}
+    	.btn button{
+    		width:100%;
+    		height:35px;
+    		/*background:#fd7656;*/
+				background: red;
+    		color:white;
+    		border-radius:3px;
+    	}
+    	.checkBox{
+    		width:100%;
+    		font-size:12px;
+    		color:#989898;
+    		text-align:center;
+    		margin-top:20px;
+    	}
+    	.checkBox img{
+    		width:15px;
+    		vertical-align: text-bottom;
+    		margin-bottom:-1px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="content">
+		<ul>
+			<li>
+				<input type="text" id="phone" placeholder="请输入手机号"/>
+				<a class="getCode" id="get_code" href="javascript:;">获取验证码</a>
+			</li>
+			<li>
+				<input type="text" placeholder="请输入验证码" id="veritfy_code"/>
+			</li>
+			<li>
+				<input type="password" onchange="bianse();" id="password" placeholder="请重置密码（6-20位英文字母，数字）"/>
+			</li>
+			<li>
+				<input type="password"  id="password" placeholder="请再次输入密码"/>
+			</li>
+		</ul>
+	</div>
+	<div class="forget">
+		<!--<span class="forget_psd">忘记密码？</span>-->
+		<a href="javascript:;" style="text-decoration: underline;color:#484848;float:right;" onclick="go_login()">已有账号，点击登录</a>
+	</div>
+	<div class="btn">
+		<button class="register_btn">
+			确认修改密码
+		</button>
+	</div>
+<!--	<div>
+		<span class="checkBox">
+			<img src="../../image/agreement.png" alt="" id="agreen" onclick="agreement();"/> <span onclick="zhuceXieyi()">我已阅读并同意用户注册协议</span>
+		</span>
+	</div>-->
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<!--<script type="text/javascript" src="../../script/userModel.js"></script>-->
+<script type="text/javascript" src="../../script/sendcode.js"></script>
+<script src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+function bianse()
+{
+$api.dom('.register_btn').style.background = '#fd7656';
+}
+	var flag=true;
+	function agreement(){
+		if(flag == false){
+			$api.byId('agreen').setAttribute('src','../../image/agreement.png');
+			$api.dom('.register_btn').style.background = '#fd7656';
+			$api.dom('.register_btn').disabled = false;
+			flag=true;
+		}else{
+			$api.byId('agreen').setAttribute('src','../../image/no_agreement.png');
+			$api.dom('.register_btn').style.background = '#DDD';
+			$api.dom('.register_btn').disabled = true;
+			flag=false;
+		}
+
+	}
+	function openlogin(){
+		api.openWin({
+	        name: 'login_win',
+	        url: 'login_win.html'
+        });
+	}
+	var code="";var CAPTCHA_click = true;
+	apiready = function () {
+		code = parseInt(1000 + (Math.random() * 8999));
+		var $phone = $api.byId('phone');
+		 var $password = $api.byId('password');
+
+		var $register_btn = $api.dom('.register_btn');
+		var get_verifyCode = '';
+
+		var $get_code = $api.byId('get_code');
+
+
+
+		$('#get_code').click(function(){
+ $("#get_code").css("background","#cccccc");
+			var phones = $('#phone').val()
+
+			if (!checkMobile(phones)) {
+				api.toast({
+					msg: '请输入正确的手机号'
+				});
+				return false;
+			}
+           
+
+			if (!CAPTCHA_click) {
+				return false;
+			}
+			nextClick()
+
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: 'http://www.youdingb.com/fa/newface/fa.php',
+				data: {
+					phone: $('#phone').val(),
+					code:code
+				},
+				success: function (data) {
+					if (data.code == 200) {
+						get_verifyCode = data.verifyCode;
+						api.toast({
+							msg: '发送短信成功'
+						});
+					} else if (data.code == 400) {
+						api.toast({
+							msg: data.msg
+						});
+					}
+				}
+
+			})
+		})
+		$('.register_btn').click(function(){
+		 if($('#veritfy_code').val()==code)
+              {
+			$api.post(phpurl+'Home/User/xiugaipass',{
+					values:{
+						phone:$('#phone').val(),
+						password:$('#password').val()
+					}
+				},function(ret,err){
+					if(ret.code == 200){
+					    var userid = ret.id;
+					    api.toast({
+							msg: '修改成功！'
+						});
+						
+		
+                        setTimeout(function(){
+                        	api.closeWin({
+                            });
+                        },800)
+	                    
+					 }else{
+//						$api.closeloadding();
+
+					 }
+				})
+				}
+				
+				else
+				{
+				
+				api.toast({
+							msg: '验证码不正确'
+						});
+						
+				}
+
+			
+		})
+
+
+
+
+	};
+
+
+	function nextClick() {
+		if (CAPTCHA_click) {
+			CAPTCHA_click = false;
+			var i = 60,
+				timer = setInterval(function () {
+					i--;
+					$("#get_code").text(i + '秒后重新获取')
+					if (i == -1) {
+						$("#get_code").text('重新获取')
+						CAPTCHA_click = true;
+						clearInterval(timer);
+					}
+				}, 1000);
+		}
+	}
+
+	//检查手机号
+	function checkMobile(Mobile) {
+		if (!(/^1[3|4|5|8|7][0-9]\d{8}$/.test(Mobile))) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function zhuceXieyi(){
+		api.openWin({
+	        name: 'xieyi_win',
+	        url: 'xieyi_win.html'
+        });
+	}
+
+	//去登录
+	function go_login(){
+		api.openWin({
+			name: 'login_win',
+			url: 'login_win.html'
+		});
+	}
+</script>
+</html>

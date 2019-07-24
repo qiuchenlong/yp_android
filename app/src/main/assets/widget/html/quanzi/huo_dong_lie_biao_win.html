@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	header{
+			text-align:center;
+			line-height:45px;
+			background:white;
+			position:relative;
+		}
+		.back{
+			display:inline-block;
+			width:40px;
+			height:45px;
+			line-height:45px;
+			color:#484848;
+			text-align:center;
+			position:absolute;
+			right:8px;
+		}
+		header span{
+			color:#333333;
+		}
+		header .back{
+			left:0;
+/*			line-height:50px;*/
+		}
+		.icon-fanhui{
+			font-size:25px;
+			font-weight:600;
+		}
+    	.list{
+			background:white;
+			border-bottom:1px solid #ECECEC;
+		}
+		.list ul li{
+    		width:33.3%;
+    		float:left;
+    		font-size:14px;
+    		line-height:35px;
+    		color:#666666;
+    		text-align:center;
+    	}
+    	.list ul .active span{
+    		border-bottom:2px solid;
+    		color:#030303;
+    	}
+    </style>
+</head>
+<body>
+	<header class="appbackground">
+		<div class="back" onclick="api.closeWin({});"><i class="iconfont icon-fanhui"></i></div>
+		<span class="title">活动列表</span>
+	</header>
+	<div class="list clearfix" id="nav" style="border-bottom:1px solid #f1f1f1;">
+		<ul>
+			<li class="active"><span class="appBordercolor">等待审核</span></li>
+			<li class="appBordercolor"><span class="appBordercolor">已通过</span></li>
+			<li class="appBordercolor"><span class="appBordercolor">审核失败</span></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/bootstrap.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		changeTheme();
+		$api.fixStatusBar($api.dom('header'));
+//		util.openGroup('活动列表',['huo_dong_lie_biao0','huo_dong_lie_biao0','huo_dong_lie_biao0'],$('#nav').offset().top+38,function(ret){
+//			var index = ret.index;
+//			$('#nav li').eq(index).addClass('active');
+//			$('#nav li').eq(index).siblings().removeClass('active');
+//		},false,[0,1,2]);
+		
+		$('#nav').tabframe({
+		   nameArray:['huo_dong_lie_biao0','huo_dong_lie_biao0','huo_dong_lie_biao0'],
+		   groupname:'red_paper',
+		   offsetHeight:$('#nav').offset().top+38,
+//		   myindex:myindex,
+		   param:[0,1,2,3,4]
+		})
+	};
+	
+</script>
+</html>

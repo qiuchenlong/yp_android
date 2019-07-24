@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.booksList2{
+    		background:white;
+    	}
+    	.booksList2 ul li{
+    		padding:10px;
+    		border-bottom:1px solid #dedede;
+    	}
+    	.booksList2 ul li:last-child{
+    		border-bottom:0;
+    	}
+    	.booksList2 ul li .bookCover{
+    		float:left;
+    		width:25%;
+    		position: relative;
+    	}
+    	
+    	.booksList2 ul li .bookCover img{
+    		width:100%;
+    	}
+    	.booksList2 ul li .bookInfo{
+    		float:left;
+    		width:72%;
+    		margin-left:3%;
+    		font-size:12px;
+    		color:#787878;
+    		line-height:20px;
+    	}
+    	.booksList2 ul li .bookInfo .booksName{
+    		font-size:16px;
+    		color:#484848;
+    		line-height:25px;
+    		font-weight:600;
+    	}
+
+    	.booksList2_title{
+    		padding:0;
+    	}
+    	.txt{
+    		overflow: hidden;
+		 	text-overflow: ellipsis;
+		 	display: -webkit-box;
+		 	-webkit-line-clamp: 3;
+		 	-webkit-box-orient: vertical;
+    	}
+    	.author{
+    		font-weight:600;
+    		color:#484848;
+    	}
+    	.ranking{
+    		display:inline-block;
+    		position:absolute;
+    		width:18px;
+    		height:18px;
+    		line-height:18px;
+    		text-align:center;
+    		color:white;
+    		font-size:12px;
+    		background:#F72103;
+    		left:0;
+    		top:0;
+    	}
+    	
+    	@media screen and (max-width: 320px) {
+		    .booksList2 ul li .bookCover{
+		    	width:25%;
+		    }
+		}
+		@media screen and (min-width:321px) and (max-width: 375px){
+		    .booksList2 ul li .bookCover{
+		    	width:22%;
+		    }
+		    .booksList2 ul li .bookInfo{
+		    	width:75%;
+		    }
+		}
+		@media screen and (min-width:376px) and (max-width: 414px){
+		    .booksList2 ul li .bookCover{
+		    	width:20%;
+		    	
+		    }
+		    .booksList2 ul li .bookInfo{
+		    	width:77%;
+		    }
+		}
+    </style>
+</head>
+<body>
+	<div class="booksList2">
+		<ul>
+			<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+					<span class="ranking">1</span>
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你</p>
+					<p class="author">慕容小宝</p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</p>
+				</div>
+			</li>
+			
+			<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book04_05.png" alt="" />
+					<span class="ranking">2</span>
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你</p>
+					<p class="author">慕容小宝</p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</p>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book04_05.png" alt="" />
+					<span class="ranking">3</span>
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你</p>
+					<p class="author">慕容小宝</p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是齐名总是
+					</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+	$(".booksList2 li").click(function(){
+	    api.openWin({
+	       name: 'win_header2132155',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'goods_detai787465',
+               frm_url:'frame0/bookDetails.html',
+               title:'书籍详情',
+              
+	       }
+        });
+	})
+	apiready = function(){
+		
+	};
+</script>
+</html>

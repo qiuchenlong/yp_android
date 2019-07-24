@@ -1,0 +1,140 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/FInit.js"></script>
+    <style type="text/css">
+   		html,body{
+   			height:100%;background: none;
+   		}
+   		body {
+				background: rgba(0,0,0,0.3);
+				box-sizing: border-box;
+			}
+   		.appHeaderColor{
+   			background:#ffffff !important;
+   		}
+   		#main{ height:100%;}
+   		#main img{ width: 100%;height: auto;}
+   		#yuantu{ opacity: 0.5; position: fixed; top: 0px; right: 0px;
+        height: 50px; line-height: 50px; width: 50px; background: #000000;
+        border-radius: 50%; color: #ffffff; font-size: 14px; z-index: 1000;
+        text-align: center;}
+    </style>
+
+</head>
+<body>
+
+
+
+        <!--main-->
+        <div id="main" class="flex-con">
+        <div id="yuantu">
+                  3秒
+           </div>
+        <img src="" id="ad" onclick="gotos()"></div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.js"></script>
+<script type="text/javascript">
+
+
+$("#main").hide();
+$("#yuantu").hide();
+$("#ad").hide();
+
+
+
+ var bookid,weburl,path,xiangqing;
+
+ 	$('#yuantu').click(function()
+	{
+	    api.closeFrame({
+           });
+	})
+    apiready = function(){
+        api.toast({
+	        msg:'左滑关闭'
+        });
+
+		 api.addEventListener({
+		    name:'swipeleft'
+		}, function(ret, err){
+		   api.closeFrame({
+           });
+		});
+
+
+		var i=4;
+		setInterval(function(){//3秒广告
+		document.getElementById('yuantu').innerHTML=i+'秒';
+		if(i<=0)
+		{
+	    api.closeFrame({
+           });
+		}
+		i--;
+		},1000)
+
+
+    bookid=api.pageParam.bookid;
+
+    $api.post(phpurl+'Home/Ad/bookad?bookid='+bookid,function(ret){
+    // alert($api.jsonToStr(ret));
+      if (ret.result.images == undefined) {
+          api.closeFrame({
+             });
+          return;
+      }
+
+      $("#main").show();
+      $("#yuantu").show();
+      $("#ad").show();
+
+  		document.getElementById('ad').src=imageUrl+ret.result.images;
+  		weburl=ret.result.weburl;
+  		path=ret.result.gotos;
+  		xiangqing=ret.result.content;
+
+  	});
+
+     }
+
+
+          function gotos()
+          {
+//        alert(path);alert(xiangqing);alert(weburl);
+                 if (path == 1)//打开广告详情
+			{
+				api.openWin({
+					name : 'win_headeradxq',
+					url : 'win_header.html',
+					pageParam : {
+						frm_name : 'adxiangqing',
+						frm_url : 'addetail.html',
+						title : '美书',
+						data : {
+							content : xiangqing,
+						},
+					},
+				});
+			} else if (path == 2)//打开网址
+			{
+				api.openWin({
+					name : 'ad',
+					url : weburl,
+				});
+			}
+
+
+
+          }
+</script>
+</html>

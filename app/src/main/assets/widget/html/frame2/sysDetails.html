@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+   <style>
+   .neirong img{width: 100%; height: auto;}
+   </style>
+</head>
+<body ng-controller="DataController">
+	<div class="neirong">
+	{{neirong.content}}
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	    var id;
+		var app = angular.module("myApp", []);
+	app.controller("DataController",["$scope",function($scope){
+		$scope.neirong = {};
+		
+		
+		EventT.on("apiready",function(){
+		id=api.pageParam.data.sysid;
+			$api.post(phpurl+'Home/My/systemdetails?id='+id,function(ret){
+				if(ret.code == 200){
+					$scope.neirong=ret.result;
+					$scope.$apply();
+				}
+				// $api.closeloadding();//关闭加载
+			})
+		})
+
+		
+	}])
+	
+		apiready = function(){
+	
+		EventT.emit("apiready");
+		
+	}
+</script>
+</html>

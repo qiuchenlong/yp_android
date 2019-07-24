@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html ng-app="myApp" >
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	img{
+    		vertical-align: text-bottom;
+    		margin-bottom:4px;
+    	}
+    	.header {
+				height: 50px;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 12;
+				width: 100%;
+			}
+			body {
+				padding-top: 50px;
+			}
+			.header span {
+				width: 50px;
+				height: 50px;
+				line-height: 54px;
+				text-align: center;
+				font-size: 20px;
+				color: #666;
+				font-weight: 600;
+			}
+			.header input {
+				margin-top: 10px;
+				height: 34px;
+				width: 100%;
+				font-size: 14px;
+				padding: 5px 10px 5px 40px;
+				box-sizing: border-box;
+				border-radius: 3px;
+				background: #fff;
+			}
+			.header .flex-con {
+				position: relative;
+			}
+			.header .icon-iconfontsousuo {
+				position: absolute;
+				left: 8px;
+				top: 14px;
+				font-size: 20px;
+			}
+			.header .sou_suo_an_niu {
+				font-size: 16px;
+			}
+    	.ranking ul li{
+    		padding:10px;
+    		background:white;
+    		height:50px;
+    		line-height:50px;
+    		padding-left:60px;
+    		position:relative;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    	.ranking ul li img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+    		left:10px;
+    		bottom:10px;
+    		position:absolute;
+/*    		vertical-align: text-bottom;
+    		margin-bottom:-15px;*/
+    	}
+    	.ranking ul li span{
+    		display:inline-block;
+    	}
+    	.ranking ul li .userHead{
+    		margin-right:6px;
+    	}
+    	.ranking ul li .userName,.ranking ul li .point{
+    		font-size:12px;
+    	}
+    	.ranking ul li .userName{
+    		width:55%;
+    		line-height:50px;
+    		
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+/*    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;*/
+    	}
+    	.ranking ul li .point{
+    		float:right;
+    		color:#999;
+    	}
+    	
+	    
+	
+		.ranking ul li  .icon-xuanzhong {
+			display: block;
+			position: absolute;
+			right:10px;
+			font-size: 0px;
+			line-height: 17px;
+			
+			top:50%;
+			width: 18px;
+			text-indent: -2px;
+			margin-top:-10px;
+			border:1px solid #999;
+			height:18px;
+			width:18px;
+			border-radius: 50%;
+		}
+		
+		.ranking ul .active .icon-xuanzhong {
+			font-size: 22px;
+			border:none;
+			
+		}
+    </style>
+</head>
+<body  ng-controller="LoctionController">
+    <header class="flex-wrap header appbackground">
+		<div  class="flex-con" style="margin-left:10px">
+			<input class="sou_suo_kuang" placeholder="请输入要查找的用户名" type="search" ng-search="seek()">
+			<i class="iconfont icon-iconfontsousuo apptxtcolor"></i>
+		</div>
+		<span class="sou_suo_an_niu" ng-click="seek()">搜索</span>
+	</header>
+	<div class="ranking">
+		<ul>
+			<li onclick="select(this)" ng-repeat="x in ret " id="{{ x.user_id }}"  class="{{ selectid.indexOf(x.user_id)!=-1?'active':'' }}">
+				<span class="userHead">
+					<img src="{{ Imageurl+x.sumbheadimg }}" alt="" />
+				</span>
+				<span class="userName">{{ x.name  || '用户' }}</span>
+				<i class="iconfont icon-xuanzhong apptxtcolor"></i>
+			</li>
+		</ul>
+	</div>
+	<div class="bottom_loadmore"></div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	getTheme(); 
+	var selectid =  [];
+	apiready = function(){
+		changeTheme();
+		selectid = api.pageParam.selectid||[];
+		EventT.emit('apiready');
+	};
+	var  select = '';
+	
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope',function($scope) {
+		$scope.Imageurl = Imageurl;
+		
+		EventT.on('apiready', function() {
+			$scope.selectid = selectid;
+	
+			$api.pull(function(callback){
+				getData(0,function(ret){
+			   		callback&&callback(ret);
+			    })
+		    });
+		    getData(0,function(ret){
+		    	if(!ret||!ret.result||!ret.result.length){
+		    		$api.noDate();
+		    	}
+		    });
+		    
+		    
+		    api.addEventListener({
+		        name:'at_hao_you_wan_cheng'
+	        },function(ret,err){
+	        	var data = [];
+	        	
+	        	$api.each($scope.ret  , function(v){
+	        		if($scope.selectid.indexOf(v.user_id)!=-1){
+	        			data.push(v);
+	        		}
+	        	})
+	        	api.sendEvent({ name:'at_hao_you', extra:{id:$scope.selectid,data:data}})
+	       		setTimeout(api.closeWin, 500)
+	        });
+		    select = function(dom){
+		    	var i = $scope.selectid.indexOf(dom.id)
+		    	if(i==-1){
+		    		$scope.selectid.push(dom.id);
+		    		$(dom).addClass('active');
+		    		
+		    	}else{
+		    		$scope.selectid.splice(i, 1);
+		    		$(dom).removeClass('active');
+		    	}
+		    }
+		    var isS = 0;
+		    $api.up(function(page,callback){
+		        
+		            getData(page,function(ret){
+			           callback&&callback(ret);
+			        })
+		        
+		    });
+		    
+		    $scope.seek = function(){
+		        var name = $('.sou_suo_kuang').val();
+		        if(name == ""){
+		            api.toast({
+	                    msg:'输入的名字不能为空'
+                    });
+                    return;
+		        }
+		        isS = 1;
+		        $('.bottom_loadmore').css('display','none');
+		        $api.post(phpurl+'User/searchUser',{
+		            values:{
+		               name:name,
+		               user_id:userid
+		            }
+		        },function(ret){
+		            
+		            var code = ret.code;
+		            if(code == 200){
+		                if(ret&&ret.result&&ret.result.length){
+							$scope.ret = ret.result;
+							$scope.$apply();
+							$api.closeNoDate();
+						}else{
+						    $api.noDate();
+						}
+		            }
+		        })
+		    }
+		    
+		    
+		    function getData(page, fn){
+				$api.post(phpurl+'Activity/getMyFans',{
+					values:{
+						user_id:userid,
+						page:page,
+						pagecount:10
+					}
+				},function(ret){
+					fn&&fn(ret);
+					if(ret&&ret.result&&ret.result.length){
+						$scope.ret = ret.result;
+						$scope.$apply();
+					}
+					$api.closeloadding();
+				})
+				
+			}
+		})
+	}]);
+</script>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../css/theme.css" />
+    <style>
+        .head {
+            height:50px; background: #ffffff;
+        }
+
+        .icon-fanhui {
+            font-size: 30px;
+            width: 40px;
+            height: 50px;
+            position: absolute;
+            left: 0;
+            bottom:0;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .head>.lie_biao {
+            width: 48%;
+            margin:0 auto;
+            height: 50px;
+            font-size: 0px;
+            line-height: 50px;
+        }
+        .head>.lie_biao>span{
+            width:50%;
+            color:rgb(51,51,51);
+            font-size: 13px;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+        }
+        .nav-1 .active i,
+        .nav-2 .active i,
+        .head>.lie_biao .active  i {
+            width:20px;
+            height: 2px;
+            left:50%;
+            border-radius: 1px;
+            margin-left: -10px;
+            bottom:12px;
+            position: absolute;
+            background-color:rgb(51,51,51);
+        } 
+        .nav {
+            height: 40px;
+            font-size: 0px;background: #ffffff;
+        }
+        .nav-2>span, 
+        .nav-1>span {
+            width: 25%;
+             font-size: 12px;
+            line-height: 40px;
+            text-align: center;
+            color:rgb(93,95,103);
+            position: relative;
+        }
+        .nav-2 span {
+            width: 25%;
+        }
+        .nav-1 .active i,
+        .nav-2 .active i {
+            width: 42px;
+            bottom:0px;
+            margin-left: -21px;
+        }
+        .nav-1 .active ,
+        .nav-2 .active  {
+            color:#EE5048;
+        }
+        
+        
+       .count{
+        	display:inline-block;
+        	width:8px;
+        	height:8px;
+	        /*padding:0 3px;*/
+	        font-size: 8px;
+	        right:18px;
+	        top:5px;
+	        position: absolute;
+	        border-radius: 50%;
+/*	        line-height: 25px;*/
+	        text-align: center;
+	        background: red;
+	        color:#fff;
+	        display:none;
+        }
+        .fanhui{ position: absolute; left: 10px; top: 35px;}
+        .fanhui img{  width:22px; height: auto;}
+    </style>
+        
+</head>
+<body>
+    <header class="head appbackground">
+        <div class="lie_biao">
+        	<span class="active">男生榜单<i></i><b class="count" id="xiaoxi" style="top:10px;"></b></span>
+        	<span>女生榜<i></i><b class="count" id="tongzhi" style="top:10px;"></b></span>
+        </div>
+        
+        <span class="fanhui" onclick="api.closeWin({})"><img src="../image/fanhui.png"/></span>
+    </header>
+    <nav class="nav appbackground">
+    
+       <div class="nav-1">
+            <span class="active">人气榜<i></i><b class="count" id="one"></b></span>
+            <span>热销榜<i></i><b class="count" id="two"></b></span>
+            <span>完结榜<i></i><b class="count" id="three"></b></span>
+            <span>热搜榜<i></i><b class="count" id="four"></b></span>
+        </div>
+        <div class="nav-2" style="display: none">
+            <span class="active">人气榜<i></i><b class="count" id="five"></b></span>
+            <span>热销榜<i></i><b class="count" id="six" ></b></span>
+            <span>完结榜<i></i><b class="count" id="seven" ></b></span>
+            <span>热搜榜<i></i><b class="count" id="eight" ></b></span>
+        </div>
+        
+    </nav>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../script/bootstrap.js"></script>
+<script src="../script/common.js"></script>
+<script type="text/javascript" src="../script/util.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+    	$api.fixStatusBar($api.dom('header'));
+//        changeTheme();
+        var frame_arr =[
+        		'frame0/paihang' ,
+        		'frame0/rexiao' ,
+        		'frame0/wanjie' ,
+        		'frame0/resou' ,
+        		'frame0/paihang' ,
+        		'frame0/rexiao' ,
+        		'frame0/wanjie' ,
+        		'frame0/resou' ,
+	         ] ;
+		var groupname = 'red_paper';
+        $('.nav span').tabframe({
+		   nameArray:frame_arr,
+		   groupname:groupname,
+		   offsetHeight:(+$('.head')[0].offsetHeight)+(+$('.nav').height()),
+		   callback:function (i){
+		   		if(i>3){
+		   			$('.lie_biao .active').removeClass('active');
+					$('.lie_biao span:eq(1)').addClass('active');
+					$('.nav-2').show();
+					$('.nav-1').hide();
+					
+		   		}else {
+		   			$('.lie_biao .active').removeClass('active');
+					$('.lie_biao span:eq(0)').addClass('active');
+					$('.nav-1').show();
+					$('.nav-2').hide();
+		   		}
+		   		$('.nav .active').removeClass('active');
+				$('.nav  span:eq('+ i +')').addClass('active');
+		   }
+		}); 
+		
+		$('nav span').each(function(i){
+			$(this).click(function(){
+				api.setFrameGroupIndex({
+				    name: groupname,
+				    index: i,
+				    scroll: true
+				});
+				$('.nav .active').removeClass('active');
+				$(this).addClass('active');
+			})
+		}) 
+		
+		$('.lie_biao>span').each(function(i){
+			$(this).click(function(){
+				
+				if(i==0){
+					$('.nav-1').show();
+					$('.nav-2').hide();
+				}else{
+					$('.nav-2').show();
+					$('.nav-1').hide();
+				}
+				$('.lie_biao .active').removeClass('active');
+				$(this).addClass('active');
+				$('nav span:eq('+(i*4)+')').click();	
+			})
+		})
+		
+		
+		var count;
+		var getCounts;
+
+		getC01();
+
+		
+		function getC01(){
+			userid = $api.getStorage('userid');
+			util.longAjax(phpurl+'Message/getGeMsg?user_id='+userid,40,function(result){
+				getCounts = result;
+				showOrHide();
+			});
+		}
+		
+		
+		function showOrHide(){
+			if(getCounts.one > 0){
+				$("#one").css('display','block');
+			}else{
+				$("#one").css('display','none');
+			}
+			
+			if(getCounts.two > 0){
+				$("#two").css('display','block');
+			}else{
+				$("#two").css('display','none');
+			}
+			
+			if(getCounts.three > 0){
+				$("#three").css('display','block');
+			}else{
+				$("#three").css('display','none');
+			}
+			
+			if(getCounts.four > 0){
+				$("#four").css('display','block');
+			}else{
+				$("#four").css('display','none');
+			}
+			
+			if(getCounts.five > 0){
+				$("#five").css('display','block');
+			}else{
+				$("#five").css('display','none');
+			}
+			
+			if(getCounts.six > 0){
+				$("#six").css('display','block');
+			}else{
+				$("#six").css('display','none');
+			}
+			
+			if(getCounts.seven > 0){
+				$("#seven").css('display','block');
+			}else{
+				$("#seven").css('display','none');
+			}
+			
+				if(getCounts.eight > 0){
+				$("#eight").css('display','block');
+			}else{
+				$("#eight").css('display','none');
+			}
+			
+			
+			if((getCounts.one+getCounts.two+getCounts.three+getCounts.four) > 0){
+				$("#xiaoxi").css('display','block');
+			}else{
+				$("#xiaoxi").css('display','none');
+			}
+			
+			if((getCounts.five+getCounts.six+getCounts.seven) > 0){
+				$("#tongzhi").css('display','block');
+			}else{
+				$("#tongzhi").css('display','none');
+			}
+			
+		}
+		
+    };
+    
+</script>
+
+</html>

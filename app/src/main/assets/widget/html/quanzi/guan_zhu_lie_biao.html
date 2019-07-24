@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" id="css" href="../../css/theme.css">
+	<style>
+	img{
+    		vertical-align:middle;
+    	
+    	}
+    	.ranking ul li{
+    		padding:10px;
+    		background:white;
+    		height:50px;
+    		line-height:50px;
+    		padding-left:70px;
+    		position:relative;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    	.ranking ul li img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+    		left:10px;
+    		bottom:10px;
+    		position:absolute;
+/*    		vertical-align: text-bottom;
+    		margin-bottom:-15px;*/
+    	}
+    	.ranking ul li span{
+    		display:inline-block;
+    	}
+    	.ranking ul li .userHead{
+    		margin-right:6px;
+    	}
+    	.ranking ul li .userName,.ranking ul li .point{
+    		font-size:12px;
+    	}
+    	.ranking ul li .userName{
+    		width:45%;
+    		line-height:50px;
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+/*    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;*/
+    	}
+    	.ranking ul li .point{
+    		float:right;
+    		color:#999;
+    	}
+	</style>
+</head>
+<body ng-controller="LoctionController">
+   <div class="ranking">
+		<ul>
+			<li onclick="$api.open_user(this.id); " ng-repeat="x in ret " id="{{ x.name + ',' +x.user_id}}">
+				<span class="userHead">
+					<img src="{{ Imageurl+x.sumbheadimg }}" alt="" />
+				</span>
+				<span class="userName">{{ x.name||'用户' }}</span>
+			</li>
+			
+			
+		</ul>
+	</div>
+	
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ev.js"></script>
+<script>
+	getTheme();
+	
+	var url = 'Activity/getMyGuan', 
+	apiready = function(){
+		changeTheme();
+		var type = api.pageParam.type||'';
+		if(type=='fans'){
+			 url = 'Activity/getMyFans';
+		}
+		EventT.emit('apiready');
+	};
+	
+	var app = angular.module("myApp", []);
+	app.controller('LoctionController', ['$scope',function($scope) {
+		$scope.Imageurl = Imageurl;
+		EventT.on('apiready', function() {
+			$api.pull(function(callback){
+				getData(0,function(ret){
+			   		callback&&callback(ret);
+			    })
+		    });
+		    getData(0,function(ret){
+		    	
+		    	if(!ret||!ret.result||!ret.result.length){
+		    		$api.noDate();
+		    	}
+		    })
+		    $api.up(function(page,callback){
+	            getData(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		    });
+		    function getData(page, fn){
+				$api.post(phpurl+url,{
+					values:{
+						user_id:userid,
+						page:page,
+						pagecount:10
+					}
+				},function(ret){
+					fn&&fn(ret);
+					if(ret&&ret.result&&ret.result.length){
+						$scope.ret = ret.result;
+						$scope.$apply();
+					}
+				})
+				$api.closeloadding();
+			}
+		})
+	}]);
+	
+	
+	
+	
+</script>
+</html>

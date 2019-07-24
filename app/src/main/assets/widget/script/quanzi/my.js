@@ -1,0 +1,1 @@
+var times=0,starttime=0,endtime=0;$(".cont").click(function(){++times;15==times&&api.toast({msg:"\u672capp\u7531\u5e7f\u5dde\u8dc3\u53f0\u4fe1\u606f\u79d1\u6280\u6709\u9650\u516c\u53f8\u5f00\u53d1\uff0c\u5f00\u53d1\u8005\u9ec4\u57fa\u4e50"})});

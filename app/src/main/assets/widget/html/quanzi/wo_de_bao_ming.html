@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.huo_dong_lie_biao {
+            background: #fff;
+        }
+        .huo_dong_lie_biao li  {
+            padding:10px;
+            height: 70px;
+            border-bottom: 1px solid #eee;
+        }
+        .huo_dong_lie_biao .huo_dong_img {
+            width: 70px;
+            height: 70px;
+            margin-right: 10px;
+        }
+
+        .huo_dong_lie_biao .huo_dong_ming_zi {
+            font-size: 12px;
+            line-height: 16px;
+            height: 32px;
+            margin:2px 0 5px 0;
+        }
+        .huo_dong_lie_biao .shi_jian,
+        .huo_dong_lie_biao .di_zhi {
+            font-size: 10px;
+            line-height: 16px;
+            color: #666;
+        }
+
+        .huo_dong_lie_biao .shi_jian span {
+            float: right;
+        }
+
+        .huo_dong_lie_biao .shi_jian .iconfont {
+            font-size: 14px;
+            margin-right: 6px;
+           position: relative;
+           top:1px;
+        }
+    </style>
+</head>
+<body ng-controller="activeList">
+	<div >
+        <ul class="huo_dong_lie_biao">
+            <li class="flex-wrap" ng-repeat="i in listData track by $index">
+                <img src="{{ imgurl+i.sumbimage }}" alt="" class="huo_dong_img">
+                <div class="text flex-con">
+                    <p class="huo_dong_ming_zi">
+                        {{ i.title }}
+                    </p>
+                    <p class="di_zhi">
+                        地点：{{ i.location }}
+                    </p>
+                    <p class="shi_jian">    
+                        时间：{{ i.activitytime }}
+                        <span>
+                            <i class="iconfont icon-user7"></i>{{ i.enroll }}
+                        </span>
+                    </p>
+                </div>
+            </li>
+<!--            <li class="flex-wrap">
+                <img src="../../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+                <div class="text flex-con">
+                    <p class="huo_dong_ming_zi">
+                        手机你买对了吗手机你买对了吗手机你买对了吗
+                    </p>
+                    <p class="di_zhi">
+                        地点：广州塔</p>
+                    <p class="shi_jian">    
+                        时间：02/21 12:00
+                        <span>
+                            <i class="iconfont icon-user7"></i>54564
+                        </span>
+                    </p>
+                </div>
+            </li>
+            <li class="flex-wrap">
+                <img src="../../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+                <div class="text flex-con">
+                    <p class="huo_dong_ming_zi">
+                        手机你买对了吗手机你买对了吗手机你买对了吗
+                    </p>
+                    <p class="di_zhi">
+                        地点：广州塔</p>
+                    <p class="shi_jian">    
+                        时间：02/21 12:00
+                        <span>
+                            <i class="iconfont icon-user7"></i>54564
+                        </span>
+                    </p>
+                </div>
+            </li>
+
+            <li class="flex-wrap">
+                <img src="../../image/frame0/goods_5.png" alt="" class="huo_dong_img">
+                <div class="text flex-con">
+                    <p class="huo_dong_ming_zi">
+                        手机你买对了吗手机你买对了吗手机你买对了吗
+                    </p>
+                    <p class="di_zhi">
+                        地点：广州塔</p>
+                    <p class="shi_jian">    
+                        时间：02/21 12:00
+                        <span>
+                            <i class="iconfont icon-user7"></i>54564
+                        </span>
+                    </p>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+    <div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript" src="../../script/active1.js"></script>
+<script type="text/javascript">
+//	var active_id;
+	apiready = function(){
+		changeTheme();
+
+        var type = api.pageParam.type;
+        EventT.emit('apiready',type);
+	};
+</script>
+</html>

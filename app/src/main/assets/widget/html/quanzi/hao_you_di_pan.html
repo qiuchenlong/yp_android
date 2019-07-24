@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.top{
+    		background:url(../../image/bgbg@2x.png);
+    		background-size:cover;
+    		padding:0 10px 20px;
+    	}
+    	.back .icon-fanhui{
+    		font-size:25px;
+    		color:white;
+    		font-weight:600;
+    	}
+    	.headPortrait{
+    		width:80px;
+    		height:80px;
+    		border-radius:50%;
+    		margin:5px auto;
+    	}
+    	.headPortrait img{
+    		width:80px;
+    		height:80px;
+    		border-radius:50%;
+    	}
+    	.userInfo{
+    		text-align:center;
+    		color:white;
+    	}
+    	.userInfo .userName{
+    		font-size:15px;
+    	}
+    	.userInfo .address{
+    		font-size:10px;
+    		line-height: 20px;
+    	}
+    	.userInfo .at{
+    		font-size:12px;
+    	}
+    	.userInfo .btn{
+    		margin-top:5px;
+    	}
+    	.userInfo .btn span{
+    		display:inline-block;
+    		padding:0 15px;
+    		line-height:25px;
+    		background:white;
+    		color:#292B33;
+    		font-size:13px;
+    		border-radius:5px;
+    	}
+    	.userInfo .btn .attention{
+    		margin-right:15px;
+    	}
+    	
+    	.dynamic{
+    		background:white;
+    		border-bottom:1px solid #E3E3E3;
+    	}
+    	.dynamic .dynamicTitle{
+    		padding:0 10px;
+    		line-height:40px;
+    		color:#5B5B5B;
+    		border-bottom:1px solid #E3E3E3;
+    	}
+    	.dynamic .content{
+    		padding:0 10px;
+    	}
+    	.dynamic .content .heads{
+    		width:16%;
+    		/*height:40px;*/
+    		float:left;
+    	}
+    	.dynamic .content .heads img{
+    		width:100%;
+    		/*height:40px;*/
+    		border-radius:50%;
+    	}
+    	.dynamic .content .userName{
+    		float:left;
+    		width:80%;
+    		margin-left:4%;
+    		font-size:13px;
+    		line-height:20px;
+    	}
+    	.dynamic .content .userName .userMsg{
+    		width:80%;
+    		font-size:11px;
+    		color:#747474;
+    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp:1;
+    		-webkit-box-orient:vertical;
+    	}
+    	.dynamic .content .userName .time{
+    		float:right;
+    		font-size:11px;
+    		color:#999;
+    	}
+    	.dynamic .content .item1{
+    		text-align:center;
+    	}
+    	.dynamic .content .item1 img{
+    		width:32%;
+    	}
+    	.dynamic .content .item2{
+    		padding:5px 0;
+    		font-size:10px;
+    		color:#747474;
+    	}
+    	.dynamic .content .item2 .delt{
+    		float:right;
+    		margin-top:2px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="top">
+		<div class="back" onclick="api.closeWin({})">
+			<i class="iconfont icon-fanhui"></i>
+		</div>
+		<div class="headPortrait">
+			<img src="../../image/tx@2x.png" alt="" />
+		</div>
+		<div class="userInfo">
+			<p class="userName">MR.L君君</p>
+			<p class="address">中国&nbsp;&nbsp;&nbsp;&nbsp; 广州</p>
+			<p class="at">
+				<span style="margin-right:20px;">1关注</span>
+				<span style="margin-left:20px;">12粉丝</span>
+			</p>
+			<p class="btn">
+				<span class="attention appbackground">关&nbsp;&nbsp;注</span>
+				<span class="privateLetter" onclick="goChat()">私&nbsp;&nbsp;信</span>
+			</p>
+		</div>
+	</div>
+	<div class="dynamic">
+		<p class="dynamicTitle">动态</p>
+		<div class="content" onclick="openWs()">
+			<div class="itme0 clearfix" style="padding:10px 0;">
+				<div class="heads">
+					<img src="../../image/tx@2x.png" alt="" />
+				</div>
+				<div class="userName">
+					<p>MR.L君君 <span class="time">1小时前</span></p>
+					<p class="userMsg">这个平衡车非常6666666，谁买水知道</p>
+				</div>
+			</div>
+			<div class="item1">
+				<img src="../../image/tu1@2x.png" alt="" />
+				<img src="../../image/tu1@2x.png" alt="" />
+				<img src="../../image/tu1@2x.png" alt="" />
+			</div>
+			<div class="item2">
+				<span>
+					<i class="iconfont icon-zan"></i> 1200
+				</span>
+				<span style="line-height:25px;margin-left:20px;">
+					<img src="../../image/message.png" alt="" style="width:15px;vertical-align: text-bottom;margin-bottom:0px;"/> 1200
+				</span>
+				<span class="delt">
+					<i class="iconfont icon-iconfontshanchu"></i>
+				</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	getTheme();
+	apiready = function(){
+		changeTheme();
+	};
+	
+	$(function(){
+		var h = $('.heads').width();
+		$('.heads img').css('height',h+'px');
+		$('.userName p').css('line-height',h/2+'px');
+	})
+	
+	function openWs(){
+		openW({
+			frm_url : 'frame2/dong_tai_xiang_qing.html',
+			title : '动态详情'
+		})
+	}
+	
+	function goChat(name,touserid){
+		api.openWin({
+            name: 'fdfsdf',
+            url: '../frame0/liao_tian_win.html',
+            pageParam:{
+               txt:name,
+               touserid:touserid
+            }
+        });
+	}
+</script>
+</html>

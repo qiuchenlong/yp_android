@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.content ul li{
+    		line-height:50px;
+    		background:white;
+    		margin-top:10px;
+    		padding:0 10px;
+    		font-weight:600;
+    	}
+    	.quit{
+    		margin-top:50px;
+    		padding:0 10px;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		color:#5C5C5C;
+    		border-radius:5px;
+    	}
+
+    </style>
+</head>
+<body>
+	<div class="content">
+		<ul>
+			<li onclick="shows()">
+				分享
+			</li>
+			<li onclick="juBao()">
+				举报
+			</li>
+		</ul>
+	</div>
+	<div class="quit">
+		<button class="appbackground">
+			退出活动
+		</button>
+	</div>
+	
+	<!--分享-->	
+	<div class="shareCover" style="display:none">
+		<div class="shareList" style="display:none">
+			<ul>
+				<li>
+					<img src="../../image/qq@2x.png" alt="" />
+					<br />
+					QQ好友
+				</li>
+				<li>
+					<img src="../../image/kj@2x.png" alt="" />
+					<br />
+					QQ空间
+				</li>
+				<li>
+					<img src="../../image/wechat@2x.png" alt="" />
+					<br />
+					微信好友
+				</li>
+				<li>
+					<img src="../../image/pyq@2x.png" alt="" />
+					<br />
+					朋友圈
+				</li>
+		<!--		<li>
+					<img src="../../image/weibo@2x.png" alt="" />
+					<br />
+					新浪微博
+				</li>-->
+			</ul>
+			<div class="cancel" onclick="cancel()">
+				取消
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/Share.js"></script>
+<script type="text/javascript">
+	var activeId ='';
+	apiready = function(){
+		changeTheme();
+		activeId = api.pageParam.activeId;
+	};
+	function shows(){
+		$('.shareCover').show();
+		setTimeout(function(){
+			$('.shareList').slideDown(300);
+		},200);
+		$('.shareList li').each(function(i,v){
+			$(this).click(function(){
+				shares(i, false ,function(){
+					
+				});
+			})
+		})
+	}
+	function cancel(){
+		$('.shareList').slideUp(300);
+		setTimeout(function(){
+			$('.shareCover').hide();
+		},200)
+	}
+	
+	function　juBao(){
+		openW({
+			frm_url : 'frame2/ju_bao.html',
+			title : '举报',
+			data:{
+				type:1,
+				activeId:activeId
+			}
+		})
+	}
+	
+	$('.quit').click(function(){
+		$api.post(phpurl+'Activity/exitActivity',{
+			values:{
+				activity_id:activeId,
+				user_id:userid
+			}
+		},function (ret){
+			if(ret.code==200){
+				$api.t('退出成功！');
+				$api.send('exitActivity');
+				setTimeout(api.closeWin,500)
+			}else{
+				$api.t('您未参加该活动！');
+			}
+		})
+	})
+</script>
+</html>

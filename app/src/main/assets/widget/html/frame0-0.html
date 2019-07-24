@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <link rel="stylesheet" href="../src/css/swiper-4.2.2.min.css">
+    <!--轮播css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <!--图标字体->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <script src="../src/library/zepto.js"></script><!--页面js-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/library/swiper-4.2.2.min.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+    <style>
+        html,
+        body {
+            background: #ffffff;
+        }
+    </style>
+</head>
+
+<body ng-controller="DataController" <header class="header" ng-controller="DataController">
+    <div class="base"></div>
+    <div class="breadcrumbs">
+        <div class="u-search">
+            <form class="form" action="">
+                <div class="search-div" onClick="sousuo()">
+                    <i class="iconfont icon-sousuo"></i>
+                    <input class="search-input" type="search" placeholder="搜索我的书架、在线书库">
+                </div>
+                <button type="button" class="button" onClick="paihang()">排行</button>
+            </form>
+        </div>
+        <div class="nav">
+            <a class="nav_a current" href="frame0.html" >女频</a>
+            <a class="nav_a" href="frame0_male.html">男频</a>
+            <a class="nav_a" href="frame0_publish.html">出版</a>
+            <a class="nav_a" href="frame0_gratis.html">推荐</a>
+            <a class="nav_a" href="javascript:;" onclick="shudan()">书单</a>
+        </div>
+    </div>
+    </header>
+    <div class="content">
+        <div class="m-swiper">
+            <!-- <div class="swiper-container" id="swiper1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" ng-repeat="x in bannerList" ng-click="addetail(x)">
+                        <img src="{{lunboimg + x.images}}" alt="" />
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div> -->
+
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" ng-repeat="x in bannerList" ng-click="addetail(x)">
+                        <a href="javascript:;">
+                            <img src="{{lunboimg + x.images}}" alt="">
+                        </a>
+                    </div>
+                    <!-- <div class="swiper-slide">
+                        <a href="javascript:;">
+                            <img src="../src/images/ind-02.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:;">
+                            <img src="../src/images/ind-03.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:;">
+                            <img src="../src/images/ind-04.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:;">
+                            <img src="../src/images/ind-05.png" alt="">
+                        </a>
+                    </div> -->
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Initialize Swiper -->
+            </div>
+
+            <script>
+                // var swiper = new Swiper('.swiper-container', {
+                //     pagination: {
+                //         el: '.swiper-pagination',
+                //         clickable: true,
+                //     },
+                //     loop: true,
+                //     delay: 1500,
+                //     autoplay: {
+                //         disableOnInteraction: false,
+                //     },
+                // });
+            </script>
+
+
+        </div>
+
+    <!--    <div class="m-choice">
+            <h3 class="h3">精选</h3>
+            <a class="u-text_line" href="javascript:;">推荐已生效，点开即领！</a>
+        </div>-->
+
+        <div class="m-recom">
+            <div class="u-hd" ng-click="openWs(zhuda.id)">
+                <h2 class="h2">{{ zhuda.title }}</h2>
+                <div class="right">
+                    <a href="javascript:;">更多</a>
+                </div>
+            </div>
+            <div class="bd">
+                <ul class="u-ul_flex">
+                    <li class="li" ng-repeat="zd in zhuda.xiaoshuo | limitTo:3" ng-click="shuji(zd.articleid)">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="{{ imgurl + zd.images }}" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">{{ zd.articlename }}</a>
+                        </div>
+                    </li>
+                    <!-- <li class="li">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li> -->
+                    <!--<li class="li">
+                    <div class="top">
+                        <a href="javascript:;">
+                            <img src="../src/images/i-01.png"/>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;">医妃读心术</a>
+                    </div>
+                </li>-->
+                </ul>
+            </div>
+        </div>
+        <!--强力推荐-->
+        <div class="m-recom">
+            <div class="u-hd" ng-click="openWs(tuijian.id)">
+                <h2 class="h2">{{ tuijian.title }}</h2>
+                <div class="right">
+                    <a href="javascript:;">更多</a>
+                </div>
+            </div>
+            <div class="bd">
+                <ul class="u-ul_flex">
+                    <li class="li" ng-repeat="tj in tuijian.xiaoshuo | limitTo:6" ng-click="shuji(tj.articleid)">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="{{ imgurl + tj.images }}" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;" style="width: 5em;">{{ tj.articlename }}</a>
+                        </div>
+                    </li>
+                    <!-- <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="m-time-travel">
+            <div class="u-hd">
+                <h2 class="h2">穿越start</h2>
+                <div class="right">
+                    <a href="javascript:;">更多</a>
+                </div>
+            </div>
+            <div class="bd">
+                <ul class="u-ul_lr" ng-repeat="chuanyue in bookList ">
+                    <li class="li" ng-repeat="cy in chuanyue.xiaoshuo | limitTo:4" ng-click="shuji(cy.articleid)">
+                        <div class="left">
+                            <img src="{{ imgurl + cy.images }}" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">{{ cy.articlename }}</h3>
+                            <p class="text">
+                                <span class="author">{{ cy.author }}</span>
+                                <span class="u-title1">{{ cy.shortname }}</span>
+                                <!-- <span class="u-title2">女尊天下</span> -->
+                            </p>
+                            <p class="u-line2">{{ cy.intro }}</p>
+                        </div>
+                    </li>
+                    <!-- <li class="li" onClick="location.href='javascript:;'">
+                        <div class="left">
+                            <img src="../src/images/i-01.png" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                            <p class="text">
+                                <span class="author">拈花惹笑</span>
+                                <span class="u-title1">王爷</span>
+                                <span class="u-title2">女尊天下</span>
+                            </p>
+                            <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="left">
+                            <img src="../src/images/i-01.png" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                            <p class="text">
+                                <span class="author">拈花惹笑</span>
+                                <span class="u-title1">王爷</span>
+                                <span class="u-title2">女尊天下</span>
+                            </p>
+                            <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="left">
+                            <img src="../src/images/i-01.png" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                            <p class="text">
+                                <span class="author">拈花惹笑</span>
+                                <span class="u-title1">王爷</span>
+                                <span class="u-title2">女尊天下</span>
+                            </p>
+                            <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                        </div>
+                    </li> -->
+                </ul>
+                <ul class="u-ul_flex" ng-repeat="chuanyue in bookList">
+                    <li class="li" onClick="location.href='javascript:;'" ng-repeat="cy in chuanyue.xiaoshuo | limitTo:3" ng-click="shuji(cy.articleid)">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="{{ imgurl + cy.images }}" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">{{ cy.articlename }}</a>
+                        </div>
+                    </li>
+                    <!-- <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li>
+                    <li class="li" onClick="location.href='javascript:;'">
+                        <div class="top">
+                            <a href="javascript:;">
+                                <img src="../src/images/i-01.png" />
+                            </a>
+                        </div>
+                        <div class="button">
+                            <a class="u-line2" href="javascript:;">医妃读心术</a>
+                        </div>
+                    </li> -->
+                    <!--<li class="li">
+                    <div class="top">
+                        <a href="javascript:;">
+                            <img src="../src/images/i-01.png"/>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;">医妃读心术</a>
+                    </div>
+                </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_loadmore"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+    apiready = function () {
+
+        EventT.emit("apiready");
+        api.setFullScreen({
+            fullScreen: false
+        });
+
+
+    }
+
+    function paihang() {
+        api.openWin({
+            name      : 'win_sdf',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'rank_152',
+                frm_url  : 'ranking.html',
+                title    : '排行榜',
+            },
+        });
+
+    }
+
+    function sousuo() {
+        api.openWin({
+            name: 'win_header_fdsaf',
+            url: 'frame0/seek_win.html',
+
+        });
+
+    }
+
+
+    function shudan() {
+        api.openWin({
+            name: 'win_shudan',
+            url: 'win_header.html',
+            pageParam: {
+                frm_name: 'shudan',
+                frm_url: 'BookSelection.html',
+                title: '书单'
+            }
+        });
+    }
+
+    var app = angular.module("myApp", []);
+    app.controller("DataController", function ($scope, $timeout) { //angular开始
+        $scope.bookList = [];
+        $scope.imgurl = imageUrl;
+        $scope.lunboimg = uimgUrl;
+
+        //打开更多
+        $scope.openWs = function (data) {
+            api.openWin({
+                name: data + 'win_heSD',
+                url: 'win_header.html',
+                pageParam: {
+                    frm_name: data + 'xiangqing_SD',
+                    frm_url: 'frame0/resou.html',
+                    title: '书籍',
+                    data: {
+                        moreId: data
+                    }
+                }
+            });
+        }
+
+        //轮播
+        function getLunBo() {
+            $api.post(phpurl + "Home/Book/pad?pindao=1", {
+
+            }, function (ret) {
+                var result = ret.result;
+                if (ret.code == 200) {
+                    if (ret.result.length > 0) {
+
+                        $scope.bannerList = ret.result;
+
+                        setTimeout(function () {
+
+                            var swiper = new Swiper('.swiper-container', {
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true,
+                                    // type:'bullets'
+                                },
+                                observer: true, //修改swiper自己或子元素时，自动初始化swiper
+                                observeParents: true, //修改swiper的父元素时，自动初始化swiper
+                                loop: true,
+                                delay: 100,
+                                autoplay: {
+                                    disableOnInteraction: false,
+                                },
+                                watchSlidesVisibility: true,
+                                initialSlide: 0,
+                            })
+                        }, 1500);
+                    }
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+            })
+        }
+
+
+        //第一第二小说模块列表
+        function getData() {
+            $api.post(phpurl + "Home/Book/pingdao?pindao=1", {
+                values: {}
+            }, function (ret) {
+                if (ret.code == 200) {
+                    if (ret.result.length > 0) {
+                        var bookresult = ret.result;
+                        $scope.zhuda = ret.result[0];
+                        $scope.tuijian = ret.result[1];
+                        // console.log(JSON.stringify(bookresult))
+                    }
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+            })
+        }
+
+        //穿越模块列表
+        function getCYData(page, callback) {
+            $api.post(phpurl + "Home/Book/pingdao?pindao=1", {
+                values: {
+                    page: page
+                }
+            }, function (ret) {
+                var result = ret.result;
+                if (ret.code == 200) {
+                    if (ret.result.length > 0) {
+
+                        if (page == 0) {
+                            $scope.bookList = [];
+                        }
+
+                        $scope.bookList = $scope.bookList.concat(result);
+
+                        $scope.$apply();
+                    }
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+                callback && callback(ret);
+            })
+
+        }
+
+
+
+        //轮播点击事件
+        $scope.addetail = function (data) {
+            if (data.gotos == 0) //打开书籍详情
+            {
+                api.openWin({
+                    name: data + 'shu_ji_xiang_qing_win',
+                    url: 'dtail.html',
+                    pageParam: {
+                        data: {
+                            bookid: data.bookid
+                        }
+                    }
+                });
+
+            } else if (data.gotos == 1) //打开广告详情
+            {
+                api.openWin({
+                    name: data + 'win_headerad',
+                    url: 'win_header.html',
+                    pageParam: {
+                        frm_name: data + 'guanggxq',
+                        frm_url: 'addetail.html',
+                        title: '美书',
+                        data: {
+                            content: data.content
+                        }
+                    }
+                });
+
+            } else if (data.gotos == 2) //打开网址
+            {
+                api.openWin({
+                    name: '美书',
+                    url: data.weburl
+                });
+            }
+
+        }
+
+        $scope.shuji = function (datas) {
+            api.openWin({
+                name: datas + 'win_he_shu',
+                url: 'dtail.html',
+                pageParam: {
+                    data: {
+                        bookid: datas
+                    }
+
+                }
+            });
+
+        }
+
+        EventT.on("apiready", function () {
+            // setTimeout(getLunBo, 500)
+            getData();
+            getCYData(0);
+            getLunBo();
+
+            // getData();
+            // setTimeout(getCYData(0), 3000);
+
+            //下
+            $api.up(function (page, callback) {
+                // alert(111)
+
+                getCYData(page, function (ret) {
+                    callback && callback(ret);
+                })
+            });
+            //上
+            $api.pull(function (callback) {
+                getCYData(0, function () {
+                    callback && callback();
+                })
+            })
+        })
+
+    });
+</script>

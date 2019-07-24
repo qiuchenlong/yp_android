@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.content{
+    		background:white;
+    		font-size:14px;
+    		margin-bottom:10px;
+    	}
+    	.title{
+    		padding:15px 12px;
+    		border-bottom:1px solid #dedede;
+    		font-weight:600;
+    	}
+    	.title span{
+    		border-left:3px solid #46D3ED;
+    		padding-left:10px;
+    	}
+    	.content ul li{
+    		float:left;
+    		width:33.333%;
+    		padding:10px 0;
+    		color:#676767;
+    		text-align:center;
+    		border-bottom:1px solid #dedede;
+    	}
+    	.content ul li span{
+    		width:100%;
+    		line-height:25px;
+    		border-right:1px solid #dedede;
+    	}
+    	.content ul li:nth-child(3n) span{
+    		border-right:0;
+    	}
+    </style>
+</head>
+<body ng-controller="classify">
+	<div class="content clearfix">
+		<p class="title">
+			<span></span>
+		</p>
+		<ul>
+		
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li><li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="content clearfix">
+		<p class="title">
+			<span>{{ classifyList.0.name }}</span>
+		</p>
+		<ul>
+			<li ng-repeat="boy in classifyList.男频">
+				<span>{{ boy.name }}</span>
+			</li>
+<!--			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li><li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>-->
+		</ul>
+	</div>
+	
+	<div class="content clearfix">
+		<p class="title">
+			<span>{{ classifyList.2.name }}</span>
+		</p>
+		<ul>
+			<li ng-repeat="i in classifyList.出版">
+				<span>{{ i.name }}</span>
+			</li>
+<!--			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li><li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>
+			<li>
+				<span>现代都市</span>
+			</li>-->
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script src="../../script/ionic.bundle.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+	var app = angular.module("myApp",[]);
+	app.controller("classify",["$scope",function($scope){
+		$scope.classifyList = [];
+		
+		EventT.on("apiready",function(){
+			$api.loadding("fen_lei",1);
+			$api.post(phpurl+"m=api&c=index&a=category",function(ret){
+				if(ret.code == 200){
+					$scope.classifyList = ret.result;
+					$scope.$apply();
+				}
+				// $api.closeloadding();
+			})
+		})
+		
+	}])
+	
+    $("li").click(function(){
+        api.openWin({
+	       name: 'win_headerf1515dsaf',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'goods_detail25655',
+               frm_url:'frame0/fen_lei_son.html',
+               title:'现代都市',
+              
+	       }
+        });
+    })
+	apiready = function(){
+		EventT.emit("apiready");
+	};
+</script>
+</html>

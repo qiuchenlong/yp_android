@@ -1,0 +1,621 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" class="htmlWeiLei">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" id="css" href="../../css/theme.css">
+		<link rel="stylesheet" href="quan_zi.css" />
+		<style>
+			/*分享的css*/
+			.quan_zi {
+				background: #fff
+			}
+			.quan_zi  .wei_bu .xin_xi, .quan_zi  .wei_bu .zan {
+				margin-right: 8px;
+				font-size: 12px;
+				float: none;
+				color: rgb(96,96,96);
+			}
+			.quan_zi  .wei_bu .xin_xi > .iconfont, .quan_zi  .wei_bu .zan > .iconfont {
+				font-size: 14px;
+				margin-right: 4px;
+				position: relative;
+				top: -2px;
+				vertical-align: middle;
+			}
+			.quan_zi  .wei_bu .xin_xi > .iconfont {
+				font-size: 12px;
+				top: -1px;
+			}
+			.quan_zi  .wei_bu img{ width: 15px; height: auto; vertical-align: middle;}
+			.quan_zi  .ju_bao {
+				font-size: 12px;
+				float: right;
+			}
+			.zan_lie_biao {
+				background-color: #fff;
+				height: 80px;
+				line-height: 40px;
+				font-size: 14px;
+				padding: 5px 10px;
+				color: #666;
+			}
+			.zan_lie_biao > i {
+				width: 40px;
+				text-align: center;
+			}
+			.zan_lie_biao div {
+				padding: 4px;
+				height: 35px;
+				overflow: hidden;
+			}
+			.zan_lie_biao img {
+				width: 29px;
+				height: 29px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				display: inline;
+				word-spacing: 10px;
+				letter-spacing: 20px;
+				border-radius: 50%;
+				position: relative;
+				vertical-align: top;
+			}
+			.ping_lun_lie_biao {
+				margin-top: 10px;
+				background: #fff;
+				color: #333;
+				border-top: 1px solid #eee;
+			}
+			.ping_lun_lie_biao .ping_lun_biao_ti {
+				line-height: 40px;
+				height: 36px;
+				border-bottom: 1px solid #eee;
+				padding: 0 10px;
+				font-size: 13px;
+				color: #333;
+			}
+			.ping_lun_lie_biao li {
+				padding: 10px;
+				border-bottom: 1px solid #eee;
+			}
+			.tou_xiang .shi_jian {
+				font-size: 10px;
+				line-height: 20px;
+			}
+			.ping_lun_lie_biao .ni_rong {
+				line-height: 20px;
+				font-size: 12px;
+				word-break: break-all;
+				color: #666;
+			}
+			.ping_lun_lie_biao .ni_rong p {
+				padding: 5px;
+				padding-bottom: 3px;
+				margin-bottom: 3px;
+				font-size: 13px;
+				line-height: 20px;
+				word-break: break-all;
+				background-color: #eee;
+				border-radius: 3px;
+			}
+			.ping_lun_lie_biao .zan {
+				font-size: 14px;
+				color: #666;
+				margin-top: 10px;
+			}
+			.ping_lun_lie_biao .zan .icon-zan {
+				margin-right: 5px;
+			}
+			html, body {
+				height: 100%;
+			}
+			#main {
+				overflow: scroll;
+				box-sizing: border-box;
+				padding-bottom: 50px;
+				overflow-scrolling :touch;
+				-webkit-overflow-scrolling :touch;
+			}
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				height: 50px;
+				z-index: 54;
+				padding-right: 120px;
+				box-sizing: border-box;
+				background: #fff;
+				border-top: 1px solid #EBEBEB;
+			}
+			.footer #content {
+				height: 34px;
+				margin: 8px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 5px;
+				padding-left: 25px;
+				border-radius: 3px;
+				border: 1px solid #aaa;
+				overflow: hidden;
+			}
+			.footer button {
+				width: 100px;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				text-align: center;
+				line-height: 52px;
+				height: 50px;
+				color: #333;
+				font-size: 15px;
+			}
+			.quan_zi .tou_xiang {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+			.quan_zi .ni_rong {
+				padding-left: 0px;
+				padding-right: 0px;
+				word-break: break-all;
+			}
+			.quan_zi .ming_zi {
+				line-height: 16px;
+				padding: 0px;
+				word-break: break-all;
+			}
+			.quan_zi .shi_jian {
+				margin-top: 0px;
+				font-size: 10px;
+			}
+			.quan_zi_xiang_qing .tou_xiang {
+				margin: 0 15px;
+			}
+			/*#body{
+			 top:
+			 }*/
+			#content {
+				background: url(../../image/pen.png) no-repeat;
+				background-position: 5px center;
+				background-size: 18px;
+				padding-left: 25px;
+			}
+			#contents {
+				color: #989898;
+				font-size: 14px;
+				margin: 8px 10px;
+				word-break: break-all;
+			}
+			
+			
+			.ios #main{
+				max-height:100%;
+				height: 100%;
+				min-height:100%;
+			}
+			
+			.ios .footer {
+				position:absolute;
+			}
+			
+			
+		</style>
+	</head>
+	<body ng-controller="TalkController" class="" >
+		<main id="main">
+			<ul class="quan_zi quan_zi_xiang_qing">
+				<li>
+					<div class="tou_xiang flex-wrap">
+						<div class="flex-con" style="height:50px;">
+							<span class="img-w-c tou_xiang_img"> <img  src="{{Imgurl+Obj.uimg}}" alt=""> </span>
+							<h3 class="ming_zi">{{ Obj.name }}</h3>
+							<p class="ni_rong">
+								{{ Obj.addtime }}
+							</p>
+						</div>
+					<!--	<button class="guan_zhu appbackground" ng-if="Obj.guan==1">
+							已关注
+						</button>
+						<button class="guan_zhu" ng-if="Obj.guan==0" ng-click="attentions(Obj.user_id,$index)">
+							+ 关注
+						</button>-->
+					</div>
+					<p id="contents" style="">
+						<span class="len_jie" onclick="huaTi(this.id)" ng-show="Obj.topicname"  id="{{ Obj.topic_id }}">#{{ Obj.topicname }}#</span>
+						{{Obj.content}} <span class="len_jie" style="margin:0px 2px"  onclick="$api.open_user(this.id)" ng-repeat="a in Obj.at" ng-show="a.name"  id="{{ a.name+','+a.userid }}" > @{{ a.name }} </span>
+					</p>
+					<div class="tu_pin">
+						<div class="img-w-c" ng-repeat="image in Obj.sumbimages track by $index" ng-click="checkeBigPic($index)">
+							<img class="sumbimages" src="{{Imgurl+image}}" alt="">
+						</div>
+						<!--<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+						</div>
+						<div class="img-w-c">
+						<img src="../../image/frame0/goods_4.png" alt="">
+						</div>-->
+					</div>
+					<p class="quan_zi_di_zhi" data-lon="{{ x.longitude }}"  data-lat="{{ x.latitude }}" data-id="{{ x.circletalk_id }}" ng-show="x.location" onclick="$api.location&&$api.location(this)">
+						<i class="iconfont icon-dingwei"></i>{{ x.location }}
+					</p>
+					<div class="wei_bu">
+						<span class="zan" ng-if="Obj.isdan==0" ng-click="zan(Obj.circletalk_id)"> <i class="iconfont icon-zan"><img src="../../image/zan.png"/></i>{{Obj.likenum}} </span>
+						<span class="zan apptxtcolor" ng-if="Obj.isdan==1" ng-click="zan1()"> <i class="iconfont icon-zan apptxtcolor"><img src="../../image/zan.png"/></i>{{Obj.likenum}} </span>
+						<span class="xin_xi"><i class="iconfont icon-xinxi"><img src="../../image/reply.png"/></i>{{Obj.replycount}}</span>
+						<!--<span class="ju_bao">举报</span>-->
+					</div>
+				</li>
+			</ul>
+			<div class="zan_lie_biao flex-wrap ">
+				{{Obj.likenum}}赞
+				<div class="flex-con">
+					<img src="{{Imgurl+item.images}}" alt="" ng-repeat="item in likeList track by $index">
+					<!--<img src="../../image/frame0/goods_5.png" alt="">
+					<img src="../../image/frame0/goods_4.png" alt="">
+					<img src="../../image/frame0/goods_5.png" alt="">
+					<img src="../../image/frame0/goods_4.png" alt="">-->
+				</div>
+				<i class="iconfont icon-gengduo" ng-click="goDianZanList(Obj.circletalk_id)"></i>
+			</div>
+			<div class="ping_lun_lie_biao">
+				<p class="ping_lun_biao_ti">
+					全部评论({{Obj.replycount}})
+				</p>
+				<ul class="quan_zi">
+					<div ng-repeat="item in sonTalk" ng-click="faTalk(item.circletalkreply_id,item.name)">
+						<li ng-if="item.level==1">
+							<div class="tou_xiang flex-wrap">
+								<div class="flex-con" style="height:50px;">
+									<span class="img-w-c tou_xiang_img"> <img  src="{{Imgurl + item.uimg}}" alt=""> </span>
+									<h3 class="ming_zi">{{item.name}}</h3>
+									<p class="shi_jian">
+										{{item.addtime}}
+									</p>
+								</div>
+								<span class="zan" ng-if="item.isdian==0" ng-click="sonZan(item.circletalkreply_id,$index)"> <i class="iconfont icon-zan"></i>{{item.likenum}} </span>
+								<span class="zan apptxtcolor" ng-if="item.isdian==1" ng-click="zan1()"> <i class="iconfont icon-zan apptxtcolor"></i>{{item.likenum}} </span>
+							</div>
+							<div class="ni_rong">
+								<p>
+									<span style="color:#484848;margin-right:5px;">{{item.replyname}}:</span>{{item.replycontent}}
+								</p>
+								{{item.content}}
+							</div>
+						</li>
+						<li ng-if="item.level==0">
+							<div class="tou_xiang flex-wrap">
+								<div class="flex-con" style="height:50px;">
+									<span class="img-w-c tou_xiang_img"> <img  src="{{Imgurl + item.uimg}}" alt=""> </span>
+									<h3 class="ming_zi">{{item.name}}</h3>
+									<p class="shi_jian">
+										{{item.addtime}}
+									</p>
+								</div>
+								<span class="zan" ng-if="item.isdian==0" ng-click="sonZan(item.circletalkreply_id,$index)"> <i class="iconfont icon-zan"></i>{{item.likenum}} </span>
+								<span class="zan apptxtcolor" ng-if="item.isdian==1" ng-click="zan1()"> <i class="iconfont icon-zan apptxtcolor"></i>{{item.likenum}} </span>
+							</div>
+							<div class="ni_rong" >
+								{{item.content}}
+							</div>
+						</li>
+					</div>
+					<!--<li>
+						<div class="tou_xiang flex-wrap">
+							<div class="flex-con" style="height:50px;">
+								<span class="img-w-c tou_xiang_img"> <img  src="../../image/frame0/goods_4.png" alt=""> </span>
+								<h3 class="ming_zi">名字</h3>
+								<p class="shi_jian">
+									分享内容
+								</p>
+							</div>
+							<span class="zan"><i class="iconfont icon-zan"></i>545</span>
+						</div>
+						<div class="ni_rong">
+							<p>
+								分享内容分享内容分享内容分享内容
+							</p>
+							分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容分享内容
+						</div>
+					</li>-->
+					
+				</ul>
+			</div>
+			<div class="bottom_loadmore"></div>
+		</main>
+		<footer class="footer">
+			<input type="text"   ng-blur="Blu()" ng-click="Foc()" placeholder="说点什么吧" id="content">
+			<button class="appbackground submit" ng-click="fabu()">
+				发&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送
+			</button>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../script/quanzi/api.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/jqthumb.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/common.js"></script>
+	<script src="../../script/quanzi/angular.min.js"></script>
+	<script src="../../script/quanzi/ev.js"></script>
+	<script type="text/javascript">
+	
+	$('body').addClass('Android')
+		var app = angular.module("myApp", []);
+		app.controller('TalkController', function($scope) {
+			$scope.Obj = {};
+			$scope.likeList = [];
+			$scope.Imgurl = Imageurl;
+			$scope.sonTalk = [];
+			var level = 0;
+			var parent_id = 0;
+			$scope.attentions = function(id) {
+				$api.loadding(api.frameName, 0);
+				if (userid == id) {
+					api.toast({
+						msg : '不能关注自己'
+					});
+					$api.closeloadding();
+					return false;
+				}
+				$api.post(phpurl + 'Activity/addFriend', {
+					values : {
+						user_id : userid,
+						touserid : id
+					}
+				}, function(ret) {
+					if (ret.code == 200) {
+						api.toast({
+							msg : '关注成功'
+						});
+						getDon();
+						$api.closeloadding();
+					} else {
+						$api.closeloadding();
+					}
+				});
+				event.stopPropagation();
+			}
+			$scope.checkeBigPic = function(index) {
+				var imageBrowser = api.require('imageBrowser');
+				var imgurls = $scope.Obj.images.split(',');
+				var resultImg = [];
+				for (var i = 0; i < imgurls.length; i++) {
+					resultImg.push(Imageurl + imgurls[i]);
+				}
+				imageBrowser.openImages({
+					imageUrls : resultImg,
+					activeIndex : index
+				});
+			}
+			$scope.zan = function(dynamicid) {
+				$api.loadding(api.frameName, 0);
+				$api.post(phpurl + 'CircleTalk/addLike', {
+					values : {
+						user_id : userid,
+						circletalk_id : dynamicid
+					}
+				}, function(ret) {
+					if (ret.code == 200) {
+						api.toast({
+							msg : '点赞成功'
+						});
+						//	                $scope.Obj.isdan = 1;
+						//	                $scope.$apply();
+						getDon();
+						$api.closeloadding();
+					} else {
+						$api.closeloadding();
+					}
+				});
+				event.stopPropagation();
+			}
+			$scope.zan1 = function() {
+				api.toast({
+					msg : '不能重复点赞哦'
+				});
+				event.stopPropagation();
+			}
+			$scope.sonZan = function(replayid, xs) {
+//				$api.loadding(api.frameName, 0);
+				$api.post(phpurl + 'CircleTalkReply/addLike', {
+					values : {
+						circletalkreply_id : replayid,
+						user_id : userid
+					}
+				}, function(ret, err) {
+					if (ret.code == 200) {
+						api.toast({
+							msg : '点赞成功'
+						});
+						$scope.sonTalk[xs].isdian = 1;
+						$scope.sonTalk[xs].likenum = parseInt($scope.sonTalk[xs].likenum) + 1;
+						$scope.$apply();
+						$api.closeloadding();
+					} else {
+						$api.closeloadding();
+					}
+				})
+				event.stopPropagation();
+			}
+			$scope.goDianZanList = function(dynamicid) {
+				openW({
+					frm_url : 'frame2/dian_zan_lie_biao.html',
+					title : '点赞列表',
+					data : {
+						dynamic_id : dynamicid
+					}
+				});
+			}
+			var circletalk_id;
+			function getDon() {
+				$api.post(phpurl + 'CircleTalk/getTalkDetail', {
+					values : {
+						circletalk_id : circletalk_id,
+						user_id : userid
+					}
+				}, function(ret) {
+					var code = ret.code;
+					if (code == 200) {
+						ret.obj.sumbimages = ret.obj.sumbimages.split(',');
+						$scope.Obj = ret.obj;
+						$scope.likeList = ret.likelist;
+						$scope.$apply();
+						
+						
+						//			        $api.closeloadding();
+						setTimeout(function() {
+							$scope.img_h = (api.winWidth - 12) * 0.32;
+							$('.sumbimages').jqthumb({
+								width : $scope.img_h,
+								height : $scope.img_h,
+								after : function(imgObj) {
+									imgObj.css('opacity', 0).animate({
+										opacity : 1
+									}, 500)
+								}
+							});
+						}, 10)
+						set_img_margin();
+					}
+				});
+			}
+
+
+			EventT.on('apiready', function() {
+				if (api.systemType == 'ios') {
+					$('body').addClass('ios')
+				}
+			
+				circletalk_id = api.pageParam.data.dynamic_id;
+				getDon();
+				$scope.Foc = function() {
+					level = 0;
+					parent_id = 0;
+				}
+				$scope.Blu = function() {
+					$('#content').attr('placeholder', "说点什么吧");
+				}
+				$scope.faTalk = function(par_id, name) {
+					parent_id = par_id;
+					level = 1;
+					$('#content').attr('placeholder', "回复" + name);
+					$('#content').focus();
+				}
+				getChildTalk(0);
+				$api.up(function(page, callback) {
+					getChildTalk(page, function(ret) {
+						callback && callback(ret);
+					})
+				})
+				$api.pull(function(callback) {
+					getChildTalk(0, function() {
+						callback && callback();
+					})
+				})
+				//获取子评论
+				function getChildTalk(page, callback) {
+					$api.post(phpurl + 'CircleTalkReply/getReplyList', {
+						values : {
+							circletalk_id : circletalk_id,
+							page : page,
+							user_id : userid
+						}
+					}, function(ret) {
+						if (ret.code == 200) {
+							if (ret.result.length > 0) {
+								if (page == 0) {
+									$scope.sonTalk = [];
+								}
+								$scope.sonTalk = $scope.sonTalk.concat(ret.result);
+								$scope.$apply();
+								//							$api.closeNoDate();
+							} else if (ret.result.length <= 0 && page == 0) {
+								//							$api.noDate();
+							}
+							$api.closeloadding();
+						} else {
+							$api.closeloadding();
+						}
+						callback && callback(ret);
+					});
+				}
+
+
+				$scope.fabu = function() {
+					var neiRong = $('#content').val();
+					if (neiRong == '') {
+						api.toast({
+							msg : '请输入评论内容'
+						});
+						return false;
+					}
+					var regu = "^[ ]+$";
+					var re = new RegExp(regu);
+					if(re.test(neiRong)){
+						api.toast({
+							msg : '请输入评论内容'
+						});
+						return false;
+					}
+//					$api.loadding(api.frameName, 2);
+					$api.post(phpurl + 'CircleTalkReply/addTalk', {
+						values : {
+							circletalk_id : circletalk_id,
+							content : neiRong,
+							level : level,
+							user_id : userid,
+							parent_id : parent_id
+						}
+					}, function(ret) {
+						var code = ret.code;
+						if (code == 200) {
+							api.toast({
+								msg : '已发送'
+							});
+							$('#content').val('');
+							getChildTalk(0);
+							getDon();
+//							$api.closeloadding();
+						}
+					})
+				}
+			})
+		})
+		var userid;
+		apiready = function() {
+		userid=$api.getStorage('user_id');
+//			changeTheme();
+			EventT.emit('apiready', {
+				noload : true
+			});
+		}
+		function set_img_margin() {
+			var img = $api.domAll('.zan_lie_biao img');
+			for (var i = 0, l = img.length; i < l; i++) {
+				img[i].style.cssText = 'left:-' + i * 10 + 'px; z-index:' + (l - i);
+			}
+		}
+		function huaTi(id) {
+			openW({
+				frm_url : 'frame2/hua_ti_xiang_qing.html',
+				title : '话题详情',
+				data : {
+					is_win : false,
+					topic_id : id
+				}
+			});
+			event.stopPropagation();
+		}
+		function dongTai(id) {
+			openW({
+				frm_url : 'frame2/dong_tai_xiang_qing.html',
+				title : '动态详情',
+				data : {
+					dynamic_id : id
+				}
+			})
+		}
+	</script>
+</html>

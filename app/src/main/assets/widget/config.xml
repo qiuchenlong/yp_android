@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6093226204726" version="0.0.1">
+  <!-- A6910314497444 -->
+  <!-- A6093226204726 -->
+  <name>模块测试x</name>
+  <description/>
+  <author email="lubai_hong@163.com" href="http://www.apicloud.com">放飞科技</author>
+  <content src="index.html"/>
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>
+  <preference name="windowBackground" value="rgba(0,0,0,0)"/>
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/>
+  <preference name="autoLaunch" value="true"/>
+  <preference name="autoUpdate" value="true"/>
+  <preference name="smartUpdate" value="false"/>
+  <preference name="debug" value="false"/>
+  <preference name="appCertificateVerify" value="false"/>
+  <preference name="statusBarAppearance" value="true"/>
+  <permission name="location"/>
+  <permission name="internet"/>
+  <access origin="*"/>
+  <feature name="aliPay">
+    <param name="urlscheme" value="AliPay + A6903071794713"/>
+  </feature>
+  <feature name="wx">
+    <param name="urlScheme" value="wx5aa686959aa89f63"/>
+    <param name="apiKey" value="wx5aa686959aa89f63"/>
+    <param name="apiSecret" value="67a4436629a0feeae9f88f065951970d"/>
+  </feature>
+  <feature name="weiXin">
+    <param name="urlScheme" value="wx5aa686959aa89f63"/>
+    <param name="apiKey" value="wx5aa686959aa89f63"/>
+    <param name="apiSecret" value="67a4436629a0feeae9f88f065951970d"/>
+  </feature>
+  <feature name="smsVerify">
+    <param name="android_app_key" value="1336b3755db49"/>
+    <param name="android_app_secret" value="f71001c9c037809d79c12f96814cc1a6"/>
+    <param name="ios_app_key" value="1336be743ac77"/>
+    <param name="ios_app_secret" value="bb5193e925e8c8695f6d241460c8556a"/>
+  </feature>
+  <feature name="UIMediaScanner"/>
+  <feature name="imageBrowser"/>
+  <feature name="imageFilter"/>
+  <feature name="fs"/>
+  <feature name="ajpush">
+    <param name="app_key" value="6604e334608ced70e6da08d8"/>
+    <!-- 6d98f9ee8b62db0ca01efeca -->
+    <param name="channel" value="6ec51a2e688f9e136a69ffd4"/>
+    <!-- 672ae23a8768323dc3dce840 -->
+  </feature>
+</widget>

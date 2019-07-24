@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../src/css/icon/iconfont.css" />
+    <script src="../src/library/zepto.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />-->
+    <script>
+        const REM = {max : 640, min : 320, px : 100};
+        $(window).on('resize', function() {
+            let w = $(this).width();
+            if (w < REM.min) {
+                w = REM.min;
+            } else if (w > REM.max) {
+                w = REM.max;
+            }
+            $('html').css('font-size', REM.px * w / REM.max + 'px');
+        }).trigger('resize');
+    </script>
+    <style>
+        html, body{
+            background: #fff;
+        }
+        [ng-cloak]{display: none !important;}
+        .m-myBookrack{
+            /*padding: 30px 10px 10px;*/
+            color: #fff;
+            /*background: linear-gradient(180deg, #00faff, #83b0ff);
+            background: -moz-linear-gradient(180deg, #00faff, #83b0ff);
+            background: -o-linear-gradient(180deg, #00faff, #83b0ff);*/
+            background: linear-gradient(180deg, #f93a3a, #732121);
+            background: -moz-linear-gradient(180deg, #f93a3a, #732121);
+            background: -o-linear-gradient(180deg, #f93a3a, #732121);
+        }
+        .m-myBookrack .nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.54rem 0.2rem 0.2rem;
+            position: fixed;
+            top:0;
+            width: calc(100% - 20px);
+            z-index: 100;
+        }
+        .m-myBookrack .nav .iconfont{
+            font-size: 0.4rem;
+        }
+        .m-myBookrack .nav .left{
+            font-size: 16px;
+        }
+        .m-myBookrack .nav .hint{
+            width: 4px;
+            height: 4px;
+            background: #ff3a13;
+            border-radius: 50%;
+            position: absolute;right: 0;top: 0;
+        }
+        .myBookracck_body_icon{
+            position: absolute;
+            top: 0.2rem;
+            right: -28px;
+            padding: 3px;
+            border: 1px solid;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+        .m-myBookrack .body{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .m-myBookrack .body .money{
+            position: relative;
+            font-size: 1rem;
+        }
+        .u-flex_aic, .m-myBookrack .ft, .m-myBookrack .ft .left{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .m-myBookrack .ft{
+            font-size: 14px;
+            padding: 14px 10px;
+        }
+        .m-myBookrack .ft .discover{
+            border: 1px solid;
+            line-height: 1.6;
+            border-radius: 1.8em;
+            padding: 0 1em;
+        }
+        .m-swiper{
+            position: absolute;
+            background: #fff;
+            color: #007ac3;
+            line-height: 2;
+            left: 0;
+            margin: 0 10px;
+            width: calc(100% - 48px);
+            border-radius: 2em;
+            font-size: 12px;
+            padding: 0 14px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+        }
+        .booksList2{
+            margin-top: 20px;
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+        .booksList2 li{
+            padding: 10px;
+        }
+        .booksList2 li:not(:first-child){
+            border-top:1px dashed #f1f1f1;
+        }
+        .booksList2 .bookInfo, .booksList2 .right{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .booksList2 .booksName{
+            font-size: 14px;
+            color: #232323;
+        }
+        .booksList2 .js-start{
+            width: 2.5em;
+            text-align: center;
+            margin: 3px 0 0 auto;
+        }
+        .booksList2 .current{
+            background: red;
+            color: #fff;
+        }
+        .ellipsis{
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .m-base{height: 1.14rem;}
+        .bookSelect{
+            display: none;
+            font-size: 0.5rem;
+            margin-right: 0.1rem;
+        }
+        .bookAcitve{
+            color: #ff5d02;
+        }
+        .js-showManage{
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            max-width: 750px;
+            text-align: center;font-size: 0.3rem;line-height: 2;border: 1px solid #ccc;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body ng-controller="DataController">
+<section class="m-myBookrack">
+    <div class="m-base"></div>
+    <div class="nav">
+        <div class="left" style="position: relative;">
+            <!--<div class="iconfont icon-wode"></div>-->
+            <img class="frame1_my" src="../image/my_fff.png" alt="" onclick="myfile()" style="width: 0.42rem;height: 0.42rem;vertical-align: middle;border-radius: 50%">
+            <span class="hint"></span>
+        </div>
+        <div class="right u-flex_aic">
+            <span class="iconfont icon-sousuo" style="margin-right: 10px;" onclick="sousuo()"></span>
+            <span onclick="manage()" style="    font-size: 0.3rem;">编辑</span>
+            <!--<span class="iconfont icon-shezhi" onclick="manage()"></span>-->
+        </div>
+    </div>
+    <div class="body">
+        <span class="money" ng-cloak="--">{{ userData.readtime || '0' }}<!--<span class="iconfont icon-libao myBookracck_body_icon"></span>--></span>
+        <p style="    font-size: 12px;color: #caca05;">新用户囤书券，累计阅读/分钟</p>
+    </div>
+    <div class="ft">
+        <div class="left">
+            <span>今日奖励：</span>
+            <p ng-cloak>{{daijin}} 券</p>
+        </div>
+        <div class="right">
+            <span class="discover" ng-click="qiandao()">{{ qiandaoStr || '签到' }}</span>
+        </div>
+    </div>
+    <div class="m-swiper" style="align-items: center;" ng-repeat="item in recList" ng-click="bookdetail(item.articleid)">
+        <div style="display: flex;align-items: center;">
+            <i class="iconfont icon-tuijian" style="color:#f52929;    margin-right: 0.5em;"></i>
+            <span>{{item.title}}</span>
+        </div>
+        <i class="iconfont icon-signboard_right"></i>
+    </div>
+    <div style="height: 13px;"></div>
+</section>
+<!--轮播-->
+<!--<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" ng-repeat="sys in sysList" ng-click="sysDe(sys.id)">{{sys.title}}</div>
+    </div>
+</div>-->
+<!-- 目录 -->
+<!--	<div class="frame1_mulu">
+		<p class="js-mulu js-mulu-c current" id="bj">整理书籍</p>
+		<p class="js-mulu" id="his">阅读历史</p>
+		<p class="js-mulu js-mulu-c" id="bookShow">九宫格展示</p>
+	</div>-->
+<!--书架列表-->
+<!--<ul class="list">
+    <li ng-repeat="b in bookList">
+        <div class="cover">
+            <span class="select" data="{{b.caseid}}"></span>
+            <div class="bd"></div>
+            <img src="{{imgurl + b.images}}" ng-click="bookdetail(b.articleid)" />
+        </div>
+        <p>{{b.articlename}}</p>
+    </li>
+</ul>-->
+<div class="booksList2" style="    margin-top: 20px;">
+    <ul class="ul">
+        <!--<li class="clearfix" ng-repeat="b in bookList">
+            <span class="bookSelect" data="{{b.caseid}}"></span>
+            <div class="bookCover">
+                <img src="{{imgurl + b.images}}" />
+            </div>
+            <div class="bookInfo" ng-click="bookdetail(b.articleid)">
+                <p class="booksName">{{b.articlename}}</p>
+                <p class="txt">
+                    {{b.intro}}
+                </p>
+                <div class="author">
+						<span>
+							<i class="iconfont">
+								<img src="../image/authors.png" />
+							</i>
+							{{b.author}}
+						</span>
+                    <span class="labels">
+							{{b.shortname}}
+						</span>
+                    <span class="label">
+							{{(b.size/20).toFixed(1)}}万字
+						</span>
+                </div>
+            </div>
+        </li>-->
+        <li class="u-flex_aic" ng-repeat="b in bookList" ng-cloak>
+            <div class="left u-flex_aic">
+                <span class="iconfont icon-xuanxiang bookSelect" data="{{b.caseid}}"></span>
+                <img style="width: 60px;margin-right: 10px;flex-shrink:0" src="{{imgurl + b.images}}" ng-click="bookdetail(b.articleid)"/>
+                <div class="bookInfo" style="width: 14em" ng-click="yuedu(b.articleid, b.text)">
+                    <p class="booksName ellipsis">{{b.articlename}}</p>
+                    <p class="ellipsis" style="padding-top: 16px;">更新至：{{b.lastchapter }}</p>
+                </div>
+            </div>
+            <div class="right">
+                <p class="js-start" ng-if="b.read == 1">读过</p>
+                <p class="js-start" ng-if="b.read == 0" style="color:red;">未读</p>
+                <p style="padding-top: 17px;">{{b.lastvisit}}</p>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="ft js-showManage" style="display: none;">
+    <div class="ft_bt" ng-click="shanchu()" style="color:red;">
+        删除
+    </div>
+    <p onclick="closeManage()">退出管理书籍</p>
+</div>
+
+<div class=""></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+<script src="../script/swiper.min.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script type="text/javascript">
+    var userid;
+    var user_head;
+    apiready = function() {
+        userid = $api.getStorage('user_id');
+        //判断弹框是否有选择showType
+        // var showType; //$api.getStorage('showType');
+        // console.log(showType)
+        /*if (showType) {
+            $('#bookShow').text(showType);
+        } else {
+            $('#bookShow').text('列表展示');
+        }*/
+        /*api.addEventListener({
+            name : 'show_Way',
+        }, function(ret, err) {
+            var showType = $api.getStorage('showType');
+            if (showType) {
+                $('#bookShow').text(showType);
+            } else {
+                $('#bookShow').text('列表展示');
+            }
+            var status = ret.value.status;
+            // alert(status);
+            caseid = '';
+            //书籍列表或九宫格样式切换
+            if (status == 1) {
+                $('.list').css('display', 'none');
+                $('.booksList2').css('display', 'block');
+            } else {
+                $('.list').css('display', 'block');
+                $('.booksList2').css('display', 'none');
+            }
+        });*/
+        // $api.fixStatusBar($api.dom('header'));
+        //书籍列表或九宫格样式切换
+        /*if (showType == '列表展示') {
+            $('.list').css('display', 'none');
+            $('.booksList2').css('display', 'block');
+        } else {
+            $('.list').css('display', 'block');
+            $('.booksList2').css('display', 'none');
+            $('.list').css('display', 'none');
+            $('.booksList2').css('display', 'block');
+        }*/
+        //监听登录情况，一旦登录成功刷新头像
+        api.addEventListener({
+            name : 'usershuas',
+        }, function(ret, err) {
+            user_head = $api.getStorage('user_head');
+            if (user_head == '' || user_head == 'touxiang.png') {
+                $('.frame1_my').attr('src', '../image/my_fff.png');
+            }
+            else {
+                $('.frame1_my').attr('src', imageUrl + user_head);
+            }
+        });
+        //书籍被整理时的样式
+        api.addEventListener({
+            name : 'bbook', // 整理书籍
+        }, function(ret, err) {
+            complete = false;
+            $('.ft').css('display', 'block');
+            $('.cover').addClass('active');
+            $('.bookSelect').css('display', 'block');
+        });
+        //书籍整理完成
+        api.addEventListener({
+            name : 'bok', // 完成
+        }, function(ret, err) {
+            complete = true;
+            $('.ft').css('display', 'none');
+            $('.cover').removeClass('active');
+            $('.bookSelect').css('display', 'none');
+        });
+        //全选
+        api.addEventListener({
+            name : 'quanxuan',
+        }, function(ret, err) {
+            $('.select').addClass('active');
+            $('.bookSelect').addClass('bookAcitve');
+        });
+        EventT.emit('apiready');
+    };
+    //背景颜色
+    $('.js-mulu-c').on('click', function() {
+        $(this).addClass('current').siblings().removeClass('current');
+    });
+    /*$('.booksList2 ul li').click(function() {
+        alert(1);
+        if (!complete) {
+            var $mark = $(this).find('.bookSelect').hasClass('bookAcitve');
+            if ($mark) {
+                $(this).find('.bookSelect').removeClass('bookAcitve');
+            } else {
+                $(this).find('.bookSelect').addClass('bookAcitve');
+            }
+        } else {
+            api.openWin({
+                name : 'bookReader',
+                url  : 'frame1/bookReader.html',
+            });
+        }
+    })*/
+    var app = angular.module('myApp', []);
+    app.controller('DataController', function($scope) {
+        $scope.bookList = [];
+        $scope.sysList = [];
+        $scope.userData = [];
+        $scope.recList =[];
+        $scope.imgurl = imageUrl;
+        var user_head = $api.getStorage('user_head');
+        if (user_head != '' && user_head != 'touxiang.png' && user_head) {
+            $('.frame1_my').attr('src', imageUrl + user_head);
+        }
+        //公告轮播
+        function systemlst() {
+            $api.post(phpurl + 'Home/My/systemslst', function(ret) {
+                if (ret.code == 200) {
+                    $scope.sysList = ret.result;
+                    $scope.$apply();
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination          : '.swiper-pagination',
+                        paginationClickable : true,
+                        direction           : 'vertical',
+                        autoplay            : 3000,
+                        speed               : 1000,
+                    });
+                }
+            });
+        }
+        function gate() {
+            //获取书架列表
+            $api.post(phpurl + 'Home/My/mybookcase?user_id=' + userid, function(ret) {
+                if (ret.code == 200) {
+                    //				alert($api.jsonToStr(ret.result));
+                    $scope.bookList = ret.result;
+                    // console.log(JSON.stringify($scope.bookList))
+                    $scope.$apply();
+                    // $api.closeloadding();//关闭加载
+                }
+                $('.bookSelect').click(function() {
+                    var id = $(this).attr('data');
+                    var isH = $(this).hasClass('bookAcitve'); //有bookAcitve表示已经勾选
+                    if (isH) {
+                        var tuih = ',' + id;
+                        // console.log(tuih)
+                        caseid = caseid.replace(tuih, '');
+                        // console.log(caseid)
+                        $(this).removeClass('bookAcitve');
+                    } else {
+                        caseid += ',' + id;
+                        $(this).addClass('bookAcitve');
+                    }
+                    event.stopPropagation();
+                });
+                $('.select').click(function() {
+                    var id = $(this).attr('data');
+                    var isH = $(this).hasClass('active');
+                    if (isH) {
+                        var tuih = ',' + id;
+                        caseid = caseid.replace(tuih, '');
+                        $(this).removeClass('active');
+                    } else {
+                        caseid += ',' + id;
+                        $(this).addClass('active');
+                    }
+                    event.stopPropagation();
+                });
+            });
+            //获取用户信息
+            $api.post(phpurl + 'Home/User/faxian?', {
+                values : {
+                    user_id : userid,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    $scope.userData = ret.result;
+                    $scope.$apply();
+                }
+            });
+            //推荐书籍
+            $api.post(phpurl + 'Home/My/adsystem',function(ret) {
+                if (ret.code == 200) {
+                    $scope.recList = ret.data;
+                    $scope.$apply();
+                }
+            })
+        }
+        //删除
+        $scope.shanchu = function() {
+            if (caseid == '') {
+                $api.toast('请选择要删除的书本');
+            }
+            $api.post(phpurl + 'Home/My/delbookcase?caseid=' + caseid, {
+                values : {},
+            }, function(ret) {
+                $api.toast('已删除');
+                gate();
+                api.sendEvent({
+                    name : 'bok',
+                });
+            });
+        };
+        EventT.on('apiready', function() {
+            systemlst();
+            api.addEventListener({ //章节阅读
+                name : 'shua_shujia',
+            }, function(ret, err) {
+                gate();
+            });
+            gate();
+            judgeQiandao();
+        });
+        //书籍详情
+        $scope.bookdetail = function(dates) {
+            $('.bookSelect').hide();
+            $('.js-showManage').hide();
+            api.openWin({
+                name      : 'win_headerfdsaf',
+                url       : 'dtail.html',
+                pageParam : {
+                    data     : {
+                        bookid : dates,
+                    },
+                },
+            });
+        };
+        $scope.sysDe = function(dates) {
+            api.openWin({
+                name      : 'win_headsys',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : 'sys_detail',
+                    frm_url  : 'frame2/sysDetails.html',
+                    title    : '信息详情',
+                    data     : {
+                        sysid : dates,
+                    },
+                },
+            });
+        };
+        //判断签到
+        function judgeQiandao() {
+            $api.post(phpurl + "/Home/Qiandao/qiandao?", {
+                values : {
+                    user_id : userid
+                }
+            }, function(ret) {
+                $scope.cishu = ret.cishu;
+                $scope.daijin = ret.daijin;
+                if (ret.code == 200) {
+                    $scope.qiandaoStr = '签到';
+                } else if (ret.code == 220) {
+                    $scope.qiandaoStr = '已签到';
+                }
+                $scope.$apply();
+                // $api.closeloadding(); //关闭加载
+            })
+            // $api.closeloadding(); //关闭加载
+        }
+        //签到
+        $scope.qiandao = function() {
+            if (!userid){
+                api.toast({
+                    msg : '你还未登录'
+                })
+            }
+            else{
+                $api.post(phpurl + "Home/Qiandao/qiandaoj?", {
+                    values : {
+                        user_id : userid
+                    }
+                }, function(ret) {
+                    if (ret.code == 200) {
+                        api.toast({
+                            msg : '签到成功'
+                        })
+                    } else if (ret.code == 220) {
+                        api.toast({
+                            msg : '您已经签到过了哦，请明天再来吧'
+                        })
+                    }
+                    judgeQiandao();
+                    // $api.closeloadding(); //关闭加载
+                })
+                // $api.closeloadding(); //关闭加载
+            }
+        }
+        //阅读
+        $scope.yuedu = function(bookid,wenben) {
+            $('.js-showManage').hide();
+            api.openWin({
+                name      : 'bookRead',
+                url       : 'readbook.html',
+                pageParam : {
+                    bookid : bookid,
+                    sort   : 0,
+                    t      : wenben,
+                },
+            });
+        }
+    });
+    var status = 1;
+    var userid = 1,
+        caseid = ''; // 默认1
+    var complete = true; // 时候点击了整理图书标记，在点击删除和完成时恢复为true
+    function shuji() {
+        api.openWin({
+            name : 'win_he_shu',
+            url  : 'dtail.html',
+        });
+    }
+    $('.markbox').click(function() {
+        api.closeFrame({
+            name : 'choosebianj',
+        });
+    });
+    //整理书籍
+    $('#bj').click(function() {
+        var zl = $(this).hasClass('zhengli');
+        if (zl) {
+            $(this).removeClass('zhengli');
+            api.sendEvent({
+                name : 'bok',
+            });
+        } else {
+            $(this).addClass('zhengli');
+            api.sendEvent({
+                name : 'bbook',
+            });
+        }
+        //		    api.closeFrame({
+        //          });
+    });
+    //打开阅读历史窗口
+    $('#his').click(function() {
+        //		    api.closeFrame({
+        //          });
+        api.openWin({
+            name      : 'win_headerfdsaf',
+            url       : 'frame1/readHistory_win.html',
+            pageParam : {
+                frm_name : 'goods_detail25655',
+                frm_url  : 'readHistory.html',
+                title    : '阅读历史',
+            },
+        });
+    });
+    //text 列表及九宫格切换
+    $('#bookShow').click(function() {
+        var status;
+        if ($(this).text() == '列表展示') {
+            $(this).text('九宫格展示');
+            $api.setStorage('showType', '九宫格展示');
+            status = 2;
+        } else {
+            $(this).text('列表展示');
+            $api.setStorage('showType', '列表展示');
+            status = 1;
+        }
+        api.sendEvent({
+            name  : 'show_Way',
+            extra : {
+                status : status,
+            },
+        });
+        //		 	api.closeFrame({name:'choosebianj'});
+    });
+    //头部滚动变色
+    $(window).on('scroll', function() {
+        //scroll
+        var t = $(this).scrollTop();
+        if (t > 28) {
+            $('.m-myBookrack .nav').addClass('js-nav_bg');
+        } else {
+            $('.m-myBookrack .nav').removeClass('js-nav_bg');
+        }
+    });
+    function manage() {
+        $('.js-showManage').show();
+        $('.bookSelect').show();
+    }
+    function closeManage() {
+        $('.js-showManage').hide();
+        $('.bookSelect').hide();
+    }
+    function sousuo() {
+        api.openWin({
+            name : 'win_header_fdsaf',
+            url  : 'frame0/seek_win.html',
+        });
+    }
+    //打开左侧
+    function myfile() {
+        api.openDrawerPane({
+            type : 'left',
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp" >
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" id="css" href="../../css/theme.css">
+		<style>
+			body {
+				background: #fff;
+			}
+			.tian_jia_tu_pin {
+				padding: 10px 10px;
+			}
+			.ni_rong {
+				width: 100%;
+				height: 200px;
+				padding: 0 10px 10px;
+				line-height: 22px;
+				font-size: 12px;
+				resize: none;
+				box-sizing: border-box;
+			}
+			.tian_jia_tu_pin ul li {
+				width: 80px;
+				height: 80px;
+				margin: 10px 10px 0 0;
+				display: inline-block;
+				position: relative;
+				box-sizing: border-box;
+				border: 1px dashed #999;
+			}
+			.delete:after, .tian_jia_tu_pin ul li:after {
+				content: '';
+				position: absolute;
+				width: 50%;
+				height: 2px;
+				background-color: #999;
+				left: 25%;
+				top: 50%;
+				margin-top: -1px;
+			}
+			.delete:before, .tian_jia_tu_pin ul li:before {
+				content: '';
+				position: absolute;
+				height: 50%;
+				width: 2px;
+				background-color: #999;
+				top: 25%;
+				left: 50%;
+				margin-left: -1px;
+			}
+			.delete {
+				background: #fff;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				position: absolute;
+				right: -10px;
+				top: -10px;
+				z-index: 12;
+				border: 1px solid #999;
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+			}
+			.tian_jia_tu_pin ul li img {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				z-index: 5;
+			}
+			.tian_jia_tu_pin ul li img[src=""] {
+				display: none;
+			}
+			.an_niu_lie_biao {
+				line-height: 30px;
+				font-size: 14px;
+				padding: 0 10px;
+				color: #777;
+				border-bottom: 1px solid #eee;
+			}
+			.an_niu_lie_biao span {
+				margin: 0 5px;
+			}
+			.ding_wei .icon-dingwei {
+				margin-right: 4px;
+			}
+			.ding_wei {
+				font-size: 10px;
+			}
+			.an_niu_lie_biao .an_niu {
+				width: 20px;
+				height: 20px;
+				margin-top: 3px;
+				color: #fff;
+				line-height: 20px;
+				text-align: center;
+				border-radius: 50%;
+				background: rgb(102,102,102);
+			}
+			.an_niu_lie_biao .num {
+				float: right;
+			}
+			body {
+				margin-bottom: 70px;
+			}
+			.footer {
+				position: fixed;
+				bottom: 10px;
+				left: 0;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 10px;
+				z-index: 12;
+			}
+			.btn {
+				display: block;
+				width: 100%;
+				color: rgb(51,51,51);
+				line-height: 42px;
+			}
+			.content {
+				position: relative
+			}
+			.content .hua_ti {
+				position: absolute;
+				left: 10px;
+				top: 10px;
+				word-break: break-all;
+				line-height: 22px;
+				font-size: 12px;
+			}
+			.di_zhi span {
+				padding: 2px 10px;
+				border-radius: 5px;
+				line-height: 18px;
+				font-size: 12px;
+				margin: 10px 5px;
+			}
+			.chooseQz {
+				padding: 0 30px 0 10px;
+				font-size: 12px;
+				line-height: 40px;
+				color: #787878;
+				position: relative
+			}
+			.chooseQz input {
+				width: 100%;
+			}
+			.chooseQz .icon-icon07 {
+				width: 20px;
+				line-height: 40px;
+				text-align: center;
+				position: absolute;
+				right: 10px;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body ng-controller="LoctionController">
+<!--		<div class="chooseQz" ng-if="!circle_id" onclick="chooseQ()" >
+			<input type="text" value="{{ quan_zi_name || '点击选择所属部落,如果不选择就默认发自己的动态' }}" readonly="readonly"/>
+			<i class="iconfont icon-icon07"></i>
+		</div>-->
+		<div class="content">
+			<!--<span class="hua_ti apptxtcolor" ng-show="hua_ti">{{ '#'+hua_ti+'#' }}</span>-->
+			<textarea class="ni_rong"  name="" id="msg" cols="30" rows="10" maxlength='300' placeholder='这一刻的想法'></textarea>
+		</div>
+		<div class="an_niu_lie_biao">
+			<!--<span class="ding_wei" onclick="chooseAddress()"><i class="iconfont icon-dingwei"></i>显示位置</span>-->
+			<!--<span class="an_niu tian_jia_hua_ti" onclick="open_xuan_ze_hua_ti()">#</span>-->
+			<!--<span class="an_niu" onclick="at_hao_you();">@</span>-->
+			<span class="num"><span id="ziShu">0</span>/300</span>
+		</div>
+		<!--<div class="di_zhi">
+			<span class="appbackground" ng-show="di_zhi">{{ di_zhi }}</span>
+		</div>
+		<div class="di_zhi" onclick="at_hao_you();">
+			<span class="appbackground" ng-repeat="x in at_user">{{ x.name }}</span>
+		</div>-->
+		<div class="tian_jia_tu_pin">
+			<ul>
+				<li ng-repeat="i in img_url track by $index" ng-show="i"><img src="{{ i }}" alt=""><i class="delete" ng-click="deleteImg( $index)"></i>
+				</li>
+				<li class="add" ng-show="img_url.length!=9" ng-click="getImg()" ><img src="" alt="">
+				</li>
+			</ul>
+		</div>
+		<!-- <footer class="footer">
+		<button class="btn appbackground submit">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+		</footer>-->
+	</body>
+		<script type="text/javascript" src="../../script/quanzi/api.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/common.js"></script>
+	<script type="text/javascript" src="../../script/quanzi/selectImage.js"></script>
+	<script src="../../script/quanzi/angular.min.js"></script>
+	<script src="../../script/quanzi/ev.js"></script>
+	<script>
+		$('#msg').on("keyup", function() {
+			var count = $(this).val().length;
+			$("#ziShu").html(count);
+		})
+		var circle_id = '', hua_ti_id = 0,userid, di_zhi = {}, at_userid = [], at_hao_you_id = [];
+		apiready = function() {
+		userid=$api.getStorage('user_id');
+			circle_id = api.pageParam.data.cid;
+			EventT.emit('apiready', {
+				noload : true
+			});
+		}
+		var app = angular.module("myApp", []);
+		app.controller('LoctionController', ['$scope',
+		function($scope) {
+			$scope.quan_zi_name = '';
+			$scope.circle_id = '';
+			EventT.on('apiready', function() {
+			
+				$scope.circle_id = circle_id;
+				$scope.$apply();
+				if (api.pageParam.type == 'hua_ti') {
+					hua_ti_id = api.pageParam.topic_id;
+					set_hua_ti(api.pageParam.topic_name);
+					$('.tian_jia_hua_ti').css('opacity', '0.5');
+					open_xuan_ze_hua_ti = function() {
+					};
+				}
+				api.addEventListener({
+					name : 'xuan_ze_hua_ti'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+						hua_ti_id = ret.value.topic_id;
+						set_hua_ti(ret.value.content);
+					}
+				});
+				api.addEventListener({
+					name : 'xuan_ze_quan_zi'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+						circle_id = ret.value.id;
+						$scope.quan_zi_name = ret.value.name;
+						$scope.$apply();
+					}
+				});
+				api.addEventListener({
+					name : 'sLoction'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+						di_zhi = ret.value;
+						$scope.di_zhi = di_zhi.location;
+						$scope.$apply();
+					};
+				});
+				api.addEventListener({
+					name : 'at_hao_you'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+						$scope.at_user = ret.value.data;
+						at_hao_you_id = ret.value.id;
+						$scope.$apply();
+					};
+				});
+				
+				api.addEventListener({
+					name : 'xin_zeng_dong_tao'
+				}, function(ret, err) {
+					submit();
+				});
+			});
+			$scope.img_url = [];
+			$scope.getImg = function() {
+				var selectimg = new selectImage(9 - $scope.img_url.length, function(data) {
+					$scope.img_url = $scope.img_url.concat(data);
+					$scope.$apply();
+				});
+				selectimg.upload();
+			}
+			$scope.deleteImg = function(i) {
+				$scope.img_url.splice(i, 1);
+			}
+			
+			function submit() {
+				var content = $api.trimAll($('.ni_rong').val());
+				content = $api.biao_dan_yan_zheng(content);
+				if (!content) {
+					$api.t('请输入帖子的内容');
+					return;
+				};
+				//			if(circle_id<1){
+				//				$api.t('请选择所属的部落！');
+				//				return ;
+				//			}
+				$api.loadding('loader', 0);
+//				var site = $api.getStorage('site') || {};
+
+				$api.post(phpurl + 'CircleTalk/addTalk', {
+					values : {
+						user_id : userid,
+						circle_id : circle_id || '', //部落 id
+						content : content, // 内容
+						//					可选的参数
+//						topic_id : hua_ti_id || 0, //话题id
+//						lon : di_zhi.lon || site.lon,
+//						lat : di_zhi.lat || site.lat,
+//						location : di_zhi.location,
+//						tips : at_hao_you_id + '',
+//						city : di_zhi.city || site.city
+					},
+					files : {
+						'file[]' : $scope.img_url
+					},
+				}, function(ret) {
+					$api.closeloadding();
+					if (ret && ret.code == 200) {
+						$api.t('创建成功！');
+						$api.send('addTalk');
+						setTimeout(api.closeWin, 1000)
+					} else {
+						$api.t('未知错误，无法创建')
+					};
+				});
+			};
+			function set_hua_ti(hua_ti) {
+				$scope.hua_ti = hua_ti;
+				$scope.$apply();
+				var h = $('.hua_ti').height(), p = 0;
+				if (h == 24) {
+					p = 0;
+				} else {
+					p = parseInt(h / 24) + 1
+				}
+				setTimeout(function() {
+					if (p) {
+						$('.ni_rong').css({
+							paddingTop : (h + 12) + 'px'
+						})
+					} else {
+						$('.ni_rong').css({
+							textIndent : ($('.hua_ti').width() + 10) + 'px'
+						})
+					}
+				}, 50);
+			}
+
+		}]);
+		function open_xuan_ze_hua_ti() {
+			openW({
+				frm_url : 'frame2/xuan_ze_hua_ti.html',
+				title : '选择话题',
+				data : {
+					circle_id : circle_id
+				}
+			})
+		}
+
+		function chooseAddress() {
+			openW({
+				frm_url : 'frame2/tian_jia_di_zhi.html',
+				title : '添加位置'
+			})
+		}
+
+		function at_hao_you() {
+			openW({
+				frm_url : 'frame2/at_hao_you.html',
+				title : '@好友',
+				data : {
+					r_txt : '<span onclick="api.sendEvent({ name:\'at_hao_you_wan_cheng\'})">完成</span>',
+					selectid : at_hao_you_id
+				}
+			})
+		}
+
+		function chooseQ() {
+			openW({
+				frm_url : 'frame2/xuan_ze_quan_zi.html',
+				title : '选择部落'
+			})
+		}
+	</script>
+</html>

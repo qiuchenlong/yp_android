@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <!--图标字体-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+<body ng-controller="DataController">
+<header class="detail_header js-nav_bg">
+    <i class="iconfont iconfont icon-xiangshangbiaoshi-copy" style="font-size: 0.32rem;width: 1.32rem;" onclick="fanhui()"></i>
+    <h1 class="h1">书评详情</h1>
+    <div class="right" style="    display: flex;align-items: center; width: 1.32rem;">
+        <i class="iconfont icon-fenxiang js-share" style="    font-size: 0.32rem;margin-left: 2em;"></i>
+        <!-- <i class="iconfont icon-fenxiang js-share" style="    font-size: 0.32rem;"></i>
+        <i class="iconfont icon-more-copy" style="font-size: 0.5rem;margin-left: 1em;"></i> -->
+    </div>
+</header>
+<div class="content">
+    <!--小说详头部-->
+    <div class="m-dtail_hd">
+        <!-- <div class="m-dtail_hd-bg" ng-style="{'background-image':'url('+ imgurl + dlist.images +')'}"> -->
+        <div class="top">
+            <div class="left">
+                <img src="{{imgurl + dlist.images}}" />
+            </div>
+            <div class="right">
+                <h2 class="h2">{{ dlist.articlename }}</h2>
+                <p class="author">{{ dlist.author }}</p>
+                <p>
+                    <span>{{(dlist.size/20).toFixed(1)}}万字</span>
+                    <span ng-if="dlist.articletype==3">（已完结）</span>
+                    <span ng-if="dlist.articletype!=3">（连载中）</span>
+                    <span style=" color: red; display: none;" id="yuedu">{{dlist.saleprice}}金币/每章</span>
+                </p>
+                <p style=" display:  flex;justify-content: space-between;">
+                        <span class="u-score">
+                            <span class="star"></span>
+                        </span>
+                    <span>{{dlist.pingluns}}人评分</span>
+                </p>
+                <p style=" display:  flex;justify-content: space-between;display: none;" id="goumai">
+                    <span>{{dlist.salenum}}人购买</span>
+                </p>
+            </div>
+            <!--<a class="iconfont icon-xiangshangbiaoshi-copy" style="margin-top: 15px;" href="javascript:;" onclick="fanhui();"></a>-->
+        </div>
+        <div class="m-dtail_hd-bg">
+          {{imgurl}}
+            <img src="{{imgurl + dlist.images}}" alt="">
+        </div>
+        <ul class="btnList">
+            <li class="li" ng-click="jiaru()">
+                <p class="num">{{ dlist.shoucangs || '0' }}</p>
+                <p class="type">收藏</p>
+            </li>
+            <i class="i"></i>
+            <li class="li">
+                <p class="num">{{ dlist.allvisit || '0' }}</p>
+                <p class="type">读过</p>
+            </li>
+            <i class="i"></i>
+            <li class="li">
+                <p class="num">{{ dlist.pingluns || '0' }}</p>
+                <p class="type">评论量</p>
+            </li>
+        </ul>
+        <!--<div class="button">
+            <a class="but_a" href="javascript:;" id="buy" style="display: none;">
+                <i class="iconfont icon-money"></i>
+                <i class="text">充值</i>
+            </a>
+            <i class="i">|</i>
+            <a class="but_a" href="javascript:;" ng-click="jiaru()">
+                <i class="iconfont icon-custom-love"></i>
+                <i class="text">收藏</i>
+            </a>
+            <i class="i">|</i>
+            <a class="but_a js-share" href="javascript:;">
+                <i class="iconfont icon-share"></i>
+                <i class="text">分享</i>
+                &lt;!&ndash; <div class="shareCover" style="display: none">
+                <div class="shareList">
+                    <ul>
+                        <li>
+                            <img src="../src/images/wechat@2x.png" alt="" />
+                            <br />
+                            facebook
+                        </li>
+                        <li>
+                           <img src="../src/images/pyq@2x.png" alt="" />
+                            <br />
+                            朋友圈
+                        </li>
+                        <li>
+                           <img src="../src/images/qq@2x.png" alt="" />
+                            <br />
+                            QQ好友
+                        </li>
+                        <li>
+                            <img src="../src/images/kj@2x.png" alt="" />
+                            <br />
+                            line
+                        </li>
+                        <li>
+                            <img src="../../image/weibo@2x.png" alt="" />
+                            <br />
+                            新浪微博
+                        </li>
+                    </ul>
+                    <div class="js-cancel">
+                        取消
+                    </div>
+                </div>
+            </div> &ndash;&gt;
+            </a>
+        </div>-->
+    </div>
+    <!--评论区-->
+    <div class="m-comment">
+        <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">评论</span>
+                </span>
+            <span class="right js-comment" href="javascript:;" style=" position: fixed; bottom: 40px; left: 40%; z-index: 1000; background: #fff;">
+                    我要评论</span>
+            <div class="comment-on">
+                <div class="u-hd_f">
+                    <span class="iconfont  icon-xiangshangbiaoshi-copy"></span>
+                    <span>书评区</span>
+                    <span></span>
+                </div>
+                <div class="comment_bd">
+                        <span class="u-score">
+                            <span class="star"></span>
+                        </span>
+                    <form class="comment_form" action="">
+                        <input type="text" placeholder="标题 （选填）">
+                        <textarea name="" id="plContentId" cols="30" rows="9" placeholder="写点什么吧亲爱的~" ng-model="spContent"></textarea>
+                    </form>
+                    <a class="comment_btn" href="javascript:;" ng-click="shuping(spContent)">发表书评</a>
+                    <a class="comment-close" href="javascript:;">
+                        <img src="../src/images/close_w.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bd">
+            <div class="u-comment" ng-repeat="pl in plList" id="uid">
+                <p class="comment_user">
+                        <span class="iconfont">
+                            <img ng-src="{{ imgurl + pl.uimg }}" alt="" src="" onerror="this.src='../image/my.png';this.onerror=null" style="width: 0.72rem;height: 0.72rem;border-radius: 50%;">
+                        </span>
+                    <span class="user_name">{{ pl.username }}</span>
+                    <span class="u-score">
+                            <span class="star" ng-style="{'width':'{{pl.xing*20}}%'}"></span>
+                        </span>
+                </p>
+                <p class="text">{{ pl.content }}</p>
+                <div class="foot">
+                    <p class="left">{{ pl.addtime }}</p>
+                    <p class="right">
+                        <i>
+                            <span ng-click="dianzan(pl.id)">点赞</span>
+                            <span class="nmb">{{ pl.likes }}</span>
+                        </i>
+                        <i class="js-reply" onclick="jubao()">
+                            <span>举报</span>
+                            <span class="nmb">0</span>
+                        </i>
+
+<!-- {{ pl.user_id }}, {{uid}} -->
+                        <!-- 如果是自己的评论，显示删除按钮 -->
+                        <!-- <script>
+                        <if condition="{{ pl.user_id }} eq {{uid}} ">
+                            <i class="" onclick="alert('1')">
+                                <span>删除</span>
+                            </i>
+                        <else />
+                            <span>111111</span>
+                        </if>
+                        </script> -->
+
+
+                            <i ng-if="pl.user_id==uid" class="" ng-click="delete($index, pl.id)">
+                                <span>删除</span>
+                            </i>
+
+
+                        <!-- {% if {{ pl.user_id }} == {{uid}} %}
+                            <i class="" onclick="alert('1')">
+                                <span>删除</span>
+                            </i>
+                        {% else %}
+                            <span>111111</span>
+                        {% endif %} -->
+
+                    </p>
+                </div>
+                <!--<div class="u-reply reply_on">
+                <form class="reply_form" action="">
+                    <h4 class="h4">
+                        <img src="../src/images/close_green.png" alt="">
+                        <span>写回复</span>
+                        <img src="../src/images/send_green.png" alt="">
+                    </h4>
+                    <textarea class="textare" placeholder="写点什么吧亲爱的~"></textarea>
+                </form>
+            </div>-->
+            </div>
+            <!--    <div class="u-comment">
+                <p class="comment_user">
+                    <span class="iconfont icon-user"></span>
+                    <span class="user_name">ren111111</span>
+                    <span class="u-score">
+                        <span class="star"></span>
+                    </span>
+                </p>
+                <p class="text">
+                    "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+                </p>
+                <div class="foot">
+                    <p class="left">36天前</p>
+                    <p class="right">
+                        <i>
+                            <span>点赞</span>
+                            <span class="nmb">0</span>
+                        </i>
+                           <i>
+                        <span>回复</span>
+                        <span class="nmb">0</span>
+                    </i>
+                    </p>
+                </div>
+            </div>
+
+            <div class="u-comment">
+                <p class="comment_user">
+                    <span class="iconfont icon-user"></span>
+                    <span class="user_name">ren111111</span>
+                    <span class="u-score">
+                        <span class="star"></span>
+                    </span>
+                </p>
+                <p class="text">
+                    "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+                </p>
+                <div class="foot">
+                    <p class="left">36天前</p>
+                    <p class="right">
+                        <i>
+                            <span>点赞</span>
+                            <span class="nmb">0</span>
+                        </i>
+                        <i>
+                            <span>回复</span>
+                            <span class="nmb">0</span>
+                        </i>
+                    </p>
+                </div>
+            </div>
+
+            <div class="u-comment">
+                <p class="comment_user">
+                    <span class="iconfont icon-user"></span>
+                    <span class="user_name">ren111111</span>
+                    <span class="u-score">
+                        <span class="star"></span>
+                    </span>
+                </p>
+                <p class="text">
+                    "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+                </p>
+                <div class="foot">
+                    <p class="left">36天前</p>
+                    <p class="right">
+                        <i>
+                            <span>点赞</span>
+                            <span class="nmb">0</span>
+                        </i>
+                        <i>
+                            <span>回复</span>
+                            <span class="nmb">0</span>
+                        </i>
+                    </p>
+                </div>
+            </div>
+        -->
+        </div>
+    </div>
+</div>
+<!--打赏-->
+<div class="liCover" style="display: none">
+    <div class="shareList">
+        <ul>
+            <li>
+                <img src="../src/images/xianhua.jpg" alt="" />
+                <br /> 鲜花
+            </li>
+            <li>
+                <img src="../src/images/xianhua.jpg" alt="" />
+                <br /> 鲜花
+            </li>
+            <li>
+                <img src="../src/images/xianhua.jpg" alt="" />
+                <br /> 鲜花
+            </li>
+            <li>
+                <img src="../src/images/xianhua.jpg" alt="" />
+                <br /> 鲜花
+            </li>
+            <!--<li>
+                            <img src="../../image/weibo@2x.png" alt="" />
+                            <br />
+                            新浪微博
+                        </li>-->
+        </ul>
+        <div class="li-cancel">
+            取消
+        </div>
+    </div>
+</div>
+<div class="bottom_loadmore"></div>
+</body>
+<script src="../src/js/detail.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+    var plbkid,
+        userid,
+        starNum = 5;
+    function fanhui() {
+        api.closeWin({});
+    }
+    // 评论点击
+    $('.comment_bd .u-score').on('click', function(e) {
+        var w = $('.comment_bd .u-score').width();
+        var starW = w / 5;
+        var num = Math.ceil(e.offsetX / starW);
+        starNum = num;
+        $(this).find('.star').css('width', `${20 * num}%`);
+    });
+    apiready = function() {
+        plbkid = api.pageParam.plbkid;
+        userid = $api.getStorage('user_id');
+        EventT.emit('apiready');
+        // api.setFullScreen({
+        //     fullScreen: false
+        // });
+    };
+    var app = angular.module('myApp', []);
+    app.controller('DataController', function($scope) { //angular开始
+        $scope.bookList = [];
+        $scope.imgurl = imageUrl;
+        $scope.userImgurl = userimg;
+        function getData(page, callback) {
+            // alert(page);
+            console.log(page);
+            $api.post(phpurl + 'Home/Book/bookreply?', {
+                values : {
+                    page : page,
+                    id   : plbkid,
+                },
+            }, function(ret) {
+                var result = ret.result;
+                if (ret.code == 200) {
+                    if (page == 0) {
+                        $scope.plList = [];
+                    }
+                    $scope.dlist = result.book_bookreply_list1[0];
+                    $scope.plList = $scope.plList.concat(result.book_bookreply_list2);
+                    $scope.uid = userid;
+                    $scope.$apply();
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+                callback && callback(ret);
+            });
+        }
+        //点赞
+        $scope.dianzan = function(id) {
+            $api.post(phpurl + 'Home/Book/addlike', {
+                values : {
+                    rid : id,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    api.toast({
+                        msg : '点赞成功',
+                    });
+                    getData(0);
+                }
+            });
+        };
+
+        //删除评论
+        $scope.delete = function(index, id) {
+            $api.post(phpurl + 'Home/Book/deletereply', {
+                values : {
+                    rid : id,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    $scope.plList.splice(index,1)
+                    api.toast({
+                        msg : '删除成功',
+                    });
+                    getData(0);
+                }
+            });
+        };
+
+        //添加评论
+        $scope.shuping = function(data) {
+            $api.post(phpurl + 'Home/Book/addreply?', {
+                values : {
+                    id      : plbkid,
+                    content : data,
+                    user_id : userid,
+                    xing    : starNum,
+                },
+            }, function(ret) {
+                if (ret.code == 200) {
+                    api.sendEvent({
+                        name : 'plSuccess',
+                    });
+                    api.toast({
+                        msg : '评论成功',
+                    });
+                    getData(0);
+                    document.getElementById('plContentId').value = '';
+                } else {
+                    api.toast({
+                        msg : '评论失败',
+                    });
+                }
+            });
+        };
+        EventT.on('apiready', function() {
+            getData(0);
+            //在下方往上拉 刷新显示更多--不是通过ret.result.length进行判断刷新，而是自定义对象的长度判断
+            $api.cyUp(function(page, callback) {
+                // console.log(page)
+                // 通过par_len判断是否还有数据
+                getData(page, function(ret) {
+                    par_len = ret.result.book_bookreply_list2.length;
+                    callback && callback(page, ret, par_len);
+                });
+            });
+            // $api.up(function (page, callback) {
+            //     getData(page, function (ret) {
+            //         callback && callback(page,ret);
+            //     })
+            // });
+            $api.pull(function(callback) {
+                getData(0, function() {
+                    callback && callback();
+                });
+            });
+        });
+    });
+    function jubao() {
+        api.openWin({
+            name : 'win_jubao',
+            url  : 'jubao.html',
+        });
+    }
+</script>
+</html>

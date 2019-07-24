@@ -1,0 +1,1288 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/win_header.css" />
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/FInit.js"></script>
+    <style type="text/css">
+   		html,body{
+   			height:100%;background: none;
+   		}
+   		body {
+				background: rgba(0,0,0,0.3);
+				box-sizing: border-box;
+			}
+   		.appHeaderColor{
+   			background:#ffffff !important;
+   		}
+   		#main{ height:700px;}
+    </style>
+     <style type="text/css">
+       
+        .m-read-content {
+            font-size: 16px;
+            color: #555555;
+            line-height: 31px;
+            padding: 15px;
+        }
+
+        .m-read-content h4 {
+            font-size: 20px;
+            color: #736357;
+            border-bottom: solid 1px #736357;
+            letter-spacing: 2px;
+            margin: 0 0 1em 0;
+        }
+
+        .m-read-content p {
+            text-indent: 2em;
+            margin: 0.5em 0;
+            letter-spacing: 0px;
+            line-height: 24px;
+        }
+
+        .m-button-bar {
+            width: 70%;
+            max-width: 800px;
+            padding: 5px;
+            margin: 0 auto;
+        }
+
+        .u-tab {
+            height: 34px;
+            margin: 10px auto;
+            line-height: 34px;
+            border-radius: 8px;
+            border: 1px solid #858382;
+            font-size: 12px;
+            background: #000;
+            opacity: 0.9;
+        }
+
+        .u-tab li {
+            display: inline-block;
+            width: 49%;
+            border-right: 1px solid #858382;
+            text-align: center;
+            color: #fff;
+        }
+
+        .u-tab li:nth-child(2) {
+            border: none;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0px;
+            height: 60px;
+            line-height:60px;
+            font-size:13px;
+            width: 100%;
+            z-index: 999;
+
+            background: #fd7656;
+
+        }
+
+        .icon-back {
+            position: relative;
+            height:50px;
+            line-height:50px;
+            color:#fff;
+            font-size:20px;
+            float:left;
+            margin-left:10px;
+        }
+
+        .nav-title {
+            position: absolute;
+            top: 16px;
+            left: 42px;
+            color: #d5d5d6;
+        }
+
+        
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0px;
+            height:140px;
+            width: 100%;
+            z-index: 999;
+            margin: 0 auto;
+            background:#fff;
+            text-align: center;
+        }
+        
+        .change-nav{
+            position: fixed;
+            bottom: 0px;
+            height:140px;
+            width: 100%;
+            background: none;
+            z-index: 999;
+            margin: 0 auto;
+            
+            background:#fff;
+            transform: translate3d(0px,0px, 0px);
+            text-align: center;
+            -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		    transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .item {
+            display: inline-block;
+            width: 24%;
+            color: #fd7656;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .item-warp {
+            width: 26px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            top: 3px;
+            left: 2px;
+            width: 18px;
+            height: 13px;
+            background-size: contain;
+        }
+
+        .icon-menu {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAoCAYAAABerrI1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNFN0E3M0IwMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNFN0E3M0IxMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0M1ODVCRkYyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0M1ODVDMDAyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5uTX6PAAAA0UlEQVR42uyXsQrCMBRFX4p0V39Pv8FJcekHFJe6d+v3NY6CDvUFooQ0AcEllnPhlgz3QU6bBq6ZnvdaRC7qndqoB/VR/ZC5wuxGytLtvXejUJ0uDlGgVZ8Tg6lsaWod1Jh461a9TQyMBX6hWLaSBary5zBWn8kPf8DUr/Rx8hfEPth4kxkIs+tCL4rG/VOLPH5AAQUUUEABBRRQv0O54nf1tcL6dZ3Jh9mpMH/2TkmkJFISKYmURKCAAgoooIACCihKIiWRkkhJpCR+XxJfAgwA/ROhOlYvoWQAAAAASUVORK5CYII=);
+            background-size: contain;
+        }
+
+        .icon-ft {
+            width: 20px;
+            height: 13px;
+         
+        }
+
+        .current .icon-ft {
+            top: 2px;
+            left: 0px;
+            width: 22px;
+            height: 15px;
+          
+        }
+
+        .icon-night {
+            left: 4px;
+            width: 16px;
+            height: 16px;
+          
+        }
+
+        .icon-day {
+            width: 19px;
+            height: 18px;
+           
+        }
+
+        .icon-text {
+            position: absolute;
+            top: 25px;
+            font-size: 10px;
+        }
+
+        .nav-pannel-bk {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            opacity: 0.9;
+            background: #000;
+            z-index: 998;
+        }
+
+        .nav-pannel {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            background: none;
+            z-index: 999;
+            color: #fff;
+        }
+
+        .child-mod {
+            padding: 5px 10px;
+            margin: 15px;
+        }
+
+        .child-mod span {
+            display: inline-block;
+            padding-right: 20px;
+            padding-left: 10px;
+        }
+
+        .font-size-button {
+            background: none;
+            border: 1px solid #8c8c8c;
+            color: #fff;
+            border-radius: 16px;
+            padding: 5px 40px;
+        }
+
+        .font-size-button:focus {
+            background: none;
+            border: 1px solid #8c8c8c;
+            color: #fff;
+            border-radius: 16px;
+            padding: 5px 40px;
+        }
+
+        .child-mod button:nth-child(2) {
+            margin-right: 10px;
+        }
+
+        .bk-container {
+            position: relative;
+            vertical-align: -14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #fff;
+            display: inline-block;
+            margin-left: 7px;
+        }
+
+        .bk-container-white {
+            background: #f7eee5;
+        }
+
+        .bk-container-paple {
+            background: #e9dfc7;
+        }
+
+        .bk-container-grey {
+            background: #a4a4a4;
+        }
+
+        .bk-container-green {
+            background: #cdefce;
+        }
+
+        .bk-container-blue {
+            background: #283548;
+        }
+
+        .bk-container-current {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            border: 1px solid #ff7800;
+            display: inline-block;
+        }
+
+        .artical-action-mid {
+            position: fixed;
+            z-index: 997;
+            width: 100%;
+            height: 40%;
+            top: 30%;
+        }
+        
+        .mui-off-canvas-right {
+		    position: absolute;
+		    z-index: 11111;
+		    top: 0;
+		    bottom: 0;
+		    right:0;
+		    
+		    box-sizing: content-box;
+		    width: 70%;
+		    min-height: 100%;
+		    background: rgb(247, 238, 229);
+		    -webkit-overflow-scrolling: touch;
+		    display: display;
+		    visibility:hidden; 
+		    transform: translate3d(0, 0px, 0px);
+		}
+        
+        .mui-off-canvas-right.mui-transitioning {
+		    -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		    transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+		}
+		
+		.mui-off-canvas-right .o_title{
+		    padding:10px 0px 20px;
+		    margin:0px 5px;
+		    border-bottom:1px solid #a37c5b;
+		    font-size:18px;
+		    line-height:25px;
+		    color:#3f2c09;
+		    position:relative;
+		}
+	
+		
+		.mui-off-canvas-right .o_title span{
+		    font-size:16px;
+		    position:absolute;
+		    right:5px;
+		    bottom:20px;
+		    color:#67401f;
+		}
+		
+		.mui-off-canvas-right .sel_ct{
+		    height:55px;
+		    line-height:55px;
+		   
+		    margin:0px 5px;
+		   
+		    border-bottom:1px solid #A37C5B;
+		}
+		
+		.mui-off-canvas-right .sel_ct li{
+		   font-size:18px;
+		   
+		   color:#3F2C09;
+		   text-align:center;
+		   width:18.6%;
+		   position:relative;
+		}
+		
+		.mui-off-canvas-right .sel_ct li.acitve:after{
+		   display: block;
+		    /* position: absolute; */
+		     width:100%;
+		    /* left: 0px; */
+		    /* bottom: 0px; */
+		    height: 3px;
+		    top: -1px;
+		    position: relative;
+		    margin: 0px auto;
+		    content: ' ';
+		    text-align: center;
+		    background: #3F2C09;
+		    border-radius: 4px;
+		   
+		   
+		}
+		.mui-off-canvas-right .sel_ct li:nth-child(1){
+		   float:left;
+		}
+		.mui-off-canvas-right .sel_ct li:nth-child(3){
+		   float:left;
+		   margin-left:21%;
+		}
+		
+		.mui-off-canvas-right .sel_ct li:nth-child(2){
+		   float:left;
+		   margin-left:21%;
+		}
+		
+		span.mui-icon {
+			font-size: 14px;
+			color: #007aff;
+			margin-left: -15px;
+			padding-right: 10px;
+		}
+		.mui-off-canvas-right {
+			color: #fff;
+		}
+		.title {
+			margin: 35px 15px 10px;
+		}
+		.title+.content {
+			margin: 10px 15px 35px;
+			color: #bbb;
+			text-indent: 1em;
+			font-size: 14px;
+			line-height: 24px;
+		}
+		input {
+			color: #000;
+		}
+		
+		.mui-off-canvas-backdrop {
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		    
+		}
+		
+		.buyDialog-backdrop{
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: block;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		}
+		
+		.iconfont-day{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/day.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-night{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/night.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-menu{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/mmu.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-ban{
+		    width:23px;
+		    height:23px;
+		    margin-top:15px;
+		    background:url(../image/banmian.png) no-repeat;
+		    background-size:23px;
+		}
+		.iconfont-ziti{
+		    width:23px;
+		    height:23px;
+		    margin-top:15px;
+		    background:url(../image/addA.png) no-repeat;
+		    background-size:23px;
+		}
+		
+		.iconfont-jian{
+		    background:url(../image/jianA.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.iconfont-add{
+		    background:url(../image/addA.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.confont-taiyang{
+		    background:url(../image/taiyang.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.confont-taiyang1{
+		    background:url(../image/taiyang1.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.buyShuDialog-backdrop{
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		}
+		
+		.biDialog-backdrop{
+            position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		    
+        }
+		
+		.swiper-container{
+		   margin-top:3px;
+		
+		   overflow:hidden;
+		}
+		
+		.swiper-wrapper{
+		   
+		}
+		
+		   
+		.mulu{
+		    margin:0px 5px;
+		}
+		
+		.mulu li{
+		    height:40px;
+		    line-height:40px;
+		    border-bottom:1px solid #3F2C09;
+		    font-size:14px;
+		    color:#67401f;
+		}
+		
+		.mulu .mulu_item span:nth-child(1){
+		   float:left;
+		   
+		}
+		
+		.mulu .mulu_item span:nth-child(2){
+		   float:left;
+		   margin-left:5px;
+		   width:60%;
+		   overflow: hidden;
+		   text-overflow: ellipsis;
+		   white-space: nowrap;
+		}
+		.mulu .mulu_item span:nth-child(3){
+		   float:right;
+		}
+		
+		.swiper-container-horizontal>.swiper-pagination{
+		   display: none;
+		}
+		
+		.swiper-slide{
+		   overflow-y: scroll;
+		}
+		
+		.mui-input-range{
+		   padding:20px 0px;
+		   margin:0px 20px;
+		  
+		   line-height:30px;
+		   border-bottom: 1px solid #eaeaea;
+		   
+		}
+		
+		.mui-input-range span:nth-child(1){
+		   float:left;
+		   width:15%;
+		   font-size:12px;
+		    height:30px;
+		   line-height:30px;
+		   color:#fd7656;
+		}
+		.mui-input-range span:nth-child(3){
+		   float:right;
+		   width:15%;
+		   font-size:12px;
+		    height:30px;
+		   line-height:30px;
+		   color:#fd7656;
+		}
+		
+		.mui-input-range input[type=range] {
+			position: relative;
+			
+			width: 70%;
+			height: 6px;
+			line-height:30px;
+			padding: 0;
+			cursor: pointer;
+			border: 0;
+			border-radius: 3px;
+			outline: 0;
+			
+			background-color: #fd7656;
+			-webkit-appearance: none!important;
+		}
+		
+		.mui-input-range input[type=range]::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		    height: 25px;
+		    width: 25px;
+		    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+		    background: #ffffff; 
+		    border-radius: 50%; /*外观设置为圆形*/
+		    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+		    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+		}
+		
+		.c_t_size{
+		    margin:15px 20px 0px;
+		   box-sizing: border-box;
+		   height:30px;
+		    
+		}
+		
+		.c_t_size span{
+		    float:left;
+		    height:30px;
+		    line-height:30px;
+		    font-size:13px;
+		    color:#fd7656;
+		    border-radius:4px;
+		    border:1px solid #fff;
+		}
+		
+		.c_t_size span:nth-child(1){
+		     width:35%;
+		}
+		.c_t_size span:nth-child(2){
+		     width:30%;
+		     border: none;
+		     
+		}
+		.c_t_size span:nth-child(3){
+		     width:35%;
+		}
+		
+		.c_t_color{
+		   padding:0px 20px;
+		   margin-top:10px;
+		}
+		
+		.c_t_color span{
+		   float:left;
+		   border-radius:2px;
+		   width:20%;
+		   margin-left:6.2%;
+		   height:30px;
+		   background:#fff;
+		}
+        .c_t_color span:nth-child(1){
+           margin-left: 0;
+        }
+        
+        .mui-tooltip{
+           display:none;
+        }
+        
+        .buyDialog{
+           height:180px;
+           background:#fff;
+           z-index: 1000000;
+           position:fixed;
+           display:none;
+           bottom:0px;
+           width:100%;
+           -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		   transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+           transform: translate3d(0, 0px, 0px);
+        }
+        
+        
+        
+        #addShuDialog{
+           display:block;
+        }
+        #buyShuDialog{
+           transform: translate3d(0, 180px, 0px);
+           display:block;
+        }
+        
+        .buyDialog .buy_ct{
+           margin-top:25px;
+           margin-bottom:45px;
+        }
+        
+        .buyDialog p{
+           font-size:18px;
+           text-align: center;
+           color:#585858;
+           
+        }
+        
+        .buyDialog .buy_bt{
+           width:90%;
+           height:38px;
+           line-height:38px;
+           font-size:16px;
+           margin:0 auto;
+           border-radius:20px;
+           color:#03927A;
+           text-align: center;
+           border:1px solid #c9c9c9;
+        }
+        
+        .buyDialog .close_bt{
+           position:absolute;
+           width:30px;
+           height:30px;
+           right:15px;
+           top:15px;
+           background-image:url(../image/nclose.png);
+           background-size:30px;
+        }
+        
+        .shuqian{
+           margin:10px 5px;
+           color:#67401f;
+        }
+        
+        .shuqian .shuqian_item{
+           border-bottom:1px solid #a37c5b;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title{
+            font-size:14px;
+            overflow:hidden;
+            margin-bottom:8px;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(1){
+           float:left;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(2){
+           float:left;
+           margin-left:5px;
+		   width:60%;
+		   overflow: hidden;
+		   text-overflow: ellipsis;
+		   white-space: nowrap;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(3){
+           float:right;
+        }
+        
+        .shuqian .shuqian_item .shuqian_content{
+            font-size: 13px;
+			width:100%;
+			height:30px;
+			line-height:15px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			word-wrap: break-word;
+			white-space: normal !important;
+			-webkit-line-clamp: 2;
+			margin:2px 0px;
+			-webkit-box-orient: vertical;
+			display:-webkit-box;
+			margin-bottom:12px;
+        }
+        .shuqian .shuqian_item .shuqian_footer{
+            font-size:13px;
+            margin-bottom:15px;
+        }
+        
+        .need_pay{
+            margin-top:15px;
+        }
+        
+        .need_pay .need_pay_title{
+            padding:10px 0px;
+            border-top:1px solid #b4845e;
+            border-bottom:1px solid #b4845e;
+        }
+        
+        .need_pay .need_pay_content{
+            font-size:15px;
+            text-indent: 0em;
+            margin: 0px;
+            margin-top:8px;
+        }
+        
+        .need_pay .need_pay_footer{
+            margin-top:25px;
+            background:#9f6c44;
+            height:40px;
+            line-height:40px;
+            border-radius:20px;
+            text-align: center;
+            color:#fff;
+            font-size:16px;
+        }
+        
+        .need_pay .need_pay_title p{
+            font-size:16px;
+            text-indent: 0em;
+            margin: 0px;
+        }
+        
+        .need_pay .need_pay_title p span{
+            display: inline;
+            
+        }
+        
+        .fm_book{
+           color:#3f2c09;
+           text-align: center;
+           margin-top:180px;
+           font-size:25px;
+        }
+        
+        .fm_zuo{
+           color:#3f2c09;
+           text-align: center;
+           margin-top:15px;
+           font-size:18px;
+        }
+        
+        .fm_tip{
+           margin-top:100px;
+        }
+        
+        .fm_tip h6{
+           color:#3f2c09;
+           text-align: center;
+           font-size:15px;
+           padding:0px;
+           margin:0px;
+           line-height:20px;
+        }
+        
+        .fm_public{
+           margin-top:35px;
+           text-align: center;
+        }
+        
+        .fm_public img{
+           width:60%;
+           height:auto;
+        }
+        
+        .biDialog{
+           width:50%;
+           position:fixed;
+           top:50%;
+           left:25%;
+           transform: translate3d(0,-50%, 0px);
+           z-index: 10000000;
+           background:#fff;
+           border-radius: 4px;
+           display:none;
+        }
+        
+        .biDialog ul li{
+           height:35px;
+           line-height:35px;
+           text-align: center;
+           font-size:16px;
+           
+        }
+        .biaoti{width: 100%; height: 30px;
+        line-height: 30px; margin-top: 50%;
+         font-size: 30px; color:#541d04; text-align: center;}
+         header img{ width: 20px; height: auto;}
+         /*分享*/
+.shareCover {  position: fixed;  width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); top: 0; left: 0; text-align: center; font-size: 12px; color: #5c5c5c; z-index:10000; }
+
+.shareCover .shareList { background: white; position: absolute; bottom: 0; width: 100%; }
+
+.shareCover ul { padding: 15px 0; border-bottom: 1px solid #ebebeb; }
+
+.shareCover ul li { display: inline-block; width: 19%; }
+
+.shareCover ul li img { width: 65%; }
+
+.shareCover .shareList .js-cancel { line-height: 45px; }
+
+.fenxiang{ position: fixed; top:45%; right:0px;height: 40px; width: 40px; border-radius: 50%; opacity: 0.5;
+  background: #000000; text-align: center; }
+  .fenxiang img{ width: 25px; height: 25px;}
+    </style>
+</head>
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+    <!--top-->
+        <header class="appHeaderColor">
+          <div class="top-nav" >
+	    <div class="back iconfont icon-llmainpageback" style="font-size:18px; top:3px;float:left;margin-left:10px;color:#fff;"></div>
+        <div style="float:right;color:#000;margin-right:10px;margin-top:8px;" id="ping"><img src="../image/pinglun.png"></div>
+        <div  style="float:right;color:#000;margin-right:20px;margin-top:8px;" id="buy"><img src="../image/chongzhi.png"></div>
+      </div>
+        </header>
+       
+   
+        <!--main-->
+        <div id="main" class="flex-con"></div>
+       
+         <div class="fenxiang"><img src="../image/fenxiang.png"/></div>
+        
+      
+
+     <!--foot-->
+   <div class="bottom-nav-bk bottom_nav" ></div>
+    <div class="bottom-nav"  id="bottom_one" >
+      <div class="mui-input-row mui-input-range">
+            <span class="confont-taiyang" ></span>
+            <input type="range" value="50" onchange="guangdu(this.value)" min="0" max="100" id="brightInput" >
+            <span class="confont-taiyang1" style="float: right;width: 15%;font-size: 16px;height: 30px;line-height: 30px;color: #xe640;;"></span>
+        </div>
+        <div class="item" id="night-day-button">
+            <div class="item-warp" id="day_icon">
+                <div class="iconfont-day"></div>
+                <div class="icon-text">
+                    白天
+                </div>
+            </div>
+            <div class="item-warp" style="display:none" id="night_icon">
+                <div class="iconfont-night"></div>
+                <div class="icon-text">
+                    夜间
+                </div>
+            </div>
+        </div>
+        <div class="item" id="font-button">
+            <div class="item-warp">
+                <div class="iconfont-ziti" ></div>
+                <div class="icon-text" style="margin-top:3px;">
+                                                         字体
+                </div>
+            </div>
+        </div>
+        <div class="item" id="menu_button">
+            <div class="item-warp">
+                <div class="iconfont-menu"></div>
+                <div class="icon-text" >
+                                                          目录
+                </div>
+            </div>
+        </div>
+        <div class="item" id="font-buttons">
+            <div class="item-warp">
+                <div class="iconfont-ban" ></div>
+                <div class="icon-text" style="margin-top:3px;">
+                                                         版面
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="change-nav"  style="display: none" id="bottom_two">
+        <div class="mui-input-row mui-input-range" style="border-bottom: none;height: 30px;">
+            <span class="confont-taiyang" ></span>
+            <input type="range" value="50" onchange="guangdu(this.value)" min="0" max="100" id="brightInput" >
+            <span class="confont-taiyang1" style="float: right;width: 15%;font-size: 16px;height: 30px;line-height: 30px;color: #xe640;;"></span>
+        </div>
+        <div class="c_t_size">
+            <span class="iconfont-jian"  id="small-font"></span>
+            <span>字体号数</span>
+            <span class="iconfont-add"  id="large-font"></span>
+        </div>
+        <div class="c_t_color">
+            <span id="tu1" style="background: #f3f3f3;"></span>
+            <span  id="tu2" style="background: #d9a45f;"></span>
+            <span id="tu3" style="background: #e7ffd7;"></span>
+            <span id="tu4" style="background: #BFEFFF;"></span>
+        </div>
+    </div>
+    </div>
+    
+    <!--分享-->
+<div class="shareCover" style="display: none">
+                    <div class="shareList">
+                        <ul>
+                <li onclick="fenxiang(1)">
+                    <img src="../image/weixin_login.png" alt="" />
+                    <br /> 好友
+                </li>
+                <li>
+                    <!-- <img src="../src/images/pyq@2x.png" alt="" />
+                                <br />
+                                朋友圈 -->
+                </li>
+                <li>
+                    <!-- <img src="../src/images/qq@2x.png" alt="" />
+                                <br />
+                                QQ好友 -->
+                </li>
+                <li onclick="fenxiang(2)">
+                    <img src="../image/pyq@2x.png" alt="" />
+                    <br /> 朋友圈
+                </li>
+                <!--<li>
+                                 <img src="../../image/weibo@2x.png" alt="" />
+                                <br />
+                                新浪微博 
+                            </li>-->
+            </ul>
+                        <div class="js-cancel">
+                            取消
+                        </div>
+                    </div>
+                </div>
+                
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.js"></script>
+<script type="text/javascript">
+
+ /*分享*/
+        $('.fenxiang').on('click', function (e) {
+            $('.shareCover').show();
+        });
+        $('.shareCover').on('click', function (e) {
+            $('.shareCover').hide();
+          
+        });
+        $('.shareCover .shareList').on('click', function (e) {
+            e.stopPropagation();
+        });
+        $('.js-cancel').on('click', function (e) {
+            $('.shareCover').hide();
+        });
+
+
+
+	var bookid=0,FontSize=14,userid;
+	  var shareurl;;
+      var sharecontent="海量小说免费看，惊喜不断，持续更新";
+      var sharetitle="畅读小说";
+    apiready = function(){
+    bookid=api.pageParam.bookid;
+    userid = $api.getStorage('user_id'); 
+     var shareurl="http://www.youdingb.com/xiangmu/xiaoshuotai/index.php/Home/Index/dtail.html?userid="+userid+"&id="+bookid;
+                $api.post(phpurl + 'Home/Ad/xitong', {//获取分享配置
+      
+            }, function(ret) {
+            
+//                     shareurl=ret.result[0].address+"?userid="+userid+"&id="+bookid;
+                       sharecontent=ret.result[0].content;
+                       sharetitle=ret.result[0].title;
+            });
+            
+            
+   
+    if($api.getStorage('FontsSize'))//字体
+{
+FontSize=$api.getStorage('FontsSize');
+}
+else{
+ FontSize=14;
+}
+
+var bookReader = api.require('bookReader');
+bookReader.getBrightness(function(ret, err) {
+    if (ret.status) {
+       var ld=ret.brightness;
+       document.getElementById('brightInput').value=ld;
+    } else {
+//      alert(JSON.stringify(err));
+    }
+});
+
+    };
+    var $back = $api.dom('.back');
+$('#main').click(function(){
+api.closeFrame({
+    name: 'bwin'
+});
+})
+$back.onclick = function(){
+           
+           api.setFullScreen({
+                 fullScreen: false
+                         });
+
+		   api.closeWin({
+           });
+		}
+		
+	
+    
+     $('#ping').click(function(){
+                     api.openWin({
+                name: 'win_pinglun',
+                url: 'pinglun.html',
+                pageParam: {
+                    plbkid: bookid
+                }
+            }); 
+            
+            })
+            
+                $('#buy').click(function(){
+               		api.openWin({
+	       name: 'win_headerchong',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'chong_zhi',
+               frm_url:'frame1/chong_zhi.html',
+               title:'充值',
+	       }
+        });
+        
+            })
+            
+            
+            $('#menu_button').click(function(){
+          api.openWin({
+	       name: 'win_mulu',
+	       url: 'win_header.html',
+	       pageParam:{
+               frm_name:'mulu',
+               frm_url:'frame1/mulu.html',
+               title:'书籍目录',
+               data:{
+               bookid:bookid
+                    }
+	                         }
+                             });
+//              var translateX = $(window).width()*0.7;
+//              
+//              var $bottom_nav = $('.bottom-nav');
+//              var $top_nav = $('.top-nav');
+//	            var mH = $bottom_nav.height();
+//	            $bottom_nav.removeClass('active');
+//	            $top_nav.removeClass('active');
+//		        $backdrop.css('display','block');
+		        
+		         
+            })
+            
+            
+             $('#night-day-button').click(function () {
+                //todo 触发背景切换事件
+              
+                if ($("#day_icon").css('display') == 'none') {
+                    //黑变白
+                    $("#day_icon").show();
+                    $("#night_icon").hide();
+                    
+	      var liangdu="30";
+	     $api.send("huanliangdu",{ld:liangdu});
+                } else {
+                    //白变黑
+                      
+	       var liangdu="70";
+	     $api.send("huanliangdu",{ld:liangdu});
+                     $("#day_icon").hide();
+                    $("#night_icon").show();
+                }
+            })
+            
+              $("#font-button").click(function () {
+                 
+//              $("#bottom_one").css('display','none');
+                $("#bottom_two").css('display','block');
+                 $("#bottom_two").addClass('active');
+            })
+                 $("#font-buttons").click(function () {
+                 
+//              $("#bottom_one").css('display','none');
+                $("#bottom_two").css('display','block');
+                 $("#bottom_two").addClass('active');
+            })
+            
+          $("#tu1").click(function () {
+        
+	      img="#f3f3f3";
+	      $api.setStorage('img', img);
+	       $api.send("huanbeijing",{img:img});
+            })
+            
+            $("#tu2").click(function () {
+	      img="#d9a45f";
+	      $api.setStorage('img', img);
+	       $api.send("huanbeijing",{img:img});
+            })
+               $("#tu3").click(function () {
+	      img="#e7ffd7";
+	      $api.setStorage('img', img);
+	       $api.send("huanbeijing",{img:img});
+            })
+               $("#tu4").click(function () {
+          
+	      img="#BFEFFF";
+	      $api.setStorage('img', img);
+	       $api.send("huanbeijing",{img:img});
+            })
+            
+             
+            $('#large-font').click(function () {
+             $api.send("huanziti",{FontSize:FontSize});
+                if (FontSize >= 25) {
+               
+                    return;
+                }
+                FontSize++;
+                $api.setStorage('FontsSize', FontSize);
+                });
+                
+            $('#small-font').click(function () {
+           $api.send("huanziti",{FontSize:FontSize});
+                if (FontSize < 14) {
+                 
+                   return; 
+                }
+                FontSize--;
+                $api.setStorage('FonstSize', FontSize);
+              
+             });
+   
+   function guangdu(id)
+   {
+  $api.send("huanliangdu",{ld:id});
+   }
+   
+    function fenxiang(m)
+          {
+          
+
+    
+        if (m == 1) {
+            var path = 'session';
+        }
+        else {
+            var path = 'timeline';
+        }
+        var wx = api.require('wx');
+        wx.shareWebpage({
+            apiKey      : '',
+            scene       : path,
+            title       : sharetitle,
+            description : sharecontent,
+            thumb       : 'widget://image/logo.png',
+            contentUrl  :  shareurl,
+        }, function(ret, err) {
+            if (ret.status) {
+                alert('分享成功');
+            } else {
+                alert(err.code);
+            }
+        });
+          
+          } 
+          
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

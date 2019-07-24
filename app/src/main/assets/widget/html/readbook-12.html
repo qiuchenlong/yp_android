@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html id="beijing">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+   <style type="text/css">
+        html {
+            width: 100%;
+           
+            overflow-x: hidden;
+            -webkit-user-select:all;
+              background: #ffffff;
+        }
+        
+        body {
+            text-align: left;
+            width: 100%;
+            overflow-y:scroll;
+          
+           
+        }
+        *{ box-sizing: border-box; }
+        .m-read-content {
+            font-size: 16px;
+            color: #555555;
+            line-height: 31px;
+            padding: 15px;
+        }
+
+        .m-read-content h4 {
+            font-size: 20px;
+            color: #736357;
+            border-bottom: solid 1px #736357;
+            letter-spacing: 2px;
+            margin: 0 0 1em 0;
+        }
+
+        .m-read-content p {
+            text-indent: 2em;
+            margin: 0.5em 0;
+            letter-spacing: 0px;
+            line-height: 24px;
+        }
+
+        .m-button-bar {
+            width: 70%;
+            max-width: 800px;
+            padding: 5px;
+            margin: 0 auto;
+        }
+
+        .u-tab {
+            height: 34px;
+            margin: 10px auto;
+            line-height: 34px;
+            border-radius: 8px;
+            border: 1px solid #858382;
+            font-size: 12px;
+            background: #000;
+            opacity: 0.9;
+        }
+
+        .u-tab li {
+            display: inline-block;
+            width: 49%;
+            border-right: 1px solid #858382;
+            text-align: center;
+            color: #fff;
+        }
+
+        .u-tab li:nth-child(2) {
+            border: none;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0px;
+            height: 50px;
+            line-height:50px;
+            font-size:13px;
+            width: 100%;
+            z-index: 999;
+
+            background: #fd7656;
+
+        }
+
+        .icon-back {
+            position: relative;
+            height:50px;
+            line-height:50px;
+            color:#fff;
+            font-size:20px;
+            float:left;
+            margin-left:10px;
+        }
+
+        .nav-title {
+            position: absolute;
+            top: 16px;
+            left: 42px;
+            color: #d5d5d6;
+        }
+
+        
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0px;
+            height:140px;
+            width: 100%;
+            z-index: 999;
+            margin: 0 auto;
+            background:#fff;
+            text-align: center;
+        }
+        
+        .change-nav{
+            position: fixed;
+            bottom: 0px;
+            height:140px;
+            width: 100%;
+            background: none;
+            z-index: 999;
+            margin: 0 auto;
+            
+            background:#fff;
+            transform: translate3d(0px,0px, 0px);
+            text-align: center;
+            -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		    transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .item {
+            display: inline-block;
+            width: 32%;
+            color: #fd7656;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .item-warp {
+            width: 26px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            top: 3px;
+            left: 2px;
+            width: 18px;
+            height: 13px;
+            background-size: contain;
+        }
+
+        .icon-menu {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAoCAYAAABerrI1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNFN0E3M0IwMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNFN0E3M0IxMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0M1ODVCRkYyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0M1ODVDMDAyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5uTX6PAAAA0UlEQVR42uyXsQrCMBRFX4p0V39Pv8FJcekHFJe6d+v3NY6CDvUFooQ0AcEllnPhlgz3QU6bBq6ZnvdaRC7qndqoB/VR/ZC5wuxGytLtvXejUJ0uDlGgVZ8Tg6lsaWod1Jh461a9TQyMBX6hWLaSBary5zBWn8kPf8DUr/Rx8hfEPth4kxkIs+tCL4rG/VOLPH5AAQUUUEABBRRQv0O54nf1tcL6dZ3Jh9mpMH/2TkmkJFISKYmURKCAAgoooIACCihKIiWRkkhJpCR+XxJfAgwA/ROhOlYvoWQAAAAASUVORK5CYII=);
+            background-size: contain;
+        }
+
+        .icon-ft {
+            width: 20px;
+            height: 13px;
+         
+        }
+
+        .current .icon-ft {
+            top: 2px;
+            left: 0px;
+            width: 22px;
+            height: 15px;
+          
+        }
+
+        .icon-night {
+            left: 4px;
+            width: 16px;
+            height: 16px;
+          
+        }
+
+        .icon-day {
+            width: 19px;
+            height: 18px;
+           
+        }
+
+        .icon-text {
+            position: absolute;
+            top: 25px;
+            font-size: 10px;
+        }
+
+        .nav-pannel-bk {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            opacity: 0.9;
+            background: #000;
+            z-index: 998;
+        }
+
+        .nav-pannel {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            background: none;
+            z-index: 999;
+            color: #fff;
+        }
+
+        .child-mod {
+            padding: 5px 10px;
+            margin: 15px;
+        }
+
+        .child-mod span {
+            display: inline-block;
+            padding-right: 20px;
+            padding-left: 10px;
+        }
+
+        .font-size-button {
+            background: none;
+            border: 1px solid #8c8c8c;
+            color: #fff;
+            border-radius: 16px;
+            padding: 5px 40px;
+        }
+
+        .font-size-button:focus {
+            background: none;
+            border: 1px solid #8c8c8c;
+            color: #fff;
+            border-radius: 16px;
+            padding: 5px 40px;
+        }
+
+        .child-mod button:nth-child(2) {
+            margin-right: 10px;
+        }
+
+        .bk-container {
+            position: relative;
+            vertical-align: -14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #fff;
+            display: inline-block;
+            margin-left: 7px;
+        }
+
+        .bk-container-white {
+            background: #f7eee5;
+        }
+
+        .bk-container-paple {
+            background: #e9dfc7;
+        }
+
+        .bk-container-grey {
+            background: #a4a4a4;
+        }
+
+        .bk-container-green {
+            background: #cdefce;
+        }
+
+        .bk-container-blue {
+            background: #283548;
+        }
+
+        .bk-container-current {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            border: 1px solid #ff7800;
+            display: inline-block;
+        }
+
+        .artical-action-mid {
+            position: fixed;
+            z-index: 997;
+            width: 100%;
+            height: 40%;
+            top: 30%;
+        }
+        
+        .mui-off-canvas-right {
+		    position: absolute;
+		    z-index: 11111;
+		    top: 0;
+		    bottom: 0;
+		    right:0;
+		    
+		    box-sizing: content-box;
+		    width: 70%;
+		    min-height: 100%;
+		    background: rgb(247, 238, 229);
+		    -webkit-overflow-scrolling: touch;
+		    display: display;
+		    visibility:hidden; 
+		    transform: translate3d(0, 0px, 0px);
+		}
+        
+        .mui-off-canvas-right.mui-transitioning {
+		    -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		    transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+		}
+		
+		.mui-off-canvas-right .o_title{
+		    padding:10px 0px 20px;
+		    margin:0px 5px;
+		    border-bottom:1px solid #a37c5b;
+		    font-size:18px;
+		    line-height:25px;
+		    color:#3f2c09;
+		    position:relative;
+		}
+	
+		
+		.mui-off-canvas-right .o_title span{
+		    font-size:16px;
+		    position:absolute;
+		    right:5px;
+		    bottom:20px;
+		    color:#67401f;
+		}
+		
+		.mui-off-canvas-right .sel_ct{
+		    height:55px;
+		    line-height:55px;
+		   
+		    margin:0px 5px;
+		   
+		    border-bottom:1px solid #A37C5B;
+		}
+		
+		.mui-off-canvas-right .sel_ct li{
+		   font-size:18px;
+		   
+		   color:#3F2C09;
+		   text-align:center;
+		   width:18.6%;
+		   position:relative;
+		}
+		
+		.mui-off-canvas-right .sel_ct li.acitve:after{
+		   display: block;
+		    /* position: absolute; */
+		     width:100%;
+		    /* left: 0px; */
+		    /* bottom: 0px; */
+		    height: 3px;
+		    top: -1px;
+		    position: relative;
+		    margin: 0px auto;
+		    content: ' ';
+		    text-align: center;
+		    background: #3F2C09;
+		    border-radius: 4px;
+		   
+		   
+		}
+		.mui-off-canvas-right .sel_ct li:nth-child(1){
+		   float:left;
+		}
+		.mui-off-canvas-right .sel_ct li:nth-child(3){
+		   float:left;
+		   margin-left:21%;
+		}
+		
+		.mui-off-canvas-right .sel_ct li:nth-child(2){
+		   float:left;
+		   margin-left:21%;
+		}
+		
+		span.mui-icon {
+			font-size: 14px;
+			color: #007aff;
+			margin-left: -15px;
+			padding-right: 10px;
+		}
+		.mui-off-canvas-right {
+			color: #fff;
+		}
+		.title {
+			margin: 35px 15px 10px;
+		}
+		.title+.content {
+			margin: 10px 15px 35px;
+			color: #bbb;
+			text-indent: 1em;
+			font-size: 14px;
+			line-height: 24px;
+		}
+		input {
+			color: #000;
+		}
+		
+		.mui-off-canvas-backdrop {
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		    
+		}
+		
+		.buyDialog-backdrop{
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: block;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		}
+		
+		.iconfont-day{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/day.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-night{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/night.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-menu{
+		    width:20px;
+		    height:20px;
+		    margin-top:15px;
+		    background:url(../image/mmu.png) no-repeat;
+		    background-size:20px;
+		}
+		
+		.iconfont-ban{
+		    width:23px;
+		    height:23px;
+		    margin-top:15px;
+		    background:url(../image/banmian.png) no-repeat;
+		    background-size:23px;
+		}
+		
+		.iconfont-jian{
+		    background:url(../image/jianA.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.iconfont-add{
+		    background:url(../image/addA.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.confont-taiyang{
+		    background:url(../image/taiyang.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.confont-taiyang1{
+		    background:url(../image/taiyang1.png) no-repeat center;
+		    background-size:20px;
+		}
+		
+		.buyShuDialog-backdrop{
+		    position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		}
+		
+		.biDialog-backdrop{
+            position: absolute;
+		    z-index: 998;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    display: none;
+		    transition: background 350ms cubic-bezier(.165, .84, .44, 1);
+		    background: rgba(0, 0, 0, .4);
+		    box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+		    -webkit-tap-highlight-color: transparent;
+		    
+        }
+		
+		.swiper-container{
+		   margin-top:3px;
+		
+		   overflow:hidden;
+		}
+		
+		.swiper-wrapper{
+		   
+		}
+		
+		   
+		.mulu{
+		    margin:0px 5px;
+		}
+		
+		.mulu li{
+		    height:40px;
+		    line-height:40px;
+		    border-bottom:1px solid #3F2C09;
+		    font-size:14px;
+		    color:#67401f;
+		}
+		
+		.mulu .mulu_item span:nth-child(1){
+		   float:left;
+		   
+		}
+		
+		.mulu .mulu_item span:nth-child(2){
+		   float:left;
+		   margin-left:5px;
+		   width:60%;
+		   overflow: hidden;
+		   text-overflow: ellipsis;
+		   white-space: nowrap;
+		}
+		.mulu .mulu_item span:nth-child(3){
+		   float:right;
+		}
+		
+		.swiper-container-horizontal>.swiper-pagination{
+		   display: none;
+		}
+		
+		.swiper-slide{
+		   overflow-y: scroll;
+		}
+		
+		.mui-input-range{
+		   padding:20px 0px;
+		   margin:0px 20px;
+		  
+		   line-height:30px;
+		   border-bottom: 1px solid #eaeaea;
+		   
+		}
+		
+		.mui-input-range span:nth-child(1){
+		   float:left;
+		   width:15%;
+		   font-size:12px;
+		    height:30px;
+		   line-height:30px;
+		   color:#fd7656;
+		}
+		.mui-input-range span:nth-child(3){
+		   float:right;
+		   width:15%;
+		   font-size:12px;
+		    height:30px;
+		   line-height:30px;
+		   color:#fd7656;
+		}
+		
+		.mui-input-range input[type=range] {
+			position: relative;
+			
+			width: 70%;
+			height: 6px;
+			line-height:30px;
+			padding: 0;
+			cursor: pointer;
+			border: 0;
+			border-radius: 3px;
+			outline: 0;
+			
+			background-color: #fd7656;
+			-webkit-appearance: none!important;
+		}
+		
+		.mui-input-range input[type=range]::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		    height: 25px;
+		    width: 25px;
+		    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+		    background: #ffffff; 
+		    border-radius: 50%; /*外观设置为圆形*/
+		    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+		    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+		}
+		
+		.c_t_size{
+		    margin:15px 20px 0px;
+		   box-sizing: border-box;
+		   height:30px;
+		    
+		}
+		
+		.c_t_size span{
+		    float:left;
+		    height:30px;
+		    line-height:30px;
+		    font-size:13px;
+		    color:#fd7656;
+		    border-radius:4px;
+		    border:1px solid #fff;
+		}
+		
+		.c_t_size span:nth-child(1){
+		     width:35%;
+		}
+		.c_t_size span:nth-child(2){
+		     width:30%;
+		     border: none;
+		     
+		}
+		.c_t_size span:nth-child(3){
+		     width:35%;
+		}
+		
+		.c_t_color{
+		   padding:0px 20px;
+		   margin-top:10px;
+		}
+		
+		.c_t_color span{
+		   float:left;
+		   border-radius:2px;
+		   width:20%;
+		   margin-left:6.2%;
+		   height:30px;
+		   background:#fff;
+		}
+        .c_t_color span:nth-child(1){
+           margin-left: 0;
+        }
+        
+        .mui-tooltip{
+           display:none;
+        }
+        
+        .buyDialog{
+           height:180px;
+           background:#fff;
+           z-index: 1000000;
+           position:fixed;
+           display:none;
+           bottom:0px;
+           width:100%;
+           -webkit-transition: -webkit-transform 350ms cubic-bezier(.165, .84, .44, 1);
+		   transition: transform 350ms cubic-bezier(.165, .84, .44, 1);
+           transform: translate3d(0, 0px, 0px);
+        }
+        
+        
+        
+        #addShuDialog{
+           display:block;
+        }
+        #buyShuDialog{
+           transform: translate3d(0, 180px, 0px);
+           display:block;
+        }
+        
+        .buyDialog .buy_ct{
+           margin-top:25px;
+           margin-bottom:45px;
+        }
+        
+        .buyDialog p{
+           font-size:18px;
+           text-align: center;
+           color:#585858;
+           
+        }
+        
+        .buyDialog .buy_bt{
+           width:90%;
+           height:38px;
+           line-height:38px;
+           font-size:16px;
+           margin:0 auto;
+           border-radius:20px;
+           color:#03927A;
+           text-align: center;
+           border:1px solid #c9c9c9;
+        }
+        
+        .buyDialog .close_bt{
+           position:absolute;
+           width:30px;
+           height:30px;
+           right:15px;
+           top:15px;
+           background-image:url(../image/nclose.png);
+           background-size:30px;
+        }
+        
+        .shuqian{
+           margin:10px 5px;
+           color:#67401f;
+        }
+        
+        .shuqian .shuqian_item{
+           border-bottom:1px solid #a37c5b;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title{
+            font-size:14px;
+            overflow:hidden;
+            margin-bottom:8px;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(1){
+           float:left;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(2){
+           float:left;
+           margin-left:5px;
+		   width:60%;
+		   overflow: hidden;
+		   text-overflow: ellipsis;
+		   white-space: nowrap;
+        }
+        
+        .shuqian .shuqian_item .shuqian_item_title span:nth-child(3){
+           float:right;
+        }
+        
+        .shuqian .shuqian_item .shuqian_content{
+            font-size: 13px;
+			width:100%;
+			height:30px;
+			line-height:15px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			word-wrap: break-word;
+			white-space: normal !important;
+			-webkit-line-clamp: 2;
+			margin:2px 0px;
+			-webkit-box-orient: vertical;
+			display:-webkit-box;
+			margin-bottom:12px;
+        }
+        .shuqian .shuqian_item .shuqian_footer{
+            font-size:13px;
+            margin-bottom:15px;
+        }
+        
+        .need_pay{
+            margin-top:15px;
+        }
+        
+        .need_pay .need_pay_title{
+            padding:10px 0px;
+            border-top:1px solid #b4845e;
+            border-bottom:1px solid #b4845e;
+        }
+        
+        .need_pay .need_pay_content{
+            font-size:15px;
+            text-indent: 0em;
+            margin: 0px;
+            margin-top:8px;
+        }
+        
+        .need_pay .need_pay_footer{
+            margin-top:25px;
+            background:#9f6c44;
+            height:40px;
+            line-height:40px;
+            border-radius:20px;
+            text-align: center;
+            color:#fff;
+            font-size:16px;
+        }
+        
+        .need_pay .need_pay_title p{
+            font-size:16px;
+            text-indent: 0em;
+            margin: 0px;
+        }
+        
+        .need_pay .need_pay_title p span{
+            display: inline;
+            
+        }
+        
+        .fm_book{
+           color:#3f2c09;
+           text-align: center;
+           margin-top:180px;
+           font-size:25px;
+        }
+        
+        .fm_zuo{
+           color:#3f2c09;
+           text-align: center;
+           margin-top:15px;
+           font-size:18px;
+        }
+        
+        .fm_tip{
+           margin-top:100px;
+        }
+        
+        .fm_tip h6{
+           color:#3f2c09;
+           text-align: center;
+           font-size:15px;
+           padding:0px;
+           margin:0px;
+           line-height:20px;
+        }
+        
+        .fm_public{
+           margin-top:35px;
+           text-align: center;
+        }
+        
+        .fm_public img{
+           width:60%;
+           height:auto;
+        }
+        
+        .biDialog{
+           width:50%;
+           position:fixed;
+           top:50%;
+           left:25%;
+           transform: translate3d(0,-50%, 0px);
+           z-index: 10000000;
+           background:#fff;
+           border-radius: 4px;
+           display:none;
+        }
+        
+        .biDialog ul li{
+           height:35px;
+           line-height:35px;
+           text-align: center;
+           font-size:16px;
+           
+        }
+        .biaoti{width: 100%; height: 30px;
+        line-height: 30px; margin-top: 50%;
+         font-size: 30px; color:#541d04; text-align: center;}
+         #zhang{ padding-left:5px;position: fixed;top:0px; width: 100%; height: 15px; line-height: 15px; font-size: 10px; color:#333333;}
+         #footer{position: fixed;z-index:1000; overflow:hidden;bottom:0px; width: 100%; height: 25px; line-height: 25px; text-align: center;font-size: 10px; color:#333333;}
+         /*电池*/
+        
+        #footer img{ height: 10px; width: auto; vertical-align: middle;}
+              .battery_bg{
+            background: url('../image/battery0.png') no-repeat;
+           margin-top:3px;
+            width: 30px;
+            height: 20px;
+            background-size: 30px 100%;
+            position: absolute; left: 10px; opacity: 0.6;
+        }
+        .battery_c{
+            background: url('../image/battery1.png') no-repeat;    
+            height: 20px;
+            background-size: 30px 100%;opacity: 0.6;
+        }
+        
+    </style>
+
+</head>
+<body>
+<div id="zhang">第一章：天外飞仙</div>
+<div id="footer"> 
+<div class="battery_bg">
+<div class="battery_c" style="width: 50%;" id="dianchi"></div>
+</div>
+    <span id="shijian" style=" margin-left: 50px; float: left;"></span>
+    <span id="zhangjie">1/99章</span></div>
+	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/jquery.js"></script>
+<script type="text/javascript">
+var wenzhang="",bookReader="",h=660,
+    jindu=0,
+    img="",
+    FontSize=14,
+    bookid=0,
+    roots=0,
+    sort=0,
+    zj=0,//章节数
+    dianliang=100,
+    xianzhi=0
+    ;
+
+
+	apiready = function(){
+
+        var d = new Date();//当前时间
+        var my_hours=d.getHours();
+        var my_minutes=d.getMinutes();
+document.getElementById("shijian").innerHTML=my_hours+":"+my_minutes;
+
+api.setFullScreen({//全屏显示
+    fullScreen: true
+});
+
+api.addEventListener({//电池电量
+    name: 'batterystatus'
+}, function(ret, err) {
+    if (ret) {
+        dianliang=ret.level;
+        document.getElementById("dianchi").style.width=dianliang+'%';
+    } else {
+      
+    }
+});
+//api.setStatusBarStyle({//设置背景色
+//	        style:'#d9a45f' //|| '#fff''dark',
+//	    });
+	    
+if($api.getStorage('img'))//背景图
+{
+img=$api.getStorage('img');
+}
+else
+{
+img="#f3f3f3";
+}
+
+if($api.getStorage('FontsSize'))//字体
+{
+FontSize=$api.getStorage('FontsSize');
+}
+else{
+ FontSize=14;
+}
+
+document.getElementById("beijing").style.background=img; //页面背景
+
+	  api.setWinAttr({//禁止左滑
+            slidBackEnabled : false
+        });
+        
+        api.addEventListener({//章节阅读
+					name : 'xuanze_zhangjie'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+					var cid=ret.value.cid;
+					sort=ret.value.sort
+					wenzhangss(cid,0);
+					}
+				});
+				
+				
+				  api.addEventListener({//换背景
+					name : 'huanbeijing'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+					img=ret.value.img;
+					huanbeijing();
+					
+					}
+				});
+				
+				  api.addEventListener({//换亮度
+					name : 'huanliangdu'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+					var ld=ret.value.ld;
+					beijingse(ld);
+					
+					}
+				});
+				
+				api.addEventListener({//换字体
+					name : 'huanziti'
+				}, function(ret, err) {
+					if (ret && ret.value) {
+					FontSize=ret.value.FontSize;
+					huanbeijing();
+					}
+				});
+				
+				
+        
+
+    bookid=api.pageParam.bookid;//书本id
+    sort=api.pageParam.sort;//排序
+    
+    //文章服务器目录
+    roots=parseInt(bookid/1000);
+	 bookReader = api.require('bookReader');
+		
+		
+		//文章章节
+		$api.post(phpurl+'Home/book/chapterread?id='+bookid,function(ret){
+		
+		if(ret.result.length<=0)
+		{
+		 
+		api.toast({
+	        msg:'小说未添加内容'
+        });
+        setTimeout(function(){
+                        	api.closeWin({
+                            });
+                        },800)
+        
+		}
+		else{
+		         
+		
+		        if(api.pageParam.cid)//传了章节id过来了
+		        {
+		        var wen=api.pageParam.cid;
+		        }
+		        else{
+		var wen=ret.result[1].chapterid;
+		            }
+		zj=ret.result.length;
+		document.getElementById('zhang').innerHTML=ret.result[1].chaptername;
+		document.getElementById('zhangjie').innerHTML='1/'+zj+'章';
+				wenzhangs(wen);
+			}
+				
+			})
+
+	};
+	
+	function zhangjie(s,d)//文章章节
+	{
+	$api.post(phpurl+'Home/book/chapterread?id='+bookid,function(ret){
+				var wen=ret.result[s].chapterid;
+				document.getElementById('zhang').innerHTML=ret.result[s].chaptername;
+		       document.getElementById('zhangjie').innerHTML=s+'/'+zj+'章';
+				wenzhangss(wen,d);
+	             
+			})
+	}
+	
+	function wenzhangss(m,d)//下载txt
+	{
+	
+	var fs = api.require('fs');
+fs.exist({
+    path: 'fs://'+m+'.txt'
+}, function(ret, err) {
+        if (ret.exist) {//文件已经存在
+        var fsDir = api.fsDir; 
+      wenzhang=fsDir+"/"+m+".txt";
+     xiayizhang(wenzhang,d)
+     
+    } 
+    
+    else {//下载文件
+	var url='http://www.youdingb.com/xiangmu/book/txt/'+bookid+'.txt';
+	api.download({
+    url: url,
+    savePath: 'fs://'+m+'.txt',
+    report: true,
+    cache: true,
+    allowResume: true
+}, function(ret, err) {
+    if (ret.state == 1) {
+    wenzhang=ret.savePath;
+       xiayizhang(wenzhang,d)
+    } else {
+// $api.toast('网络异常');
+    }
+});
+
+}
+
+})
+
+	}
+	
+	
+	function wenzhangs(m)//下载txt
+	{
+	
+var fs = api.require('fs');
+fs.exist({
+    path: 'fs://'+m+'.txt'
+}, function(ret, err) {
+    if (ret.exist) {//文件已经存在
+        var fsDir = api.fsDir; 
+      wenzhang=fsDir+"/"+m+".txt";
+     yuedu();
+     
+    } 
+    
+    else {//下载文件
+//      alert(roots);alert(bookid);alert(m);
+        var url='http://www.youdingb.com/xiangmu/book/txt/'+bookid+'.txt';
+	api.download({
+    url: url,
+    savePath: 'fs://'+m+'.txt',
+    report: true,
+    cache: true,
+    allowResume: true
+}, function(ret, err) {
+    if (ret.state == 1) {
+    wenzhang=ret.savePath;
+    yuedu();
+    } else {
+//$api.toast('网络异常');
+    }
+});
+
+    }
+});
+
+	
+
+	}
+	
+	//加载章节
+	function xiayizhang(wenzhang,d){
+	var ReadObj = api.require('bookReader');
+  //加载到阅读器
+ ReadObj.setValue({
+ filePath : wenzhang, 
+  bg:img,
+  textStyle:
+  {
+  size:FontSize,
+  },
+ progress : d
+      }, function(ret, err) {});
+       
+       }
+       
+       //更换背景等等
+	function huanbeijing(){
+	var ReadObj = api.require('bookReader');
+ ReadObj.setValue({
+  bg:img,
+  textStyle:
+  {
+  size:FontSize,
+  },
+      }, function(ret, err) {});
+       
+ document.getElementById("beijing").style.background=img;
+       
+       }
+       
+       
+	
+	function yuedu()//加载阅读器
+	{
+	var winHeight = api.winHeight-40; 
+bookReader.open({
+    filePath:wenzhang,
+    bg:img,
+    y:15,
+    h:winHeight,
+    textStyle:
+    {
+    size:FontSize,
+    }
+}, function(ret, err) {
+    jindu=ret.progress;
+    if(ret) {
+              if(ret.eventType=="click")//点击中间
+              {
+              api.openFrame({
+			    name: 'bwin',
+			    url: 'bwin.html',
+			    rect: {
+				    x:0,
+				    y: 0,
+			    },
+			    vScrollBarEnabled:false,
+			    pageParam:{
+			    	bookid:bookid
+			    }
+			});
+              }
+              if(ret.eventType=="page_end")//章节末尾
+              {
+                xianzhis();
+
+              
+               if(sort>=(zj-1))
+                  {
+                      api.toast({
+	                      msg:'这是最后一页'
+                      });
+                     return;
+                  }
+                     if(xianzhi==0)//限制5秒才能翻相爱一张
+                     {
+                     
+                    sort++;
+                    zhangjie(sort,0);
+                    xianzhi=1;
+                     }
+                     else
+                     {
+                     api.toast({
+	                     msg:'亲不要那么快哦'
+                     });
+                     
+                     }  
+            
+              }
+              
+               if(ret.eventType=="page_begin")//返回上一章
+              {
+               xianzhis();
+                  if(sort<=0)
+                  {
+                      api.toast({
+	                      msg:'这是第一页'
+                      });
+                     return;
+                  }
+                 if(xianzhi==0)//限制5秒才能翻页
+                     {
+                    sort--;
+                    zhangjie(sort,0);
+                    xianzhi=1;
+                     }
+                     else
+                     {
+                     api.toast({
+	                     msg:'亲不要那么快哦'
+                     });
+                     
+                     }  
+                     
+              }
+
+    } else {
+
+    }
+});
+	}
+	
+	
+function beijingse(m)
+{
+var bookReader = api.require('bookReader');
+bookReader.setBrightness({
+    brightness: m
+}, function(ret, err) {
+    if (ret.status) {
+        
+    } else {
+       
+    }
+});
+}
+
+function xianzhis()//限制翻页
+{
+
+                                var i=5;
+	         setInterval(function() { 
+	             if(i<=0)
+	             {
+	             xianzhi=0;
+	              
+	             }
+	             
+	         i--;
+	         
+	         }, 1000);
+					//end
+					
+}
+
+</script>
+</html>

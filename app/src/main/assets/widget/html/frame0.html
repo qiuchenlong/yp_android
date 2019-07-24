@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/swiper.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/api.css" />
+		<link rel="stylesheet" href="../src/css/index.css">
+		<link rel="stylesheet" href="../src/css/swiper-4.2.2.min.css">
+		<!--轮播css-->
+		<link rel="stylesheet" href="../src/css/icon/iconfont.css">
+		<!--图标字体->
+		<link rel="stylesheet" href="../src/css/icon/iconfont.css">
+		<script src="../src/library/zepto.js"></script><!--页面js-->
+		<script src="../src/library/zepto.js"></script>
+		<!--页面js-->
+		<script src="../src/library/swiper-4.2.2.min.js"></script>
+		<!--页面js-->
+		<script src="../src/js/global.js"></script>
+		<style>
+			html, body {
+				background: #fff;
+			}
+			.more_book {
+				justify-content: space-between;
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				padding-top: 0.4 rem;
+			}
+			.more_book_li {
+				padding-bottom: 0.4 rem;
+			}
+			.more_book_li .hd {
+				font-size: 0.34 rem;
+				padding-bottom: 0.2 rem;
+			}
+			.more_book_li .bd {
+				padding: 0;
+			}
+			.more_book_li .bd .right img {
+				width: 1.5 rem;
+				height: 1.8 rem;
+			}
+			.more_book_li .bd {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.more_book_li .bd .left {
+				width: 6em;
+				height: 1.8 rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				color: #ccc;
+			}
+			.more_book_li .bd .info {
+				-webkit-line-clamp: 2;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				line-height: 2;
+			}
+			.m-promotion .ft {
+				line-height: 3;
+				text-align: center;
+				border-top: 1px solid #f1f1f1;
+				color: #00faff;
+				font-size: 0.3 rem;
+			}
+		</style>
+	</head>
+	<!-- 精选 女频 -->
+	<body ng-controller="DataController">
+		<header class="header">
+			<div class="breadcrumbs">
+				<div class="m-swiper">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" ng-repeat="x in bannerList" ng-click="addetail(x)">
+								<a href="javascript:;"> <img src="{{lunboimg + x.images}}" alt=""> </a>
+							</div>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<!-- Initialize Swiper -->
+					</div>
+					<script>
+						var swiper = new Swiper('.swiper-container', {
+							pagination : {
+								el : '.swiper-pagination',
+								clickable : true,
+							},
+							loop : true,
+							delay : 1500,
+							autoplay : {
+								disableOnInteraction : false,
+							},
+						});
+					</script>
+				</div>
+				<div class="u-search2">
+					<form class="form" action="">
+						<img class="frame0_my user_head" src="../image/my.png" alt="" onclick="myfile()">
+						<div class="search-div" onClick="sousuo()">
+							<i class="iconfont icon-sousuo"></i>
+							<input class="search-input" type="search" placeholder="搜索我的书架、在线书库">
+						</div>
+					</form>
+				</div>
+				<div class="nav">
+					<a class="nav_a" href="javascript:;" onclick="paihang()"> <div class="iconfont icon-paixing" style="    /*color: #ff8080;*/"></div>
+					<div>
+						排行
+					</div> </a>
+					<a class="nav_a nav_b current nav_sty"> <div class="iconfont icon-girl" style="    /*color: #f77293;*/"></div>
+					<div>
+						女频
+					</div> </a>
+					<a class="nav_a nav_b nav_sty"> <div class="iconfont icon-boy" style="/*color: #1295db;*/"></div>
+					<div>
+						男频
+					</div> </a>
+					<a class="nav_a nav_b nav_sty"> <div class="iconfont icon-chubanwu" style="    /*color: #9ed94c;*/"></div>
+					<div>
+						出版
+					</div> </a>
+					<!--<a class="nav_a nav_b nav_sty">推荐</a>-->
+					<a class="nav_a" href="javascript:;" onclick="shudan()"> <div class="iconfont icon-book-copy-copy-copy-copy-copy" style="    font-size: 0.58rem;/*color: #8095ff;*/"></div>
+					<div>
+						书单
+					</div> </a>
+				</div>
+			</div>
+		</header>
+		<div class="content">
+
+
+			<!-- 重磅推荐 -->
+			<div class="m-recom">
+				<div class="u-hd" ng-click="openWs(zhuda.id)">
+
+					<h2 class="h2" ng-cloak>{{ zhuda.title }}</h2>
+					<div class="right">
+						<a href="javascript:;">更多</a>
+					</div>
+				</div>
+				<div class="bd">
+					<ul class="u-ul_flex">
+						<li class="li" ng-repeat="zd in zhuda.xiaoshuo" ng-click="shuji(zd.articleid)" ng-cloak>
+							<div class="top">
+								<a href="javascript:;"> <img class="m-recom_img" src="{{ imgurl + zd.images }}" /> </a>
+							</div>
+							<div class="button">
+								<a class="u-line2" href="javascript:;" style="width: 5em;">{{ zd.articlename }}</a>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<!--强力推荐-->
+
+			<!-- 现言畅销 -->
+			<div class="m-recom">
+				<div class="u-hd" ng-click="openWs(tuijian.id)">
+					<h2 class="h2" ng-cloak>{{ tuijian.title }}</h2>
+					<div class="right">
+						<a href="javascript:;">更多</a>
+					</div>
+				</div>
+				<div class="bd">
+					<ul class="u-ul_flex">
+						<li class="li" ng-repeat="tj in tuijian.xiaoshuo" ng-click="shuji(tj.articleid)" ng-cloak>
+							<div class="top">
+								<a href="javascript:;"> <img src="{{ imgurl + tj.images }}" /> </a>
+							</div>
+							<div class="button">
+								<a class="u-line2" href="javascript:;" style="width: 5em;">{{ tj.articlename }}</a>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- 好书 -->
+			<div class="m-time-travel" ng-if="chuanyue.xiaoshuo.length > 0" ng-repeat="chuanyue in bookList">
+				<div class="u-hd"  ng-click="openWs(chuanyue.id)">
+					<h2 class="h2" ng-cloak>{{ chuanyue.title }}</h2>
+					<div class="right">
+						<a href="javascript:;">更多</a>
+					</div>
+				</div>
+				<div class="bd">
+					<ul class="u-ul_lr" ng-if="chuanyue.xiaoshuo.length > 0">
+						<li class="li" ng-repeat="cy in chuanyue.xiaoshuo" ng-click="shuji(cy.articleid)" ng-cloak>
+							<div class="left">
+								<img src="{{ imgurl + cy.images }}" alt="">
+							</div>
+							<div class="right" style="flex:1;">
+								<h3 class="h3 u-text_line">{{ cy.articlename }}</h3>
+								<p class="u-line2">
+									{{ cy.intro }}
+								</p>
+								<p class="text" style="justify-content: space-between;">
+									<span class="author">{{ cy.author }}</span>
+									<em> <span class="u-title1">{{ cy.shortname }}</span> <span class="u-title2">{{(cy.size/20).toFixed(1)}}万字</span> </em>
+								</p>
+							</div>
+						</li>
+
+					</ul>
+					<ul class="u-ul_flex" ng-if="chuanyue.xiaoshuo1.length > 0">
+						11
+						<li class="li" onClick="location.href='javascript:;'" ng-repeat="cy in chuanyue.xiaoshuo1" ng-click="shuji(cy.articleid)">
+							<div class="top">
+								<a href="javascript:;"> <img src="{{ imgurl + cy.images }}" /> </a>
+							</div>
+							<div class="button">
+								<a class="u-line2" href="javascript:;" style="width: 5em;">{{ cy.articlename }}</a>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- 更多 -->
+		<div class="bottom_loadmore"></div>
+	</body>
+</html>
+<script src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+	apiready = function() {
+		api.addEventListener({
+			name : 'usershuas',
+		}, function(ret, err) {
+			// console.log(2222)
+			var user_head = $api.getStorage('user').images;
+			// console.log(user_head)
+			if (user_head == '' || user_head == 'touxiang.png') {
+				$('.frame0_my').attr('src', '../image/my.png');
+			} else {
+				$('.frame0_my').attr('src', imageUrl + user_head);
+			}
+		});
+		// funIniGroup();
+		EventT.emit('apiready');
+		api.setFullScreen({
+			fullScreen : false,
+		});
+		funIniGroup();
+	};
+	var app = angular.module('myApp', []);
+	app.controller('DataController', function($scope, $timeout) {//angular开始
+		$scope.bookList = [];
+		$scope.imgurl = imageUrl;
+		$scope.lunboimg = imageUrl;
+
+		var user_head = $api.getStorage('user_head');
+		if (user_head != '' && user_head != 'touxiang.png' && user_head) {
+			$('.frame0_my').attr('src', imageUrl + user_head);
+		}
+		//打开更多
+		$scope.openWs = function(data) {
+			api.openWin({
+				name : data + 'win_heSD',
+				url : 'win_header.html',
+				pageParam : {
+					frm_name : data + 'xiangqing_SD',
+					frm_url : 'frame0/resou.html',
+					title : '书籍',
+					data : {
+						moreId : data,
+					},
+				},
+			});
+		};
+		//轮播
+		function getLunBo() {
+			$api.post(phpurl + 'Home/Book/pad?pindao=1', {}, function(ret) {
+				var result = ret.result;
+				// console.log(JSON.stringify(ret))
+				if (ret.code == 200) {
+					if (ret.result.length > 0) {
+						$scope.bannerList = ret.result;
+						$scope.$apply();
+						setTimeout(function() {
+							var swiper = new Swiper('.swiper-container', {
+								pagination : {
+									el : '.swiper-pagination',
+									clickable : true,
+									// type:'bullets'
+								},
+								observer : true, //修改swiper自己或子元素时，自动初始化swiper
+								observeParents : true, //修改swiper的父元素时，自动初始化swiper
+								loop : true,
+								delay : 100,
+								autoplay : {
+									disableOnInteraction : false,
+								},
+								watchSlidesVisibility : true,
+								initialSlide : 0,
+							});
+						}, 1000);
+					}
+				} else {
+					$api.toast('很是遗憾，没加载到数据');
+					// $api.closeloadding(); //关闭加载
+				}
+			});
+		}
+
+		//第一第二小说模块列表
+		function getData() {
+			$api.post(phpurl + 'Home/Book/pingdao?pindao=1', {
+				values : {},
+			}, function(ret) {
+				// console.log(JSON.stringify(ret))
+				if (ret.code == 200) {
+					var bookresult = ret.result;
+					$scope.zhuda = bookresult.xiaoshuo1;
+					$scope.tuijian = bookresult.xiaoshuo2;
+					// console.log(JSON.stringify(bookresult))
+					$scope.$apply();
+				} else {
+					$api.toast('很是遗憾，没加载到数据');
+					// $api.closeloadding(); //关闭加载
+				}
+			});
+		}
+
+		//穿越模块列表
+		function getCYData(page, callback) {
+			// console.log(page);
+			$api.post(phpurl + 'Home/Book/pingdao?pindao=1', {
+				values : {
+					page : page,
+				},
+			}, function(ret) {
+				// console.log(JSON.stringify(ret))
+				if (ret.code == 200) {
+					var result = ret.result;
+					if (page == 0) {
+						$scope.bookList = [];
+					}
+					if (result.xiaoshuo.length > 0) {
+						$scope.bookList = $scope.bookList.concat(result.xiaoshuo);
+
+					}
+					$scope.$apply();
+					// $api.closeloadding(); //关闭加载
+				} else {
+					$api.toast('很是遗憾，没加载到数据');
+					// $api.closeloadding(); //关闭加载
+				}
+				callback && callback(ret);
+			});
+		}
+
+		//轮播点击事件
+		$scope.addetail = function(data) {
+			if (data.gotos == 0)//打开书籍详情
+			{
+				api.openWin({
+					name : data + 'shu_ji_xiang_qing_win',
+					url : 'dtail.html',
+					pageParam : {
+						data : {
+							bookid : data.bookid,
+						},
+					},
+				});
+			} else if (data.gotos == 1)//打开广告详情
+			{
+				api.openWin({
+					name : data + 'win_headerad',
+					url : 'win_header.html',
+					pageParam : {
+						frm_name : data + 'guanggxq',
+						frm_url : 'addetail.html',
+						title : '美书',
+						data : {
+							content : data.content,
+						},
+					},
+				});
+			} else if (data.gotos == 2)//打开网址
+			{
+				api.openWin({
+					name : '美书',
+					url : data.weburl,
+				});
+			}
+		};
+		$scope.shuji = function(datas) {
+			api.openWin({
+				name : datas + 'win_he_shu',
+				url : 'dtail.html',
+				pageParam : {
+					data : {
+						bookid : datas,
+					},
+				},
+			});
+		};
+		EventT.on('apiready', function() {
+			// setTimeout(getLunBo, 500)
+			getLunBo();
+			getData();
+			getCYData(0);
+			// getData();
+			// setTimeout(getCYData(0), 3000);
+			//在下方往上拉 刷新显示更多--不是通过ret.result.length进行判断刷新，而是自定义对象的长度判断
+			$api.cyUp(function(page, callback) {
+				// 通过par_len判断是否还有数据
+				getCYData(page, function(ret) {
+					par_len = ret.result.xiaoshuo.length;
+					callback && callback(page, ret, par_len);
+				});
+			});
+			//上
+			$api.pull(function(callback) {
+				getCYData(0, function() {
+					callback && callback();
+				});
+			});
+		});
+	});
+	// 首页导航切换
+	$(function() {
+		$('.nav_b').on('click', function() {
+			var index = $(this).index() - 1;
+			api.setFrameGroupIndex({//设置 frame 组当前可见 frame
+				name : 'frame0_Group',
+				index : index,
+				// scroll: true
+			});
+		});
+	});
+	//首页导航绘制
+	function funIniGroup() {
+		frames_url = ['frame0.html', 'frame0_male.html', 'frame0_publish.html', 'frame0_gratis.html'];
+		var navLis = $('.nav .nav_b'), frames = [];
+		var systemType = api.systemType;
+		var footer = $api.byId('footer');
+		var footerPos = $api.offset(footer);
+		// console.log('文档高度：'+document.documentElement.offsetHeight);
+		// console.log('窗口高度：'+window.innerHeight);
+//		alert(footerPos.h);
+		if (systemType == 'android') {
+			for (var i = 0, len = navLis.length; i < len; i++) {
+				frames.push({
+					name : 'frame00' + i,
+					url : frames_url[i],
+					bgColor : '#eee',
+					bounces : false,
+					// pageParam: {
+					//     'headerH': h
+					// }
+				});
+			}
+			api.openFrameGroup({
+				name : 'frame0_Group',
+				scrollEnabled : false,
+				preload : 0,
+				rect : {
+					x : 0,
+					y : 0,
+					w : api.winWidth,
+					// h : api.winHeight - footerPos.h - 0,
+					h : footerPos ? api.winHeight - footerPos.h - 0 : api.winHeight - 50,
+					// marginBottom: 60
+				},
+				index : 0,
+				frames : frames,
+			}, function(ret, err) {
+			});
+		} else {
+			for (var i = 0, len = navLis.length; i < len; i++) {
+				frames.push({
+					name : 'frame00' + i,
+					url : frames_url[i],
+					bgColor : '#eee',
+					bounces : false,
+					// pageParam: {
+					//     'headerH': h
+					// }
+				});
+			}
+			;
+			api.openFrameGroup({
+				name : 'frame0_Group',
+				scrollEnabled : false,
+				preload : 0,
+				rect : {
+					x : 0,
+					y : 110,
+					w : api.winWidth,
+					h : api.winHeight - footerPos.h - 110,
+				},
+				index : 0,
+				frames : frames,
+			}, function(ret, err) {
+			});
+		}
+	};
+	function paihang() {
+		api.openWin({
+			name : 'win_xcd',
+			url : 'win_header.html',
+			pageParam : {
+				frm_name : 'rank_15',
+				frm_url : 'ranking.html',
+				title : '排行榜',
+			},
+		});
+	}
+
+	function sousuo() {
+		api.openWin({
+			name : 'win_header_fdsaf',
+			url : 'frame0/seek_win.html',
+		});
+	}
+
+	function shudan() {
+		api.openWin({
+			name : 'win_shudan',
+			url : 'win_header.html',
+			pageParam : {
+				frm_name : 'shudan',
+				frm_url : 'BookSelection.html',
+				title : '书单',
+			},
+		});
+	}
+
+	//头部滚动变色
+	$(window).on('scroll', function() {
+		//scroll
+		var t = $(this).scrollTop();
+		var nDivHight = $('.m-swiper').height() - 20;
+		if (t >= nDivHight) {
+			$('.header .breadcrumbs .u-search2').addClass('js-nav_bg');
+			if ($('.frame0_my').attr('src') == '../image/my.png') {
+				$('.frame0_my').attr('src', '../image/my_fff.png')
+			}
+		} else {
+			$('.header .breadcrumbs .u-search2').removeClass('js-nav_bg');
+			if ($('.frame0_my').attr('src') == '../image/my_fff.png') {
+				$('.frame0_my').attr('src', '../image/my.png')
+			}
+		}
+	});
+	//打开左侧
+	function myfile() {
+		api.openDrawerPane({
+			type : 'left',
+		});
+	}
+</script>

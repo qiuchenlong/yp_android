@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.content ul li{
+    		padding:10px;
+    		height:46px;
+    		line-height: 46px;
+    		font-size:12px;
+    		border-top:1px solid #EBEBEB;
+    		position:relative;
+    		background:white;
+    	}
+    	.content ul li img{
+    		float:left;
+    		margin-top:5px;
+    		border-radius:50%;
+    		width:35px;
+    	}
+    	.content ul li p{
+    		display:block;
+    		line-height:18px;
+    	}
+    	.content ul li .msgCon{
+    		float:left;
+    		width:48%;
+    		margin-left:12px;
+    		margin-top:5px;
+    	}
+    	.content ul li .msgCon .ms{
+    		overflow: hidden;
+		 	text-overflow: ellipsis;
+		 	display: -webkit-box;
+		 	-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;
+    	}
+    	.btn{
+    		float:right;
+    		width:34%;
+    		text-align:right;
+    	}
+    	.btn span{
+    		display:inline-block;
+    		width:45px;
+    		text-align:center;
+    		border:1px solid;
+    		border-radius:3px;
+    		line-height:25px;
+    	}
+    </style>
+</head>
+<body ng-controller="enrollData">
+	<div class="content">
+		<ul>
+			<li class="clearfix" ng-repeat="i in enrollList track by $index">
+				<img src="{{ imgurl+i.sumbheadimg }}" alt="" />
+				<div class="msgCon">
+					<p>{{ i.name }}</p>
+					<p class="ms">{{ i.content }}</p>
+				</div>
+				<div class="btn">
+					<span class="appBordercolor appbackground" ng-click="enrolls(i.signup_id,1,$event)">通&nbsp;&nbsp;过</span>
+					<span class="appBordercolor" ng-click="enrolls(i.signup_id,2,$event)">拒&nbsp;&nbsp;绝</span>
+				</div>
+			</li>
+<!--			<li class="clearfix" onclick="liaotian()">
+				<img src="../../image/tx@2x.png" alt="" />
+				<div class="msgCon">
+					<p>Miss mar</p>
+					<p class="ms">第一次参加多多关照！</p>
+				</div>
+				<div class="btn">
+					<span class="appBordercolor appbackground">通&nbsp;&nbsp;过</span>
+					<span class="appBordercolor">拒&nbsp;&nbsp;绝</span>
+				</div>
+			</li>
+			<li class="clearfix" onclick="liaotian()">
+				<img src="../../image/tx@2x.png" alt="" />
+				<div class="msgCon">
+					<p>Miss mar</p>
+					<p class="ms">第一次参加多多关照！</p>
+				</div>
+				<div class="btn">
+					<span class="appBordercolor appbackground">通&nbsp;&nbsp;过</span>
+					<span class="appBordercolor">拒&nbsp;&nbsp;绝</span>
+				</div>
+			</li>-->
+		</ul>
+	</div>
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript" src="../../script/active.js"></script>
+<script type="text/javascript">
+	var active_id;
+	apiready = function(){
+		changeTheme();
+		active_id = api.pageParam.type;
+		EventT.emit("apiready",0);
+	};
+</script>
+</html>

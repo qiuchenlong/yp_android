@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <!--图标字体-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+
+<body ng-controller="DataController">
+
+
+        <!--评论区-->
+        <div class="m-comment">
+            <div class="u-hd_title">
+                <span class="left">
+                    <span class="text" onclick="fanhui();">返回</span>
+                </span>
+                <span class="right js-comment" href="javascript:;" style=" position: fixed; bottom: 40px; left: 40%; z-index: 1000; background: #ffffff;">
+                    我要举报</span>
+                <div class="comment-on">
+                
+                    <div class="comment_bd">
+                        <span class="u-score">
+                            <span class="star"></span>
+                        </span>
+                        <form class="comment_form" action="">
+                            <input type="text" placeholder="举报原因">
+                            <textarea name="" id="plContentId" cols="30" rows="9" placeholder="举报内容" ng-model="spContent"></textarea>
+                        </form>
+                        <a class="comment_btn" href="javascript:;" ng-click="shuping(spContent)">提交</a>
+                        <a class="comment-close" href="javascript:;">
+                            <img src="../src/images/close_w.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+      
+               
+        </div>
+
+
+    </div>
+
+
+    <!--打赏-->
+    <div class="liCover" style="display: none">
+        <div class="shareList">
+            <ul>
+                <li>
+                    <img src="../src/images/xianhua.jpg" alt="" />
+                    <br /> 鲜花
+                </li>
+                <li>
+                    <img src="../src/images/xianhua.jpg" alt="" />
+                    <br /> 鲜花
+                </li>
+                <li>
+                    <img src="../src/images/xianhua.jpg" alt="" />
+                    <br /> 鲜花
+                </li>
+                <li>
+                    <img src="../src/images/xianhua.jpg" alt="" />
+                    <br /> 鲜花
+                </li>
+                <!--<li>
+                                <img src="../../image/weibo@2x.png" alt="" />
+                                <br />
+                                新浪微博
+                            </li>-->
+            </ul>
+            <div class="li-cancel">
+                取消
+            </div>
+        </div>
+    </div>
+    <div class="bottom_loadmore"></div>
+</body>
+<script src="../src/js/detail.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+    var plbkid, userid, starNum = 5;
+
+    function fanhui() {
+        api.closeWin({});
+    }
+
+    // 评论点击
+    $('.comment_bd .u-score').on('click', function (e) {
+        var w = $('.comment_bd .u-score').width();
+        var starW = w / 5;
+        var num = Math.ceil(e.offsetX / starW);
+        starNum = num;
+        $(this).find('.star').css('width', `${20 * num}%`);
+    });
+
+    apiready = function () {
+        plbkid = api.pageParam.plbkid
+        userid = $api.getStorage('user_id');
+        EventT.emit("apiready");
+        // api.setFullScreen({
+        //     fullScreen: false
+        // });
+
+
+    }
+
+    var app = angular.module("myApp", []);
+    app.controller("DataController", function ($scope) { //angular开始
+        $scope.bookList = [];
+        $scope.imgurl = imageUrl;
+        $scope.userImgurl = userimg;
+
+        function getData(page, callback) {
+            // alert(page);
+            console.log(page)
+            $api.post(phpurl + "Home/Book/bookreply?", {
+                values: {
+                    page: page,
+                    id: plbkid
+                }
+            }, function (ret) {
+                var result = ret.result;
+
+
+                if (ret.code == 200) {
+
+                    if (page == 0) {
+                        $scope.plList = [];
+                    }
+
+                    $scope.dlist = result.book_bookreply_list1[0];
+                    $scope.plList = $scope.plList.concat(result.book_bookreply_list2);
+
+                    $scope.$apply();
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+                callback && callback(ret);
+            })
+
+        }
+
+        //点赞
+        $scope.dianzan = function (id) {
+
+            $api.post(phpurl + "Home/Book/addlike", {
+                values: {
+                    rid: id,
+                    uid:userid
+                }
+            }, function (ret) {
+                if (ret.code == 200) {
+                    api.toast({
+                        msg: '点赞成功',
+                    });
+                    getData(0);
+                }
+                else{
+                    api.toast({
+                        msg: '点赞成功',
+                    });
+                }
+
+            })
+
+        }
+
+        //添加评论
+        $scope.shuping = function (data) {
+
+          
+                    api.toast({
+                        msg: '已经提交正在'
+                    });
+                   api.closeWin({
+                   });
+        }
+
+        EventT.on("apiready", function () {
+
+            getData(0);
+            //在下方往上拉 刷新显示更多--不是通过ret.result.length进行判断刷新，而是自定义对象的长度判断
+            $api.cyUp(function (page, callback) {
+                // console.log(page)
+                // 通过par_len判断是否还有数据
+                getData(page, function (ret) {
+                    par_len = ret.result.book_bookreply_list2.length;
+                    callback && callback(page, ret, par_len);
+                })
+            });
+
+            // $api.up(function (page, callback) {
+            //     getData(page, function (ret) {
+            //         callback && callback(page,ret);
+            //     })
+            // });
+            $api.pull(function (callback) {
+                getData(0, function () {
+                    callback && callback();
+                })
+            })
+        })
+
+    });
+    
+    function fanhui()
+    {
+    api.closeWin({
+    });
+    
+    }
+
+</script>
+
+</html>

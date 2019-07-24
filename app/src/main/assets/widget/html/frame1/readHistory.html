@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei" >
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	body,html{
+    		background:#fff;
+    		height:100%;
+    	}
+
+    	.list{
+    	   margin-left:15px;
+
+    	}
+
+    	.list li{
+    	   border-bottom:1px solid #eaeaea;
+    	   overflow:hidden;
+    	   padding:10px 0px;
+    	   position:relative;
+    	}
+
+    	.list li .select{
+
+    	   position:absolute;
+    	   top:50%;
+    	   left:0px;
+    	   margin-top:-10px;
+    	   width:20px;
+    	   height:20px;
+    	   background:url(../../image/gou.png) no-repeat;
+    	   background-size:20px;
+    	}
+
+    	.list li .select.active{
+    	   background-image:url(../../image/gou1.png);
+    	}
+
+    	.list li .cover{
+    	   float:left;
+    	   width:60px;
+    	   height:auto;
+    	   border-radius: 4px;
+    	   margin-left:10px;
+    	}
+
+    	.list li .ct{
+    	   float:left;
+    	   margin-left:10px;
+    	}
+
+    	.list li .ct p:nth-child(1){
+    	   margin-top:10px;
+    	   font-size:15px;
+    	   color:#484848;
+    	}
+
+    	.list li .ct p:nth-child(2){
+    	   margin-top:8px;
+    	   font-size:12px;
+    	   color:#989898;
+    	}
+
+    	.list li .ct p:nth-child(3){
+    	   margin-top:8px;
+    	   font-size:12px;
+    	   color:#989898;
+    	}
+
+    	.ft{
+    	   position:fixed;
+    	   padding:10px 0px;
+    	   bottom:0px; background:#ffffff;
+    	   left:0px;
+    	   border-top:1px solid #eaeaea;
+    	   width:100%;
+    	}
+
+    	.ft .ft_bt{
+    	   width:85%;
+    	   margin: 0px auto;
+    	   /*background:#65CCDB;*/
+			background: #ff4c2c;
+    	   border-radius: 4px;
+    	   text-align: center;
+    	   height:36px;
+    	   line-height:36px;
+    	   color:#fff;
+    	   font-size:15px;
+    	}
+
+    	.select{
+    	   display:none;
+    	}
+    </style>
+</head>
+<body ng-controller="DataController">
+	<ul class="list">
+	   <li class="item" ng-repeat="b in bookList" >
+	      <span class="select" data="{{b.caseid}}" ></span>
+	      <img src="{{imgurl + b.images}}" class="cover"/>
+	      <div class="ct" ng-click="bookdetail(b.articleid)">
+	          <p>{{b.articlename}}</p>
+	          <p>{{b.author}}</p>
+	          <p>上次阅读至:{{b.chaptername}}</p>
+	      </div>
+	   </li>
+	   <!--<li class="item">
+	      <span class="select"></span>
+	      <img src="../../image/book0.png" class="cover"/>
+	      <div class="ct">
+	          <p>我的盖世英雄</p>
+	          <p>乐哥哥</p>
+	          <p>上次阅读至:4</p>
+	      </div>
+	   </li>
+	   <li class="item">
+	      <span class="select"></span>
+	      <img src="../../image/book0.png" class="cover"/>
+	      <div class="ct">
+	          <p>我的盖世英雄</p>
+	          <p>乐哥哥</p>
+	          <p>上次阅读至:4</p>
+	      </div>
+	   </li>
+	   <li class="item">
+	      <span class="select"></span>
+	      <img src="../../image/book0.png" class="cover"/>
+	      <div class="ct">
+	          <p>我的盖世英雄</p>
+	          <p>乐哥哥</p>
+	          <p>上次阅读至:4</p>
+	      </div>
+	   </li>-->
+	</ul>
+
+	<div class="ft" >
+	    <div class="ft_bt" onclick="shanchu()">
+
+	                     删除
+	    </div>
+	</div>
+	<div class="bottom_loadmore"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script src="../../script/ionic.bundle.js"></script>
+<script src="../../script/ev.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+var userid="",caseid="";
+	apiready = function(){
+	userid=$api.getStorage('user_id')||1;
+		api.addEventListener({
+	        name:'hisC'
+        },function(ret,err){
+        	var flag = ret.value.flag;
+        	if(flag == 0){
+        	    $('.ft_bt').css('display','block');
+        	    $('.select').css('display','block');
+        	    $('.cover').css('marginLeft','32px');
+        	}else{
+        	    $('.ft_bt').css('display','none');
+        	    $('.select').css('display','none');
+        	    $('.cover').css('marginLeft','10px');
+        	}
+        });
+
+        EventT.emit("apiready");
+
+	};
+
+
+
+
+    var app = angular.module("myApp", []);
+	app.controller("DataController",function($scope){//angular开始
+	$scope.bookList = [];
+	$scope.imgurl = imageUrl;
+	function getData(page,callback){
+	$api.post(phpurl+"Home/My/mybookview",{
+			values:{
+			user_id:userid,
+				page:page
+			}
+		},function(ret){
+//		alert($api.jsonToStr(ret));
+//	     $api.closeloadding();//关闭加载
+
+			if(ret.code == 200){
+				if(ret.result.length > 0){
+					$scope.bookList = ret.result;
+					$scope.$apply();
+				}
+
+			}else{
+
+			}
+			callback&&callback(ret);
+				$('.select').click(function(){
+                       var id = $(this).attr('data');
+
+         var isH = $(this).hasClass('active');
+         if(isH){
+         var tuih=","+id;
+              caseid=caseid.replace(tuih,"");
+             $(this).removeClass('active');
+         }else{
+             caseid+=","+id;
+             $(this).addClass('active');
+         }
+         event.stopPropagation();
+    })
+		})
+	$api.closeloadding();//关闭加载
+	}
+
+
+
+
+	$scope.bookdetail=function(dates)
+		{
+  api.openWin({
+                name: dates + 'win_he_shu',
+                url: '../dtail.html',
+                pageParam: {
+                    data: {
+                        bookid: dates
+                    }
+
+                }
+            });
+
+
+
+		}
+
+
+	     EventT.on("apiready",function(){
+
+		getData(0);
+		$api.up(function(page,callback){
+            getData(page,function(ret){
+	           callback&&callback(ret);
+	        })
+	    });
+	    $api.pull(function(callback){
+	        getData(0,function(){
+	            callback&&callback();
+	        })
+	    })
+	})
+
+	});
+
+	function shanchu()
+		{
+		   if(caseid=="")
+		   {
+		   $api.toast("请选择要删除的书本");
+		   }
+
+		   $api.post(phpurl+"Home/My/delbookcase?caseid="+caseid,{
+			values:{
+			}
+		},function(ret){
+		           api.closeWin({
+                   });
+
+		           });
+
+
+		}
+
+</script>
+</html>

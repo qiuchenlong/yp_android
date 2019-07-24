@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+/*    	img{
+    		vertical-align: text-bottom;
+    		margin-bottom:4px;
+    	}*/
+    	.ranking ul li{
+    		padding:10px;
+    		background:white;
+    		height:50px;
+    		line-height:50px;
+    		padding-left:70px;
+    		position:relative;
+    		border-bottom:1px solid #F0F0F0;
+    		color:#717171;
+    	}
+    	.ranking ul li img{
+    		width:50px;
+    		height:50px;
+    		border-radius:50%;
+    		left:10px;
+    		bottom:10px;
+    		position:absolute;
+/*    		vertical-align: text-bottom;
+    		margin-bottom:-15px;*/
+    	}
+    	.ranking ul li span{
+    		display:inline-block;
+    	}
+    	.ranking ul li .userHead{
+    		margin-right:6px;
+    	}
+    	.ranking ul li .userName,.ranking ul li .point{
+    		font-size:12px;
+    	}
+    	.ranking ul li .userName{
+    		width:45%;
+    		line-height:50px;
+    		
+    		white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+/*    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display:-webkit-box;
+    		-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;*/
+    	}
+    	.ranking ul li .point{
+    		float:right;
+    		color:#999;
+    	}
+    </style>
+</head>
+<body ng-controller="myAppCon">
+	<div class="ranking">
+		<ul>
+			<li  ng-repeat="x in ret " onclick="$api.open_user(this.id)" id="{{ x.name+','+x.user_id }}" >
+				<span class="userHead">
+					<img src="{{ Imageurl+x.sumbheadimg }}" alt="" />
+				</span>
+				<span class="userName">{{ x.name||'用户' }}</span>
+				
+			</li>
+			<div  class="bottom_loadmore"></div>
+			<!--<li onclick="openWs()">
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">MR.L君君</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">MR.L君君</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">MR.L君君</span>
+			</li>
+			<li onclick="openWs()">
+				<span class="userHead">
+					<img src="../../image/ali@2x.png" alt="" />
+				</span>
+				<span class="userName">MR.L君君</span>
+			</li>-->
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/angular.min.js"></script>
+	<script src="../../script/ev.js"></script>
+<script type="text/javascript">
+	
+	var app = angular.module("myApp", []) ,
+		circle_id= 1 ; //部落的id
+		
+	app.controller('myAppCon', function($scope) {
+		EventT.on('apiready',function(){	
+			$api.pull(function(callback){
+				getData(0,function(ret){
+			    	callback&&callback(ret);
+			    })
+		   });
+		   $api.up(function(page,callback){
+	            getData(page,function(ret){
+		           callback&&callback(ret);
+		        })
+		   });
+		   $scope.Imageurl = Imageurl;
+		   
+		   getData(0,function(ret){
+		    	if(!ret||!ret.result||!ret.result.length){
+		    		$api.noDate();
+		    	}
+		    });
+		   function getData(page,fn){
+				$api.post(phpurl+"Circle/getCircleMemberList" , {
+					values:{
+						circle_id:circle_id ,
+						page:page,
+						pagecount:10
+					}
+				},function(ret){
+					fn&&fn(ret);
+					if(ret&&ret.result&&ret.result.length){
+						if(page==0){
+							$scope.ret = [];
+						}
+						$scope.ret = $scope.ret.concat(ret.result);
+					}else{
+						if(page==0){
+							$api.noDate();
+						}
+					}
+					$scope.$apply();
+					$api.closeloadding();
+				})
+			}
+		   
+		});
+	});
+	apiready = function(){
+		changeTheme();
+		circle_id = api.pageParam.circle_id||0;
+		
+		EventT.emit('apiready');
+	};
+	
+	
+</script>
+</html>

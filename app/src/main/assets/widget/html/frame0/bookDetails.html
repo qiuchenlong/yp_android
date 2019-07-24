@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://laikan.motie.com/book/9457 -->
+<html ng-app="myApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="wap-font-scale" content="no">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/common1.css" media="all">
+
+    <link rel="stylesheet" href="../../css/bookDetail.css">
+    <style>
+    .wrapper .book-detail>.bd{
+      padding: 0px;
+    }
+    .wrapper .book-detail .book-info{
+      height: 160px;
+      background: #fef8ec;
+      padding-top:25px;
+      padding-left: 46px;
+    }
+    .wrapper .book-detail .book-content{
+      width: calc(100% - 30px);
+      margin: 0 auto;
+      border-bottom:0px;
+      margin-top: 17px;
+    }
+    .wrapper .book-detail .book-lists .time{
+      text-align: right;
+    }
+    .wrapper .book-detail .book-content .tag li{
+          padding: 0px .4rem;
+          margin: .4rem 0px;
+    }
+    .wrapper .book-detail .book-content .tag li.yel{
+      color:#9d9d9d;
+      border:0.6px solid #c4c4c4;
+      /*width: 40px;*/
+      height: 25px;
+      line-height: 25px;
+      margin-right: 10px;
+    }
+    .wrapper .book-detail .book-lists{
+      width: calc(100% - 30px);
+      margin: 0 auto;
+      display: block;
+    }
+    .wrapper .book-detail .book-pic img{
+      width: 75px;
+      height: 101px;
+    }
+    .wrapper .book-detail .info  h3 a{
+      width: 210px;
+      overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height: 25px;
+    line-height: 25px;
+    }
+    .wrapper .book-detail .info  h3 a span{
+        color: #b4b1ac;
+          margin-right: 15px;
+    }
+    .wrapper .book-detail .info  h3 a:nth-child(1) span{
+        text-decoration: underline;
+    }
+    .wrapper .book-detail .info{
+      padding-left: 20px;
+    }
+    .wrapper .book-detail .info h2{
+      margin: 0;
+      height: 25px;
+      line-height: 25px;
+      width: 210px;
+      overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    }
+    .wrapper .book-detail .tip{
+      margin:0px;
+      display: inline-block;;
+      /*height: 15px;*/
+      /*line-height: 15px;*/
+      text-align: center;
+      /*width: 33px;*/
+      padding:2px;
+      border-radius: 3px;
+      background: #43cfaf;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .line{
+      height: 1px;
+      background: #f3f3f3;
+      width: calc(100% - 5px);
+      margin: 0 auto;
+    }
+
+    /*列表修改*/
+    .booksList2 ul li .bookInfo .booksName .labels{
+      color: #b7c8da;
+      border: 1px solid #b7c8da;
+      padding: 2px;
+      font-size: 11px;
+    }
+    .booksList2 ul li .bookInfo .txt{
+      overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size:10.5px;
+    line-height: 18px;
+    }
+    /*.wrapper .book-detail .book-content .upfold-more .arrow{
+      position: relative;
+      border: 5px solid #999;
+border-bottom: 0 solid transparent;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+    }*/
+    .wrapper .book-detail .book-content .upfold-more .circle{
+      width:15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid #999;
+      position: absolute;
+      left: 50%;
+      margin-left: -7.5px;
+     bottom: -3.5px;
+     display: none;
+    }
+       .ft{
+          position:fixed;
+          bottom:0px;
+          left:0px;
+          width:100%;
+          border-top:1px solid #eaeaea;
+          font-size:15px;
+          background:#fff;
+       }
+
+       .ft li{
+          height:36px;
+          background:#fff;
+          padding-top:11px;
+          float:left;
+          line-height:12px;
+          /*font-size:9px;*/
+          font-size: 12px;
+          color:#666666;
+          text-align: center;
+          width:33.3%;
+       }
+       .ft li img{ width: 19px; height: 18px;}
+       .ft li.active{
+        /*height:38px;*/
+        height: 52px;
+          background: url(../../image/book_cover.png);
+          background-size:100% 100%;
+          margin-top:-2px;
+          color:#fff;
+       }
+
+       .dashai{
+          padding:10px 10px 0px 20px;
+          background:#fff;
+          overflow: hidden;
+          margin-top:10px;
+          margin-bottom:10px;
+          line-height:35px;
+       }
+
+       .dashai ul{
+          width:70%;
+          overflow: scroll;
+          float:left;
+          white-space: nowrap;
+       }
+
+       .dashai ul li{
+          width:30px;
+          height:30px;
+          margin-right:10px;
+          display:inline-block;
+       }
+
+       .dashai ul li img{
+          width:100%;
+          height:30px;
+          border-radius:50%;
+       }
+
+       .ping_lun{
+          padding-top:15px;
+          background:#fff;
+       }
+
+       .content{
+    	   margin-top:10px;
+    	   background:#fff;
+    	   padding:10px;
+    	}
+
+    	.content .item{
+    	   padding:20px 0px;
+    	   border-bottom: 1px solid #eaeaea;
+    	}
+
+    	.content .hd{
+    	   font-size:15px;
+    	   margin-bottom:8px;
+    	   color:#484848;
+    	}
+
+    	.content .top_ct{
+
+    	   overflow:hidden;
+    	}
+
+    	.content .top_ct img{
+    	   width:40px;
+    	   height:40px;
+    	   border-radius: 50%;
+    	   float:left;
+    	}
+
+    	.content .top_ct .p_ct{
+    	   margin-left:50px;
+    	   margin-top:6px;
+    	}
+
+    	.p_content{
+    	   margin-top:10px;
+    	   color:#989898;
+    	   font-size:13px;
+    	   margin-top:8px;
+    	}
+
+    	.p_ft{
+    	   overflow: hidden;
+    	}
+
+    	.p_ft p{
+    	   float:right;
+    	   margin-top:10px;
+    	   color:#C1C1C1;
+    	   font-size:14px;
+    	   text-indent: 3px;
+    	}
+    	 .booksList2{
+    		background:white;
+    		/*margin-top:5px;*/
+        margin-top: 9px;
+    		padding:0 10px 0 10px;
+    	}
+    	.booksList2 ul li{
+    		border-bottom:1px solid #f3f3f3;
+    		margin-bottom:10px;
+    	}
+    	.booksList2 ul li:last-child{
+    		border-bottom:0;
+    	}
+    	.booksList2 ul li .bookCover{
+    		float:left;
+    		width:15%;
+    		margin-bottom:10px;
+    		margin-top: 10px;
+    	}
+    	.booksList2 ul li .bookCover img{
+    		width:100%;
+    		height: 65px;
+
+    	}
+    	.booksList2 ul li .bookInfo{
+    		float:left;
+    		width:81%;
+    		margin-left:3%;
+    		font-size:11px;
+    		color:#787878;
+    		line-height:15px;
+    	}
+    	.booksList2 ul li .bookInfo .booksName{
+    		font-size:13px;
+    		color:#484848;
+    		margin-top:5px;
+    		line-height:25px;
+    	}
+
+    	.booksList2_title{
+    		padding:0;
+    	}
+    	.author{
+    		margin-top:15px;
+    		color:#484848;
+    	}
+    	.author img{
+width: 10px; height: 10px;
+vertical-align: middle;
+    	}
+    	.label{
+    		padding:1px;
+    		line-height:15px;
+    		float:right;
+    		border:1px solid #bbdba8;
+    		border-radius:3px;
+    		color:#bbdba8;
+    		margin-right: 5px;
+    	}
+    	.labels{
+    		padding:1px;
+    		line-height:15px;
+    		margin-right: 5px;
+    		float:right;
+    		border:1px solid #99bbda;
+    		border-radius:3px;
+    		color:#99bbda;
+    	}
+      .line01{
+        width: 3px;
+        height: 15px;
+        border-radius: 5px;
+        background: #323435;
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
+        margin-top: -3px;
+      }
+      .line02{
+        position: absolute;
+        top: 52px;
+        left:0;
+        height: 1px;
+        background: #f3f3f3;
+        width:100%;
+
+      }
+      .booksList2{
+           position: relative;
+      }
+      .booksList2 .title{
+        margin-bottom: 12px;
+      }
+      .tiptxt{
+        font-size:15px;
+        font-weight: 400;
+        position: relative;
+        display: inline;
+        height: 52px;
+        line-height: 52px;
+        /*vertical-align: middle;*/
+      }
+      .touxiang{height: 40px !important;
+       width: 40px !important; border-radius:50%;
+       vertical-align: middle;}
+    /*分享*/
+.shareCover	{
+	position:fixed;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.3);
+	top:0;
+	left:0;
+	text-align:center;
+	font-size:12px;
+	color:#5C5C5C;
+	z-index: 50;
+}
+.shareCover .shareList{
+	background:white;
+	position:absolute;
+	bottom:0;
+	width:100%;
+}
+.shareCover	ul{
+	padding:15px 0;
+
+	border-bottom:1px solid #EBEBEB;
+}
+.shareCover	ul li{
+	display:inline-block;
+	width:19%;
+
+}
+.shareCover	ul li img{
+	width:65%;
+}
+.shareCover .shareList .cancel{
+	line-height:45px;
+}
+
+    </style>
+</head>
+
+<body ng-controller="DataController" id="app">
+
+<!--分享-->	
+		<div class="shareCover" style="display: none;" >
+			<div class="shareList" >
+				<ul>
+				<li>
+						<img src="../../image/weixin_login.png" alt="" />
+						<br />
+						微信好友
+					</li>
+					<li>
+						<img src="../../image/pyq@2x.png" alt="" />
+						<br />
+						朋友圈
+					</li>
+					<li>
+						<img src="../../image/qq.png" alt="" />
+						<br />
+						QQ好友
+					</li>
+					<li>
+						<img src="../../image/kj@2x.png" alt="" />
+						<br />
+						QQ空间
+					</li>
+					
+					<!--<li>
+						<img src="../../image/weibo@2x.png" alt="" />
+						<br />
+						新浪微博
+					</li>-->
+				</ul>
+				<div class="cancel" onclick="cancel()">
+					取消
+				</div>
+			</div>
+		</div>
+    <!-- header start -->
+
+    <div class="wrapper" id="bookDetail">
+        <section class="book-detail">
+            <div class="bd">
+                <div class="book-info">
+                    <div class="book-pic fl">
+                        <img src="{{imgurl + bookdetail.images}}"  width="80" alt="权妃之帝医风华">
+                    </div>
+                    <div class="info">
+                        <h2>{{bookdetail.articlename}}</h2>
+                        <h3>
+
+                          <!-- <a><span>古代言情&nbsp;|&nbsp;完本</span></a><br> -->
+                        <a>
+                          <span>古代言情</span>
+                            <span>完本</span>
+                        </a>
+                        <!-- <span>306万字&nbsp;</span> -->
+                        <a>
+                          <span>{{(bookdetail.size/20).toFixed(1)}}万字</span>
+                          <span>1000人订阅</span>
+                        </a>
+
+                    </h3>
+                    <!-- <p class="tip">1900来看币/千字</p> -->
+                        <p class="tip">连载中</p>
+                    </div>
+                </div>
+
+                <div class="book-content upfold">
+                    <p>　　{{bookdetail.intro}}</p>
+                    <ul class="tag">
+                        <!-- 规则：颜色数量与取余一致，余数递增 -->
+                        <li class="yel">后宫</li>
+                        <li class="yel">玄幻</li>
+
+                    </ul>
+                    <div class="upfold-more">
+                      <div class="circle"></div>
+                        <span class="arrow arrow-up"></span>
+                    </div>
+                </div>
+                <div class="line"></div>
+                   <div class="book-lists" onclick="mulu()">
+                    <a >目录&nbsp;
+                    <span class="serialize">{{bookdetail.lastchapter}}</span>
+                    <span class="time">{{bookdetail.lasttime}}</span>
+                    <span class="arrow-right"><i></i></span>
+                </a>
+                </div>
+            </div>
+        </section>
+        <!--
+        <div class="dashai">
+            <ul>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+               <li><img src="../../image/to.png"/></li>
+
+            </ul>
+            <span class="iconfont icon-you" style="float:right;"></span>
+            <span style="float:right;" onclick="openD()">共37次打赏</span>
+
+        </div>
+
+        <div class="ping_lun content">
+            <p><span style="float:left;">评论</span><span></span><span style="float:right;">写评论</span></p>
+
+            <ul>
+		       <li class="item">
+		           <div class="top_ct">
+		              <img src="../../image/to.png" />
+		              <div class="p_ct">
+		                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+		                 <p class="p_content">结尾是不是太仓促了???</p>
+		              </div>
+
+		              <div class="p_ft">
+		                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+		                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+
+		              </div>
+		           </div>
+		       </li>
+		       <li class="item">
+		           <div class="top_ct">
+		              <img src="../../image/to.png" />
+		              <div class="p_ct">
+		                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+		                 <p class="p_content">结尾是不是太仓促了???</p>
+		              </div>
+
+		              <div class="p_ft">
+		                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+		                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+
+		              </div>
+		           </div>
+		       </li>
+		       <li class="item">
+		           <div class="top_ct">
+		              <img src="../../image/to.png" />
+		              <div class="p_ct">
+		                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+		                 <p class="p_content">结尾是不是太仓促了???</p>
+		              </div>
+
+		              <div class="p_ft">
+		                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+		                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+
+		              </div>
+		           </div>
+		       </li>
+		       <li class="item">
+		           <div class="top_ct">
+		              <img src="../../image/to.png" />
+		              <div class="p_ct">
+		                 <p style="overflow:hidden"><span style="float:left;color:#95B2BC;font-size:13px;">乐哥</span><span style="float:right;color:#D0D0D0;font-size:11px;">前天20:43</span></p>
+		                 <p class="p_content">结尾是不是太仓促了???</p>
+		              </div>
+
+		              <div class="p_ft">
+		                  <p style="margin-right:10px"><span class="iconfont icon-unie60b"></span>3</p>
+		                  <p style="margin-right:16px"><span class="iconfont icon-pinglun"></span>0</p>
+
+		              </div>
+		           </div>
+		       </li>
+		    </ul>
+		    <div onclick="openP()" style="font-size:13px;height:40px;line-height:40px;text-align: center;color:#989898;">全部评论(224条)</div>
+        </div>
+
+
+        <section class="book-detail" style="padding-bottom:40px;">
+            <div class="bd">
+                <div class="book-module">
+                    <div class="tit">您可能还喜欢</div>
+                    <a href="javascript:;" class="change-items">换一换</a>
+                    <div>
+                        <ul class="layout-t-b book-items">
+                            <li>
+
+                                <dl>
+                                    <dt><img src="./img/4ba929900be728c9dc7d6007ecf00222_0@!book_small" width="80" alt="喜欢你，没道理"></dt>
+                                    <dd>
+                                        <h3>喜欢你，没道理</h3>
+                                    </dd>
+                                </dl>
+
+                            </li>
+                            <li>
+
+                                <dl>
+                                    <dt><img src="./img/580d8cf08402b9900c49b50f975cc625_0@!book_small" width="80" alt="豪门枭宠：大叔撩上瘾"></dt>
+                                    <dd>
+                                        <h3>豪门枭宠：大叔撩上瘾</h3>
+                                    </dd>
+                                </dl>
+
+                            </li>
+                            <li>
+
+                                <dl>
+                                    <dt><img src="./img/7f9bcc33944cd0718a62665e934f7653_0@!book_small" width="80" alt="我的爱情，你的筹码"></dt>
+                                    <dd>
+                                        <h3>我的爱情，你的筹码</h3>
+                                    </dd>
+                                </dl>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="display: none;">
+                        <ul class="layout-t-b book-items">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+  <div class="booksList2">
+        <p class="title" style="padding-left:0">
+			<span style="border-left:3px solid #666666; margin-top: 10px;  padding-left:5px;font-size:11px; margin-bottom: 5px;">读过本书的书评</span>
+
+		</p>
+		<ul>
+		<li class="clearfix"ng-repeat="p in pinglun" ng-click="openpinglun()">
+				
+					
+				
+				<div class="bookInfo">
+					
+					<img src="{{uimg + p.uimg}}" alt=""class="touxiang"/>
+						{{p.content}}
+				
+					
+				</div>
+			</li>
+			
+			<li  ng-click="openpinglun()" style="text-align: center; height: 40px; line-height: 40px;">查看更多>></li>
+		</ul>
+		
+	</div>
+     <div class="booksList2">
+        <p class="title" style="padding-left:0">
+			<span style="border-left:3px solid #666666; margin-top: 10px;  padding-left:5px;font-size:11px; margin-bottom: 5px;">读过本书的人还看过</span>
+
+		</p>
+		<ul>
+		<li class="clearfix"ng-repeat="a in dubook" ng-click="bookdetails(a.articleid)">
+				<div class="bookCover">
+					<img src="{{imgurl + a.images}}" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">{{a.articlename}}<span class="labels">
+							{{a.shortname}}
+						</span></p>
+					<p class="txt">
+						{{a.intro}}
+					</p>
+					
+				</div>
+			</li>
+			<!--<li class="clearfix" onclick="openbook()">
+				<div class="bookCover">
+					<img src="{{imgurl + bookdetail.images}}" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">{{bookdetail.articlename}}<span class="labels">
+							{{bookdetail.articlename}}
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li>
+			<li class="clearfix" onclick="openbook()">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix" onclick="openbook()">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li>-->
+			<li  onclick="expandList(1)" style="text-align: center; height: 40px; line-height: 40px;">查看更多>></li>
+		</ul>
+		
+	</div>
+	<div class="booksList2">
+        <p class="title" style="padding-left:0">
+			<span style="border-left:3px solid #666666; margin-top: 10px;  padding-left:5px;font-size:11px; margin-bottom: 5px;">{{bookdetail.author}}&nbsp;还写过</span>
+
+		</p>
+		<ul>
+			<li class="clearfix"ng-repeat="b in ahbook" ng-click="bookdetails(b.articleid)">
+				<div class="bookCover">
+					<img src="{{imgurl + b.images}}" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">{{b.articlename}}<span class="labels">
+							{{b.shortname}}
+						</span></p>
+					<p class="txt">
+						{{b.intro}}
+					</p>
+					
+				</div>
+			</li>
+			<!--<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li>-->
+			<li  onclick="expandList(2)" style="text-align: center; height: 40px; line-height: 40px;">查看更多>></li>
+		</ul>
+		
+	</div>
+	<div class="booksList2">
+        <p class="title" style="padding-left:0">
+			<span style="border-left:3px solid #666666; margin-top: 10px;  padding-left:5px;font-size:11px; margin-bottom: 5px;">{{bookdetail.shortname}}小说还有</span>
+
+		</p>
+		<ul>
+		<li class="clearfix"ng-repeat="f in fenbook" ng-click="bookdetails(f.articleid)">
+				<div class="bookCover">
+					<img src="{{imgurl + f.images}}" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">{{f.articlename}}<span class="labels">
+							{{f.shortname}}
+						</span></p>
+					<p class="txt">
+						{{f.intro}}
+					</p>
+					
+				</div>
+			</li>
+			<!--<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li><li class="clearfix">
+				<div class="bookCover">
+					<img src="../../image/book0.png" alt="" />
+				</div>
+				<div class="bookInfo">
+					<p class="booksName">在时光尽头等你<span class="labels">
+							都市言情
+						</span></p>
+					<p class="txt">
+						小四有次在接受采访的时候提到齐名的死，他不是因为对易瑶的死内疚或是对森湘的死痛苦才自杀的
+						，齐名总是
+					</p>
+					
+				</div>
+			</li>-->
+			<li  onclick="expandList(3)" style="text-align: center; height: 40px; line-height: 40px;">查看更多>></li>
+		</ul>
+		
+	</div>
+	
+    </div>
+
+   
+    <div class="shadow hidden"></div>
+    <div class="loading hidden"></div>
+    <div class="dialog dialog-pos hidden">
+        <div class="result-tip">
+            <div class="bd">
+                <span class="icon-action icon-success"></span>
+                <span class="content"></span>
+            </div>
+        </div>
+    </div>
+    <div class="dialog dialog-pos dialog-buy" style=" display: none;" id="goumai">
+        <div class="bd">
+            <div>
+                <h3>多章购买</h3>
+                <ul class="buy-chapters">
+                    <li>
+                        <div class="buy-num active">
+                            <p>后20章</p>
+                            <i>九折</i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="buy-num">
+                            <p>后50章</p>
+                            <i>八折</i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="buy-num">
+                            <p>后100章</p>
+                            <i>七折</i>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="buy-num">
+                            <p>后200章</p>
+                            <i>六折</i>
+                        </div>
+                    </li>
+                </ul>
+                <p class="loading-price"><span></span></p>
+                <p class="discountMsg">需要支付: <span class="costPrice"><i>0</i>&nbsp;来看币</span><span class="discountPrice"><i>0</i>&nbsp;来看币</span></p>
+                <p class="balance">账户金币: <span><i></i>&nbsp;来看币</span>&nbsp;|&nbsp;<span><i></i>&nbsp;阅读券</span></p>
+                <a  class="go-reward text-center">去充值 &gt;</a>
+                <p class="action">
+                    <button type="button" class="button button-buy void" disabled="">确认购买</button>
+                </p>
+                <p class="tip"><span><i>1、</i>批量购买的是付费章节，如期间有推荐章节或已经购买章节，不会重复购买</span><span><i>2、</i>需要支付金额为单章价格优惠折扣后的累计金额。</span></p>
+                <a href="javascript:;" class="bun-closed">关闭</a>
+            </div>
+        </div>
+    </div>
+    
+    <ul class="ft">
+        <li onclick="addcase()">
+        <img src="../../image/icon/catalog.png"/>
+        <br/>
+                   加入书架
+        </li>
+        <li class="active">
+        <img src="../../image/icon/book_cover.png"/>
+         <br/>
+                       推荐阅读
+        </li>
+        <li class="fen_xiang">
+        <img src="../../image/share.png"/>
+        <br/>
+                     立即分享
+        </li>
+    </ul>
+    
+</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery-2.1.4.js"></script>
+	<script src="../../script/ev.js"></script>
+<script src="../../script/angular.min.js"></script>
+<script type="text/javascript">
+//  function openD(){
+//      api.openWin({
+//	       name: 'win_hefdfsaderfdsaf',
+//	       url: '../win_header.html',
+//	       pageParam:{
+//             frm_name:'goods_detail25655',
+//             frm_url:'frame1/da_shai.html',
+//             title:'打赏',
+//
+//	       }
+//      });
+//  }
+$(".fen_xiang").click(function(){
+			setTimeout(function(){
+				$('.shareCover').show();
+			},200)
+})
+		function cancel(){
+			
+			setTimeout(function(){
+				$('.shareCover').hide();
+			},200)
+		}
+
+var app = angular.module("myApp", []);
+	app.controller("DataController",function($scope){
+		$scope.bookdetail = {};
+		$scope.lookbook = [];
+		$scope.ahbook = [];
+		$scope.fenbook = [];
+		$scope.dubook = [];
+		$scope.pinglun = [];
+		$scope.imgurl = imageUrl;
+		$scope.uimg = uimgUrl;
+		
+		
+		$scope.gatabook=function(keys)
+		{   
+			$api.post(phpurl+'Home/Book/bookdetail?id='+keys+'&user_id='+userid,function(ret){
+				if(ret.code == 200){
+				sortid=ret.result.book_bookdetail_list1.sortid;
+				acid=ret.result.book_bookdetail_list1.articleid;
+				auid=ret.result.book_bookdetail_list1.authorid;
+				author=ret.result.book_bookdetail_list1.author;
+				sortname=ret.result.book_bookdetail_list1.shortname;
+				
+					$scope.bookdetail=ret.result.book_bookdetail_list1;
+					$scope.ahbook=ret.result.book_bookdetail_list2;
+					$scope.fenbook=ret.result.book_bookdetail_list3;
+					$scope.dubook=ret.result.book_bookdetail_list4;
+					$scope.pinglun=ret.result.book_bookdetail_list5;
+					$scope.$apply();
+				}
+				// $api.closeloadding();//关闭加载
+			})
+		}
+		
+		
+
+
+		
+		$scope.bookdetails=function(dates)
+		{
+
+       api.openWin({
+	       name: 'win_he',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'xiangqing',
+               frm_url:'frame0/bookDetails.html',
+               title:'书籍详情',
+               data:{
+               bookid:dates
+                    }
+	                         }
+                             });
+		     
+		}
+		
+		$scope.openpinglun=function()
+		{
+		
+		  api.openWin({
+			       name: 'ping_lun',
+			       url: '../frame1/ping_lun_win.html',
+			      pageParam:{
+                      bookid:bookid
+                    }
+		        });
+		        
+		}
+
+		EventT.on("apiready",function(){
+		 $api.post(phpurl+'Home/book/readbook',function(ret){
+				$api.setStorage('shuju',ret);
+			})
+			
+		$scope.gatabook(bookid);
+		});
+		
+		
+		
+	});
+	var userid=1,bookid=0,sortid=0,auid=0,acid=0,author=0,sortname=0;
+	apiready = function(){
+	userid=$api.getStorage('user_id');
+	bookid=api.pageParam.data.bookid;
+		EventT.emit("apiready");
+		
+	}
+	
+	
+    $(".active").click(function(){
+//  
+//  if(!userid)
+//           {
+//             api.openWin({
+//				 name: 'win_login',
+//				 url: '../user/login_win.html',
+//			 });
+//			 
+//            }
+//            
+//            else
+//            {
+         api.openWin({
+	         name: 'bookRead',
+	         url: '../readbook.html',
+	          pageParam:{
+	                 bookid:bookid,
+	                 sort:0,
+	                }
+	       
+         });
+//       }
+    })
+
+
+    function openP(){
+        api.openWin({
+	       name: 'win_hefdfsaderfdsaf',
+	       url: '../frame1/ping_lun_win.html',
+        });
+    }
+
+//  $('.book-items').click(function(){
+//  	api.openWin({
+//	       name: 'win_hesafsfsafsdfawef',
+//	       url: '../win_header.html',
+//	       pageParam:{
+//             frm_name:'bookDetailsfsdfa',
+//             frm_url:'frame0/bookDetails.html',
+//             title:'书籍详情',
+//	       }
+//      });
+//  })
+
+
+        	function openbook(){
+	    api.openWin({
+	       name: 'win_gheader',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'goods_detail3112',
+               frm_url:'frame0/bookDetails.html',
+               title:'书籍详情',
+
+	       }
+        });
+	}
+
+/**/
+    var lu  = {};
+    // 介绍的显示和隐藏
+
+    // $('.upfold-more').on('click', function(){
+    //     alert(454)
+    // })
+
+
+//  $(".upfold-more").tap(function (event) {
+//      if($('.book-content').hasClass('upfold')){
+//          $('.book-content').removeClass('upfold')
+//          $('.book-content > p ').addClass('upfold')
+//          $('.book-content > .tap').addClass('upfold');
+//          $('.upfold-more .arrow ').removeClass('arrow-up')
+//           $('.upfold-more .arrow ').addClass('arrow-down')
+//      }else{
+//          $('.book-content').addClass('upfold')
+//          $('.book-content > p ').removeClass('upfold')
+//          $('.book-content > .tap').removeClass('upfold');
+//          $('.upfold-more .arrow ').addClass('arrow-up')
+//          $('.upfold-more .arrow ').removeClass('arrow-down')
+//
+//      }
+//  });
+
+
+    $.each($('.book-handle .tab li'), function(key, value){
+        $(value).tap(function(){
+            $('.book-handle .tab .active').removeClass('active');
+            $(value).addClass('active');
+            if(key){
+                $('.book-container .book-msg')[1].style.display='block'
+                $('.book-container .book-msg')[0].style.display='none'
+            }else{
+               $('.book-container .book-msg')[0].style.display='block'
+                $('.book-container .book-msg')[1].style.display='none'
+            }
+
+        })
+    })
+
+//  $('.change-items').tap(function(){
+//      var html = '';
+//      //用ajax 拿数据 后加入字符串的就行了， 不行就百度
+//     $.each([,,,] ,function(key , value){
+//          html+='<li>'
+//              +'<a href="http://laikan.motie.com/book/9858">'
+//                  +'<dl>'
+//                      +'<dt><img src="./img/580d8cf08402b9900c49b50f975cc625_0@!book_small" width="80" alt="豪门枭宠：大叔撩上瘾"></dt>'
+//                      +'<dd>'
+//                          +'<h3>豪门枭宠：大叔撩上瘾'+ key +'</h3>'
+//                      +'</dd>'
+//                  +'</dl>'
+//              +'</a>'
+//          +'</li>'
+//      })
+//     if(html){
+//          $('.layout-t-b').html(html);
+//     }
+//  })
+
+//function expandList(n)
+//{
+//	  api.openWin({
+//	       name: 'win_headerf1515dsaf',
+//	       url: '../win_header.html',
+//	       pageParam:{
+//             frm_name:'goods_detail25655',
+//             frm_url:'frame0/fen_lei_son.html',
+//             title:n,
+//
+//	       }
+//      });
+//
+//      }
+
+
+function expandList(n)
+{	
+    if(n==1)
+    {
+	  api.openWin({
+	       name: 'win_doudu',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'dudou',
+               frm_url:'frame0/doudu.html',
+               title:'读者都在读',
+              data:{
+              acid:acid
+              }
+	       }
+        });	
+        
+        }
+        else if(n==2)
+    {
+	  api.openWin({
+	       name: 'win_authdu',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'authdou',
+               frm_url:'frame0/authdu.html',
+               title:author+'的作品',
+              data:{
+              auid:auid
+              }
+	       }
+        });	
+        
+        }
+        
+        else if(n==3)
+    {
+	  api.openWin({
+	       name: 'win_sortdu',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'sortdou',
+               frm_url:'frame0/sortdu.html',
+               title:sortname+'分类',
+              data:{
+              sortid:sortid
+              }
+	       }
+        });	
+        
+        }
+        
+        }
+        
+        
+        function mulu()
+        {
+        
+          api.openWin({
+	       name: 'win_mulus',
+	       url: '../win_header.html',
+	       pageParam:{
+               frm_name:'mulus',
+               frm_url:'frame1/smulu.html',
+               title:'书籍目录',
+               data:{
+               bookid:bookid
+                    }
+	                         }
+                             });
+                             
+        }
+        
+        function addcase()//
+        {  
+             if(!userid)
+             {
+               api.openWin({
+				 name: 'win_login',
+				 url: '../user/login_win.html',
+			 });
+			 
+              }
+              else
+              {
+              
+           $api.post(phpurl+'Home/My/addcase?bookid='+bookid+'&user_id='+userid,function(ret){
+           $api.toast(ret.result.msg);
+           })
+           
+           }
+        
+        }
+</script>
+</html>

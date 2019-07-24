@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta content="telephone=no" name="format-detection" />   <!--去除iPhone端默认数字为a-->
+    <title>title</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/area.css" />
+    
+    <style>
+	    html,body{
+	    	font-size:16px;
+	    }
+    	.dataList{
+    		padding:10px;
+    		margin-bottom:50px;
+    	}
+    	.dataList>ul>li{
+    		background:white;
+    		width:100%;
+    		height:50px;
+    		border-radius:5px;
+    		margin-top:10px;
+    		line-height:50px;
+    	}
+    	.dataList ul li .left{
+    		float:left;
+    		width:30%;
+    		text-align:center;
+    		color:#5D5D5D;
+    		
+    	}
+    	.dataList ul li .left img{
+    		width:40px;
+    		height:40px;
+    		border-radius:50%;
+    		margin-top:5px;
+    	}
+    	.dataList ul li .right{
+    		float:right;
+    		width:70%;
+    		color:#5D5D5D;
+    	}
+    	.dataList ul li .right input{
+    		line-height: 52px;
+    		color:#5D5D5D;
+    	}
+    	
+    	.autograph{
+    		margin-top:10px;
+    		background:white;
+    		border-radius:5px;
+    		padding:10px 0;
+    	}
+    	.autograph p{
+    		width:30%;
+    		text-align:center;
+    		color:#5D5D5D;
+    	}
+    	.autograph textarea{
+    		resize: none;
+    		padding:10px;
+    		color:#5D5D5D;
+    		font-size:15px;
+    	}
+    	
+    	.quit{
+    		position:fixed;
+    		width:100%;
+    		bottom:0;
+    	}
+    	.quit button{
+    		width:100%;
+    		height:45px;
+    		color:#292B33;
+    	}
+    	#areaLayer{
+    		font-size:20px !important;
+    	}
+    	
+    	.express-area dl dt{
+    		line-height:50px;
+    	}
+    </style>
+</head>
+<body ng-controller="myData">
+	<div class="dataList">
+		<ul>
+			<li onclick="openPictrue()">
+				<div class="left" style="line-height:20px;">
+					<img src="{{ imgurl+myInfo.sumbheadimg }}" alt="" id="headimg"/>
+				</div>
+				<div class="right">
+					更新头像
+				</div>
+			</li>
+			<li>
+				<div class="left">
+					昵<span style="visibility: hidden;">昵称</span>称 :
+				</div>
+				<div class="right">
+					<input type="text" placeholder="请输入昵称" value="{{ myInfo.name }}" id="name"/>
+				</div>
+			</li>
+			<li>
+				<div class="left">
+					性<span style="visibility: hidden;">性别</span>别 :
+				</div>
+				<div class="right">
+					男神 <span class="iconfont" style="color:#DDD;font-size:18px;" ng-class="{true: 'icon-xuanzhong2 apptxtcolor', false: 'icon-yuancircle46'}[isActive]"></span>
+					女神 <span class="iconfont" style="color:#DDD;font-size:18px;" ng-class="{false: 'icon-xuanzhong2 apptxtcolor', true: 'icon-yuancircle46'}[isActive]"></span>
+				</div>
+			</li>
+			
+			<li>
+				<div class="left">
+					出身年月 :
+				</div>
+				<div class="right" id="birth">
+					<input name="appDate" id="appDate"  type="text" value="{{ myInfo.birthday }}">
+				</div>
+			</li>
+			<li>
+				<!--<div class="left">
+					所在城市 :
+				</div>-->
+		
+				 <!--选择地区-->
+		        <section class="express-area" style="border-radius:5px;border:0;height:50px;">
+		            <a id="expressArea" href="javascript:void(0)" style="display:inline-block;width:100%;height:50px;line-height:50px;padding:0;">
+		                <dl style="line-height:50px;">
+		                    <dt style="font-size:15px;color:#5D5D5D;width:30%;text-align:center;">所在地区 :</dt>
+		                    <dd id="area" style="font-size:15px;margin-left:103px;color:#5D5D5D;width:70%;line-height:47px;">{{ myInfo.address }}</dd>
+		                </dl>
+		            </a>
+		        </section>
+		        <!--选择地区弹层-->
+		        <section id="areaLayer" class="express-area-box">
+		            <header>
+		                <h3>选择地区</h3>
+		                <a id="backUp" class="back" href="javascript:void(0)" title="返回"></a>
+		                <a id="closeArea" class="close" href="javascript:void(0)" title="关闭"></a>
+		            </header>
+		            <article id="areaBox">
+		                <ul id="areaList" class="area-list"></ul>
+		            </article>
+		        </section>
+				<!--遮罩层-->
+		        <div id="areaMask" class="mask"></div>
+			</li>
+		</ul>
+		
+		<div class="autograph">
+			<p>个性签名：</p>
+			<textarea cols="30" rows="5" id="qianMing">{{ myInfo.autograph }}</textarea>
+		</div>
+	</div>
+	
+	<div class="quit" onclick="sub()">
+		<button class="appbackground">
+			保存
+		</button>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/shangtu.js"></script>
+<script type="text/javascript" src="../../script/angular.min.js"></script>
+<script type="text/javascript" src="../../script/ev.js"></script>
+<script type="text/javascript" src="../frame3/jquery.area.js" ></script>
+
+<link href="../../css/animate.min.css" type="text/css" rel="stylesheet"><!--动画库---css-->
+    <!---------------------------------------------------------------------------------------------->
+    <script src="../../script/mobiscroll_002.js" type="text/javascript"></script>
+    <script src="../../script/mobiscroll_004.js" type="text/javascript"></script>
+    <link href="../../css/mobiscroll_002.css" rel="stylesheet" type="text/css">
+    <link href="../../css/mobiscroll.css" rel="stylesheet" type="text/css">
+    <script src="../../script/mobiscroll.js" type="text/javascript"></script>
+    <script src="../../script/mobiscroll_003.js" type="text/javascript"></script>
+    <script src="../../script/mobiscroll_005.js" type="text/javascript"></script>
+    <link href="../../css/mobiscroll_003.css" rel="stylesheet" type="text/css">
+    <script src="../../script/data.js" type="text/javascript"></script>
+<script type="text/javascript">
+	getTheme();
+	var headimage="";
+	var name="";
+	var sex = 0;
+	var resiterYesOrNo;
+	var info = $api.getStorage('userInfo');
+	var app = angular.module("myApp",[]);
+	var fiterSex;
+	app.controller("myData",["$scope",function($scope){
+		$scope.myInfo = [];
+		$scope.imgurl = Imageurl;
+		$scope.isActive = true;
+		
+		EventT.on('apiready',function(){
+			$api.loadding('she_qu',1);
+			if(info){
+//				$('#headimg').attr('src',Imageurl+info.sumbheadimg);
+				if(info.sex == 0){
+					$scope.isActive = true;
+				}
+				if(info.sex == 1){
+					$scope.isActive = false;
+				}
+			}
+			if(!info){
+				$('#headimg').attr('src','../../image/head.png');
+			}
+			if(sex == 0){
+				$scope.isActive = true;
+			}else if(sex == 1){
+				$scope.isActive = false;
+			}
+			if(headimage){
+			    $('#headimg').attr('src',headimage);
+			    $('#name').val(name);
+			}
+			$scope.myInfo = info;
+			$scope.$apply();
+			$api.closeloadding();
+		})
+		
+	}])
+	apiready = function(){
+		changeTheme();
+//		sex = api['pageParam']['data']['sex'];
+//		headimage = api['pageParam']['data']['headimg'];
+//		name = api['pageParam']['data']['name'];
+//		resiterYesOrNo = api['pageParam']['data']['firstResiter'];
+		EventT.emit('apiready',{ noload:true});
+	};
+	$(function(){
+		$('.iconfont').each(function(){
+			$(this).click(function(){
+				$(this).removeClass('icon-yuancircle46');
+				$(this).addClass('icon-xuanzhong2');
+				$(this).addClass('apptxtcolor');
+				$('.iconfont').not(this).removeClass('icon-xuanzhong2');
+				$('.iconfont').not(this).removeClass('apptxtcolor');
+				$('.iconfont').not(this).addClass('icon-yuancircle46');
+				sex = $(this).index();
+			})
+		})
+	})
+	
+	function openPictrue(){
+	   selectAction.shang_tu(function(url){
+	   		api.openWin({
+	            name: 'clip',
+	            url: '../clip.html',
+	            pageParam:{
+	               url:url
+	            }
+            });
+            var headimg = document.getElementById('headimg');
+            api.addEventListener({
+	            name:'clip'
+            },function(ret,err){
+            	headimage = ret.value.url;
+            	headimg.src = headimage;
+            });
+	   })
+	}
+	
+	function sub(){
+		$api.loadding('ge_ren_zi_liao',0);
+		var name = $('#name').val();
+		var birth = $('#appDate').val();
+		var address = $('#area').text();
+		var qianming = $('#qianMing').val();
+//		alert(name+'::'+sex+'::'+birth+'::'+address+'::'+userid+'::'+qianming+'::'+headimage);
+		$api.post(phpurl+'User/shequWan',{
+			values:{
+				name:name,
+				sex:sex,
+				birthday:birth,
+				address:address,
+				user_id:userid,
+				autograph:qianming
+			},
+			files:{
+				headimg:headimage
+			}
+		},function(ret,err){
+			if(ret.code == 200){
+				api.toast({
+	                msg:'修改成功'
+                });
+                $api.send('sheQuChange');
+                $api.send('changeOks');
+                $api.closeloadding();
+                api.closeWin({
+                });
+			}else if(ret.code == 203){
+				api.toast({
+	                msg:'昵称已存在，请重新输入'
+                });
+                $api.closeloadding();
+			}else{
+				$api.closeloadding();
+			}
+		})
+	}
+</script>
+</html>

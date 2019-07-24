@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html ng-app="myApp" class="htmlWeiLei" >
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+
+<body ng-controller="DataController">
+    <header class="header">
+        <div class="base_rank"></div>
+        <div class="ranking_header">
+            <div class="types">
+                <a data-phbiaoqian=1 class="type_a active" href="javascript:;">女生</a>
+                <a data-phbiaoqian=2 class="type_a" href="javascript:;">男生</a>
+                <!-- <a data-phbiaoqian=3 class="type_a" href="javascript:;">情欲</a> -->
+            </div>
+            <!--<div class="rank_date">
+                <ul class="select" name="type3" id="select">
+                    <li class="js-select_val" value="1">周榜</li>
+                    &lt;!&ndash;<li class="select_li" value="2">月榜</li>&ndash;&gt;
+                </ul>
+            </div>-->
+        </div>
+    </header>
+    <!--<ul class="js-select">
+        <li class="js-select_li current" value="1">
+            <span style="    display: flex;align-items: center;">
+                <i class="select_w">W</i>
+                <em>周榜</em>
+            </span>
+            <img src="../src/images/select.png" alt="">
+        </li>
+        <li class="js-select_li" value="2">
+            <span style="    display: flex;align-items: center;">
+                <i class="select_m" style="    display: flex;align-items: center;">M</i>
+                <em>月榜</em>
+            </span>
+            <img src="../images/select.png" alt="">
+        </li>
+    </ul>-->
+    <div class="m-ranking">
+        <div class="rank_left">
+            <ul class="ul">
+                <li class="li active" data-phsort="newbook"> 新书榜</li>
+                <li class="li" data-phsort="fengyun"> 风云榜</li>
+                <li class="li" data-phsort="lianzai"> 连载榜</li>
+                <li class="li" data-phsort="wanjie"> 完结榜</li>
+            </ul>
+        </div>
+        <div class="rank_right">
+            <ul class="u-ul_lr">
+                <li class="li" ng-repeat="b in bookList" ng-click="bookdetail(b.articleid)">
+                    <div class="left">
+                        <img ng-src="{{imgurl + b.images}}" alt="" src="" onerror="this.src='../image/kind-book@2x.png';this.onerror=null">
+                        <span class="rank_list" ng-if="$index<5">
+                            <i class="nmb">{{ $index+1 }}</i>
+                            <i class="iconfont icon-bookmark type1"></i>
+                        </span>
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">{{ b.articlename }}</h3>
+                        <p class="u-line2" style="    width: 100%;">{{ b.intro }}</p>
+                        <p class="text">
+                            <span class="author">{{ b.author }}</span>
+                            <span class="u-title1">{{ b.shortname }}</span>
+                            <!-- <span class="u-title2">女尊天下</span> -->
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <!--<ul class="u-ul_lr">
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                        <span class="rank_list">
+                        <i class="nmb">1</i>
+                        <i class="iconfont icon-bookmark type1"></i>
+                    </span>
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                        <span class="rank_list">
+                        <i class="nmb">2</i>
+                        <i class="iconfont icon-bookmark type2"></i>
+                    </span>
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                        <span class="rank_list">
+                        <i class="nmb">3</i>
+                        <i class="iconfont icon-bookmark type3"></i>
+                    </span>
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+                <li class="li" onClick="shuji()">
+                    <div class="left">
+                        <img src="../src/images/i-01.png" alt="">
+                    </div>
+                    <div class="right">
+                        <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                        <p class="text">
+                            <span class="author">拈花惹笑</span>
+                            <span class="u-title1">王爷</span>
+                            <span class="u-title2">女尊天下</span>
+                        </p>
+                        <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                    </div>
+                </li>
+            </ul>-->
+            <div class="bottom_loadmore"></div>
+        </div>
+    </div>
+    <!--<script src="../script/jquery-2.1.4.js"></script>-->
+    <script src="../script/angular.min.js"></script>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script src="../script/ev.js"></script>
+    <script src="../src/js/ranking.js"></script>
+    <script>
+        function openWs() {
+            api.openWin({
+                name: 'win_heSD',
+                url: 'win_header.html',
+                pageParam: {
+                    frm_name: 'xiangqing_SD',
+                    frm_url: 'frame0/resou.html',
+                    title: '书籍',
+
+                }
+            });
+
+        }
+
+        function shuji() {
+            api.openWin({
+                name: 'win_he_shu',
+                url: 'dtail.html',
+                //	       pageParam:{
+                //             frm_name:'xiangqing_shu',
+                //             frm_url:'dtail.html',
+                //             title:'书籍',
+                //
+                //	                         }
+            });
+
+        }
+
+        function fanhui() {
+            api.closeWin({});
+
+        }
+
+        function sousuo() {
+            api.openWin({
+                name: 'win_header_fdsaf',
+                url: 'frame0/seek_win.html',
+
+            });
+
+        }
+
+        apiready = function () {
+
+
+            EventT.emit("apiready");
+
+            //getData(0);
+        };
+
+
+        var app = angular.module("myApp", []);
+        var phsort = $('.rank_left').find('.active').attr('data-phsort');
+        var phbiaoqian = $('.types').find('.active').attr('data-phbiaoqian');
+        var phbang = 0;
+
+
+
+
+        app.controller("DataController", function ($scope) { //angular开始
+            $scope.bookList = [];
+            $scope.imgurl = imageUrl;
+
+            function getData(page, phsort, phbiaoqian, phbang, callback) {
+                // console.log('page:' + page);
+                // console.log('phsort:' + phsort);
+                // console.log('phbiaoqian:' + phbiaoqian);
+                // console.log('phbang:' + phbang);
+                $api.post(phpurl + "Home/Book/listbook?", {
+                    values: {
+                        page: page,
+                        sort: phsort,
+                        biaoqian: phbiaoqian,
+                        bang: phbang
+                    }
+                }, function (ret) {
+
+                    //		alert($api.jsonToStr(ret));
+                    if (ret.code == 200) {
+                        var result = ret.result;
+
+                        if (ret.result.length > 0) {
+                            if (page == 0) {
+                                $scope.bookList = [];
+                            }
+                            $scope.bookList = $scope.bookList.concat(result);
+                            // console.log(JSON.stringify($scope.bookList))
+
+                            $scope.$apply();
+                        }
+                           $api.closeloadding(); //关闭加载
+                    } else {
+                        $api.toast('很是遗憾，没加载到数据');
+                           $api.closeloadding(); //关闭加载
+                    }
+                    callback && callback(ret);
+                })
+            }
+
+            $scope.bookdetail = function (dates) {
+                api.openWin({
+                name: dates + 'win_he_shu',
+                url: 'dtail.html',
+                pageParam: {
+                    data: {
+                        bookid: dates
+                    }
+
+                }
+            });
+
+            }
+
+
+
+            //排行榜选择
+            $('.rank_left').on('click', function () { //新书，风云，连载，完结
+                phsort = $(this).find('.active').attr('data-phsort');
+                getData(0, phsort, phbiaoqian, phbang);
+
+            })
+            $('.types').on('click', function () { //女生，男生，情欲
+                phbiaoqian = $(this).find('.active').attr('data-phbiaoqian');
+                getData(0, phsort, phbiaoqian, phbang);
+
+            })
+            $('.js-select_li').on('click', function () { //周榜，月榜
+                var bang = $(this).find('em').text();
+                if (bang == '月榜') {
+                    phbang = 1;
+                } else {
+                    phbang = 0;
+                }
+                getData(0, phsort, phbiaoqian, phbang)
+            })
+
+
+            EventT.on("apiready", function () {
+                getData(0, phsort, phbiaoqian, phbang);
+                $api.up(function (page, callback) {
+                    getData(page, phsort, phbiaoqian, phbang, function (ret) {
+                        callback && callback(ret);
+                    })
+                });
+                $api.pull(function (callback) {
+                    getData(0, phsort, phbiaoqian, phbang, function () {
+                        callback && callback();
+                    })
+                })
+            })
+
+        });
+    </script>
+</body>
+
+</html>

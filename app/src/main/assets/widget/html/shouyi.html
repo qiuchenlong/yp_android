@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>邀请</title>
+	<!--    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />-->
+	<link rel="stylesheet" id="css" href="../src/css/options.css" />
+	<!-- <script type="text/javascript" src="../../src/library/zepto.js"></script>-->
+</head>
+
+<body id="invite" ng-controller="DataCtrl">
+	<!--  <div class="page_1">
+        	<p>本期邀请排行榜</p>
+        	<span>截止日期：2018-06-10</span>
+        	<a href="" class="btn">查看上期排行榜</a>
+        </div>-->
+	<!--	  <header class="invite_head">
+		  <a class="invite_nav" href="javascript:;">店主</a>
+		  <a class="invite_nav" href="javascript:;">合伙人</a>
+		  <a class="invite_nav" href="javascript:;">用户</a>
+	  </header>-->
+	<div class="page_2">
+		<div class="row nav">
+			<div>项目</div>
+			<div>时间</div>
+			<div>金额</div>
+			<span class="border"></span>
+		</div>
+		<div class="row first" ng-repeat="r in resultList" >
+			<div>{{ r.name }}</div>
+			<div>{{ r.time }}</div>
+			<div>+{{ r.money }}</div>
+		</div>
+		<!-- <div class="row list">
+        		<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	 <div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        		<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div>
+        	<div class="row list">
+        			<div>龙</div>
+        		<div>0</div>
+        		<div>+20.0</div>
+        		<span class="line"></span>
+        	</div> -->
+	</div>
+	<div class="page_3">
+		<a class="btn js-share">邀请好友</a>
+	</div>
+</body>
+<script src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/angular.min.js"></script>
+<script src="../script/ev.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$('.js-share').on('click', function (e) {
+			api.openWin({
+				name: 'yaoqings_win',
+				url: 'win_header.html',
+				pageParam: {
+					frm_name: 'yaos_qing',
+					frm_url: 'yaoqing.html',
+					title: '邀请好友'
+				}
+			});
+		});
+	});
+	var userid;
+	apiready = function () {
+		// $api.fixStatusBar($api.dom('header'));
+		userid = $api.getStorage('user_id');
+		EventT.emit('apiready');
+		// $api.closeloadding();
+	};
+	var app = angular.module('myApp', []);
+	app.controller('DataCtrl', [
+		'$scope',
+		function ($scope) {
+			EventT.on('apiready', function () {
+				getData();
+			});
+
+			function getData() {
+				// console.log(userid)
+				$api.post(phpurl + 'Home/Ad/bounty?', {
+					values: {
+						user_id: userid,
+					},
+				}, function (ret) {
+					// console.log(JSON.stringify(ret))
+					var code = ret.code;
+					$scope.resultList = [];
+					if (code == 200) {
+						var result = ret.result;
+						if (result.length>0) {
+							$scope.resultList = result;
+						} else {
+							api.toast({
+								msg: '您还没有收益哦，快去邀请吧'
+							})
+						}
+						// alert($api.jsonToStr(result[0]))
+
+						// $scope.flei = lei || 0;
+						$scope.$apply();
+					}
+				});
+			}
+			//点击样式
+			$(function ($) {
+				$('.invite_nav').on('click', function (event) {
+					var str = $(this);
+					str.addClass('active').siblings().removeClass('active');
+				});
+			});
+		},
+	]);
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+#wrap{
+        height: 100%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+    }
+    /*头部样式*/
+    header{
+        box-sizing: content-box;
+        position: relative;
+        height: 46px;
+        font-size: 18px;
+        color: #fff;
+        /*background: #007aff;*/
+        background: red;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .back{
+
+    }
+    header .active {
+    	background: url(../image/back.png) no-repeat center center;
+    	background-size: auto 28px;
+    }
+    .icon{
+    	font-size: 18px;
+    }
+    .icon img {
+    	height: 17px;
+    	width:17px;
+    }
+    /*main*/
+    #main{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+    }

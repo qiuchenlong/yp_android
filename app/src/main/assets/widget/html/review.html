@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--css-->
+    <link rel="stylesheet" href="../src/css/icon/iconfont.css">
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+
+<body ng-controller="DataCtrl">
+
+    <div class="content">
+        <!-- <div class="m-recom">
+        <div class="bd">
+            <ul class="u-ul_flex">
+                <li class="li">
+                    <div class="top">
+                        <a href="dtail.html">
+                            <img src="../src/images/i-01.png" />
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;">医妃读心术</a>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="top">
+                        <a href="dtail.html">
+                            <img src="../src/images/i-01.png" />
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="dtail.html">医妃读心术</a>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="top">
+                        <a href="javascript:;">
+                            <img src="../src/images/i-01.png" />
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;">医妃读心术</a>
+                    </div>
+                </li> -->
+        <!--<li class="li">
+                    <div class="top">
+                        <a href="javascript:;">
+                            <img src="../src/images/i-01.png"/>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a class="u-line2" href="javascript:;">医妃读心术</a>
+                    </div>
+                </li>-->
+        <!--   </ul>
+        </div>
+        <p class="more">更多我的关注</p>
+    </div> -->
+        <!--评论区-->
+        <div class="m-comment">
+            <div class="u-hd_title">
+                <span class="left">
+                    <span class="text">精品书评</span>
+                </span>
+            </div>
+            <div class="bd">
+                <div class="u-comment" ng-repeat="d in dataList">
+                    <p class="comment_user">
+                        <span class="iconfont">
+                            <img ng-src="{{ userImgurl+d.uimg }}" alt="" src="" onerror="this.src='../image/my.png';this.onerror=null" style="width: 0.72rem;height: 0.72rem;border-radius: 50%;">
+                        </span>
+                        <span class="user_name">{{ d.username }}</span>
+                        <span class="u-score">
+                            <span class="star" ng-style="{'width':'{{d.xing*20}}%'}"></span>
+                        </span>
+                    </p>
+                    <p class="comment_text">{{ d.content }}</p>
+                    <ul class="u-ul_lr">
+                        <li class="li" ng-click="bookdetail(d.aid)">
+                            <div class="left">
+                                <img src="{{imgurl + d.book.images}}" alt="">
+                            </div>
+                            <div class="right">
+                                <h3 class="h3 u-text_line">{{ d.book.articlename }}</h3>
+                                <p class="text">
+                                    <span class="author">{{ d.book.author }}</span>
+                                    <span class="u-title1">{{ d.book.shortname }}</span>
+                                    <!-- <span class="u-title2">女尊天下</span> -->
+                                </p>
+                                <p class="u-line2">{{ d.book.intro }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="foot">
+                        <p class="left">{{ d.addtime }}</p>
+                        <p class="right">
+                            <i>
+                                <span ng-click="dianzan(d.id)">点赞</span>
+                                <span class="nmb">{{ d.likes }}</span>
+                            </i>
+                            <!--  <i>
+                            <span>回复</span>
+                            <span class="nmb">0</span>
+                        </i> -->
+                        </p>
+                    </div>
+                </div>
+                <!--  <div class="u-comment">
+                <p class="comment_user">
+                    <span class="iconfont icon-user"></span>
+                    <span class="user_name">ren111111</span>
+                    <span class="u-score">
+                        <span class="star"></span>
+                    </span>
+                </p>
+                <p class="comment_text">
+                    "这本好书，让我看得如痴如醉，期待作者的新作品快点出来，也谢谢作者写的好书，让我的生活没这么枯燥"
+                </p>
+                <ul class="u-ul_lr">
+                    <li class="li" onClick="shuji()">
+                        <div class="left">
+                            <img src="../src/images/i-01.png" alt="">
+                        </div>
+                        <div class="right">
+                            <h3 class="h3 u-text_line">邪王轻点爱：枭宠医妃</h3>
+                            <p class="text">
+                                <span class="author">拈花惹笑</span>
+                                <span class="u-title1">王爷</span>
+                                <span class="u-title2">女尊天下</span>
+                            </p>
+                            <p class="u-line2">特种女兵军医穿越：战神王爷轻点可以吗？</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="foot">
+                    <p class="left">36天前</p>
+                    <p class="right">
+                        <i>
+                            <span>点赞</span>
+                            <span class="nmb">0</span>
+                        </i>
+                        <i>
+                            <span>回复</span>
+                            <span class="nmb">0</span>
+                        </i>
+                    </p>
+                </div>
+            </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="bottom_loadmore"></div>
+    <script src="../src/js/book.js"></script>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script src="../script/angular.min.js"></script>
+    <script src="../script/ev.js"></script>
+    <script>
+        apiready = function () {
+            EventT.emit("apiready");
+            api.setFullScreen({
+                fullScreen: false
+            });
+
+
+        }
+
+
+        var app = angular.module("myApp", []);
+        app.controller("DataCtrl", function ($scope) { //angular开始
+            $scope.imgurl = imageUrl;
+            $scope.userImgurl = userimg;
+            $scope.dataList = [];
+
+            function getData(page, callback) {
+                //	var sortid=api.pageParam.data.sortid;
+                $api.post(phpurl + "Home/Book/allreply?", {
+                    values: {
+                        page: page
+                    }
+                }, function (ret) {
+                    if (ret.code == 200) {
+                        var result = ret.result;
+                        if (page == 0) {
+                            $scope.dataList = [];
+                        }
+
+                        $scope.dataList = $scope.dataList.concat(result);
+                        // console.log(JSON.stringify($scope.dataList))
+                        $scope.$apply();
+
+                    }
+                    // $api.closeloadding(); //关闭加载
+                    callback && callback(ret);
+                })
+                // $api.closeloadding(); //关闭加载
+            }
+
+            //书籍详情
+            $scope.bookdetail = function (dates) {
+                api.openWin({
+                    name: dates + 'detail_list_win',
+                    url: 'dtail.html',
+                    pageParam: {
+                        data: {
+                            bookid: dates
+                        }
+
+                    }
+                });
+            }
+
+            //点赞
+            $scope.dianzan = function (id) {
+
+                $api.post(phpurl + "Home/Book/addlike", {
+                    values: {
+                        rid: id,
+                    }
+                }, function (ret) {
+                    if (ret.code == 200) {
+
+                        getData(0);
+                        api.toast({
+                            msg: '点赞成功',
+                        });
+                    }
+
+                })
+
+            }
+
+            EventT.on("apiready", function () {
+                getData(0);
+
+                $api.up(function (page, callback) {
+                    getData(page, function (ret) {
+                        callback && callback(ret);
+                    })
+                });
+                $api.pull(function (callback) {
+                    getData(0, function () {
+                        callback && callback();
+                    })
+                })
+            })
+        });
+    </script>
+
+</body>
+
+</html>

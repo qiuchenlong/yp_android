@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/swiper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/api.css" />
+    <link rel="stylesheet" href="../src/css/index.css">
+    <!--图标字体-->
+    <script src="../src/library/zepto.js"></script>
+    <!--页面js-->
+    <script src="../src/js/global.js"></script>
+</head>
+<body ng-controller="DataCtrl">
+<div id="thridHeader" class="titlebar appHeaderColor">
+    <header class="header" style="">
+        <div class="base"></div>
+        <div class="breadcrumbs">
+            <div class="u-search" style="/*background: #0ba0f9;*/background:red;height: 1.47rem;">
+                <!--<form class="form" action="">
+                    <div class="search-div" onclick="sousuo()">
+                        <i class="iconfont icon-sousuo"></i>
+                        <input class="search-input" type="search" placeholder="搜索我的书架、在线书库">
+                    </div>
+                    <button type="button" class="button" onClick="paihang()">排行</button>
+                </form>-->
+                <div class="frame2_hd">
+                    <img class="frame2_my" src="../image/my_fff.png">
+                    <h1 class="h1">书库</h1>
+                    <i class="iconfont icon-sousuo" onclick="sousuo()"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<div class="content" style="display: flex;">
+    <div class="frame2_left">
+        <div class="base"></div>
+        <div class="frame2_nav">
+            <a class="nav_a nav_thrid nav_sty">女频</a>
+            <a class="nav_a current nav_thrid nav_sty">男频</a>
+            <a class="nav_a nav_thrid nav_sty">出版</a>
+            <!-- <a class="nav_a nav_thrid nav_sty">推荐</a> -->
+            <a class="nav_a" href="javascript:;" onclick="shudan()">书单</a>
+        </div>
+    </div>
+    <div class="m-stack">
+        <!--<div class="m-stack_rec">
+            <a class="list" ng-click="openws(d.sortid)" ng-repeat="d in dataList | limitTo:4">
+                <img src="{{ imageUrl + d.imgurl }}" alt="">
+                <p class="img_title">{{ d.shortname }}</p>
+            </a>
+            &lt;!&ndash; <a class="list" onClick="openws()">
+                <img src="../src/images/ind-02.png" alt="">
+            </a>
+            <a class="list" onClick="openws()">
+                <img src="../src/images/ind-03.png" alt="">
+            </a>
+            <a class="list" onClick="openws()">
+                <img src="../src/images/ind-04.png" alt="">
+            </a> &ndash;&gt;
+        </div>-->
+        <ul class="m-types">
+            <li class="li" ng-repeat="d in dataList" ng-cloak ng-click="openws(d.sortid)">
+                <div class="left">
+                    <img class="img_pst" src="{{ imageUrl + d.imgurl }}" alt="">
+                    <img class="img_btm" src="{{ imageUrl + d.imgurl }}" alt="">
+                </div>
+                <div class="right">
+                    <h2>{{ d.shortname }}</h2>
+                </div>
+            </li>
+
+            <!-- 占位符，补齐列表 -->
+            <li class="li" ng-if="dataList.length%2 != 0" style="float:left; width:45%">
+            </li>
+
+            <!-- <li class="li" ng-repeat="d in lastList" ng-cloak ng-click="openws(d.sortid)">
+                <div class="left">
+                    <img class="img_pst" src="{{ imageUrl + d.imgurl }}" alt="">
+                    <img class="img_btm" src="{{ imageUrl + d.imgurl }}" alt="">
+                </div>
+                <div class="right">
+                    <h2>{{ d.shortname }}</h2>
+                </div>
+            </li> -->
+            <!-- <li class="li">
+                <div class="left">
+                    <img class="img_pst" src="../src/images/i-01.png" alt="">
+                    <img class="img_btm" src="../src/images/i-01.png" alt="">
+                </div>
+                <div class="right">
+                    <h2>现代言情</h2>
+                </div>
+            </li>
+            <li class="li">
+                <div class="left">
+                    <img class="img_pst" src="../src/images/i-01.png" alt="">
+                    <img class="img_btm" src="../src/images/i-01.png" alt="">
+                </div>
+                <div class="right">
+                    <h2>现代言情</h2>
+                </div>
+            </li>
+            <li class="li">
+                <div class="left">
+                    <img class="img_pst" src="../src/images/i-01.png" alt="">
+                    <img class="img_btm" src="../src/images/i-01.png" alt="">
+                </div>
+                <div class="right">
+                    <h2>现代言情</h2>
+                </div>
+            </li>
+            <li class="li">
+                <div class="left">
+                    <img class="img_pst" src="../src/images/i-01.png" alt="">
+                    <img class="img_btm" src="../src/images/i-01.png" alt="">
+                </div>
+                <div class="right">
+                    <h2>现代言情</h2>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+</div>
+<script src="../script/angular.min.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/ev.js"></script>
+<script>
+    var user_head;
+    //搜索
+    function sousuo() {
+        api.openWin({
+            name : 'win_headerfdsaf',
+            url  : 'frame0/seek_win.html',
+        });
+    }
+    function paihang() {
+        api.openWin({
+            name      : 'win_nan',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'rank_bab',
+                frm_url  : 'ranking.html',
+                title    : '排行榜',
+            },
+        });
+    }
+    function shudan() {
+        api.openWin({
+            name      : 'win_shudan',
+            url       : 'win_header.html',
+            pageParam : {
+                frm_name : 'shudan',
+                frm_url  : 'BookSelection.html',
+                title    : '书单',
+            },
+        });
+    }
+    apiready = function() {
+        //监听登录情况，一旦登录成功刷新头像
+        api.addEventListener({
+            name : 'usershuas',
+        }, function(ret, err) {
+            user_head = $api.getStorage('user_head');
+            if (user_head == '' || user_head == 'touxiang.png') {
+                $('.frame2_my').attr('src', '../image/my_fff.png');
+            }
+            else {
+                $('.frame2_my').attr('src', imageUrl + user_head);
+            }
+        });
+        EventT.emit('apiready');
+    };
+    var app = angular.module('myApp', []);
+    app.controller('DataCtrl', function($scope) {
+        $scope.dataList = [];
+        $scope.lastList = [];
+        $scope.imageUrl = imageUrl;
+        user_head = $api.getStorage('user_head');
+        if (user_head != '' && user_head != 'touxiang.png' && user_head) {
+            $('.frame2_my').attr('src', imageUrl + user_head);
+        }
+        function getData(pd, callback) {
+            $api.post(phpurl + 'Home/Book/fenlei?', {
+                values : {
+                    pindao : pd,
+                },
+            }, function(ret) {
+                var result = ret.result;
+                if (ret.code == 200) {
+                    if (ret.result.length > 0) {
+                        $scope.dataList = result;
+                        //    console.log(JSON.stringify(result))
+                        for (var i = 0; i < result.length; i++) {
+                            if (i > 3) {
+                                $scope.lastList.push(result[i]);
+                                // console.log(JSON.stringify(result[i]));
+                                // console.log(JSON.stringify($scope.lastList));
+                            }
+                        }
+                        $scope.$apply();
+                    }
+                    // $api.closeloadding(); //关闭加载
+                } else {
+                    $api.toast('很是遗憾，没加载到数据');
+                    // $api.closeloadding(); //关闭加载
+                }
+                callback && callback(ret);
+            });
+        }
+        //分类
+        $scope.openws = function(datas) {
+            api.openWin({
+                name      : datas + 'win_headerfenlei',
+                url       : 'win_header.html',
+                pageParam : {
+                    frm_name : datas + 'fenlei_detail',
+                    frm_url  : 'fenlei.html',
+                    title    : '分类',
+                    data     : {
+                        sortid : datas,
+                        types  : 2,
+                    },
+                },
+            });
+        };
+        EventT.on('apiready', function() {
+            getData(2);
+        });
+    });
+    // 金币导航切换
+    $(function() {
+        $('.nav_thrid').on('click', function() {
+            var index = $(this).index();
+            api.setFrameGroupIndex({ //设置 frame 组当前可见 frame
+                name  : 'frame2_Group',
+                index : index,
+                // scroll: true
+            });
+        });
+    });
+    //金币导航绘制
+    function funShuChengGroup() {
+        frames2_url = ['frame2.html', 'nan.html', 'chuban.html', 'mianfei.html'];
+        var navLis  = $('.nav .nav_thrid'),
+            frames2 = [];
+        var systemType = api.systemType;
+        // console.log('文档高度：'+document.documentElement.offsetHeight);
+        // console.log('窗口高度：'+window.innerHeight);
+        if (systemType == 'android') {
+            for (var i = 0, len = navLis.length; i < len; i++) {
+                frames2.push({
+                    name    : 'frame02' + i,
+                    url     : frames2_url[i],
+                    bgColor : '#eee',
+                    bounces : false,
+                    // pageParam: {
+                    //     'headerH': h
+                    // }
+                });
+            }
+            ;
+            api.openFrameGroup({
+                name          : 'frame2_Group',
+                scrollEnabled : false,
+                preload       : 0,
+                rect          : {
+                    x : 0,
+                    y : 0,
+                    w : api.winWidth,
+                    h : api.winHeight - footerPos.h - 0,
+                    // marginBottom: 60
+                },
+                index         : 0,
+                frames        : frames2,
+            }, function(ret, err) {});
+        } else {
+            for (var i = 0, len = navLis.length; i < len; i++) {
+                frames2.push({
+                    name    : 'frame02' + i,
+                    url     : frames2_url[i],
+                    bgColor : '#eee',
+                    bounces : false,
+                    // pageParam: {
+                    //     'headerH': h
+                    // }
+                });
+            }
+            ;
+            api.openFrameGroup({
+                name          : 'frame2_Group',
+                scrollEnabled : false,
+                preload       : 0,
+                rect          : {
+                    x : 0,
+                    y : 0,
+                    w : api.winWidth,
+                    h : api.winHeight - footerPos.h - 0,
+                },
+                index         : 0,
+                frames        : frames2,
+            }, function(ret, err) {});
+        }
+    };
+    //打开左侧
+    function myfile() {
+        api.openDrawerPane({
+            type : 'left',
+        });
+    }
+</script>
+</body>
+</html>

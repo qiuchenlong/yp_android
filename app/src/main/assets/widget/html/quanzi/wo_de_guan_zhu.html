@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" id="css" href="../../css/theme.css" />
+    <style>
+    	.attentionList ul li{
+    		padding:0 10px;
+    		background:white;
+    		height:60px;
+    		line-height: 60px;
+    		border-bottom:1px solid #DEDEDE;
+    	}
+    	.attentionList ul li>div{
+    		float:left;
+    	}
+    	.attentionList ul li .head{
+    		width:20%;
+    		height:60px;
+    		border-radius:50%;
+    	}
+    	.attentionList ul li .head img{
+    		width:40px;
+    		height:40px;
+    		margin-top:10px;
+    		border-radius:50%;
+    	}
+    	.attentionList ul li .name{
+    		width:60%;
+    		overflow:hidden;
+    		text-overflow:ellipsis;
+    		display: -webkit-box;
+		 	-webkit-line-clamp: 1;
+		 	-webkit-box-orient: vertical;
+    	}
+    	.attentionList ul li .attention{
+    		width:20%;
+    		line-height:55px;
+    	}
+    	.attentionList ul li .attention button{
+    		width:100%;
+    		border:1px solid;
+    		font-size:12px;
+    		height:25px;
+    		border-radius:5px;
+    	}
+    	
+    </style>
+</head>
+<body>
+	<div class="attentionList">
+		<ul>
+			<li class="clearfix">
+				<div class="head">
+					<img src="../../image/tx@2x.png" alt="" />
+				</div>
+				<div class="name">
+					我是你好友我是你好友我是你好友我是你好友
+				</div>
+				<div class="attention">
+					<button class="appBordercolor">
+						已关注
+					</button>
+				</div>
+			</li>
+			
+			<li class="clearfix">
+				<div class="head">
+					<img src="../../image/tx@2x.png" alt="" />
+				</div>
+				<div class="name">
+					我是你好友
+				</div>
+				<div class="attention">
+					<button class="appBordercolor appbackground">
+						关&nbsp;&nbsp;&nbsp;&nbsp;注
+					</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	getTheme();
+	apiready = function(){
+		changeTheme();
+	};
+</script>
+</html>

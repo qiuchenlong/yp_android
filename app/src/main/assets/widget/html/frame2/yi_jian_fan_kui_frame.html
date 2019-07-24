@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mycss.css"/>
+    <style>
+    	.content{
+    		width:94%;
+    		padding:3%;
+    		color:#484848;
+    		background:white;
+    	}
+    	.content p{
+    		line-height:30px;
+    		border-bottom:1px solid #DDD;
+    	}
+    	.txt{
+    		margin-top:10px;
+    		width:100%;
+    		outline:none;
+    		color:#787878;
+    	}
+    	.content button{
+    		width:95%;
+    		height:30px;
+    		color:white;
+    		border-radius:5px;
+    		margin:0 auto;
+    		background:#fd7656;
+    	}
+    </style>
+</head>
+<body>
+	<div class="content">
+		<p>意见反馈</p>
+		<textarea class="txt" id="message" cols="30" rows="10" placeholder="提出你的宝贵意见吧"></textarea>
+		<button onclick="tijiao()">
+			提交
+		</button>
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	var closeid;
+	apiready = function(){
+		
+	};
+	function tijiao(){
+
+		var myuserid = $api.getStorage('user_id');
+		var msg = $api.byId('message').value;
+		if(!msg){
+			api.toast({
+				msg:'你还没有填写意见哦'
+			});
+			
+			return false;
+		}
+		$api.post(phpurl+'Home/My/addfankui',{
+			values:{
+				user_id:myuserid,
+				content:msg
+			}
+		},function(ret){
+			if(ret && ret.code == 200){
+				api.toast({
+					msg:'我们已经收到你宝贵的意见，谢谢'
+				});
+			setTimeout(function(){
+                        	api.closeWin({
+                            });
+                        },2000)
+			}
+		})
+	}
+</script>
+</html>
